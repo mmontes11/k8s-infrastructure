@@ -13,3 +13,6 @@ spec:
         namespace: flux-system
       version: "5.3.0"
   interval: 1h0m0s
+  values:
+    extraArgs:
+      - --enable-skip-login
