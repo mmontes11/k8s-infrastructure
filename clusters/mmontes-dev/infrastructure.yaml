@@ -1,21 +1,6 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: sources
-  namespace: flux-system
-spec:
-  interval: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  path: ./infrastructure/sources
-  prune: true
-  wait: true
-  timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
   name: rbac
   namespace: flux-system
 spec:
@@ -33,8 +18,6 @@ metadata:
   name: sealed-secrets
   namespace: flux-system
 spec:
-  dependsOn:
-    - name: sources
   interval: 5m
   sourceRef:
     kind: GitRepository
@@ -50,8 +33,6 @@ metadata:
   name: metrics-server
   namespace: flux-system
 spec:
-  dependsOn:
-    - name: sources
   interval: 5m
   sourceRef:
     kind: GitRepository
@@ -67,7 +48,6 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: sources
     - name: rbac
   interval: 5m
   sourceRef:
@@ -83,8 +63,6 @@ metadata:
   name: kube-prometheus-stack
   namespace: flux-system
 spec:
-  dependsOn:
-    - name: sources
   interval: 5m
   sourceRef:
     kind: GitRepository
