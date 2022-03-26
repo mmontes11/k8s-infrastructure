@@ -1,0 +1,25 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: metallb
+spec:
+  chart:
+    spec:
+      chart: metallb
+      sourceRef:
+        kind: HelmRepository
+        name: metallb
+      version: "0.12.1"
+  interval: 1h0m0s
+  values:
+    configInline:
+      address-pools:
+        # TODO: use default pool
+        # - name: default
+        #   protocol: layer2
+        #   addresses:
+        #     - 192.168.0.50-192.168.0.90
+        - name: kind
+          protocol: layer2
+          addresses:
+            - 172.18.0.50-172.18.0.90
