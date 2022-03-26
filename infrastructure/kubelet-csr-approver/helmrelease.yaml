@@ -5,7 +5,7 @@ metadata:
 spec:
   chart:
     spec:
-      chart: metrics-server
+      chart: kubelet-csr-approver
       sourceRef:
         kind: HelmRepository
         name: kubelet-csr-approver
