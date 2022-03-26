@@ -5,4 +5,3 @@ resources:
   - view-crds-clusterrole.yaml
   - view-nodes-clusterrole.yaml
   - view-storage-clusterrole.yaml
-  - kubernetes-dashboard-clusterrolebinding.yaml
