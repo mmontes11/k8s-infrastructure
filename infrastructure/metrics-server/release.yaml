@@ -13,3 +13,8 @@ spec:
         namespace: flux-system
       version: "3.8.2"
   interval: 1h0m0s
+  values:
+    # TODO: add operator to auto approve kubelet CSRs
+    # See: https://github.com/mmontes11/k8s-bootstrap/issues/2
+    args:
+      - --kubelet-insecure-tls
