@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: kube-system
+resources:
+  - view-crds-clusterrole.yaml
+  - view-nodes-clusterrole.yaml
+  - view-storage-clusterrole.yaml
+  - kubernetes-dashboard-clusterrolebinding.yaml
