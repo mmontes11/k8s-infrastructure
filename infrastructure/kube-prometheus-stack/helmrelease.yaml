@@ -14,3 +14,4 @@ spec:
   valuesFrom:
     - kind: ConfigMap
       name: kube-prometheus-stack-config
+      namespace: monitoring
