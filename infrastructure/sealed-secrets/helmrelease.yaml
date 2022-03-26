@@ -12,3 +12,5 @@ spec:
         name: sealed-secrets
       version: "2.1.4"
   interval: 1h0m0s
+  values:
+    secretName: sealed-secrets-key
