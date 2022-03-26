@@ -44,9 +44,25 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
+  name: kubelet-csr-approver
+  namespace: flux-system
+spec:
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/kubelet-csr-approver
+  prune: true
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
   name: metrics-server
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: kubelet-csr-approver
   interval: 5m
   sourceRef:
     kind: GitRepository
@@ -77,6 +93,8 @@ metadata:
   name: kube-prometheus-stack
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: sealed-secrets
   interval: 5m
   sourceRef:
     kind: GitRepository

@@ -1,0 +1,7 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: kubelet-csr-approver
+spec:
+  interval: 5m
+  url: https://postfinance.github.io/kubelet-csr-approver

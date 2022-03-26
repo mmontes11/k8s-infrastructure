@@ -1,13 +1,15 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: metrics-server
+  name: kubelet-csr-approver
 spec:
   chart:
     spec:
       chart: metrics-server
       sourceRef:
         kind: HelmRepository
-        name: metrics-server
-      version: "3.8.2"
+        name: kubelet-csr-approver
+      version: "0.1.2"
   interval: 1h0m0s
+  values:
+    providerRegex: ^.*$
