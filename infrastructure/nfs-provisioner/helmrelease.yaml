@@ -13,6 +13,7 @@ spec:
       version: "4.0.16"
   interval: 1h0m0s
   values:
+    fullnameOverride: nfs-provisioner
     nfs:
       server: 192.168.0.120
       path: /volume1/kubernetes
