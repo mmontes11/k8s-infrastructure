@@ -3,6 +3,7 @@ kind: HelmRelease
 metadata:
   name: nfs-provisioner
 spec:
+  releaseName: nfs-provisioner
   chart:
     spec:
       chart: nfs-subdir-external-provisioner
