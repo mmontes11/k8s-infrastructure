@@ -1,2 +1,2 @@
 # k8s-infrastructure
-Infrastructure bootstrapping and tenant configuration usinf Flux
+Infrastructure bootstrapping and tenant configuration using Flux
