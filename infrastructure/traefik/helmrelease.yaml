@@ -13,4 +13,4 @@ spec:
   interval: 1h0m0s
   valuesFrom:
     - kind: ConfigMap
-      name: kube-prometheus-stack-config
+      name: traefik
