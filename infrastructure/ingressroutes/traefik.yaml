@@ -2,6 +2,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: traefik-basicauth
+  namespace: kube-system
 spec:
   basicAuth:
     secret: traefik
@@ -11,6 +12,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: traefik
+  namespace: kube-system
 spec:
   entryPoints:
     - websecure
@@ -20,6 +22,7 @@ spec:
       match: Host(`traefik.mmontes-dev-v2.duckdns.org`)
       middlewares:
         - name: traefik-basicauth
+          namespace: kube-system
       services:
         - name: api@internal
           kind: TraefikService
