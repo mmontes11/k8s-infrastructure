@@ -1,0 +1,17 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: grafana
+  namespace: monitoring
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      # TODO: change to production URL
+      match: Host(`grafana.mmontes-dev-v2.duckdns.org`)
+      services:
+        - kind: Service
+          name: kube-prometheus-stack-grafana
+          namespace: monitoring
+          port: 443

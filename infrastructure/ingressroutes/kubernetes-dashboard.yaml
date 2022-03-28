@@ -1,0 +1,30 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: kubernetes-dashboard-basicauth
+  namespace: monitoring
+spec:
+  basicAuth:
+    secret: kubernetes-dashboard
+    removeHeader: true
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: kubernetes-dashboard
+  namespace: monitoring
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      # TODO: change to production URL
+      match: Host(`kubernetes.mmontes-dev-v2.duckdns.org`)
+      middlewares:
+        - name: kubernetes-dashboard-basicauth
+          namespace: monitoring
+      services:
+        - kind: Service
+          name: kubernetes-dashboard
+          namespace: monitoring
+          port: 443

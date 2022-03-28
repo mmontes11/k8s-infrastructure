@@ -1,0 +1,25 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik-basicauth
+spec:
+  basicAuth:
+    secret: traefik
+    removeHeader: true
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      # TODO: change to production URL
+      match: Host(`traefik.mmontes-dev-v2.duckdns.org`)
+      middlewares:
+        - name: traefik-basicauth
+      services:
+        - name: api@internal
+          kind: TraefikService
