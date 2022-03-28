@@ -13,4 +13,4 @@ spec:
   interval: 1h0m0s
   valuesFrom:
     - kind: ConfigMap
-      name: traefik
+      name: traefik-config
