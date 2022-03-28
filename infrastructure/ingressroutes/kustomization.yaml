@@ -2,5 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - traefik.yaml
+  - traefik-sealedsecret.yaml
   - kubernetes-dashboard.yaml
+  - kubernetes-dashboard-sealedsecret.yaml
   - grafana.yaml
