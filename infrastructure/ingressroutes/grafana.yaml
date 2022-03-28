@@ -14,4 +14,4 @@ spec:
         - kind: Service
           name: kube-prometheus-stack-grafana
           namespace: monitoring
-          port: 443
+          port: 80
