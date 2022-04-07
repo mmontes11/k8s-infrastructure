@@ -12,6 +12,6 @@ spec:
       match: Host(`charts.mmontes-dev-v2.duckdns.org`)
       services:
         - kind: Service
-          name: mmontes
+          name: mmontes-chartmuseum
           namespace: chartmuseum
           port: 8080

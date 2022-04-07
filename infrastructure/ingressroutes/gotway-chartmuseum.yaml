@@ -12,6 +12,6 @@ spec:
       match: Host(`charts.gotway-v2.duckdns.org`)
       services:
         - kind: Service
-          name: gotway
+          name: gotway-chartmuseum
           namespace: chartmuseum
           port: 8080
