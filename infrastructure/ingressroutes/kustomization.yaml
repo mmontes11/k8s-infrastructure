@@ -6,3 +6,5 @@ resources:
   - kubernetes-dashboard.yaml
   - kubernetes-dashboard-sealedsecret.yaml
   - grafana.yaml
+  - mmontes-chartmuseum.yaml
+  - gotway-chartmuseum.yaml

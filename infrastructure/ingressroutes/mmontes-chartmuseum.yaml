@@ -1,0 +1,17 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: mmontes
+  namespace: chartmuseum
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      # TODO: change to production URL
+      match: Host(`charts.mmontes-dev-v2.duckdns.org`)
+      services:
+        - kind: Service
+          name: mmontes
+          namespace: chartmuseum
+          port: 8080

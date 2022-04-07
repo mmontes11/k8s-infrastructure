@@ -341,6 +341,7 @@ ports:
         # - main: "*.mmontes-dev.duckdns.org"
         # - main: "*.gotway.duckdns.org"
         - main: "*.mmontes-dev-v2.duckdns.org"
+        - main: "*.gotway-v2.duckdns.org"
   metrics:
     port: 9100
     # hostPort: 9100
