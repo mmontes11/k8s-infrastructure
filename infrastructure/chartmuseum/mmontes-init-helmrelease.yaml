@@ -5,7 +5,6 @@ metadata:
 spec:
   dependsOn:
     - name: mmontes
-  releaseName: mmontes
   chart:
     spec:
       chart: ./charts/chartmuseum-init
