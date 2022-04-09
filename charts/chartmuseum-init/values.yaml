@@ -1,0 +1,33 @@
+nameOverride: ""
+fullnameOverride: ""
+
+# initContainerImage:
+#   repository: busybox
+#   pullPolicy: IfNotPresent
+#   tag: "v3.5.1"
+
+image:
+  repository: mmontes11/helm
+  pullPolicy: IfNotPresent
+  tag: "3.8.1-alpine3.15.4"
+
+jobSpec:
+  backoffLimit: 5
+  parallelism: 1
+  completions: 1
+
+chartmuseumUrl: http://chartmuseum:8080
+
+chartsRepository:
+  url: https://github.com/charts/charts.git
+  branch: main
+  path: charts
+  command: make release
+
+usernameSecretKeyRef:
+  name: secret
+  key: username
+
+passwordSecretKeyRef:
+  name: secret
+  key: password
