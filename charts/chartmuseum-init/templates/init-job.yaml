@@ -6,17 +6,6 @@ spec:
   {{ toYaml .Values.jobSpec | nindent 2 }}
   template:
     spec:
-      # initContainers:
-      #   - name: wait-for-chartmuseum
-      #     {{ with .Values.initContainerImage }}
-      #     image: "{{ .repository }}:{{ .tag | default $.Chart.AppVersion }}"
-      #     imagePullPolicy: {{ .pullPolicy }}
-      #     {{ end }}
-      #     command: ["/bin/sh", "-c"]
-      #     args:
-      #       - while [ $(curl -sw '%{http_code}' "{{ .Values.chartmuseumUrl }}" -o /dev/null) -ne 200 ]; do
-      #         sleep 10;
-      #         done
       containers:
         - name: init-charts
           {{ with .Values.image }}

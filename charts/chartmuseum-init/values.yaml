@@ -1,11 +1,6 @@
 nameOverride: ""
 fullnameOverride: ""
 
-# initContainerImage:
-#   repository: busybox
-#   pullPolicy: IfNotPresent
-#   tag: "v3.5.1"
-
 image:
   repository: mmontes11/helm
   pullPolicy: IfNotPresent
