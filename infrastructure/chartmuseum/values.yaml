@@ -161,9 +161,9 @@ service:
 
 serviceMonitor:
   enabled: true
-  namespace: monitoring
+  namespace: chartmuseum
   labels:
-    release: monitoring
+    release: kube-prometheus-stack
   metricsPath: "/metrics"
   # timeout: 60
   # interval: 60
