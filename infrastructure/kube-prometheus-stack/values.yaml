@@ -853,6 +853,10 @@ grafana:
         gnetId: 6671
         revision: 2
         datasource: Prometheus
+      pihole:
+        gnetId: 10176
+        revision: 2
+        datasource: Prometheus
 
 ## Component scraping the kube api server
 ##
