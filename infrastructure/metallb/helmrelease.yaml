@@ -15,11 +15,11 @@ spec:
     configInline:
       address-pools:
         # TODO: use default pool
-        # - name: default
-        #   protocol: layer2
-        #   addresses:
-        #     - 192.168.0.50-192.168.0.90
-        - name: kind
+        - name: default
           protocol: layer2
           addresses:
-            - 172.18.0.50-172.18.0.90
+            - 192.168.0.50-192.168.0.90
+        # - name: kind
+        #   protocol: layer2
+        #   addresses:
+        #     - 172.18.0.50-172.18.0.90

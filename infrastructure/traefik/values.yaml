@@ -378,7 +378,8 @@ service:
   # Additional annotations applied to both TCP and UDP services (e.g. for cloud provider specific config)
   annotations:
     # TODO: use metallb default pool
-    metallb.universe.tf/loadBalancerIPs: 172.18.0.50
+    metallb.universe.tf/loadBalancerIPs: 192.168.0.50
+    # metallb.universe.tf/loadBalancerIPs: 172.18.0.50
   # Additional annotations for TCP service only
   annotationsTCP: {}
   # Additional annotations for UDP service only
