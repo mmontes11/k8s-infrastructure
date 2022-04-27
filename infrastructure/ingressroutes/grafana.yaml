@@ -8,8 +8,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      # TODO: change to production URL
-      match: Host(`grafana.mmontes-dev-v2.duckdns.org`)
+      match: Host(`grafana.mmontes-dev.duckdns.org`)
       services:
         - kind: Service
           name: kube-prometheus-stack-grafana

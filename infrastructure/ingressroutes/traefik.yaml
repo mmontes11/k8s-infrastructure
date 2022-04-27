@@ -18,8 +18,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      # TODO: change to production URL
-      match: Host(`traefik.mmontes-dev-v2.duckdns.org`)
+      match: Host(`traefik.mmontes-dev.duckdns.org`)
       middlewares:
         - name: traefik-basicauth
           namespace: kube-system

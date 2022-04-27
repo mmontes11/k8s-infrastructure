@@ -8,8 +8,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      # TODO: change to production URL
-      match: Host(`charts.gotway-v2.duckdns.org`)
+      match: Host(`charts.gotway.duckdns.org`)
       services:
         - kind: Service
           name: gotway-chartmuseum

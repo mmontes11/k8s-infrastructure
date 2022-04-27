@@ -8,8 +8,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      # TODO: change to production URL
-      match: Host(`charts.mmontes-dev-v2.duckdns.org`)
+      match: Host(`charts.mmontes-dev.duckdns.org`)
       services:
         - kind: Service
           name: mmontes-chartmuseum

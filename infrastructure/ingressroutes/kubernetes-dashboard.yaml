@@ -18,8 +18,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      # TODO: change to production URL
-      match: Host(`kubernetes.mmontes-dev-v2.duckdns.org`)
+      match: Host(`kubernetes.mmontes-dev.duckdns.org`)
       middlewares:
         - name: kubernetes-dashboard-basicauth
           namespace: monitoring

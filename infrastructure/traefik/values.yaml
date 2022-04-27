@@ -337,11 +337,8 @@ ports:
       options: ""
       certResolver: letsencrypt
       domains:
-        # TODO: use production DNS domains
-        # - main: "*.mmontes-dev.duckdns.org"
-        # - main: "*.gotway.duckdns.org"
-        - main: "*.mmontes-dev-v2.duckdns.org"
-        - main: "*.gotway-v2.duckdns.org"
+        - main: "*.mmontes-dev.duckdns.org"
+        - main: "*.gotway.duckdns.org"
   metrics:
     port: 9100
     # hostPort: 9100
@@ -377,9 +374,7 @@ service:
   type: LoadBalancer
   # Additional annotations applied to both TCP and UDP services (e.g. for cloud provider specific config)
   annotations:
-    # TODO: use metallb default pool
     metallb.universe.tf/loadBalancerIPs: 192.168.0.50
-    # metallb.universe.tf/loadBalancerIPs: 172.18.0.50
   # Additional annotations for TCP service only
   annotationsTCP: {}
   # Additional annotations for UDP service only
