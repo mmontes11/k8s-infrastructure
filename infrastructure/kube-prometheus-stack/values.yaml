@@ -858,6 +858,9 @@ grafana:
         revision: 2
         datasource: Prometheus
 
+  nodeSelector:
+    node.mmontes.io/type: compute
+
 ## Component scraping the kube api server
 ##
 kubeApiServer:
@@ -2267,7 +2270,8 @@ prometheus:
     ## Define which Nodes the Pods are scheduled on.
     ## ref: https://kubernetes.io/docs/user-guide/node-selection/
     ##
-    nodeSelector: {}
+    nodeSelector:
+      node.mmontes.io/type: compute
 
     ## Secrets is a list of Secrets in the same namespace as the Prometheus object, which shall be mounted into the Prometheus Pods.
     ## The Secrets are mounted into /etc/prometheus/secrets/. Secrets changes after initial creation of a Prometheus object are not
