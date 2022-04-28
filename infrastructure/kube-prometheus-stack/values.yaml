@@ -825,9 +825,13 @@ grafana:
 
   dashboards:
     default:
-      host:
+      node-exporter:
         gnetId: 11074
         revision: 9
+        datasource: Prometheus
+      node-exporter-full:
+        gnetId: 1860
+        revision: 26
         datasource: Prometheus
       traefik:
         gnetId: 11462
