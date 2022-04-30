@@ -166,3 +166,20 @@ spec:
   path: ./infrastructure/ingressroutes
   prune: true
   timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: monitors
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: kube-prometheus-stack
+    - name: traefik
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/monitors
+  prune: true
+  timeout: 5m
