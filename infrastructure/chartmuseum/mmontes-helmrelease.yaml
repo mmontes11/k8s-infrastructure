@@ -24,8 +24,8 @@ spec:
       enabled: true
       accessMode: ReadWriteOnce
       size: 8Gi
+      storageClass: "nfs"
       # path: /storage
-      # storageClass: "nfs"
       # volumeName: my-volume
       # pv:
       #   enabled: false
