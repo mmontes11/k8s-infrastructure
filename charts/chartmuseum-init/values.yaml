@@ -26,3 +26,16 @@ usernameSecretKeyRef:
 passwordSecretKeyRef:
   name: secret
   key: password
+
+nodeSelector:
+  {}
+  # node.mmontes.io/type: compute
+
+resources:
+  {}
+  # requests:
+  #   cpu: 50m
+  #   memory: 100Mi
+  # limits:
+  #   cpu: 100m
+  #   memory: 200Mi

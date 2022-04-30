@@ -30,3 +30,14 @@ spec:
     passwordSecretKeyRef:
       name: mmontes
       key: BASIC_AUTH_PASS
+
+    nodeSelector:
+      node.mmontes.io/type: compute
+
+    resources:
+      requests:
+        cpu: 100m
+        memory: 100Mi
+      limits:
+        cpu: 200m
+        memory: 200Mi

@@ -30,3 +30,14 @@ spec:
     passwordSecretKeyRef:
       name: gotway
       key: BASIC_AUTH_PASS
+
+    nodeSelector:
+      node.mmontes.io/type: compute
+
+    resources:
+      requests:
+        cpu: 50m
+        memory: 50Mi
+      limits:
+        cpu: 100m
+        memory: 100Mi
