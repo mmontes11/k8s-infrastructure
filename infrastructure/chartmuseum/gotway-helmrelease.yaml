@@ -23,15 +23,15 @@ spec:
     persistence:
       enabled: true
       accessMode: ReadWriteOnce
-      size: 8Gi
-      storageClass: "nfs"
-      # path: /storage
-      # volumeName: my-volume
-      # pv:
-      #   enabled: false
-      #   capacity:
-      #     storage: 8Gi
-      #   accessMode: ReadWriteOnce
-      #   nfs:
-      #     server: nfs.example.com
-      #     path: /nfs/chartmuseum
+      # size: 8Gi
+      # storageClass: "nfs"
+      path: /storage
+      volumeName: mmontes
+      pv:
+        enabled: true
+        capacity:
+          storage: 8Gi
+        accessMode: ReadWriteOnce
+        nfs:
+          server: nas
+          path: /volume1/chartmuseum/mmontes
