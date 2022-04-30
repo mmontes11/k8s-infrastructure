@@ -2390,11 +2390,11 @@ prometheus:
 
     ## How long to retain metrics
     ##
-    retention: 10d
+    retention: 7d
 
     ## Maximum size of metrics
     ##
-    retentionSize: ""
+    retentionSize: 50GB
 
     ## Enable compression of the write-ahead log using Snappy.
     ##
@@ -2490,16 +2490,15 @@ prometheus:
     ## Prometheus StorageSpec for persistent data
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/user-guides/storage.md
     ##
-    storageSpec: {}
-    ## Using PersistentVolumeClaim
-    ##
-    #  volumeClaimTemplate:
-    #    spec:
-    #      storageClassName: gluster
-    #      accessModes: ["ReadWriteOnce"]
-    #      resources:
-    #        requests:
-    #          storage: 50Gi
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: nfs
+          accessModes:
+            - "ReadWriteOnce"
+          resources:
+            requests:
+              storage: 50Gi
     #    selector: {}
 
     ## Using tmpfs volume
