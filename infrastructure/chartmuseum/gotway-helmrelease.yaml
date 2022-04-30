@@ -22,16 +22,14 @@ spec:
         BASIC_AUTH_PASS: BASIC_AUTH_PASS
     persistence:
       enabled: true
-      accessMode: ReadWriteOnce
-      # size: 8Gi
-      # storageClass: "nfs"
-      path: /storage
-      volumeName: mmontes
+      storageClass: "-"
+      volumeName: &volume gotway
       pv:
         enabled: true
+        pvname: *volume
         capacity:
           storage: 8Gi
         accessMode: ReadWriteOnce
         nfs:
           server: nas
-          path: /volume1/chartmuseum/mmontes
+          path: /volume1/chartmuseum/gotway
