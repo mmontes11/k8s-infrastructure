@@ -2394,7 +2394,7 @@ prometheus:
 
     ## Maximum size of metrics
     ##
-    retentionSize: 50GB
+    retentionSize: 20GB
 
     ## Enable compression of the write-ahead log using Snappy.
     ##
@@ -2493,12 +2493,12 @@ prometheus:
     storageSpec:
       volumeClaimTemplate:
         spec:
-          storageClassName: nfs
+          storageClassName: local-path
           accessModes:
             - "ReadWriteOnce"
           resources:
             requests:
-              storage: 50Gi
+              storage: 20Gi
     #    selector: {}
 
     ## Using tmpfs volume
