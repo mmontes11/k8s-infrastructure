@@ -1060,8 +1060,8 @@ kubeControllerManager:
     ## If null or unset, the value is determined dynamically based on target Kubernetes version due to change
     ## of default port in Kubernetes 1.22.
     ##
-    port: null
-    targetPort: null
+    port: 10257
+    targetPort: 10257
     # selector:
     #   component: kube-controller-manager
 
@@ -1079,10 +1079,10 @@ kubeControllerManager:
     ## Requires proper certs (not self-signed) and delegated authentication/authorization checks.
     ## If null or unset, the value is determined dynamically based on target Kubernetes version.
     ##
-    https: null
+    https: true
 
     # Skip TLS certificate validation when scraping
-    insecureSkipVerify: null
+    insecureSkipVerify: true
 
     # Name of the server to use when validating TLS certificate
     serverName: null
@@ -1219,8 +1219,8 @@ kubeEtcd:
   ##
   service:
     enabled: true
-    port: 2379
-    targetPort: 2379
+    port: 2381
+    targetPort: 2381
     # selector:
     #   component: etcd
 
@@ -1244,7 +1244,7 @@ kubeEtcd:
     ##
     proxyUrl: ""
     scheme: http
-    insecureSkipVerify: false
+    insecureSkipVerify: true
     serverName: ""
     caFile: ""
     certFile: ""
@@ -1288,8 +1288,8 @@ kubeScheduler:
     ## If null or unset, the value is determined dynamically based on target Kubernetes version due to change
     ## of default port in Kubernetes 1.23.
     ##
-    port: null
-    targetPort: null
+    port: 10259
+    targetPort: 10259
     # selector:
     #   component: kube-scheduler
 
@@ -1305,10 +1305,10 @@ kubeScheduler:
     ## Requires proper certs (not self-signed) and delegated authentication/authorization checks.
     ## If null or unset, the value is determined dynamically based on target Kubernetes version.
     ##
-    https: null
+    https: true
 
     ## Skip TLS certificate validation when scraping
-    insecureSkipVerify: null
+    insecureSkipVerify: true
 
     ## Name of the server to use when validating TLS certificate
     serverName: null
