@@ -1,0 +1,15 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: {{ include "tenant.name" . }}
+  namespace: flux-system
+spec:
+  interval: 5m0s
+  sourceRef:
+    kind: GitRepository
+    name: {{ include "tenant.name" . }}
+  path: {{ required "A repo path must be provided" .Values.repo.path  }}
+  serviceAccountName: {{ include "tenant.name" . }}
+  prune: true
+  wait: true
+  timeout: 5m0s

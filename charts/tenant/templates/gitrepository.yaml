@@ -1,0 +1,12 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+  name: {{ include "tenant.name" . }}
+  namespace: flux-system
+spec:
+  interval: 5m0s
+  url: {{ required "A repo URL must be provided" .Values.repo.url  }}
+  ref:
+    branch: {{ required "A repo branch must be provided" .Values.repo.branch  }}
+  secretRef:
+    name: {{ .Values.repo.secretName }}
