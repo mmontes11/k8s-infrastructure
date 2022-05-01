@@ -6,11 +6,9 @@ resources:
   - mmontes-sealedsecret.yaml
   - mmontes-helmrelease.yaml
   - mmontes-init-helmrelease.yaml
-  - mmontes-helmrepository.yaml
   - gotway-sealedsecret.yaml
   - gotway-helmrelease.yaml
   - gotway-init-helmrelease.yaml
-  - gotway-helmrepository.yaml
 configMapGenerator:
   - name: chartmuseum-config
     files:

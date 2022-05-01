@@ -1,7 +1,0 @@
-apiVersion: source.toolkit.fluxcd.io/v1beta1
-kind: HelmRepository
-metadata:
-  name: gotway
-spec:
-  interval: 5m
-  url: http://gotway-chartmuseum.chartmuseum.svc.cluster.local:8080
