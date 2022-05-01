@@ -6,6 +6,7 @@ metadata:
 spec:
   dependsOn:
     - name: rbac
+    - name: sources
     - name: traefik
     - name: sealed-secrets
   interval: 5m
