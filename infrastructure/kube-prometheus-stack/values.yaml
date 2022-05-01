@@ -831,7 +831,7 @@ grafana:
         datasource: Prometheus
       node-exporter-full:
         gnetId: 1860
-        revision: 26
+        revision: 27
         datasource: Prometheus
       traefik:
         gnetId: 11462
