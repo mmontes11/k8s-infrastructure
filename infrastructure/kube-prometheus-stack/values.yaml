@@ -869,6 +869,18 @@ grafana:
         gnetId: 16203
         revision: 1
         datasource: Prometheus
+      cilium-agent:
+        gnetId: 15513
+        revision: 1
+        datasource: Prometheus
+      cilium-operator:
+        gnetId: 15514
+        revision: 1
+        datasource: Prometheus
+      hubble:
+        gnetId: 15515
+        revision: 1
+        datasource: Prometheus
 
   nodeSelector:
     node.mmontes.io/type: compute
