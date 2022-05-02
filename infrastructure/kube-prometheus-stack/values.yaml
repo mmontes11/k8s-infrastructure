@@ -861,6 +861,14 @@ grafana:
         gnetId: 10176
         revision: 2
         datasource: Prometheus
+      flux-cluster:
+        gnetId: 16202
+        revision: 1
+        datasource: Prometheus
+      flux-control-plane:
+        gnetId: 16203
+        revision: 1
+        datasource: Prometheus
 
   nodeSelector:
     node.mmontes.io/type: compute
