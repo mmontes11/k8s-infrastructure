@@ -236,13 +236,13 @@ globalArguments:
 # All available options available on https://docs.traefik.io/reference/static-configuration/cli/
 ## Use curly braces to pass values: `helm install --set="additionalArguments={--providers.kubernetesingress.ingressclass=traefik-internal,--log.level=DEBUG}"`
 additionalArguments:
-  - "--certificatesresolvers.le.acme.email=martin11lrx@gmail.com"
-  - "--certificatesresolvers.le.acme.storage=/data/acme.json"
-  - "--certificatesresolvers.le.acme.caserver=https://acme-v02.api.letsencrypt.org/directory"
-  # - "--certificatesresolvers.le.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
-  - "--certificatesresolvers.le.acme.dnschallenge=true"
-  - "--certificatesresolvers.le.acme.dnschallenge.provider=duckdns"
-  - "--certificatesresolvers.le.acme.dnschallenge.resolvers=8.8.8.8:53,1.1.1.1:53"
+  - "--certificatesresolvers.letsencrypt.acme.email=martin11lrx@gmail.com"
+  - "--certificatesresolvers.letsencrypt.acme.storage=/data/acme.json"
+  - "--certificatesresolvers.letsencrypt.acme.caserver=https://acme-v02.api.letsencrypt.org/directory"
+  # - "--certificatesresolvers.letsencrypt.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+  - "--certificatesresolvers.letsencrypt.acme.dnschallenge=true"
+  - "--certificatesresolvers.letsencrypt.acme.dnschallenge.provider=duckdns"
+  - "--certificatesresolvers.letsencrypt.acme.dnschallenge.resolvers=8.8.8.8:53,1.1.1.1:53"
   - "--serverstransport.insecureskipverify"
 # Environment variables to be passed to Traefik's binary
 env:
@@ -490,12 +490,9 @@ priorityClassName: ""
 # Set the container security context
 # To run the container with ports below 1024 this will need to be adjust to run as root
 securityContext:
-  capabilities:
-    drop: [ALL]
-  readOnlyRootFilesystem: true
-  runAsGroup: 65532
-  runAsNonRoot: true
-  runAsUser: 65532
+  readOnlyRootFilesystem: false
+  runAsNonRoot: false
+  runAsUser: 0
 
 podSecurityContext:
   fsGroup: 65532
