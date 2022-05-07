@@ -9,7 +9,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: traefik
-      version: "10.15.0"
+      version: "10.19.5"
   interval: 1h0m0s
   valuesFrom:
     - kind: ConfigMap
