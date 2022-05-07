@@ -1,0 +1,12 @@
+{{ if .Values.cronjob.enabled }}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "chartmuseum-init.fullname" . }}-sync
+  labels:
+    {{ include "chartmuseum-init.labels" . | nindent 4 }}
+spec:
+  {{ toYaml .Values.cronjob.spec | nindent 2 }}
+  jobTemplate:
+    {{ include "chartmuseum-init.jobSpec" . | nindent 4 }}
+{{ end }}

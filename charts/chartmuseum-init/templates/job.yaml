@@ -1,0 +1,5 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "chartmuseum-init.fullname" . }}
+{{ include "chartmuseum-init.jobSpec" . }}

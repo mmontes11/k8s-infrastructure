@@ -13,7 +13,24 @@ spec:
         name: flux-system
         namespace: flux-system
   interval: 5m
+  timeout: 15m
   values:
+    image:
+      repository: mmontes11/helm
+      pullPolicy: IfNotPresent
+      tag: "3.8.1-alpine3.15.4"
+
+    cronjob:
+      enabled: true
+      spec:
+        schedule: "0 1 * * *"
+        concurrencyPolicy: Forbid
+
+    jobSpec:
+      backoffLimit: 5
+      parallelism: 1
+      completions: 1
+
     chartmuseumUrl: http://gotway-chartmuseum.chartmuseum.svc.cluster.local:8080
 
     # TODO: use main branch after releasing to production

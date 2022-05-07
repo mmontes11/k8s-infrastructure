@@ -6,6 +6,12 @@ image:
   pullPolicy: IfNotPresent
   tag: "3.8.1-alpine3.15.4"
 
+cronjob:
+  enabled: false
+  spec:
+    schedule: "0 1 * * *"
+    concurrencyPolicy: Forbid
+
 jobSpec:
   backoffLimit: 5
   parallelism: 1
