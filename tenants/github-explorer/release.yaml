@@ -7,7 +7,7 @@ spec:
   targetNamespace: github-explorer
   chart:
     spec:
-      chart: ./charts/github-explorer
+      chart: ./charts/tenant
       sourceRef:
         kind: GitRepository
         name: flux-system
