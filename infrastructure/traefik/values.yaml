@@ -480,7 +480,9 @@ affinity: {}
 #               values:
 #                 - {{ template "traefik.name" . }}
 #         topologyKey: kubernetes.io/hostname
-nodeSelector: {}
+nodeSelector:
+  node.mmontes.io/type: compute
+
 tolerations: []
 
 # Pods can have priority.
