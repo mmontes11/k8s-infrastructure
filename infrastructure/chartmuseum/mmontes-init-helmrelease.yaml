@@ -33,10 +33,9 @@ spec:
 
     chartmuseumUrl: http://mmontes-chartmuseum.chartmuseum.svc.cluster.local:8080
 
-    # TODO: use main branch after releasing to production
     chartsRepository:
       url: https://github.com/mmontes11/charts.git
-      branch: v2
+      branch: main
       path: charts
       command: make release
 
