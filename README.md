@@ -1,19 +1,19 @@
 # 🏗️ k8s-infrastructure
 Infrastructure and tenant bootstrapping using [flux](https://fluxcd.io/).
 
-### Multi tenancy
+### [Clusters](./clusters) 
 
-The [clusters](./clusters) folder contains an entrypoint for each cluster that is used by flux when bootstrapping:
+Entrypoint for each cluster that is used by flux when bootstrapping:
 - [production](https://github.com/mmontes11/k8s-bootstrap/blob/main/bootstrap.sh)
 
 
-### Infrastructure
+### [Infrastructure](./infrastructure) 
 
-The [infrastructure](./infrastructure) folder contains cluster-wide resources and workloads shared between all the tenants. 
+Cluster-wide resources and workloads shared between all the tenants. 
 
-### Tenants
+### [Tenants](./tenants) 
 
-The [tenants](./tenants) folder configures the entrypoint for the tenant resources, which live in separated repositories:
+Entrypoint for the tenant resources, which live in separated repositories:
 - [dns](https://github.com/mmontes11/k8s-dns)
 - [iot](https://github.com/mmontes11/k8s-iot)
 - [media](https://github.com/mmontes11/k8s-media)
