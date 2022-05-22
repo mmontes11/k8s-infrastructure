@@ -31,5 +31,5 @@ spec:
           storage: 8Gi
         accessMode: ReadWriteOnce
         nfs:
-          server: nas
+          server: nas.local
           path: /volume1/chartmuseum/gotway
