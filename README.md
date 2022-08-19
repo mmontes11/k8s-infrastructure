@@ -1,5 +1,5 @@
 # 🏗️ k8s-infrastructure
-Infrastructure and tenant bootstrapping using [flux](https://fluxcd.io/).
+Infrastructure and tenant bootstrapping using [Flux](https://fluxcd.io/).
 
 ### [Clusters](./clusters) 
 
