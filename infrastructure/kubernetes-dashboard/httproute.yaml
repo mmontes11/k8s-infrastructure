@@ -1,0 +1,17 @@
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: kubernetes-dashboard
+  namespace: monitoring
+spec:
+  parentRefs:
+    - name: traefik
+      namespace: networking
+  hostnames:
+    - "kubernetes.mmontes.duckdns.org"
+  rules:
+    - backendRefs:
+        - kind: Service
+          name: kubernetes-dashboard
+          namespace: monitoring
+          port: 443

@@ -9,8 +9,18 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: traefik
-      version: "10.19.5"
+      version: "20.5.3"
   interval: 1h0m0s
-  valuesFrom:
-    - kind: ConfigMap
-      name: traefik-config
+  values:
+    logs:
+      general:
+        level: INFO
+      access:
+        enabled: true
+    additionalArguments:
+      - "--serverstransport.insecureskipverify"
+    service:
+      annotations:
+        metallb.universe.tf/loadBalancerIPs: 192.168.0.90
+    persistence:
+      enabled: true

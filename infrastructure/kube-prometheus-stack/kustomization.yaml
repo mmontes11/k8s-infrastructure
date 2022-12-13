@@ -5,9 +5,4 @@ resources:
   - sealedsecret.yaml
   - helmrepository.yaml
   - helmrelease.yaml
-configMapGenerator:
-  - name: kube-prometheus-stack-config
-    files:
-      - values.yaml=values.yaml
-configurations:
-  - kustomizeconfig.yaml
+  - grafana-httproute.yaml

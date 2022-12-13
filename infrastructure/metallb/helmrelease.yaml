@@ -9,12 +9,5 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: metallb
-      version: "0.12.1"
+      version: "0.13.7"
   interval: 1h0m0s
-  values:
-    configInline:
-      address-pools:
-        - name: default
-          protocol: layer2
-          addresses:
-            - 192.168.0.50-192.168.0.99

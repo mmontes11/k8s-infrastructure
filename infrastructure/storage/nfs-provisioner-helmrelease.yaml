@@ -1,0 +1,29 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: nfs-provisioner
+spec:
+  releaseName: nfs-provisioner
+  chart:
+    spec:
+      chart: nfs-subdir-external-provisioner
+      sourceRef:
+        kind: HelmRepository
+        name: nfs-provisioner
+      version: "4.0.17"
+  interval: 1h0m0s
+  values:
+    fullnameOverride: nfs-provisioner
+    nfs:
+      server: nas.local
+      path: /volume1/kubernetes
+      volumeName: nfs
+      reclaimPolicy: Retain
+    storageClass:
+      create: true
+      defaultClass: false
+      name: nfs
+      allowVolumeExpansion: true
+      reclaimPolicy: Delete
+      archiveOnDelete: true
+      accessModes: ReadWriteOnce
