@@ -9,7 +9,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: kubelet-csr-approver
-      version: "0.1.2"
+      version: "0.2.4"
   interval: 1h0m0s
   values:
     providerRegex: ^.*$

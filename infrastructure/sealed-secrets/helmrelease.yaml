@@ -10,7 +10,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: sealed-secrets
-      version: "2.1.6"
+      version: "2.7.1"
   interval: 1h0m0s
   values:
     secretName: sealed-secrets-key

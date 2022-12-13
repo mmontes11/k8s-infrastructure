@@ -1,0 +1,60 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: pihole
+spec:
+  releaseName: pihole
+  chart:
+    spec:
+      chart: pihole
+      sourceRef:
+        kind: HelmRepository
+        name: pihole
+      version: "2.11.0"
+  interval: 1h0m0s
+  values:
+    image:
+      repository: "pihole/pihole"
+      pullPolicy: IfNotPresent
+
+    serviceDns:
+      mixedService: false
+      type: LoadBalancer
+      port: 53
+      externalTrafficPolicy: Local
+      annotations:
+        metallb.universe.tf/loadBalancerIPs: 192.168.0.53
+        metallb.universe.tf/allow-shared-ip: pihole-dns-tcp,pihole-dns-udp
+
+    serviceDhcp:
+      enabled: true
+      type: LoadBalancer
+      externalTrafficPolicy: Local
+      annotations:
+        metallb.universe.tf/loadBalancerIPs: 192.168.0.67
+
+    admin:
+      existingSecret: "pihole"
+      passwordKey: "password"
+
+    dnsmasq:
+      customDnsEntries:
+        - address=/internal.mmontes.duckdns.org/192.168.0.90
+        - address=/k8s-master.local/192.168.0.100
+        - address=/k8s-worker0.local/192.168.0.101
+        - address=/k8s-worker1.local/192.168.0.102
+        - address=/k8s-worker2.local/192.168.0.103
+        - address=/nas.local/192.168.0.120
+        - address=/penguin.local/192.168.0.150
+
+    monitoring:
+      # TODO: podmonitor causes helmrelease to fail after render because it already contains a 'release' key
+      podMonitor:
+        enabled: false
+      sidecar:
+        enabled: true
+        port: 9617
+        image:
+          repository: ekofr/pihole-exporter
+          tag: v0.3.0
+          pullPolicy: IfNotPresent

@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  labels:
+    app: pihole
+    release: kube-prometheus-stack
+  name: pihole
+spec:
+  podMetricsEndpoints:
+    - port: prometheus
+      path: /metrics
+      interval: 30s
+  jobLabel: pihole
+  namespaceSelector:
+    matchNames:
+      - dns
+  selector:
+    matchLabels:
+      app: pihole
+      release: pihole

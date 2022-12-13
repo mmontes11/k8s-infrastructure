@@ -1,0 +1,34 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: gotway
+spec:
+  chart:
+    spec:
+      chart: chartmuseum
+      sourceRef:
+        kind: HelmRepository
+        name: chartmuseum
+      version: "3.7.0"
+  interval: 1h0m0s
+  valuesFrom:
+    - kind: ConfigMap
+      name: chartmuseum-config
+  values:
+    env:
+      existingSecret: gotway
+      existingSecretMappings:
+        BASIC_AUTH_USER: BASIC_AUTH_USER
+        BASIC_AUTH_PASS: BASIC_AUTH_PASS
+    persistence:
+      enabled: true
+      volumeName: &volume gotway
+      pv:
+        enabled: true
+        pvname: *volume
+        capacity:
+          storage: 8Gi
+        accessMode: ReadWriteOnce
+        nfs:
+          server: nas.local
+          path: /volume1/chartmuseum/gotway

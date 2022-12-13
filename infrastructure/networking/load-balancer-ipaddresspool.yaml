@@ -1,0 +1,7 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: load-balancer
+spec:
+  addresses:
+    - 192.168.0.50-192.168.0.99

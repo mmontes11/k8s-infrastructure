@@ -15,14 +15,14 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: nfs-provisioner
+  name: storage
   namespace: flux-system
 spec:
   interval: 5m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/nfs-provisioner
+  path: ./infrastructure/storage
   prune: true
   timeout: 5m
 ---
@@ -44,69 +44,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: kubelet-csr-approver
-  namespace: flux-system
-spec:
-  interval: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  path: ./infrastructure/kubelet-csr-approver
-  prune: true
-  timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: metrics-server
-  namespace: flux-system
-spec:
-  dependsOn:
-    - name: kubelet-csr-approver
-  interval: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  path: ./infrastructure/metrics-server
-  prune: true
-  timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: kubernetes-dashboard
-  namespace: flux-system
-spec:
-  dependsOn:
-    - name: rbac
-  interval: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  path: ./infrastructure/kubernetes-dashboard
-  prune: true
-  timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: kube-prometheus-stack
-  namespace: flux-system
-spec:
-  dependsOn:
-    - name: sealed-secrets
-  interval: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  path: ./infrastructure/kube-prometheus-stack
-  prune: true
-  timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: chartmuseum
+  name: registry
   namespace: flux-system
 spec:
   dependsOn:
@@ -116,7 +54,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/chartmuseum
+  path: ./infrastructure/registry
   prune: true
   timeout: 5m
 ---
@@ -127,89 +65,11 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: chartmuseum
+    - name: registry
   interval: 5m
   sourceRef:
     kind: GitRepository
     name: flux-system
   path: ./infrastructure/sources
-  prune: true
-  timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: metallb
-  namespace: flux-system
-spec:
-  interval: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  path: ./infrastructure/metallb
-  prune: true
-  timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: traefik
-  namespace: flux-system
-spec:
-  dependsOn:
-    - name: sealed-secrets
-    - name: metallb
-  interval: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  path: ./infrastructure/traefik
-  prune: true
-  timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: ingressroutes
-  namespace: flux-system
-spec:
-  dependsOn:
-    - name: traefik
-  interval: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  path: ./infrastructure/ingressroutes
-  prune: true
-  timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: monitors
-  namespace: flux-system
-spec:
-  dependsOn:
-    - name: kube-prometheus-stack
-    - name: traefik
-  interval: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  path: ./infrastructure/monitors
-  prune: true
-  timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: networkpolicies
-  namespace: flux-system
-spec:
-  interval: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  path: ./infrastructure/networkpolicies
   prune: true
   timeout: 5m

@@ -33,9 +33,7 @@ passwordSecretKeyRef:
   name: secret
   key: password
 
-nodeSelector:
-  {}
-  # node.mmontes.io/type: compute
+nodeSelector: {}
 
 resources:
   {}
