@@ -8,7 +8,7 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    branch: kubernetes-1.25
+    branch: main
   secretRef:
     name: flux-system
   url: ssh://git@github.com/mmontes11/k8s-infrastructure

@@ -16,6 +16,6 @@ spec:
   values:
     repo:
       url: ssh://git@github.com/gotway/k8s-gotway
-      branch: kubernetes-1.25
+      branch: main
       path: ./clusters/production
       secretName: flux-system
