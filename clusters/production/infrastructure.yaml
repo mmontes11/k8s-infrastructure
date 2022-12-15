@@ -50,7 +50,6 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: dns
     - name: sealed-secrets
     - name: kube-prometheus-stack
   interval: 5m
