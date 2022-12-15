@@ -3,4 +3,3 @@ kind: Kustomization
 namespace: networking
 resources:
   - load-balancer-ipaddresspool.yaml
-  - cluster-egress-networkpolicy.yaml
