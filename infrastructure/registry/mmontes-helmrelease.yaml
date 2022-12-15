@@ -30,5 +30,5 @@ spec:
           storage: 8Gi
         accessMode: ReadWriteOnce
         nfs:
-          server: nas.local
+          server: nas
           path: /volume1/chartmuseum/mmontes

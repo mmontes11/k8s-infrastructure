@@ -15,7 +15,7 @@ spec:
   values:
     fullnameOverride: nfs-provisioner
     nfs:
-      server: nas.local
+      server: nas
       path: /volume1/kubernetes
       volumeName: nfs
       reclaimPolicy: Retain

@@ -39,13 +39,7 @@ spec:
 
     dnsmasq:
       customDnsEntries:
-        - address=/internal.mmontes.duckdns.org/192.168.0.90
-        - address=/k8s-master.local/192.168.0.100
-        - address=/k8s-worker0.local/192.168.0.101
-        - address=/k8s-worker1.local/192.168.0.102
-        - address=/k8s-worker2.local/192.168.0.103
-        - address=/nas.local/192.168.0.120
-        - address=/penguin.local/192.168.0.150
+        - address=/internal.mmontes.duckdns.org/192.168.0.50
 
     monitoring:
       # TODO: podmonitor causes helmrelease to fail after render because it already contains a 'release' key
