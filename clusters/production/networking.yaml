@@ -33,7 +33,6 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: gateway-api
     - name: sealed-secrets
     - name: kube-prometheus-stack
     - name: sources

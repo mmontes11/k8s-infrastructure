@@ -18,6 +18,8 @@ metadata:
   name: storage
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: dns
   interval: 5m
   sourceRef:
     kind: GitRepository
@@ -48,6 +50,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
+    - name: dns
     - name: sealed-secrets
     - name: kube-prometheus-stack
   interval: 5m
