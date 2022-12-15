@@ -22,6 +22,7 @@ spec:
         BASIC_AUTH_PASS: BASIC_AUTH_PASS
     persistence:
       enabled: true
+      storageClass: "-"
       volumeName: &volume mmontes
       pv:
         enabled: true
