@@ -17,6 +17,11 @@ spec:
         level: INFO
       access:
         enabled: true
+    experimental:
+      kubernetesGateway:
+        enabled: true
+        gateway:
+          enabled: false
     additionalArguments:
       - "--serverstransport.insecureskipverify"
     service:
