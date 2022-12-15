@@ -13,3 +13,5 @@ spec:
   interval: 1h0m0s
   values:
     providerRegex: ^.*$
+    bypassDnsResolution: true
+    bypassHostnameCheck: true
