@@ -29,3 +29,13 @@ spec:
         metallb.universe.tf/loadBalancerIPs: 192.168.0.90
     persistence:
       enabled: true
+    ports:
+      web:
+        port: 80
+      websecure:
+        port: 443
+    securityContext:
+      capabilities: {}
+      readOnlyRootFilesystem: true
+      runAsNonRoot: false
+      runAsUser: 0

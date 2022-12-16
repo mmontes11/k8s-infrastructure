@@ -8,7 +8,7 @@ spec:
   gatewayClassName: traefik
   listeners:
     - name: websecure
-      port: 8443
+      port: 443
       protocol: HTTPS
       hostname: "*.mmontes.duckdns.org"
       allowedRoutes:
@@ -22,7 +22,7 @@ spec:
             group: core
 
     - name: web
-      port: 8000
+      port: 80
       protocol: HTTP
       allowedRoutes:
         namespaces:
