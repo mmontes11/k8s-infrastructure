@@ -5,7 +5,7 @@ metadata:
   namespace: registry
 spec:
   parentRefs:
-    - name: traefik
+    - name: traefik-externnal
       namespace: networking
   hostnames:
     - "charts.mmontes.duckdns.org"

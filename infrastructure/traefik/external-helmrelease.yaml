@@ -1,7 +1,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: traefik
+  name: traefik-external
 spec:
   chart:
     spec:
@@ -9,7 +9,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: traefik
-      version: "20.5.3"
+      version: "20.8.0"
   interval: 1h0m0s
   values:
     logs:
@@ -17,13 +17,11 @@ spec:
         level: INFO
       access:
         enabled: true
-    experimental:
-      kubernetesGateway:
-        enabled: true
-        gateway:
-          enabled: false
     additionalArguments:
       - "--serverstransport.insecureskipverify"
+      - "--experimental.kubernetesgateway"
+      - "--providers.kubernetesgateway"
+      - "--providers.kubernetesgateway.labelselector=gatewayclass.mmontes.io/type=traefik-external"
     service:
       annotations:
         metallb.universe.tf/loadBalancerIPs: 192.168.0.90
