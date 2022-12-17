@@ -5,10 +5,10 @@ metadata:
 spec:
   chart:
     spec:
-      chart: duckdns-webhook
+      chart: cert-manager-webhook-duckdns
       sourceRef:
         kind: HelmRepository
-        name: cert-manager-webhook-duckdns
+        name: duckdns-webhook
       version: "v1.2.3"
   interval: 1h0m0s
   values:

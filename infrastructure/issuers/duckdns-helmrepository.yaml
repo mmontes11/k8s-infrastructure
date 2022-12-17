@@ -4,4 +4,4 @@ metadata:
   name: duckdns-webhook
 spec:
   interval: 5m
-  url: https://ebrianne.github.io/
+  url: https://ebrianne.github.io/helm-charts
