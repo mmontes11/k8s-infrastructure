@@ -5,7 +5,7 @@ metadata:
   namespace: monitoring
 spec:
   parentRefs:
-    - name: traefik
+    - name: traefik-internal
       namespace: networking
   hostnames:
     - "kubernetes.mmontes.duckdns.org"

@@ -1,0 +1,29 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: traefik-internal
+spec:
+  chart:
+    spec:
+      chart: traefik
+      sourceRef:
+        kind: HelmRepository
+        name: traefik
+      version: "20.8.0"
+  interval: 1h0m0s
+  values:
+    logs:
+      general:
+        level: INFO
+      access:
+        enabled: true
+    additionalArguments:
+      - "--serverstransport.insecureskipverify"
+      - "--experimental.kubernetesgateway"
+      - "--providers.kubernetesgateway"
+      - "--providers.kubernetesgateway.labelselector=gatewayclass.mmontes.io/type=traefik-internal"
+    service:
+      annotations:
+        metallb.universe.tf/loadBalancerIPs: 192.168.0.50
+    persistence:
+      enabled: true

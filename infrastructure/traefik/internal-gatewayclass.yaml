@@ -1,0 +1,8 @@
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: GatewayClass
+metadata:
+  name: traefik-internal
+  labels:
+    gatewayclass.mmontes.io/type: traefik-internal
+spec:
+  controllerName: traefik.io/gateway-controller

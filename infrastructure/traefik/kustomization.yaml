@@ -8,3 +8,8 @@ resources:
   - external-gatewayclass.yaml
   - external-helmrelease.yaml
   - external-servicemonitor.yaml
+  - internal-clusterrolebinding.yaml
+  - internal-gateway.yaml
+  - internal-gatewayclass.yaml
+  - internal-helmrelease.yaml
+  - internal-servicemonitor.yaml
