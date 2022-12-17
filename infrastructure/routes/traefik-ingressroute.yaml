@@ -13,12 +13,10 @@ metadata:
   name: traefik
 spec:
   entryPoints:
-    # - websecure
-    # TODO: use websecure
-    - web
+    - websecure
   routes:
     - kind: Rule
-      match: Host(`traefik.mmontes.duckdns.org`)
+      match: Host(`traefik.internal.mmontes.duckdns.org`)
       middlewares:
         - name: traefik-basicauth
           namespace: networking
