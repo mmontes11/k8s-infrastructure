@@ -3,7 +3,7 @@ kind: Gateway
 metadata:
   name: traefik-external
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-production
+    cert-manager.io/cluster-issuer: letsencrypt-staging
 spec:
   gatewayClassName: traefik-external
   listeners:
