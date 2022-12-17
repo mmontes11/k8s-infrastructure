@@ -1,7 +1,9 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: traefik
+  name: traefik-internal
+  annotations:
+    kubernetes.io/ingress.class: traefik-internal
 spec:
   entryPoints:
     - websecure

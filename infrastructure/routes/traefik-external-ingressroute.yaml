@@ -1,0 +1,27 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik-external-basicauth
+spec:
+  basicAuth:
+    secret: traefik
+    removeHeader: true
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-external
+  annotations:
+    kubernetes.io/ingress.class: traefik-external
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`traefik.mmontes.duckdns.org`)
+      middlewares:
+        - name: traefik-external-basicauth
+          namespace: networking
+      services:
+        - name: api@internal
+          kind: TraefikService

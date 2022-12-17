@@ -17,6 +17,9 @@ spec:
         level: INFO
       access:
         enabled: true
+    ingressClass:
+      enabled: true
+      isDefaultClass: false
     additionalArguments:
       - "--serverstransport.insecureskipverify"
       - "--experimental.kubernetesgateway"
