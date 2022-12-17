@@ -3,7 +3,7 @@ kind: Gateway
 metadata:
   name: traefik
   annotations:
-    cert-manager.io/cluster-issuer: duckdns-issuer-staging
+    cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
   gatewayClassName: traefik
   listeners:
@@ -20,10 +20,3 @@ spec:
           - name: websecure-tls
             kind: Secret
             group: core
-
-    - name: web
-      port: 8000
-      protocol: HTTP
-      allowedRoutes:
-        namespaces:
-          from: All
