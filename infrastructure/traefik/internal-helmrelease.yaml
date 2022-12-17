@@ -17,9 +17,19 @@ spec:
         level: INFO
       access:
         enabled: true
+    ingressRoute:
+      dashboard:
+        enabled: false
     ingressClass:
       enabled: true
       isDefaultClass: false
+    providers:
+      kubernetesCRD:
+        enabled: true
+        ingressClass: traefik-internal
+      kubernetesIngress:
+        enabled: true
+        ingressClass: traefik-internal
     additionalArguments:
       - "--serverstransport.insecureskipverify"
       - "--experimental.kubernetesgateway"
@@ -30,3 +40,8 @@ spec:
         metallb.universe.tf/loadBalancerIPs: 192.168.0.50
     persistence:
       enabled: true
+    metrics:
+      prometheus:
+        serviceMonitor:
+          additionalLabels:
+            release: kube-prometheus-stack

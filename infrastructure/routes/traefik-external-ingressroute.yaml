@@ -4,7 +4,7 @@ metadata:
   name: traefik-external-basicauth
 spec:
   basicAuth:
-    secret: traefik
+    secret: traefik-external-basicauth
     removeHeader: true
 ---
 apiVersion: traefik.containo.us/v1alpha1

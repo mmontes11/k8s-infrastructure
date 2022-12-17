@@ -1,8 +1,0 @@
-apiVersion: gateway.networking.k8s.io/v1alpha2
-kind: GatewayClass
-metadata:
-  name: traefik-external
-  labels:
-    gatewayclass.mmontes.io/type: traefik-external
-spec:
-  controllerName: traefik.io/gateway-controller
