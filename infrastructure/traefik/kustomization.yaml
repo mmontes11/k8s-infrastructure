@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: networking
 resources:
   - helmrepository.yaml
+  - external-clusterrolebinding.yaml
   - external-gateway.yaml
   - external-gatewayclass.yaml
   - external-helmrelease.yaml

@@ -2,6 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: kube-system
 resources:
+  - edit-gateways-clusterrole.yaml
   - edit-ingressroutes-clusterrole.yaml
   - edit-monitors-clusterrole.yaml
   - edit-namespaces-clusterrole.yaml
