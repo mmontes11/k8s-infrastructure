@@ -4,10 +4,10 @@ metadata:
   name: grafana
 spec:
   parentRefs:
-    - name: traefik
+    - name: traefik-internal
       namespace: networking
   hostnames:
-    - "grafana.mmontes.duckdns.org"
+    - "grafana.internal.mmontes.duckdns.org"
   rules:
     - backendRefs:
         - name: kube-prometheus-stack-grafana

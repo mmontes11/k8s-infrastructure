@@ -4,10 +4,10 @@ metadata:
   name: pihole
 spec:
   parentRefs:
-    - name: traefik
+    - name: traefik-internal
       namespace: networking
   hostnames:
-    - "pihole.mmontes.duckdns.org"
+    - "pihole.internal.mmontes.duckdns.org"
   rules:
     - backendRefs:
         - name: pihole-web

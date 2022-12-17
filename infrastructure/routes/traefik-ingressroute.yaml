@@ -1,13 +1,4 @@
 apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: traefik-basicauth
-spec:
-  basicAuth:
-    secret: traefik
-    removeHeader: true
----
-apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: traefik
@@ -17,9 +8,6 @@ spec:
   routes:
     - kind: Rule
       match: Host(`traefik.internal.mmontes.duckdns.org`)
-      middlewares:
-        - name: traefik-basicauth
-          namespace: networking
       services:
         - name: api@internal
           kind: TraefikService
