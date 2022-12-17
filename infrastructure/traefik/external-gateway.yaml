@@ -17,6 +17,6 @@ spec:
       tls:
         mode: Terminate
         certificateRefs:
-          - name: websecure-tls
+          - name: websecure-external-tls
             kind: Secret
             group: core
