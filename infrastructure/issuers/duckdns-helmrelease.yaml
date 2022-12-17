@@ -9,7 +9,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: duckdns-webhook
-      version: "v1.2.3"
+      version: "v1.2.4"
   interval: 1h0m0s
   values:
     groupName: mmontes.duckdns.org
