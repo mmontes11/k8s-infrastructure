@@ -2,6 +2,8 @@ apiVersion: gateway.networking.k8s.io/v1beta1
 kind: Gateway
 metadata:
   name: traefik-internal
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-staging
 spec:
   gatewayClassName: traefik-internal
   listeners:
@@ -15,6 +17,6 @@ spec:
       tls:
         mode: Terminate
         certificateRefs:
-          - name: websecure-tls
+          - name: websecure-internal-tls
             kind: Secret
             group: core
