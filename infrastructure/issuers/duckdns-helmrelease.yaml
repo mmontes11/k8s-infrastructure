@@ -12,7 +12,8 @@ spec:
       version: "v1.2.4"
   interval: 1h0m0s
   values:
-    groupName: mmontes.duckdns.org
+    fullnameOverride: duckdns-issuer
+    groupName: mmontes.io
 
     certManager:
       namespace: pki
