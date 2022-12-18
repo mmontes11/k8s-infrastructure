@@ -38,5 +38,6 @@ spec:
     service:
       annotations:
         metallb.universe.tf/loadBalancerIPs: 192.168.0.90
-    persistence:
-      enabled: false
+    deployment:
+      enabled: true
+      kind: DaemonSet
