@@ -11,6 +11,13 @@ spec:
         name: jetstack
       version: "1.10.1"
   interval: 1h0m0s
-  valuesFrom:
-    - kind: ConfigMap
-      name: cert-manager-config
+  values:
+    installCRDs: true
+    featureGates: "ExperimentalGatewayAPISupport=true"
+    prometheus:
+      enabled: true
+      servicemonitor:
+        enabled: true
+        prometheusInstance: kube-prometheus-stack
+        labels:
+          release: kube-prometheus-stack

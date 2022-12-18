@@ -4,9 +4,3 @@ namespace: pki
 resources:
   - helmrepository.yaml
   - helmrelease.yaml
-configMapGenerator:
-  - name: cert-manager-config
-    files:
-      - values.yaml=values.yaml
-configurations:
-  - kustomizeconfig.yaml
