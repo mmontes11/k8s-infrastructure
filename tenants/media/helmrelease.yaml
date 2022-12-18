@@ -7,11 +7,12 @@ spec:
   targetNamespace: media
   chart:
     spec:
-      chart: ./charts/tenant
+      chart: tenant
       sourceRef:
-        kind: GitRepository
-        name: flux-system
+        kind: HelmRepository
+        name: mmontes
         namespace: flux-system
+      version: "0.1.0"
   interval: 5m
   values:
     repo:
