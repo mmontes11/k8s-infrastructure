@@ -21,7 +21,6 @@ spec:
 
     subdomains:
       - mmontes.duckdns.org
-      - gotway.duckdns.org
 
     timezone: Europe/Madrid
 

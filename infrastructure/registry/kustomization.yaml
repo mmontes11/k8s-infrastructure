@@ -7,10 +7,6 @@ resources:
   - mmontes-helmrelease.yaml
   - mmontes-init-helmrelease.yaml
   - mmontes-chartmuseum-httproute.yaml
-  - gotway-sealedsecret.yaml
-  - gotway-helmrelease.yaml
-  - gotway-init-helmrelease.yaml
-  - gotway-chartmuseum-httproute.yaml
 
 configMapGenerator:
   - name: chartmuseum-config
