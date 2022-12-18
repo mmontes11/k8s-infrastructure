@@ -116,7 +116,7 @@ spec:
     persistence:
       enabled: true
       storageClass: "-"
-      volumeName: &volume mmontes
+      volumeName: &volume chartmuseum
       pv:
         enabled: true
         pvname: *volume
