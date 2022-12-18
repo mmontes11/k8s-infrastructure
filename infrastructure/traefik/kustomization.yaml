@@ -6,6 +6,8 @@ resources:
   - external-clusterrolebinding.yaml
   - external-gateway.yaml
   - external-helmrelease.yaml
+  - external-servicemonitor.yaml
   - internal-clusterrolebinding.yaml
   - internal-gateway.yaml
   - internal-helmrelease.yaml
+  - internal-servicemonitor.yaml

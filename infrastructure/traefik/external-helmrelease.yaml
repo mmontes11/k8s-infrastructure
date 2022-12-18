@@ -39,9 +39,4 @@ spec:
       annotations:
         metallb.universe.tf/loadBalancerIPs: 192.168.0.90
     persistence:
-      enabled: true
-    metrics:
-      prometheus:
-        serviceMonitor:
-          additionalLabels:
-            release: kube-prometheus-stack
+      enabled: false
