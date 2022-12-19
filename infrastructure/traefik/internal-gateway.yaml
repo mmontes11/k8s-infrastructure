@@ -12,7 +12,7 @@ kind: Gateway
 metadata:
   name: traefik-internal
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-staging
+    cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
   gatewayClassName: traefik-internal
   listeners:
