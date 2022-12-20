@@ -41,3 +41,9 @@ spec:
     deployment:
       enabled: true
       kind: DaemonSet
+    resources:
+      requests:
+        cpu: "300m"
+        memory: "200Mi"
+      limits:
+        memory: "200Mi"

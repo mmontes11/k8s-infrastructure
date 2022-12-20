@@ -33,6 +33,15 @@ spec:
       annotations:
         metallb.universe.tf/loadBalancerIPs: 192.168.0.67
 
+    replicaCount: 2
+
+    resources:
+      requests:
+        cpu: 300m
+        memory: "200Mi"
+      limits:
+        memory: "200Mi"
+
     admin:
       existingSecret: "pihole"
       passwordKey: "password"
