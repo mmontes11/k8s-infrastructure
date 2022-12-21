@@ -2,6 +2,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: traefik-external-basicauth
+  namespace: networking
 spec:
   basicAuth:
     secret: traefik-external-basicauth
@@ -11,6 +12,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: traefik-external
+  namespace: networking
   annotations:
     kubernetes.io/ingress.class: traefik-external
 spec:

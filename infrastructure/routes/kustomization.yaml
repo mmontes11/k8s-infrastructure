@@ -1,7 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: networking
 resources:
   - traefik-external-ingressroute.yaml
   - traefik-external-sealedsecret.yaml
   - traefik-internal-ingressroute.yaml
+  - hubble-httproute.yaml
+  - prometheus-httproute.yaml
+  - alertmanager-httproute.yaml
