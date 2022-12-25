@@ -88,3 +88,7 @@ spec:
             gnetId: 11001
             revision: 1
             datasource: Prometheus
+          metallb:
+            gnetId: 14127
+            revision: 1
+            datasource: Prometheus

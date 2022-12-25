@@ -11,3 +11,16 @@ spec:
         name: metallb
       version: "0.13.7"
   interval: 1h0m0s
+  values:
+    prometheus:
+      rbacPrometheus: true
+      serviceAccount: metallb
+      namespace: networking
+      serviceMonitor:
+        enabled: true
+        controller:
+          additionalLabels:
+            release: kube-prometheus-stack
+        speaker:
+          additionalLabels:
+            release: kube-prometheus-stack
