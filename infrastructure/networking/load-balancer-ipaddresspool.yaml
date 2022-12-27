@@ -2,6 +2,7 @@ apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
   name: load-balancer
+  namespace: networking
 spec:
   addresses:
     - 192.168.0.50-192.168.0.99
@@ -10,6 +11,7 @@ apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
 metadata:
   name: l2advertisement
+  namespace: networking
 spec:
   ipAddressPools:
     - load-balancer

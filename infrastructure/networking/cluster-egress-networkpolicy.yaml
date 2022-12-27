@@ -2,6 +2,7 @@ apiVersion: "cilium.io/v2"
 kind: CiliumClusterwideNetworkPolicy
 metadata:
   name: cluster-egress
+  namespace: networking
 spec:
   endpointSelector: {}
   egress:
@@ -14,4 +15,3 @@ spec:
             - 192.168.0.100/32
             - 192.168.0.101/32
             - 192.168.0.102/32
-            - 192.168.0.103/32
