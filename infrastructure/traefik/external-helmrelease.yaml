@@ -23,6 +23,10 @@ spec:
     ingressClass:
       enabled: true
       isDefaultClass: false
+    tlsStore:
+      default:
+        defaultCertificate:
+          secretName: default-tls
     providers:
       kubernetesCRD:
         enabled: true
