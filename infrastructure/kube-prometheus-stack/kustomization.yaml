@@ -6,3 +6,5 @@ resources:
   - helmrepository.yaml
   - helmrelease.yaml
   - grafana-httproute.yaml
+  - prometheus-httproute.yaml
+  - alertmanager-httproute.yaml

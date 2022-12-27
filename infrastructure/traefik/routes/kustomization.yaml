@@ -5,5 +5,3 @@ resources:
   - traefik-external-sealedsecret.yaml
   - traefik-internal-ingressroute.yaml
   - hubble-httproute.yaml
-  - prometheus-httproute.yaml
-  - alertmanager-httproute.yaml
