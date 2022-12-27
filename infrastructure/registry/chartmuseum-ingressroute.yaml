@@ -1,0 +1,30 @@
+# Here, an average of 250 requests per minute is allowed.
+# In addition, a burst of 50 requests is allowed.
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: chartmuseum-rate-limit
+spec:
+  rateLimit:
+    average: 100
+    period: 1m
+    burst: 25
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: chartmuseum
+  annotations:
+    kubernetes.io/ingress.class: traefik-external
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`charts.mmontes.duckdns.org`)
+      middlewares:
+        - name: chartmuseum-rate-limit
+      services:
+        - kind: Service
+          name: chartmuseum
+          port: 8080

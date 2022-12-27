@@ -5,5 +5,5 @@ resources:
   - chartmuseum-helmrepository.yaml
   - chartmuseum-sealedsecret.yaml
   - chartmuseum-helmrelease.yaml
-  - chartmuseum-httproute.yaml
+  - chartmuseum-ingressroute.yaml
   - chartmuseum-cronjob.yaml

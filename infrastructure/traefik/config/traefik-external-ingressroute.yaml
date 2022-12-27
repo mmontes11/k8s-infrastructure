@@ -36,7 +36,6 @@ spec:
       match: Host(`traefik.mmontes.duckdns.org`)
       middlewares:
         - name: traefik-external-basicauth
-          namespace: networking
       services:
         - name: api@internal
           kind: TraefikService

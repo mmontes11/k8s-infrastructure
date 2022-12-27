@@ -24,9 +24,6 @@ spec:
       enabled: true
       isDefaultClass: false
     ports:
-      websecure:
-        middlewares:
-          - networking-traefik-internal@kubernetescrd
       web:
         redirectTo: websecure
     providers:
