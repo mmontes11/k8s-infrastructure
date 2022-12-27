@@ -1,0 +1,12 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik-external
+spec:
+  chain:
+    middlewares:
+      - name: body-limit
+      - name: circuit-breaker
+      - name: compress
+      - name: rate-limit
+      - name: retry
