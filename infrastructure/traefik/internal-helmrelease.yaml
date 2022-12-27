@@ -23,6 +23,9 @@ spec:
     ingressClass:
       enabled: true
       isDefaultClass: false
+    ports:
+      web:
+        redirectTo: websecure
     tlsStore:
       default:
         defaultCertificate:
