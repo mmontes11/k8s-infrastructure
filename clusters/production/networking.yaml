@@ -71,7 +71,6 @@ spec:
     - name: gateway-api
     - name: sealed-secrets
     - name: networking
-    - name: kube-prometheus-stack
   interval: 5m
   sourceRef:
     kind: GitRepository
@@ -83,7 +82,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: routes
+  name: traefik-config
   namespace: flux-system
 spec:
   dependsOn:
@@ -92,6 +91,22 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/routes
+  path: ./infrastructure/traefik/config
+  prune: true
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: traefik-routes
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: traefik
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/traefik/routes
   prune: true
   timeout: 5m

@@ -7,5 +7,4 @@ resources:
   - pihole-sealedsecret.yaml
   - pihole-helmrepository.yaml
   - pihole-helmrelease.yaml
-  - pihole-podmonitor.yaml
   - pihole-httproute.yaml

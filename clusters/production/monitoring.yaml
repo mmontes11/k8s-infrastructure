@@ -50,7 +50,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: monitors
+  name: kube-prometheus-stack-monitors
   namespace: flux-system
 spec:
   dependsOn:
@@ -59,6 +59,6 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/monitors
+  path: ./infrastructure/kube-prometheus-stack/monitors
   prune: true
   timeout: 5m

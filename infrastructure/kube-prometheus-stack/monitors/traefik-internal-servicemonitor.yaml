@@ -1,18 +1,19 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: traefik-external
+  name: traefik-internal
+  namespace: networking
   labels:
     release: kube-prometheus-stack
 spec:
   endpoints:
     - path: /metrics
       targetPort: 9100
-  jobLabel: traefik-external
+  jobLabel: traefik-internal
   namespaceSelector:
     matchNames:
       - networking
   selector:
     matchLabels:
-      app.kubernetes.io/instance: traefik-external-networking
+      app.kubernetes.io/instance: traefik-internal-networking
       app.kubernetes.io/name: traefik
