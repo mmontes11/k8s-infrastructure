@@ -26,10 +26,6 @@ spec:
     ports:
       web:
         redirectTo: websecure
-    tlsStore:
-      traefik-internal:
-        defaultCertificate:
-          secretName: default-tls
     providers:
       kubernetesCRD:
         enabled: true

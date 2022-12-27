@@ -27,7 +27,7 @@ spec:
       web:
         redirectTo: websecure
     tlsStore:
-      traefik-external:
+      default:
         defaultCertificate:
           secretName: default-tls
     providers:
