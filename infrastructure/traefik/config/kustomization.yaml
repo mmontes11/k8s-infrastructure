@@ -4,3 +4,6 @@ namespace: networking
 resources:
   - default-tls-cert.yaml
   - default-tlsstore.yaml
+  - traefik-external-ingressroute.yaml
+  - traefik-external-sealedsecret.yaml
+  - traefik-internal-ingressroute.yaml
