@@ -21,4 +21,4 @@ Entrypoint for the tenant resources, which live in separated repositories:
 
 ### Network map
 
-![Network map](./docs/network-map.png)
+![Network map](https://raw.githubusercontent.com/mmontes11/k8s-infrastructure/main/docs/network-map.png)
