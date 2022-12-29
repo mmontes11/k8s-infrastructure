@@ -18,3 +18,7 @@ Entrypoint for the tenant resources, which live in separated repositories:
 - [media](https://github.com/mmontes11/k8s-media)
 - [github-explorer](https://github.com/mmontes11/k8s-github-explorer)
 - [gotway](https://github.com/gotway/k8s-gotway)
+
+### Network map
+
+![Network map](./docs/network-map.png)
