@@ -22,3 +22,6 @@ Entrypoint for the tenant resources, which live in separated repositories:
 ### Network map
 
 ![Network map](https://raw.githubusercontent.com/mmontes11/k8s-infrastructure/main/docs/network-map.png)
+
+Related article:
+- [Securely Ingressing into Bare Metal Kubernetes Clusters with Gateway API and Tailscale](https://itnext.io/securely-ingressing-into-bare-metal-kubernetes-clusters-with-gateway-api-and-tailscale-cc68299b646a)
