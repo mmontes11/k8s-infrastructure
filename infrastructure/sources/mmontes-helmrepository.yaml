@@ -4,4 +4,4 @@ metadata:
   name: mmontes
 spec:
   interval: 5m
-  url: http://chartmuseum.registry.svc.cluster.local:8080
+  url: https://mmontes11.github.io/charts
