@@ -48,10 +48,6 @@ spec:
             gnetId: 11462
             revision: 1
             datasource: Prometheus
-          chartmuseum:
-            gnetId: 9622
-            revision: 2
-            datasource: Prometheus
           go-processes:
             gnetId: 6671
             revision: 2
