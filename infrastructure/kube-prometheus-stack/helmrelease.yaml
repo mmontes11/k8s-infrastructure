@@ -26,6 +26,7 @@ spec:
 
     alertmanager:
       alertmanagerSpec:
+        useExistingSecret: true
         configSecret: alertmanager
         externalUrl: https://prometheus.internal.mmontes.duckdns.org
         retention: 120h
