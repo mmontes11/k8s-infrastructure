@@ -9,7 +9,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: prometheus
-      version: "42.1.1"
+      version: "45.5.0"
   interval: 1h0m0s
   values:
     prometheus:
@@ -23,15 +23,26 @@ spec:
               resources:
                 requests:
                   storage: 20Gi
+
+    alertmanager:
+      alertmanagerSpec:
+        retention: 120h
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: local-path
+              accessModes: ["ReadWriteOnce"]
+              resources:
+                requests:
+                  storage: 5Gi
+
     grafana:
       admin:
         existingSecret: "grafana"
         userKey: user
         passwordKey: password
-
       plugins:
         - grafana-piechart-panel
-
       dashboardProviders:
         dashboardproviders.yaml:
           apiVersion: 1
@@ -44,7 +55,6 @@ spec:
               editable: true
               options:
                 path: /var/lib/grafana/dashboards/default
-
       dashboards:
         default:
           node-exporter:
