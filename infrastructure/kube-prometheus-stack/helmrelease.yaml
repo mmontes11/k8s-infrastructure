@@ -14,6 +14,7 @@ spec:
   values:
     prometheus:
       prometheusSpec:
+        externalUrl: https://prometheus.internal.mmontes.duckdns.org
         retention: 7d
         storageSpec:
           volumeClaimTemplate:
@@ -28,7 +29,7 @@ spec:
       alertmanagerSpec:
         useExistingSecret: true
         configSecret: alertmanager
-        externalUrl: https://prometheus.internal.mmontes.duckdns.org
+        externalUrl: https://alertmanager.internal.mmontes.duckdns.org
         retention: 120h
         storage:
           volumeClaimTemplate:
