@@ -10,12 +10,16 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: pihole
-      version: "2.11.0"
+      version: "2.20.0"
   interval: 1h0m0s
   values:
-    image:
-      repository: "pihole/pihole"
-      pullPolicy: IfNotPresent
+    replicaCount: 2
+
+    podDisruptionBudget:
+      enabled: true
+
+    antiaff:
+      enabled: true
 
     serviceDns:
       mixedService: false
@@ -62,5 +66,5 @@ spec:
         port: 9617
         image:
           repository: ekofr/pihole-exporter
-          tag: v0.3.0
+          tag: v0.4.0
           pullPolicy: IfNotPresent
