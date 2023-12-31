@@ -9,7 +9,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: jetstack
-      version: "1.11.0"
+      version: "v1.13.3"
   interval: 1h0m0s
   values:
     installCRDs: true
@@ -18,6 +18,3 @@ spec:
       enabled: true
       servicemonitor:
         enabled: true
-        prometheusInstance: kube-prometheus-stack
-        labels:
-          release: kube-prometheus-stack

@@ -3,5 +3,6 @@ kind: Kustomization
 namespace: pki
 resources:
   - duckdns-sealedsecret.yaml
-  - letsencrypt-helmrepository.yaml
   - letsencrypt-helmrelease.yaml
+  - letsencrypt-helmrepository.yaml
+  - selfsigned-clusterissuer.yaml
