@@ -9,11 +9,12 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: prometheus
-      version: "45.5.0"
+      version: "55.5.0"
   interval: 1h0m0s
   values:
     prometheus:
       prometheusSpec:
+        serviceMonitorSelectorNilUsesHelmValues: false
         externalUrl: https://prometheus.internal.mmontes.duckdns.org
         retention: 7d
         storageSpec:
@@ -113,3 +114,20 @@ spec:
             gnetId: 14127
             revision: 1
             datasource: Prometheus
+          mysql-overview:
+            gnetId: 7362
+            revision: 5
+            datasource: Prometheus
+          mysql-replication:
+            gnetId: 7371
+            revision: 1
+            datasource: Prometheus
+          mariadb-galera:
+            gnetId: 13106
+            revision: 3
+            datasource: Prometheus
+          mysql-quickstart:
+            gnetId: 14057
+            revision: 1
+            datasource: Prometheus
+
