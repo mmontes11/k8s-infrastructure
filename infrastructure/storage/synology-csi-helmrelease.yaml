@@ -13,11 +13,13 @@ spec:
       version: "0.9.7"
   interval: 1h0m0s
   values:
+    fullnameOverride: synology-csi
     clientInfoSecret:
       create: false
       name: client-info
     storageClasses:
-      synology-iscsi-storage:
+      retain: null
+      storage:
         disabled: false
         isDefault: false
         reclaimPolicy: Retain
