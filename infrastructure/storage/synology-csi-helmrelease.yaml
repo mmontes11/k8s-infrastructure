@@ -18,6 +18,7 @@ spec:
       create: false
       name: client-info
     storageClasses:
+      delete: null
       retain: null
       storage:
         disabled: false
