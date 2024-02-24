@@ -18,8 +18,6 @@ metadata:
   name: storage
   namespace: flux-system
 spec:
-  dependsOn:
-    - name: dns
   interval: 5m
   sourceRef:
     kind: GitRepository
