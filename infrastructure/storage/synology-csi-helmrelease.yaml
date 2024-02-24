@@ -1,0 +1,29 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: synology-csi
+spec:
+  releaseName: synology-csi
+  chart:
+    spec:
+      chart: synology-csi
+      sourceRef:
+        kind: HelmRepository
+        name: synology-csi
+      version: "0.9.7"
+  interval: 1h0m0s
+  values:
+    clientInfoSecret:
+      create: false
+      name: client-info
+    storageClasses:
+      synology-iscsi-storage:
+        disabled: false
+        isDefault: false
+        reclaimPolicy: Retain
+        parameters:
+          dsm: "192.168.0.120"
+          fsType: ext4
+          location: /volume1
+          protocol: iscsi
+          type: thin
