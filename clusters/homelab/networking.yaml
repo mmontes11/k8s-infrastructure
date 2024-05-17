@@ -12,85 +12,85 @@ spec:
   prune: true
   timeout: 5m
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: metallb
-  namespace: flux-system
-spec:
-  interval: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  path: ./infrastructure/metallb
-  prune: true
-  timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: dns
-  namespace: flux-system
-spec:
-  dependsOn:
-    - name: sealed-secrets
-    - name: kube-prometheus-stack
-    - name: sources
-  interval: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  path: ./infrastructure/dns
-  prune: true
-  timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: networking
-  namespace: flux-system
-spec:
-  dependsOn:
-    - name: gateway-api
-    - name: metallb
-  interval: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  path: ./infrastructure/networking
-  prune: true
-  timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: traefik
-  namespace: flux-system
-spec:
-  dependsOn:
-    - name: gateway-api
-    - name: sealed-secrets
-    - name: networking
-  interval: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  path: ./infrastructure/traefik
-  prune: true
-  timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: traefik-config
-  namespace: flux-system
-spec:
-  dependsOn:
-    - name: traefik
-  interval: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  path: ./infrastructure/traefik/config
-  prune: true
-  timeout: 5m
+# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+# kind: Kustomization
+# metadata:
+#   name: metallb
+#   namespace: flux-system
+# spec:
+#   interval: 5m
+#   sourceRef:
+#     kind: GitRepository
+#     name: flux-system
+#   path: ./infrastructure/metallb
+#   prune: true
+#   timeout: 5m
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+# kind: Kustomization
+# metadata:
+#   name: dns
+#   namespace: flux-system
+# spec:
+#   dependsOn:
+#     - name: sealed-secrets
+#     - name: kube-prometheus-stack
+#     - name: sources
+#   interval: 5m
+#   sourceRef:
+#     kind: GitRepository
+#     name: flux-system
+#   path: ./infrastructure/dns
+#   prune: true
+#   timeout: 5m
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+# kind: Kustomization
+# metadata:
+#   name: networking
+#   namespace: flux-system
+# spec:
+#   dependsOn:
+#     - name: gateway-api
+#     - name: metallb
+#   interval: 5m
+#   sourceRef:
+#     kind: GitRepository
+#     name: flux-system
+#   path: ./infrastructure/networking
+#   prune: true
+#   timeout: 5m
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+# kind: Kustomization
+# metadata:
+#   name: traefik
+#   namespace: flux-system
+# spec:
+#   dependsOn:
+#     - name: gateway-api
+#     - name: sealed-secrets
+#     - name: networking
+#   interval: 5m
+#   sourceRef:
+#     kind: GitRepository
+#     name: flux-system
+#   path: ./infrastructure/traefik
+#   prune: true
+#   timeout: 5m
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+# kind: Kustomization
+# metadata:
+#   name: traefik-config
+#   namespace: flux-system
+# spec:
+#   dependsOn:
+#     - name: traefik
+#   interval: 5m
+#   sourceRef:
+#     kind: GitRepository
+#     name: flux-system
+#   path: ./infrastructure/traefik/config
+#   prune: true
+#   timeout: 5m
