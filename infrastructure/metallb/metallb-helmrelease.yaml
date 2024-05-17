@@ -9,7 +9,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: metallb
-      version: "0.13.7"
+      version: "0.14.5"
   interval: 1h0m0s
   values:
     prometheus:
@@ -18,9 +18,3 @@ spec:
       namespace: networking
       serviceMonitor:
         enabled: true
-        controller:
-          additionalLabels:
-            release: kube-prometheus-stack
-        speaker:
-          additionalLabels:
-            release: kube-prometheus-stack
