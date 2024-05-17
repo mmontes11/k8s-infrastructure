@@ -4,7 +4,7 @@ Infrastructure and tenant bootstrapping using [Flux](https://fluxcd.io/).
 ### [Clusters](./clusters) 
 
 Entrypoint for each cluster that is used by Flux when bootstrapping:
-- [production](https://github.com/mmontes11/k8s-bootstrap/blob/main/bootstrap.sh): Provisioned in [k8s-bootstrap](https://github.com/mmontes11/k8s-bootstrap).
+- [homelab](https://github.com/mmontes11/k8s-bootstrap/blob/main/bootstrap.sh): Provisioned in [k8s-bootstrap](https://github.com/mmontes11/k8s-bootstrap).
 
 
 ### [Infrastructure](./infrastructure) 
