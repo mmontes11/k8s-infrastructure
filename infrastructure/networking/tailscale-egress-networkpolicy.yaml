@@ -1,0 +1,12 @@
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: tailscale-egress
+  namespace: networking
+spec:
+  endpointSelector:
+    matchLabels:
+      "networking.mmontes.io/managed-by": "tailscale"
+  egress:
+  - toCIDR:
+    - 10.0.0.0/24
