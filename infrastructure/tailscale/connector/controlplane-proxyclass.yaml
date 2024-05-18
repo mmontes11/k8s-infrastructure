@@ -5,6 +5,8 @@ metadata:
 spec:
   statefulSet:
     pod:
+      labels:
+        "networking.mmontes.io/managed-by": "tailscale"
       nodeSelector:
         node-role.kubernetes.io/control-plane: ""
       tolerations:
