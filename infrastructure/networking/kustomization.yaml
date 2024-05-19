@@ -3,4 +3,3 @@ kind: Kustomization
 resources:
   - cluster-egress-networkpolicy.yaml
   - hubble-httproute.yaml
-  - tailscale-egress-networkpolicy.yaml
