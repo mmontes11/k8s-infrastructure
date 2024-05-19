@@ -12,10 +12,6 @@ spec:
       values:
       - networking
       - kube-system
-  egress:
+  egressDeny:
   - toEntities:
     - host
-    toPorts:
-    - ports:
-      - port: "1"
-        protocol: ANY
