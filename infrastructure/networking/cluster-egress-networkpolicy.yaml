@@ -13,5 +13,11 @@ spec:
       - networking
       - kube-system
   egressDeny:
-  - toEntities:
-    - host
+    - toCIDRSet:
+        - cidr: 10.0.0.0/24
+          except:
+            - 10.0.0.10/32
+            - 10.0.0.11/32
+            - 10.0.0.12/32
+            - 10.0.0.13/32
+            - 10.0.0.14/32
