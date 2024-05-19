@@ -52,7 +52,7 @@ spec:
 
     dnsmasq:
       customDnsEntries:
-        - address=/pihole/10.0.0.61
+        - address=/pihole.local/10.0.0.61
 
     monitoring:
       # TODO: podmonitor causes helmrelease to fail after render because it already contains a 'release' key
