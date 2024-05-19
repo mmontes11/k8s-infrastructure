@@ -17,7 +17,7 @@ spec:
     image:
       repository: linuxserver/duckdns
       pullPolicy: IfNotPresent
-      tag: 0168fda3-ls117
+      tag: d92ad8fe-ls19
 
     subdomains:
       - mmontes.duckdns.org

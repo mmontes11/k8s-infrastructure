@@ -7,7 +7,7 @@ spec:
     - name: traefik-internal
       namespace: networking
   hostnames:
-    - "pihole.internal.mmontes.duckdns.org"
+    - "pihole.mmontes-internal.duckdns.org"
   rules:
     - backendRefs:
         - name: pihole-web
