@@ -65,3 +65,15 @@ spec:
           repository: ekofr/pihole-exporter
           tag: v0.4.0
           pullPolicy: IfNotPresent
+
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              version: v1
+              kind: Service
+              name: pihole-web  
+            patch: |
+              - op: add
+                path: /spec/sessionAffinity
+                value: ClientIP
