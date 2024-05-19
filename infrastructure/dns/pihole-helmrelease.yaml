@@ -24,6 +24,7 @@ spec:
     serviceDns:
       mixedService: false
       type: LoadBalancer
+      externalTrafficPolicy: Cluster
       annotations:
         metallb.universe.tf/loadBalancerIPs: 10.0.0.60
         metallb.universe.tf/allow-shared-ip: pihole-dns-tcp,pihole-dns-udp
@@ -34,6 +35,7 @@ spec:
     serviceWeb:
       enabled: true
       type: LoadBalancer
+      externalTrafficPolicy: Cluster
       annotations:
         metallb.universe.tf/loadBalancerIPs: 10.0.0.61
  
