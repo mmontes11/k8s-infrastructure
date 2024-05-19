@@ -4,16 +4,18 @@ metadata:
   name: cluster-egress
   namespace: networking
 spec:
-  endpointSelector: {}
+  description: "Deny access to host network for all namespaces except networking and kube-system"
+  endpointSelector:
+    matchExpressions:
+    - key: "k8s:io.kubernetes.pod.namespace"
+      operator: "NotIn"
+      values:
+      - networking
+      - kube-system
   egress:
-    - toEntities:
-        - all
-  egressDeny:
-    - toCIDRSet:
-        - cidr: 10.0.0.0/24
-          except:
-            - 10.0.0.10/32
-            - 10.0.0.11/32
-            - 10.0.0.12/32
-            - 10.0.0.13/32
-            - 10.0.0.14/32
+  - toEntities:
+    - host
+    toPorts:
+    - ports:
+      - port: "1"
+        protocol: ANY
