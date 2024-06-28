@@ -2,7 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: monitoring
 resources:
-  - clusterrolebinding.yaml
-  - helmrepository.yaml
   - helmrelease.yaml
+  - helmrepository.yaml
   - httproute.yaml
+  - rbac.yaml
