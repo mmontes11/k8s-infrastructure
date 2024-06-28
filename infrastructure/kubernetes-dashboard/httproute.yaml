@@ -12,6 +12,6 @@ spec:
   rules:
     - backendRefs:
         - kind: Service
-          name: kubernetes-dashboard
+          name: kubernetes-dashboard-kong-proxy
           namespace: monitoring
           port: 443
