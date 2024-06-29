@@ -1,23 +1,23 @@
-# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-# kind: Kustomization
-# metadata:
-#   name: iot
-#   namespace: flux-system
-# spec:
-#   dependsOn:
-#     - name: rbac
-#     - name: sources
-#     - name: gateway-api
-#     - name: sealed-secrets
-#     - name: storage
-#   interval: 5m
-#   sourceRef:
-#     kind: GitRepository
-#     name: flux-system
-#     namespace: flux-system
-#   path: ./tenants/iot
-#   prune: true
-#   timeout: 5m
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: iot
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: rbac
+    - name: sources
+    - name: gateway-api
+    - name: sealed-secrets
+    - name: storage
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./tenants/iot
+  prune: true
+  timeout: 5m
 # ---
 # apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 # kind: Kustomization
