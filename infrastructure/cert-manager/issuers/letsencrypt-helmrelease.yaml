@@ -10,7 +10,7 @@ spec:
         kind: HelmRepository
         name: mmontes
         namespace: flux-system
-      version: "v1.2.4"
+      version: "v1.2.3"
   interval: 1h0m0s
   values:
     fullnameOverride: letsencrypt
