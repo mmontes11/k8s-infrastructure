@@ -3,8 +3,6 @@ kind: ServiceMonitor
 metadata:
   name: traefik-external
   namespace: networking
-  labels:
-    release: kube-prometheus-stack
 spec:
   endpoints:
     - path: /metrics
@@ -15,5 +13,5 @@ spec:
       - networking
   selector:
     matchLabels:
-      app.kubernetes.io/instance: traefik-external-networking
+      app.kubernetes.io/instance: traefik-external
       app.kubernetes.io/name: traefik

@@ -3,9 +3,6 @@ kind: PodMonitor
 metadata:
   name: pihole
   namespace: dns
-  labels:
-    app: pihole
-    release: kube-prometheus-stack
 spec:
   podMetricsEndpoints:
     - port: prometheus
