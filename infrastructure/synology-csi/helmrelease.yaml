@@ -10,7 +10,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: synology-csi
-      version: "0.9.7"
+      version: "0.9.10"
   interval: 1h0m0s
   values:
     fullnameOverride: synology-csi
@@ -25,7 +25,7 @@ spec:
         isDefault: false
         reclaimPolicy: Retain
         parameters:
-          dsm: "192.168.0.120"
+          dsm: "10.0.0.40"
           fsType: ext4
           location: /volume1
           protocol: iscsi
