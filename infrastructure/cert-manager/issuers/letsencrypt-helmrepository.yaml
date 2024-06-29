@@ -1,7 +1,0 @@
-apiVersion: source.toolkit.fluxcd.io/v1beta1
-kind: HelmRepository
-metadata:
-  name: letsencrypt
-spec:
-  interval: 5m
-  url: https://ebrianne.github.io/helm-charts

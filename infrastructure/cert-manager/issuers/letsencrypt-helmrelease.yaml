@@ -8,7 +8,7 @@ spec:
       chart: cert-manager-webhook-duckdns
       sourceRef:
         kind: HelmRepository
-        name: letsencrypt
+        name: mmontes
       version: "v1.2.4"
   interval: 1h0m0s
   values:
