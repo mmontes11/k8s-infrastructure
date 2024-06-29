@@ -6,7 +6,7 @@ spec:
   dnsNames:
     - "mmontes.duckdns.org"
     - "*.mmontes.duckdns.org"
-    - "*.internal.mmontes.duckdns.org"
+    - "*.mmontes-internal.duckdns.org"
   issuerRef:
     group: cert-manager.io
     kind: ClusterIssuer
