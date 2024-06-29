@@ -25,7 +25,7 @@ spec:
         isDefault: false
         reclaimPolicy: Retain
         parameters:
-          dsm: "10.0.0.40"
+          dsm: "10.0.0.50"
           fsType: ext4
           location: /volume1
           protocol: iscsi
