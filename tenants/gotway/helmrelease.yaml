@@ -18,5 +18,5 @@ spec:
     repo:
       url: ssh://git@github.com/gotway/k8s-gotway
       branch: main
-      path: ./clusters/production
+      path: ./clusters/homelab
       secretName: flux-system
