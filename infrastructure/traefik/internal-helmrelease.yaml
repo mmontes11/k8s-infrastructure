@@ -9,9 +9,10 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: traefik
-      version: "20.8.0"
+      version: "28.3.0"
   interval: 1h0m0s
   values:
+    instanceLabelOverride: traefik-internal
     logs:
       general:
         level: INFO
@@ -40,13 +41,25 @@ spec:
       - "--providers.kubernetesgateway.labelselector=gatewayclass.mmontes.io/type=traefik-internal"
     service:
       annotations:
-        metallb.universe.tf/loadBalancerIPs: 192.168.0.50
+        metallb.universe.tf/loadBalancerIPs: 10.0.0.70
     deployment:
       enabled: true
-      kind: DaemonSet
+      kind: Deployment
+      replicas: 3
+    affinity:
+     podAntiAffinity:
+       requiredDuringSchedulingIgnoredDuringExecution:
+         - labelSelector:
+             matchLabels:
+               app.kubernetes.io/name: traefik
+               app.kubernetes.io/instance: traefik-internal
+           topologyKey: kubernetes.io/hostname
+    podDisruptionBudget:
+      enabled: true
+      minAvailable: 1
     resources:
       requests:
         cpu: "300m"
-        memory: "200Mi"
+        memory: "300Mi"
       limits:
-        memory: "200Mi"
+        memory: "300Mi"

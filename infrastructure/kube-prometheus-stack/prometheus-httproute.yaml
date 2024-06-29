@@ -7,7 +7,7 @@ spec:
     - name: traefik-internal
       namespace: networking
   hostnames:
-    - "prometheus.internal.mmontes.duckdns.org"
+    - "prometheus.mmontes-internal.duckdns.org"
   rules:
     - backendRefs:
         - name: kube-prometheus-stack-prometheus

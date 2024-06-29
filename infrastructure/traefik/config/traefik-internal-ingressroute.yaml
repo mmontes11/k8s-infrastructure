@@ -9,7 +9,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`traefik.internal.mmontes.duckdns.org`)
+      match: Host(`traefik.mmontes-internal.duckdns.org`)
       services:
         - name: api@internal
           kind: TraefikService

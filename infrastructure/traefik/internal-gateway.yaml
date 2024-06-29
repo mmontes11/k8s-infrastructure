@@ -1,4 +1,4 @@
-apiVersion: gateway.networking.k8s.io/v1alpha2
+apiVersion: gateway.networking.k8s.io/v1
 kind: GatewayClass
 metadata:
   name: traefik-internal
@@ -7,7 +7,7 @@ metadata:
 spec:
   controllerName: traefik.io/gateway-controller
 ---
-apiVersion: gateway.networking.k8s.io/v1beta1
+apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
   name: traefik-internal
@@ -19,7 +19,7 @@ spec:
     - name: websecure
       port: 8443
       protocol: HTTPS
-      hostname: "*.internal.mmontes.duckdns.org"
+      hostname: "*.mmontes-internal.duckdns.org"
       allowedRoutes:
         namespaces:
           from: All
