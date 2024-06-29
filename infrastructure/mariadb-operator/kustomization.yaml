@@ -1,7 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: mariadb-operator
+namespace: database
 resources:
   - mariadb-operator-helmrelease.yaml
   - mariadb-operator-helmrepository.yaml
-  - mariadb-operator-namespace.yaml
