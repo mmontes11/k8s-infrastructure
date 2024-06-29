@@ -9,7 +9,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: prometheus
-      version: "55.5.0"
+      version: "61.1.0"
   interval: 1h0m0s
   values:
     prometheus:
@@ -68,7 +68,7 @@ spec:
             datasource: Prometheus
           node-exporter-full:
             gnetId: 1860
-            revision: 29
+            revision: 37
             datasource: Prometheus
           traefik:
             gnetId: 11462
@@ -84,39 +84,43 @@ spec:
             datasource: Prometheus
           pihole:
             gnetId: 10176
-            revision: 2
+            revision: 3
             datasource: Prometheus
-          flux-cluster:
-            gnetId: 16202
-            revision: 1
-            datasource: Prometheus
-          flux-control-plane:
-            gnetId: 16203
+          flux:
+            gnetId: 16714
             revision: 1
             datasource: Prometheus
           cilium-agent:
-            gnetId: 15513
+            gnetId: 16611
             revision: 1
             datasource: Prometheus
           cilium-operator:
-            gnetId: 15514
+            gnetId: 16612
             revision: 1
             datasource: Prometheus
-          hubble:
-            gnetId: 15515
+          cilium-hubble:
+            gnetId: 16613
+            revision: 1
+            datasource: Prometheus
+          cilium-policy:
+            gnetId: 18015
             revision: 1
             datasource: Prometheus
           cert-manager:
-            gnetId: 11001
+            gnetId: 20340
             revision: 1
             datasource: Prometheus
           metallb:
-            gnetId: 14127
+            gnetId: 20162
             revision: 1
             datasource: Prometheus
           mysql-overview:
             gnetId: 7362
             revision: 5
+            datasource: Prometheus
+          mysql-quickstart:
+            gnetId: 14057
+            revision: 1
             datasource: Prometheus
           mysql-replication:
             gnetId: 7371
@@ -126,8 +130,3 @@ spec:
             gnetId: 13106
             revision: 3
             datasource: Prometheus
-          mysql-quickstart:
-            gnetId: 14057
-            revision: 1
-            datasource: Prometheus
-
