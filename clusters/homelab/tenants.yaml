@@ -9,7 +9,6 @@ spec:
     - name: sources
     - name: gateway-api
     - name: sealed-secrets
-    - name: storage
   interval: 5m
   sourceRef:
     kind: GitRepository
