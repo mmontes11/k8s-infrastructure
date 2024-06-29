@@ -3,8 +3,6 @@ kind: PodMonitor
 metadata:
   name: flux-system
   namespace: flux-system
-  labels:
-    release: kube-prometheus-stack
 spec:
   namespaceSelector:
     matchNames:
