@@ -9,6 +9,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: mmontes
+        namespace: flux-system
       version: "v1.2.4"
   interval: 1h0m0s
   values:
