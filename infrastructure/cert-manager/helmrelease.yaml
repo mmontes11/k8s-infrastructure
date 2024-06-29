@@ -13,7 +13,8 @@ spec:
   interval: 1h0m0s
   values:
     installCRDs: true
-    featureGates: "ExperimentalGatewayAPISupport=true"
+    extraArgs:
+      - --enable-gateway-api
     prometheus:
       enabled: true
       servicemonitor:
