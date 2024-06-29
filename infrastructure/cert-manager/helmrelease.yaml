@@ -9,7 +9,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: jetstack
-      version: "v1.13.3"
+      version: "v1.15.1"
   interval: 1h0m0s
   values:
     installCRDs: true

@@ -12,35 +12,35 @@ spec:
   prune: true
   timeout: 5m
 ---
-# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-# kind: Kustomization
-# metadata:
-#   name: cert-manager
-#   namespace: flux-system
-# spec:
-#   dependsOn:
-#     - name: kube-prometheus-stack
-#   interval: 5m
-#   sourceRef:
-#     kind: GitRepository
-#     name: flux-system
-#   path: ./infrastructure/cert-manager
-#   prune: true
-#   timeout: 5m
-# ---
-# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-# kind: Kustomization
-# metadata:
-#   name: cert-manager-issuers
-#   namespace: flux-system
-# spec:
-#   dependsOn:
-#     - name: cert-manager
-#     - name: gateway-api
-#   interval: 5m
-#   sourceRef:
-#     kind: GitRepository
-#     name: flux-system
-#   path: ./infrastructure/cert-manager/issuers
-#   prune: true
-#   timeout: 5m
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: cert-manager
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: kube-prometheus-stack
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/cert-manager
+  prune: true
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: cert-manager-issuers
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: cert-manager
+    - name: gateway-api
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/cert-manager/issuers
+  prune: true
+  timeout: 5m
