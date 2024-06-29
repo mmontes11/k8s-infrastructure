@@ -107,8 +107,8 @@ spec:
             revision: 2
             datasource: Prometheus
           metallb:
-            gnetId: 20162
-            revision: 5
+            gnetId: 14127
+            revision: 1
             datasource: Prometheus
           mysql-overview:
             gnetId: 7362
