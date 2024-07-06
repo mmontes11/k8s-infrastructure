@@ -47,18 +47,7 @@ spec:
     deployment:
       enabled: true
       kind: Deployment
-      replicas: 3
-    affinity:
-     podAntiAffinity:
-       requiredDuringSchedulingIgnoredDuringExecution:
-         - labelSelector:
-             matchLabels:
-               app.kubernetes.io/name: traefik
-               app.kubernetes.io/instance: traefik-external
-           topologyKey: kubernetes.io/hostname
-    podDisruptionBudget:
-      enabled: true
-      minAvailable: 1
+      replicas: 1
     resources:
       requests:
         cpu: "300m"
