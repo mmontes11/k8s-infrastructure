@@ -4,4 +4,3 @@ namespace: pki
 resources:
   - duckdns-sealedsecret.yaml
   - letsencrypt-helmrelease.yaml
-  - selfsigned-clusterissuer.yaml

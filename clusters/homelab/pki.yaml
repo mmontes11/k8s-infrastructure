@@ -31,16 +31,31 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: cert-manager-issuers
+  name: cert-manager-letsencrypt-issuer
   namespace: flux-system
 spec:
   dependsOn:
     - name: cert-manager
-    - name: gateway-api
   interval: 5m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/cert-manager/issuers
+  path: ./infrastructure/cert-manager/letsencrypt-issuer
+  prune: true
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: cert-manager-selfsigned-issuer
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: cert-manager
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/cert-manager/selfsigned-issuer
   prune: true
   timeout: 5m
