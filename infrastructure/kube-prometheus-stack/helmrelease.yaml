@@ -9,12 +9,13 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: prometheus
-      version: "61.1.0"
+      version: "61.2.0"
   interval: 1h0m0s
   values:
     prometheus:
       prometheusSpec:
         serviceMonitorSelectorNilUsesHelmValues: false
+        podMonitorSelectorNilUsesHelmValues: true
         externalUrl: https://prometheus.mmontes-internal.duckdns.org
         retention: 7d
         storageSpec:
