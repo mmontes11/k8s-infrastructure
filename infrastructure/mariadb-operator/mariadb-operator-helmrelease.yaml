@@ -22,6 +22,6 @@ spec:
           enabled: true
           issuerRef:
             kind: ClusterIssuer
-            name: selfsigned
+            name: homelab
       serviceMonitor:
         enabled: true
