@@ -12,7 +12,6 @@ spec:
       version: "0.29.0"
   interval: 1h0m0s
   values:
-    logLevel: DEBUG
     extraEnv:
     - name: MARIADB_ENTRYPOINT_VERSION
       value: "10.11"
