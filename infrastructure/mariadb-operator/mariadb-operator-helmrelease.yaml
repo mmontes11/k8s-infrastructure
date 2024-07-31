@@ -37,3 +37,20 @@ spec:
             name: homelab
       serviceMonitor:
         enabled: true
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              version: rbac.authorization.k8s.io/v1
+              kind: ClusterRole 
+              name: mariadb-operator   
+            patch: |
+              - op: add
+                path: /rules/-
+                value:
+                  - apiGroups:
+                    - ""
+                    resources:
+                    - pods/logs
+                    verbs:
+                    - get
