@@ -43,13 +43,13 @@ spec:
           - target:
               kind: ClusterRole 
               name: mariadb-operator   
-            patch: |
+            patch: |-
               - op: add
                 path: /rules/-
                 value:
-                  - apiGroups:
-                    - ""
-                    resources:
-                    - pods/logs
-                    verbs:
-                    - get
+                  apiGroups:
+                  - ""
+                  resources:
+                  - pods/logs
+                  verbs:
+                  - get
