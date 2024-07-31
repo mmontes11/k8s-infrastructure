@@ -24,6 +24,10 @@ spec:
       serviceMonitor:
         enabled: true
     webhook:
+      image:
+        pullPolicy: Always
+        repository: mariadbmmontes/mariadb-operator
+        tag: v0.0.30-dev
       cert:
         certManager:
           enabled: true
