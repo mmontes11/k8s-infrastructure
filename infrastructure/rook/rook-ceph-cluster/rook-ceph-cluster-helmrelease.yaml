@@ -52,10 +52,10 @@ spec:
             memory: 128Mi
         osd:
           limits:
-            memory: 1Gi
+            memory: 2Gi
           requests:
             cpu: 200m
-            memory: 512Mi
+            memory: 1Gi
       storage:
         useAllNodes: false
         useAllDevices: false
