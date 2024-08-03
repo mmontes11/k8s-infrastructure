@@ -9,7 +9,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: traefik
-      version: "28.3.0"
+      version: "30.0.2"
   interval: 1h0m0s
   values:
     instanceLabelOverride: traefik-external
