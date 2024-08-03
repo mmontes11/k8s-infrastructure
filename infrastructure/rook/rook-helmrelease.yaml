@@ -23,9 +23,6 @@ spec:
       enableCephfsSnapshotter: false
       enableNFSSnapshotter: false
 
-      pluginPriorityClassName: ""
-      provisionerPriorityClassName: ""
-
       provisionerReplicas: 1
 
       nfs:

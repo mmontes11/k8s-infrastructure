@@ -54,10 +54,6 @@ spec:
           requests:
             cpu: "250m"
             memory: "1Gi"
-      priorityClassNames:
-        mon: ""
-        osd: ""
-        mgr: ""
       storage:
         useAllNodes: false
         useAllDevices: false
