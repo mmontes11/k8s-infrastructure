@@ -24,6 +24,6 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/rook-ceph-cluster
+  path: ./infrastructure/rook/rook-ceph-cluster
   prune: true
   timeout: 5m

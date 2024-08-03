@@ -25,8 +25,10 @@ spec:
       dataDirHostPath: /var/lib/rook
       mon:
         count: 3
+        allowMultiplePerNode: false
       mgr:
         count: 2
+        allowMultiplePerNode: false
       dashboard:
         enabled: true
       crashCollector:
