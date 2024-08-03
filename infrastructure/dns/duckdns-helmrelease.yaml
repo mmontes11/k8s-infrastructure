@@ -26,3 +26,12 @@ spec:
 
     secretRef:
       name: duckdns
+
+    replicas: 1
+
+    resources:
+      requests:
+        cpu: 50m
+        memory: 50Mi
+      limits:
+        memory: 100Mi
