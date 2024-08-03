@@ -129,3 +129,15 @@ spec:
             gnetId: 13106
             revision: 3
             datasource: Prometheus
+          ceph-cluster:
+            gnetId: 2842
+            revision: 17
+            datasource: Prometheus
+          ceph-osd:
+            gnetId: 5336
+            revision: 9
+            datasource: Prometheus
+          ceph-pool:
+            gnetId: 5342
+            revision: 9
+            datasource: Prometheus
