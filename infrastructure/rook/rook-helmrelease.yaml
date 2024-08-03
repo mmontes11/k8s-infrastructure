@@ -19,6 +19,7 @@ spec:
       enableNFSSnapshotter: false
       nfs:
         enabled: false
+      enableLiveness: true
       serviceMonitor:
         enabled: true
     monitoring:
