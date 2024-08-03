@@ -15,7 +15,7 @@ spec:
   values:
     replicaCount: 2
 
-    priorityClassName: system-cluster-critical
+    priorityClassName: system-node-critical
 
     podDisruptionBudget:
       enabled: true
