@@ -67,3 +67,15 @@ spec:
           - name: "worker4"
             devices:
               - name: "nvme0n1"
+
+    cephBlockPools: []
+
+    cephFileSystems: []
+
+    cephBlockPoolsVolumeSnapshotClass:
+      enabled: false
+
+    cephFileSystemVolumeSnapshotClass:
+      enabled: false
+
+    cephObjectStores: []
