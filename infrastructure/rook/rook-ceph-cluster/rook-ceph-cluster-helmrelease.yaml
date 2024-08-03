@@ -39,23 +39,23 @@ spec:
         enabled: true
       resources:
         mgr:
-          limits:
-            memory: 512Mi
           requests:
             cpu: 100m
-            memory: 128Mi
+            memory: 512Mi
+          limits:
+            memory: 1Gi
         mon:
-          limits:
-            memory: 512Mi
           requests:
             cpu: 100m
             memory: 128Mi
+          limits:
+            memory: 512Mi
         osd:
+          requests:
+            cpu: 500m
+            memory: 2Gi
           limits:
             memory: 2Gi
-          requests:
-            cpu: 200m
-            memory: 1Gi
       storage:
         useAllNodes: false
         useAllDevices: false
