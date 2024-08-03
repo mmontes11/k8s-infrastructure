@@ -47,7 +47,7 @@ spec:
     deployment:
       enabled: true
       kind: Deployment
-      replicas: 3
+      replicas: 2
     affinity:
      podAntiAffinity:
        requiredDuringSchedulingIgnoredDuringExecution:
@@ -56,12 +56,13 @@ spec:
                app.kubernetes.io/name: traefik
                app.kubernetes.io/instance: traefik-internal
            topologyKey: kubernetes.io/hostname
+    priorityClassName: system-node-critical 
     podDisruptionBudget:
       enabled: true
       minAvailable: 1
     resources:
       requests:
-        cpu: "300m"
-        memory: "300Mi"
+        cpu: 100m
+        memory: 100Mi
       limits:
-        memory: "300Mi"
+        memory: 300Mi
