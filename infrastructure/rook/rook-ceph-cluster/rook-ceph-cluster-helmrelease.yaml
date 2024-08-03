@@ -22,6 +22,8 @@ spec:
       createPrometheusRules: true
 
     cephClusterSpec:
+      cephVersion:
+        image: quay.io/ceph/ceph:v18.2.2
       dataDirHostPath: /var/lib/rook
       mon:
         count: 3
