@@ -9,9 +9,17 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: metallb
-      version: "0.14.5"
+      version: "0.14.8"
   interval: 1h0m0s
   values:
+    speaker:
+      priorityClassName: system-node-critical
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          memory: 512Mi
     prometheus:
       rbacPrometheus: true
       serviceAccount: metallb
