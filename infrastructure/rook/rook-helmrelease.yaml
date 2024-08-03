@@ -16,10 +16,20 @@ spec:
     rbacAggregate:
       enableOBCs: true
     csi:
+      enableRbdDriver: true
+      enableCephfsDriver: false
+
+      enableRBDSnapshotter: false
+      enableCephfsSnapshotter: false
       enableNFSSnapshotter: false
+
+      pluginPriorityClassName: ""
+      provisionerPriorityClassName: ""
+
+      provisionerReplicas: 1
+
       nfs:
         enabled: false
-      enableLiveness: true
       serviceMonitor:
         enabled: true
     monitoring:
