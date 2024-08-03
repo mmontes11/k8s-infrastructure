@@ -13,18 +13,21 @@ spec:
       version: "v1.14.9"
   interval: 1h0m0s
   values:
+    resources:
+      limits:
+        memory: 512Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
     rbacAggregate:
       enableOBCs: true
     csi:
+      provisionerReplicas: 1
       enableRbdDriver: true
-      enableCephfsDriver: false
-
       enableRBDSnapshotter: false
+      enableCephfsDriver: false
       enableCephfsSnapshotter: false
       enableNFSSnapshotter: false
-
-      provisionerReplicas: 1
-
       nfs:
         enabled: false
       serviceMonitor:

@@ -40,35 +40,45 @@ spec:
       resources:
         mgr:
           limits:
-            memory: "512Mi"
+            memory: 512Mi
           requests:
-            cpu: "250m"
-            memory: "256Mi"
+            cpu: 100m
+            memory: 128Mi
         mon:
           limits:
-            memory: "512Mi"
+            memory: 512Mi
           requests:
-            cpu: "250m"
-            memory: "256Mi"
+            cpu: 100m
+            memory: 128Mi
         osd:
           limits:
-            memory: "1Gi"
+            memory: 1Gi
           requests:
-            cpu: "250m"
-            memory: "1Gi"
+            cpu: 200m
+            memory: 512Mi
       storage:
         useAllNodes: false
         useAllDevices: false
         nodes:
-          - name: "worker2"
+          - name: worker2
             devices:
-              - name: "nvme0n1"
-          - name: "worker3"
+              - name: nvme0n1
+          - name: worker3
             devices:
-              - name: "nvme0n1"
-          - name: "worker4"
+              - name: nvme0n1
+          - name: worker4
             devices:
-              - name: "nvme0n1"
+              - name: nvme0n1
+      placement:
+        all:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: node.mmontes.io/type
+                  operator: In
+                  values:
+                  - compute
 
     cephBlockPools: []
 
