@@ -1,0 +1,67 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: rook-ceph-cluster
+spec:
+  releaseName: rook-ceph-cluster
+  chart:
+    spec:
+      chart: rook-ceph-cluster
+      sourceRef:
+        kind: HelmRepository
+        name: rook
+      version: "v1.14.9"
+  interval: 1h0m0s
+  values:
+    operatorNamespace: storage
+    clusterName: rook-ceph
+    toolbox:
+      enabled: true
+    monitoring:
+      enabled: true
+      createPrometheusRules: true
+
+    cephClusterSpec:
+      dataDirHostPath: /var/lib/rook
+      mon:
+        count: 3
+      mgr:
+        count: 2
+      dashboard:
+        enabled: true
+      crashCollector:
+        disable: false
+      logCollector:
+        enabled: true
+      resources:
+        mgr:
+          limits:
+            memory: "512Mi"
+          requests:
+            cpu: "250m"
+            memory: "256Mi"
+        mon:
+          limits:
+            memory: "1Gi"
+          requests:
+            cpu: "500m"
+            memory: "512Mi"
+        osd:
+          limits:
+            memory: "2Gi"
+          requests:
+            cpu: "500m"
+            memory: "2Gi"
+      storage:
+        useAllNodes: false
+        useAllDevices: false
+        nodes:
+          - name: "worker2"
+            devices:
+              - name: "nvme0n1"
+          - name: "worker3"
+            devices:
+              - name: "nvme0n1"
+          - name: "worker4"
+            devices:
+              - name: "nvme0n1"
