@@ -25,7 +25,7 @@ spec:
       provisionerReplicas: 1
       enableRbdDriver: true
       enableRBDSnapshotter: false
-      enableCephfsDriver: false
+      enableCephfsDriver: true
       enableCephfsSnapshotter: false
       enableNFSSnapshotter: false
       nfs:
