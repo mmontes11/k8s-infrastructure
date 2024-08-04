@@ -4,3 +4,4 @@ namespace: storage
 resources:
   - ceph-httproute.yaml
   - rook-ceph-cluster-helmrelease.yaml
+  - rook-ceph-dashboard-password-sealedsecret.yaml
