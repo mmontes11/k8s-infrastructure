@@ -109,7 +109,7 @@ spec:
       enabled: false
 
     cephFileSystems:
-      - name: ceph-filesystem
+      - name: rook-ceph-fs
         spec:
           metadataPool:
             replicated:
@@ -131,7 +131,7 @@ spec:
         storageClass:
           enabled: true
           isDefault: false
-          name: ceph-filesystem
+          name: rook-ceph-fs
           pool: data0
           reclaimPolicy: Delete
           allowVolumeExpansion: true
