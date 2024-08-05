@@ -23,9 +23,9 @@ spec:
       enableOBCs: true
     csi:
       provisionerReplicas: 1
-      enableRbdDriver: true
+      enableRbdDriver: false
       enableRBDSnapshotter: false
-      enableCephfsDriver: true
+      enableCephfsDriver: false
       enableCephfsSnapshotter: false
       enableNFSSnapshotter: false
       nfs:

@@ -80,71 +80,12 @@ spec:
                   values:
                   - compute
 
-    cephBlockPools:
-      - name: rook-ceph-blockpool
-        spec:
-          failureDomain: host
-          replicated:
-            size: 3
-        storageClass:
-          enabled: true
-          name: rook-ceph
-          isDefault: false
-          reclaimPolicy: Delete
-          allowVolumeExpansion: true
-          volumeBindingMode: "Immediate"
-          mountOptions: []
-          parameters:
-            imageFormat: "2"
-            imageFeatures: layering
-            csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
-            csi.storage.k8s.io/provisioner-secret-namespace: storage
-            csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
-            csi.storage.k8s.io/controller-expand-secret-namespace: storage
-            csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
-            csi.storage.k8s.io/node-stage-secret-namespace: storage
-            csi.storage.k8s.io/fstype: ext4
+    cephBlockPools: []
 
     cephBlockPoolsVolumeSnapshotClass:
       enabled: false
 
-    cephFileSystems:
-      - name: rook-ceph-fs
-        spec:
-          metadataPool:
-            replicated:
-              size: 3
-          dataPools:
-            - failureDomain: host
-              replicated:
-                size: 3
-              name: data0
-          metadataServer:
-            activeCount: 1
-            activeStandby: true
-            requests:
-              cpu: 500m
-              memory: 2Gi
-            limits:
-              memory: 2Gi
-            priorityClassName: system-cluster-critical
-        storageClass:
-          enabled: true
-          isDefault: false
-          name: rook-ceph-fs
-          pool: data0
-          reclaimPolicy: Delete
-          allowVolumeExpansion: true
-          volumeBindingMode: "Immediate"
-          mountOptions: []
-          parameters:
-            csi.storage.k8s.io/provisioner-secret-name: rook-csi-cephfs-provisioner
-            csi.storage.k8s.io/provisioner-secret-namespace: storage
-            csi.storage.k8s.io/controller-expand-secret-name: rook-csi-cephfs-provisioner
-            csi.storage.k8s.io/controller-expand-secret-namespace: storage
-            csi.storage.k8s.io/node-stage-secret-name: rook-csi-cephfs-node
-            csi.storage.k8s.io/node-stage-secret-namespace: storage
-            csi.storage.k8s.io/fstype: ext4
+    cephFileSystems: []
 
     cephFileSystemVolumeSnapshotClass:
       enabled: false
