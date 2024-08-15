@@ -14,12 +14,14 @@ spec:
   values:
     logLevel: DEBUG
     extraEnv:
+    - name: MARIADB_OPERATOR_IMAGE
+      value: mariadbmmontes/mariadb-operator:v0.0.30
     - name: MARIADB_ENTRYPOINT_VERSION
       value: "10.11"
     image:
       pullPolicy: Always
       repository: mariadbmmontes/mariadb-operator
-      tag: v0.0.30-dev
+      tag: v0.0.30
     metrics:
       enabled: true
       serviceMonitor:
@@ -28,7 +30,7 @@ spec:
       image:
         pullPolicy: Always
         repository: mariadbmmontes/mariadb-operator
-        tag: v0.0.30-dev
+        tag: v0.0.30
       cert:
         certManager:
           enabled: true
