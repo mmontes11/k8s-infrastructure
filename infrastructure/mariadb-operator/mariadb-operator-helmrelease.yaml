@@ -9,28 +9,14 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: mariadb-operator
-      version: "0.29.0"
+      version: "0.30.0"
   interval: 1h0m0s
   values:
-    logLevel: DEBUG
-    extraEnv:
-    - name: MARIADB_OPERATOR_IMAGE
-      value: mariadbmmontes/mariadb-operator:v0.0.30
-    - name: MARIADB_ENTRYPOINT_VERSION
-      value: "10.11"
-    image:
-      pullPolicy: Always
-      repository: mariadbmmontes/mariadb-operator
-      tag: v0.0.30
     metrics:
       enabled: true
       serviceMonitor:
         enabled: true
     webhook:
-      image:
-        pullPolicy: Always
-        repository: mariadbmmontes/mariadb-operator
-        tag: v0.0.30
       cert:
         certManager:
           enabled: true
@@ -39,19 +25,3 @@ spec:
             name: homelab
       serviceMonitor:
         enabled: true
-  postRenderers:
-    - kustomize:
-        patches:
-          - target:
-              kind: ClusterRole 
-              name: mariadb-operator   
-            patch: |-
-              - op: add
-                path: /rules/-
-                value:
-                  apiGroups:
-                  - ""
-                  resources:
-                  - pods/log
-                  verbs:
-                  - get
