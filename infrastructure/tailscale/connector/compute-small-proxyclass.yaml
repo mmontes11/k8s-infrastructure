@@ -1,15 +1,12 @@
 apiVersion: tailscale.com/v1alpha1
 kind: ProxyClass
 metadata:
-  name: controlplane
+  name: compute-small
 spec:
   statefulSet:
     pod:
       nodeSelector:
-        node-role.kubernetes.io/control-plane: ""
-      tolerations:
-        - effect: NoSchedule
-          key: node-role.kubernetes.io/control-plane
+        node.mmontes.io/type: compute-small
       tailscaleContainer:
         resources:
           requests:

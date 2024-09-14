@@ -1,10 +1,10 @@
 apiVersion: tailscale.com/v1alpha1
 kind: Connector
 metadata:
-  name: controlplane
+  name: control-plane
 spec:
-  hostname: controlplane
-  proxyClass: controlplane
+  hostname: control-plane
+  proxyClass: control-plane
   subnetRouter:
     advertiseRoutes:
       - "10.0.0.0/24"

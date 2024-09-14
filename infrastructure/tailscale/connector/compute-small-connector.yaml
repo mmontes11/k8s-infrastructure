@@ -1,0 +1,11 @@
+apiVersion: tailscale.com/v1alpha1
+kind: Connector
+metadata:
+  name: compute-small
+spec:
+  hostname: compute-small
+  proxyClass: compute-small
+  subnetRouter:
+    advertiseRoutes:
+      - "10.0.0.0/24"
+  exitNode: true

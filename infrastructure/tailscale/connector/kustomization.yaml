@@ -4,5 +4,7 @@ namespace: networking
 resources:
   - compute-connector.yaml
   - compute-proxyclass.yaml
-  - controlplane-connector.yaml
-  - controlplane-proxyclass.yaml
+  - compute-small-connector.yaml
+  - compute-small-proxyclass.yaml
+  - control-plane-connector.yaml
+  - control-plane-proxyclass.yaml
