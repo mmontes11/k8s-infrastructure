@@ -10,27 +10,52 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: rook
-      version: "v1.14.9"
+      version: "v1.15.1"
   interval: 1h0m0s
   values:
+    rbacAggregate:
+      enableOBCs: true
+
     resources:
-      limits:
-        memory: 512Mi
       requests:
         cpu: 100m
         memory: 128Mi
-    rbacAggregate:
-      enableOBCs: true
+      limits:
+        memory: 512Mi
+    
+    tolerations:
+      - effect: NoSchedule
+        key: node.mmontes.io/storage
+    nodeSelector:
+      node.mmontes.io/type: storage  
+
+    provisionerTolerations:
+      - effect: NoSchedule
+        key: node.mmontes.io/storage
+    provisionerNodeAffinity: node.mmontes.io/type=storage
+
+    pluginTolerations:
+      - effect: NoSchedule
+        key: node.mmontes.io/storage
+    pluginNodeAffinity: node.mmontes.io/type=storage 
+
     csi:
-      provisionerReplicas: 1
-      enableRbdDriver: false
-      enableRBDSnapshotter: false
-      enableCephfsDriver: false
-      enableCephfsSnapshotter: false
-      enableNFSSnapshotter: false
+      provisionerReplicas: 2
+      
+      enableRbdDriver: true
+      enableRBDSnapshotter: true
+      rbdFSGroupPolicy: "File"
+
+      enableCephfsDriver: true
+      enableCephfsSnapshotter: true
+      cephFSFSGroupPolicy: "File"
+      
       nfs:
         enabled: false
+      enableNFSSnapshotter: false
+      
       serviceMonitor:
         enabled: true
+    
     monitoring:
       enabled: true
