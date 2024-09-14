@@ -49,6 +49,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
+    - name: gateway-api
     - name: sealed-secrets
     - name: sources
   interval: 5m
