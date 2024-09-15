@@ -29,19 +29,7 @@ spec:
     nodeSelector:
       node.mmontes.io/type: storage  
 
-    provisionerTolerations:
-      - effect: NoSchedule
-        key: node.mmontes.io/storage
-    provisionerNodeAffinity: node.mmontes.io/type=storage
-
-    pluginTolerations:
-      - effect: NoSchedule
-        key: node.mmontes.io/storage
-    pluginNodeAffinity: node.mmontes.io/type=storage 
-
-    csi:
-      provisionerReplicas: 2
-      
+    csi:      
       enableRbdDriver: true
       enableRBDSnapshotter: true
       rbdFSGroupPolicy: "File"
@@ -49,11 +37,18 @@ spec:
       enableCephfsDriver: true
       enableCephfsSnapshotter: true
       cephFSFSGroupPolicy: "File"
-      
-      nfs:
-        enabled: false
-      enableNFSSnapshotter: false
-      
+
+      provisionerReplicas: 2
+      provisionerTolerations:
+        - effect: NoSchedule
+          key: node.mmontes.io/storage
+      provisionerNodeAffinity: node.mmontes.io/type=storage
+
+      pluginTolerations:
+        - effect: NoSchedule
+          key: node.mmontes.io/storage
+      pluginNodeAffinity: node.mmontes.io/type=storage 
+        
       serviceMonitor:
         enabled: true
     
