@@ -2,7 +2,6 @@ apiVersion: "cilium.io/v2"
 kind: CiliumClusterwideNetworkPolicy
 metadata:
   name: cluster-egress
-  namespace: networking
 spec:
   description: "Deny access to host network for all namespaces except networking"
   endpointSelector:
