@@ -1,78 +1,76 @@
-# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-# kind: Kustomization
-# metadata:
-#   name: kubelet-csr-approver
-#   namespace: flux-system
-# spec:
-#   interval: 5m
-#   sourceRef:
-#     kind: GitRepository
-#     name: flux-system
-#   path: ./infrastructure/kubelet-csr-approver
-#   prune: true
-#   timeout: 5m
-# ---
-# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-# kind: Kustomization
-# metadata:
-#   name: cert-manager
-#   namespace: flux-system
-# spec:
-#   dependsOn:
-#     - name: kube-prometheus-stack
-#   interval: 5m
-#   sourceRef:
-#     kind: GitRepository
-#     name: flux-system
-#   path: ./infrastructure/cert-manager
-#   prune: true
-#   timeout: 5m
-# ---
-# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-# kind: Kustomization
-# metadata:
-#   name: cert-manager-letsencrypt-issuer
-#   namespace: flux-system
-# spec:
-#   dependsOn:
-#     - name: cert-manager
-#   interval: 5m
-#   sourceRef:
-#     kind: GitRepository
-#     name: flux-system
-#   path: ./infrastructure/cert-manager/letsencrypt-issuer
-#   prune: true
-#   timeout: 5m
-# ---
-# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-# kind: Kustomization
-# metadata:
-#   name: cert-manager-selfsigned-issuer
-#   namespace: flux-system
-# spec:
-#   dependsOn:
-#     - name: cert-manager
-#   interval: 5m
-#   sourceRef:
-#     kind: GitRepository
-#     name: flux-system
-#   path: ./infrastructure/cert-manager/selfsigned-issuer
-#   prune: true
-#   timeout: 5m
-# ---
-# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-# kind: Kustomization
-# metadata:
-#   name: cert-manager-homelab-issuer
-#   namespace: flux-system
-# spec:
-#   dependsOn:
-#     - name: cert-manager
-#     - name: cert-manager-selfsigned-issuer
-#   interval: 5m
-#   sourceRef:
-#     kind: GitRepository
-#     name: flux-system
-#   path: ./infrastructure/cert-manager/homelab-issuer
-#   prune: true
-#   timeout: 5m
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kubelet-csr-approver
+  namespace: flux-system
+spec:
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/kubelet-csr-approver
+  prune: true
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: cert-manager
+  namespace: flux-system
+spec:
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/cert-manager
+  prune: true
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: cert-manager-letsencrypt-issuer
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: cert-manager
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/cert-manager/letsencrypt-issuer
+  prune: true
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: cert-manager-selfsigned-issuer
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: cert-manager
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/cert-manager/selfsigned-issuer
+  prune: true
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: cert-manager-homelab-issuer
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: cert-manager
+    - name: cert-manager-selfsigned-issuer
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/cert-manager/homelab-issuer
+  prune: true
+  timeout: 5m
