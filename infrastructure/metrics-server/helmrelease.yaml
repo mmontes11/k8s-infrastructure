@@ -9,5 +9,5 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: metrics-server
-      version: "3.12.2"
+      version: "3.12.1"
   interval: 1h0m0s
