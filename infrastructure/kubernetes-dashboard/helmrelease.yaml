@@ -9,5 +9,5 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: kubernetes-dashboard
-      version: "7.5.0"
+      version: "7.6.1"
   interval: 1h0m0s
