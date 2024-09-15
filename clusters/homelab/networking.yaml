@@ -75,40 +75,39 @@ spec:
   path: ./infrastructure/networking
   prune: true
   timeout: 5m
-# ---
-# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-# kind: Kustomization
-# metadata:
-#   name: traefik
-#   namespace: flux-system
-# spec:
-#   dependsOn:
-#     - name: gateway-api
-#     - name: sealed-secrets
-#     - name: networking
-#   interval: 5m
-#   sourceRef:
-#     kind: GitRepository
-#     name: flux-system
-#   path: ./infrastructure/traefik
-#   prune: true
-#   timeout: 5m
-# ---
-# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-# kind: Kustomization
-# metadata:
-#   name: traefik-config
-#   namespace: flux-system
-# spec:
-#   dependsOn:
-#     - name: traefik
-#   interval: 5m
-#   sourceRef:
-#     kind: GitRepository
-#     name: flux-system
-#   path: ./infrastructure/traefik/config
-#   prune: true
-#   timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: traefik
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: gateway-api
+    - name: sealed-secrets
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/traefik
+  prune: true
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: traefik-config
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: traefik
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/traefik/config
+  prune: true
+  timeout: 5m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
