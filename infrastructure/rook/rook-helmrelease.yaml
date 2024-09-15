@@ -42,12 +42,10 @@ spec:
       provisionerTolerations:
         - effect: NoSchedule
           key: node.mmontes.io/storage
-      provisionerNodeAffinity: node.mmontes.io/type=storage
 
       pluginTolerations:
         - effect: NoSchedule
           key: node.mmontes.io/storage
-      pluginNodeAffinity: node.mmontes.io/type=storage 
         
       serviceMonitor:
         enabled: true
