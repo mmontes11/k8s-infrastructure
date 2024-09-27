@@ -3,13 +3,15 @@ kind: HelmRelease
 metadata:
   name: mariadb-operator
 spec:
+  dependsOn:
+    - name: mariadb-operator-crds
   chart:
     spec:
       chart: mariadb-operator
       sourceRef:
         kind: HelmRepository
         name: mariadb-operator
-      version: "0.31.0"
+      version: "0.32.0"
   interval: 1h0m0s
   values:
     metrics:
