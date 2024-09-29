@@ -10,7 +10,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: rook
-      version: "v1.15.1"
+      version: "v1.15.2"
   interval: 1h0m0s
   values:
     crds:
@@ -28,21 +28,19 @@ spec:
 
     csi:      
       enableRbdDriver: true
-      enableRBDSnapshotter: true
-      rbdFSGroupPolicy: "File"
-
       enableCephfsDriver: true
+
+      enableRBDSnapshotter: true
       enableCephfsSnapshotter: true
+      
+      rbdFSGroupPolicy: "File"
       cephFSFSGroupPolicy: "File"
 
       provisionerReplicas: 2
       provisionerTolerations:
         - effect: NoSchedule
           key: node.mmontes.io/storage
-
-      pluginTolerations:
-        - effect: NoSchedule
-          key: node.mmontes.io/storage
+      provisionerNodeAffinity: node.mmontes.io/type=storage
         
       serviceMonitor:
         enabled: true
