@@ -26,7 +26,7 @@ spec:
         storageSpec:
           volumeClaimTemplate:
             spec:
-              storageClassName: local-path
+              storageClassName: rook-ceph
               accessModes: ["ReadWriteOnce"]
               resources:
                 requests:
@@ -41,7 +41,7 @@ spec:
         storage:
           volumeClaimTemplate:
             spec:
-              storageClassName: local-path
+              storageClassName: rook-ceph
               accessModes: ["ReadWriteOnce"]
               resources:
                 requests:
