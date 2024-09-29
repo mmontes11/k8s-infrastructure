@@ -28,10 +28,10 @@ spec:
 
     csi:      
       enableRbdDriver: true
-      enableCephfsDriver: true
+      enableCephfsDriver: false
 
-      enableRBDSnapshotter: true
-      enableCephfsSnapshotter: true
+      enableRBDSnapshotter: false
+      enableCephfsSnapshotter: false
       
       rbdFSGroupPolicy: "File"
       cephFSFSGroupPolicy: "File"
