@@ -17,10 +17,10 @@ spec:
 
     prometheus:
       prometheusSpec:
-        serviceMonitorSelectorNilUsesHelmValues: false
-        serviceMonitorSelector: {}
-        podMonitorSelectorNilUsesHelmValues: false
-        podMonitorSelector: {}
+        serviceMonitorSelector:
+          matchLabels: null
+        podMonitorSelector:
+          matchLabels: null
         externalUrl: https://prometheus.mmontes-internal.duckdns.org
         retention: 7d
         storageSpec:
