@@ -15,8 +15,7 @@ spec:
   values:
     operatorNamespace: storage
     clusterName: rook-ceph
-    toolbox:
-      enabled: false
+
     monitoring:
       enabled: true
       createPrometheusRules: true
@@ -40,37 +39,40 @@ spec:
       resources:
         mgr:
           requests:
-            cpu: 100m
+            cpu: 500m
+            memory: 256Mi
+          limits:
+            memory: 512Mi
+        mon:
+          requests:
+            cpu: 1
             memory: 512Mi
           limits:
             memory: 1Gi
-        mon:
-          requests:
-            cpu: 100m
-            memory: 128Mi
-          limits:
-            memory: 512Mi
         osd:
           requests:
-            cpu: 500m
-            memory: 2Gi
+            cpu: 1
+            memory: 3Gi
           limits:
-            memory: 2Gi
+            memory: 3Gi
       storage:
         useAllNodes: false
         useAllDevices: false
         nodes:
-          - name: worker2
+          - name: storage-0
             devices:
               - name: nvme0n1
-          - name: worker3
+          - name: storage-1
             devices:
               - name: nvme0n1
-          - name: worker4
+          - name: storage-2
             devices:
               - name: nvme0n1
       placement:
         all:
+          tolerations:
+            - effect: NoSchedule
+              key: node.mmontes.io/storage
           nodeAffinity:
             requiredDuringSchedulingIgnoredDuringExecution:
               nodeSelectorTerms:
@@ -78,7 +80,7 @@ spec:
                 - key: node.mmontes.io/type
                   operator: In
                   values:
-                  - compute
+                  - storage
 
     cephBlockPools: []
 
