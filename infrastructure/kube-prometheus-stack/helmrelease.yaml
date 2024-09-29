@@ -9,9 +9,12 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: prometheus
-      version: "61.2.0"
+      version: "63.1.0"
   interval: 1h0m0s
   values:
+    crds:
+      enabled: false
+
     prometheus:
       prometheusSpec:
         serviceMonitorSelectorNilUsesHelmValues: false

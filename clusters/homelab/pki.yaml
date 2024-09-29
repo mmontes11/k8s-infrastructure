@@ -18,6 +18,8 @@ metadata:
   name: cert-manager
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: prometheus-crds
   interval: 5m
   sourceRef:
     kind: GitRepository

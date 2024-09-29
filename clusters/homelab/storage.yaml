@@ -20,6 +20,7 @@ metadata:
 spec:
   dependsOn:
     - name: rook-crds
+    - name: prometheus-crds
   interval: 5m
   sourceRef:
     kind: GitRepository

@@ -52,6 +52,7 @@ spec:
     - name: gateway-api
     - name: sealed-secrets
     - name: sources
+    - name: prometheus-crds
   interval: 5m
   sourceRef:
     kind: GitRepository
