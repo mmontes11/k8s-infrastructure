@@ -42,21 +42,21 @@ spec:
         mgr:
           requests:
             cpu: 500m
-            memory: 256Mi
-          limits:
             memory: 512Mi
+          limits:
+            memory: 1Gi
         mon:
           requests:
-            cpu: 1
+            cpu: 500m
             memory: 512Mi
           limits:
             memory: 1Gi
         osd:
           requests:
             cpu: 1
-            memory: 3Gi
+            memory: 2Gi
           limits:
-            memory: 3Gi
+            memory: 2Gi
       storage:
         useAllNodes: false
         useAllDevices: false
