@@ -53,7 +53,7 @@ spec:
             memory: 1Gi
         osd:
           requests:
-            cpu: 1
+            cpu: 500m
             memory: 2Gi
           limits:
             memory: 2Gi
@@ -126,6 +126,12 @@ spec:
           metadataServer:
             activeCount: 1
             activeStandby: true
+            resources:
+              requests:
+                cpu: 500m
+                memory: 2Gi
+              limits:
+                memory: 2Gi
             placement:
               tolerations:
                 - effect: NoSchedule
@@ -138,12 +144,6 @@ spec:
                       operator: In
                       values:
                       - storage
-            resources:
-              requests:
-                cpu: 1
-                memory: 2Gi
-              limits:
-                memory: 2Gi
             priorityClassName: system-cluster-critical
         storageClass:
           enabled: true
