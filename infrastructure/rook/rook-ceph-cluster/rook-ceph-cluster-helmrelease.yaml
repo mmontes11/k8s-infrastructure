@@ -126,11 +126,12 @@ spec:
           metadataServer:
             activeCount: 1
             activeStandby: true
-            requests:
-              cpu: 1
-              memory: 2Gi
-            limits:
-              memory: 2Gi
+            resources:
+              requests:
+                cpu: 1
+                memory: 2Gi
+              limits:
+                memory: 2Gi
             priorityClassName: system-cluster-critical
         storageClass:
           enabled: true
