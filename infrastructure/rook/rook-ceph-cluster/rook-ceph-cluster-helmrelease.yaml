@@ -32,6 +32,8 @@ spec:
         allowMultiplePerNode: false
       dashboard:
         enabled: true
+        port: 8443
+        ssl: false
       crashCollector:
         disable: false
       logCollector:
