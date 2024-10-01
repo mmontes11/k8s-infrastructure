@@ -126,6 +126,18 @@ spec:
           metadataServer:
             activeCount: 1
             activeStandby: true
+            placement:
+              tolerations:
+                - effect: NoSchedule
+                  key: node.mmontes.io/storage
+              nodeAffinity:
+                requiredDuringSchedulingIgnoredDuringExecution:
+                  nodeSelectorTerms:
+                  - matchExpressions:
+                    - key: node.mmontes.io/type
+                      operator: In
+                      values:
+                      - storage
             resources:
               requests:
                 cpu: 1
