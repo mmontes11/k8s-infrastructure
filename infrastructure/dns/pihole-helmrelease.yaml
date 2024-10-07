@@ -13,7 +13,7 @@ spec:
       version: "2.26.1"
   interval: 1h0m0s
   values:
-    replicaCount: 2
+    replicaCount: 1
 
     priorityClassName: system-node-critical
 
