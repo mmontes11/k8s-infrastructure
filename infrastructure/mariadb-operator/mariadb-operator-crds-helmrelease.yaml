@@ -9,5 +9,5 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: mariadb-operator
-      version: "0.0.33"
+      version: "0.34.0"
   interval: 1h0m0s
