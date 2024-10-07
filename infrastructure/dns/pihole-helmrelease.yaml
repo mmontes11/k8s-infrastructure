@@ -13,7 +13,7 @@ spec:
       version: "2.26.1"
   interval: 1h0m0s
   values:
-    replicaCount: 2
+    replicaCount: 3
 
     priorityClassName: system-node-critical
 
@@ -55,6 +55,7 @@ spec:
     dnsmasq:
       customDnsEntries:
         - address=/pihole.local/10.0.0.61
+        - address=/mmontes-internal.duckdns.org/10.0.0.70
 
     monitoring:
       # TODO: podmonitor causes helmrelease to fail after render because it already contains a 'release' key
