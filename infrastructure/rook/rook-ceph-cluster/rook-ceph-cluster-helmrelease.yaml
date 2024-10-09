@@ -110,7 +110,10 @@ spec:
             csi.storage.k8s.io/fstype: ext4
 
     cephBlockPoolsVolumeSnapshotClass:
-      enabled: false
+      enabled: true
+      name: rook-ceph
+      isDefault: false
+      deletionPolicy: Delete
 
     cephFileSystems:
       - name: rook-ceph-fs
@@ -164,6 +167,7 @@ spec:
             csi.storage.k8s.io/fstype: ext4
 
     cephFileSystemVolumeSnapshotClass:
-      enabled: false
-
-    cephObjectStores: []
+      enabled: true
+      name: rook-ceph-fs
+      isDefault: false
+      deletionPolicy: Delete
