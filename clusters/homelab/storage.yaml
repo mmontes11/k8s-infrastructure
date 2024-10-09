@@ -34,8 +34,6 @@ metadata:
   name: rook-crds
   namespace: flux-system
 spec:
-  dependsOn:
-    - name: external-snapshotter
   interval: 5m
   sourceRef:
     kind: GitRepository
@@ -51,6 +49,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
+    - name: external-snapshotter
     - name: rook-crds
     - name: prometheus-crds
   interval: 5m
