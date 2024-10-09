@@ -7,4 +7,5 @@ resources:
   - webhook-certificate.yaml
   - webhook-configuration.yaml
   - webhook-deployment.yaml
+  - webhook-rbac.yaml
   - webhook-service.yaml
