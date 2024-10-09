@@ -30,8 +30,8 @@ spec:
       enableRbdDriver: true
       enableCephfsDriver: true
 
-      enableRBDSnapshotter: false
-      enableCephfsSnapshotter: false
+      enableRBDSnapshotter: true
+      enableCephfsSnapshotter: true
       
       rbdFSGroupPolicy: "File"
       cephFSFSGroupPolicy: "File"
