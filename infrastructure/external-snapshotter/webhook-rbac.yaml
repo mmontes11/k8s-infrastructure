@@ -22,6 +22,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: snapshot-webhook
+    namespace: storage
 roleRef:
   kind: ClusterRole
   name: snapshot-webhook-runner
