@@ -1,8 +1,11 @@
 ROOK_VERSION ?= v1.15.2
 ROOK_URL ?= https://raw.githubusercontent.com/rook/rook/refs/tags/$(ROOK_VERSION)/deploy/examples/crds.yaml
 
-PROMETHEUS_VERION ?= 63.1.0
-PROMETHEUS_URL ?= https://github.com/prometheus-community/helm-charts/releases/download/kube-prometheus-stack-$(PROMETHEUS_VERION)/kube-prometheus-stack-$(PROMETHEUS_VERION).tgz
+PROMETHEUS_VERSION ?= 63.1.0
+PROMETHEUS_URL ?= https://github.com/prometheus-community/helm-charts/releases/download/kube-prometheus-stack-$(PROMETHEUS_VERSION)/kube-prometheus-stack-$(PROMETHEUS_VERSION).tgz
+
+EXTERNAL_SNAPSHOTTER_VERSION ?= v8.1.0
+EXTERNAL_SNAPSHOTTER_URL ?= https://github.com/kubernetes-csi/external-snapshotter/
 
 .PHONY: help
 help: ## Display this help.
@@ -21,3 +24,16 @@ prometheus-crds: ### Get prometheus CRDs to be installed by flux.
 	curl -sL $(PROMETHEUS_URL) | tar xz -C .
 	cp kube-prometheus-stack/charts/crds/crds/*.yaml  infrastructure/kube-prometheus-stack/prometheus-crds
 	rm -rf kube-prometheus-stack/
+
+
+.PHONY: external-snapshotter-crds
+external-snapshotter-crds: ## Get external-snapshotter CRDs
+	@if [ -d "external-snapshotter" ]; then \
+		rm -rf external-snapshotter/; \
+	fi
+	git clone $(EXTERNAL_SNAPSHOTTER_URL); \
+	cd external-snapshotter; \
+	git checkout $(EXTERNAL_SNAPSHOTTER_VERSION); \
+	kubectl kustomize client/config/crd  > ../infrastructure/external-snapshotter/crds/crds.yaml; \
+	cd ..; \
+	rm -rf external-snapshotter/
