@@ -3,4 +3,4 @@ kind: Kustomization
 namespace: storage
 resources:
   - external-snapshotter-deployment.yaml
-  - rbac.yaml
+  - external-snapshotter-rbac.yaml
