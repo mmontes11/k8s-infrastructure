@@ -171,3 +171,5 @@ spec:
       name: rook-ceph-fs
       isDefault: false
       deletionPolicy: Delete
+
+    cephObjectStores: []
