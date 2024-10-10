@@ -1,0 +1,7 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: storage
+resources:
+  - csi-driver-nfs-helmrelease.yaml
+  - csi-driver-nfs-helmrepository.yaml
+  - csi-nfs-volumesnapshotclass.yaml
