@@ -22,6 +22,7 @@ spec:
       propagateHostMountOptions: false
 
     controller:
+      replicas: 2
       tolerations: []
 
     node:
