@@ -21,6 +21,9 @@ spec:
       enableInlineVolume: false
       propagateHostMountOptions: false
 
+    node:
+      tolerations: []
+
     storageClass:
       create: true
       name: csi-nfs
