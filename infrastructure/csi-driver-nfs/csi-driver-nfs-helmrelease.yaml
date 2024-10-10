@@ -21,6 +21,9 @@ spec:
       enableInlineVolume: false
       propagateHostMountOptions: false
 
+    controller:
+      tolerations: []
+
     node:
       tolerations: []
 
@@ -33,3 +36,5 @@ spec:
         mountPermissions: "0"
       reclaimPolicy: Delete
       volumeBindingMode: Immediate
+      mountOptions:
+        - nfsvers=4.1
