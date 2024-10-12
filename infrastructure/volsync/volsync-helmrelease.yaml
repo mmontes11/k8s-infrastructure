@@ -15,17 +15,17 @@ spec:
     replicaCount: 2
 
     image:
-      repository: ghcr.io/onedr0p/volsync
+      repository: ghcr.io/mmontes11/volsync
     rclone:
-      repository: ghcr.io/onedr0p/volsync
+      repository: ghcr.io/mmontes11/volsync
     restic:
-      repository: ghcr.io/onedr0p/volsync
+      repository: ghcr.io/mmontes11/volsync
     rsync:
-      repository: ghcr.io/onedr0p/volsync
+      repository: ghcr.io/mmontes11/volsync
     rsync-tls:
-      repository: ghcr.io/onedr0p/volsync
+      repository: ghcr.io/mmontes11/volsync
     syncthing:
-      repository: ghcr.io/onedr0p/volsync
+      repository: ghcr.io/mmontes11/volsync
 
     manageCRDs: true
 
