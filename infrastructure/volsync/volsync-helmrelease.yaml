@@ -16,16 +16,10 @@ spec:
 
     image:
       repository: ghcr.io/mmontes11/volsync
-    rclone:
-      repository: ghcr.io/mmontes11/volsync
-    restic:
-      repository: ghcr.io/mmontes11/volsync
-    rsync:
-      repository: ghcr.io/mmontes11/volsync
+      tag: v0.10.0
     rsync-tls:
       repository: ghcr.io/mmontes11/volsync
-    syncthing:
-      repository: ghcr.io/mmontes11/volsync
+      tag: v0.10.0
 
     manageCRDs: true
 
