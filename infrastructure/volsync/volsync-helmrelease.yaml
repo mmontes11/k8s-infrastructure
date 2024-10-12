@@ -15,17 +15,17 @@ spec:
     replicaCount: 2
 
     image:
-      repository: ghcr.io/onedr0p/volsync
+      repository: bitnami/volsync
     rclone:
-      repository: ghcr.io/onedr0p/volsync
+      repository: bitnami/volsync
     restic:
-      repository: ghcr.io/onedr0p/volsync
+      repository: bitnami/volsync
     rsync:
-      repository: ghcr.io/onedr0p/volsync
+      repository: bitnami/volsync
     rsync-tls:
-      repository: ghcr.io/onedr0p/volsync
+      repository: bitnami/volsync
     syncthing:
-      repository: ghcr.io/onedr0p/volsync
+      repository: bitnami/volsync
 
     manageCRDs: true
 
