@@ -17,9 +17,11 @@ spec:
     image:
       repository: ghcr.io/mmontes11/volsync
       tag: v0.10.0
+      pullPolicy: Always
     rsync-tls:
       repository: ghcr.io/mmontes11/volsync
       tag: v0.10.0
+      pullPolicy: Always
 
     manageCRDs: true
 
