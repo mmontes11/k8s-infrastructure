@@ -85,6 +85,7 @@ metadata:
 spec:
   dependsOn:
     - name: gateway-api
+    - name: cert-manager-crds
     - name: sealed-secrets
   interval: 5m
   sourceRef:

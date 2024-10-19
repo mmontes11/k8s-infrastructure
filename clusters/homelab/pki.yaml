@@ -15,10 +15,25 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
+  name: cert-manager-crds
+  namespace: flux-system
+spec:
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/cert-manager/crds
+  prune: true
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
   name: cert-manager
   namespace: flux-system
 spec:
   dependsOn:
+    - name: cert-manager-crds
     - name: prometheus-crds
   interval: 5m
   sourceRef:
@@ -35,7 +50,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: cert-manager
+    - name: cert-manager-crds
   interval: 5m
   sourceRef:
     kind: GitRepository
@@ -51,7 +66,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: cert-manager
+    - name: cert-manager-crds
   interval: 5m
   sourceRef:
     kind: GitRepository
@@ -67,8 +82,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: cert-manager
-    - name: cert-manager-selfsigned-issuer
+    - name: cert-manager-crds
   interval: 5m
   sourceRef:
     kind: GitRepository

@@ -4,6 +4,9 @@ ROOK_URL ?= https://raw.githubusercontent.com/rook/rook/refs/tags/$(ROOK_VERSION
 PROMETHEUS_VERSION ?= 63.1.0
 PROMETHEUS_URL ?= https://github.com/prometheus-community/helm-charts/releases/download/kube-prometheus-stack-$(PROMETHEUS_VERSION)/kube-prometheus-stack-$(PROMETHEUS_VERSION).tgz
 
+CERT_MANAGER_VERSION ?= v1.16.1
+CERT_MANAGER_URL ?= https://github.com/cert-manager/cert-manager/releases/download/$(CERT_MANAGER_VERSION)/cert-manager.crds.yaml
+
 GATEWAY_API_VERSION ?= v1.2.0/
 GATEWAY_API_URL ?= https://github.com/kubernetes-sigs/gateway-api/releases/download/$(GATEWAY_API_VERSION)/experimental-install.yaml
 
@@ -26,6 +29,10 @@ prometheus-crds: ### Get prometheus CRDs to be installed by flux.
 	curl -sL $(PROMETHEUS_URL) | tar xz -C .
 	cp kube-prometheus-stack/charts/crds/crds/*.yaml  infrastructure/kube-prometheus-stack/prometheus-crds
 	rm -rf kube-prometheus-stack/
+
+.PHONY: cert-manager-crds
+cert-manager-crds: ### Get cert-manager CRDs to be installed by flux.
+	curl -sSLo infrastructure/cert-manager/crds/crds.yaml $(CERT_MANAGER_URL)
 
 .PHONY: gateway-api-crds
 gateway-api-crds: ## Get gateway-api CRDs to be installed by flux.
