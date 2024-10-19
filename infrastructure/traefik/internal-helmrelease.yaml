@@ -9,7 +9,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: traefik
-      version: "31.0.0"
+      version: "32.1.0"
   interval: 1h0m0s
   values:
     instanceLabelOverride: traefik-internal
