@@ -15,15 +15,17 @@ spec:
     replicaCount: 1
 
     image:
-      repository: ghcr.io/mmontes11/snapscheduler
-      tag: v3.4.0
-      pullPolicy: Always
+      image: ghcr.io/mmontes11/snapscheduler:v3.4.0
+
+    rbacProxy:
+      image:
+        image: quay.io/brancz/kube-rbac-proxy:v0.18.1
 
     manageCRDs: true
-    
+
     metrics:
       disableAuth: true
 
-    nodeSelector: {}
-    
-    affinity: {}
+    nodeSelector: null
+
+    affinity: null
