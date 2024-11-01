@@ -1,0 +1,29 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: snapscheduler
+spec:
+  chart:
+    spec:
+      chart: snapscheduler
+      sourceRef:
+        kind: HelmRepository
+        name: snapscheduler
+      version: "3.4.0"
+  interval: 1h0m0s
+  values:
+    replicaCount: 1
+
+    image:
+      repository: ghcr.io/mmontes11/snapscheduler
+      tag: v3.4.0
+      pullPolicy: Always
+
+    manageCRDs: true
+    
+    metrics:
+      disableAuth: true
+
+    nodeSelector: {}
+    
+    affinity: {}
