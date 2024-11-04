@@ -21,6 +21,8 @@ spec:
           matchLabels: null
         podMonitorSelector:
           matchLabels: null
+        ruleSelector:
+           matchLabels: null         
         externalUrl: https://prometheus.mmontes-internal.duckdns.org
         retention: 7d
         storageSpec:
