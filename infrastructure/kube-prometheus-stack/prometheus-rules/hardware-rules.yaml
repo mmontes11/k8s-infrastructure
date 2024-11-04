@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: prometheus-hardware-rules
+spec:
+  groups:
+    - name: hardware-alerts
+      rules:
+        - alert: HighTemperature
+          expr: (node_hwmon_temp_celsius{instance="$node",job="$job"} * on(chip) group_left(chip_name) node_hwmon_chip_names{instance="$node",job="$job",chip_name!~".*Critical$"}) > 40
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "High Temperature on {{ $labels.instance }}"
+            description: "The temperature on {{ $labels.instance }} (chip: {{ $labels.chip_name }}) is high (currently {{ $value }}°C)."
