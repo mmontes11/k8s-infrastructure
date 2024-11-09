@@ -128,13 +128,13 @@ spec:
               name: data0
           metadataServer:
             activeCount: 1
-            activeStandby: true
+            activeStandby: false
             resources:
               requests:
                 cpu: 500m
-                memory: 512Mi
+                memory: 1Gi
               limits:
-                memory: 512Mi
+                memory: 1Gi
             placement:
               tolerations:
                 - effect: NoSchedule
