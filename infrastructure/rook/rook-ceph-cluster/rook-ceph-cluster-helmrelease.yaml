@@ -10,7 +10,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: rook
-      version: "v1.15.2"
+      version: "v1.15.5"
   interval: 1h0m0s
   values:
     operatorNamespace: storage
