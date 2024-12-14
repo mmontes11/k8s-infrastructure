@@ -23,6 +23,10 @@ spec:
     cephClusterSpec:
       cephVersion:
         image: quay.io/ceph/ceph:v18.2.2
+      cephConfig:
+        global:
+          # speed up OSD recovery
+          osd_max_backfills: "3"
       dataDirHostPath: /var/lib/rook
       mon:
         count: 3
@@ -57,6 +61,8 @@ spec:
             memory: 3Gi
           limits:
             memory: 3Gi
+      # auto-remove unhealthy OSDs
+      removeOSDsIfOutAndSafeToRemove: false
       storage:
         useAllNodes: false
         useAllDevices: false
