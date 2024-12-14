@@ -26,7 +26,7 @@ spec:
       cephConfig:
         global:
           # speed up OSD recovery
-          osd_max_backfills: "3"
+          osd_max_backfills: "10"
       dataDirHostPath: /var/lib/rook
       mon:
         count: 3
