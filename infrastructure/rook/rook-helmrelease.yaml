@@ -10,7 +10,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: rook
-      version: "v1.15.5"
+      version: "v1.15.6"
   interval: 1h0m0s
   values:
     crds:
