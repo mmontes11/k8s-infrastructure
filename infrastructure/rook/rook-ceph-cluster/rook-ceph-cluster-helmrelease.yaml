@@ -73,9 +73,9 @@ spec:
           - name: storage-1
             devices:
               - name: nvme0n1
-          - name: storage-2
-            devices:
-              - name: nvme0n1
+          # - name: storage-2
+          #   devices:
+          #     - name: nvme0n1
       placement:
         all:
           tolerations:
