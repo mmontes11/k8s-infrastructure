@@ -9,6 +9,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: jetstack
+        namespace: flux-system
       version: "v1.16.1"
   interval: 1h0m0s
   values:
