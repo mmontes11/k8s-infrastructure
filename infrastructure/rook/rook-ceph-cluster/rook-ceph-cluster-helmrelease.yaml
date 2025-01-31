@@ -26,7 +26,11 @@ spec:
       cephConfig:
         global:
           # speed up OSD recovery
+          # https://docs.ceph.com/en/latest/rados/configuration/osd-config-ref/?highlight=osd_max_backfills#confval-osd_max_backfills
           osd_max_backfills: "10"
+          # avoid noisy clock skew warnings
+          # https://docs.ceph.com/en/latest/rados/configuration/mon-config-ref/?highlight=mon_clock_drift_allowed#confval-mon_clock_drift_allowed
+          mon_clock_drift_allowed: "0.1"
       dataDirHostPath: /var/lib/rook
       mon:
         count: 3
@@ -62,7 +66,7 @@ spec:
           limits:
             memory: 3Gi
       # auto-remove unhealthy OSDs
-      removeOSDsIfOutAndSafeToRemove: false
+      removeOSDsIfOutAndSafeToRemove: true
       storage:
         useAllNodes: false
         useAllDevices: false
