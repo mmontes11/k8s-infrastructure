@@ -32,9 +32,8 @@ spec:
 
       enableRBDSnapshotter: true
       enableCephfsSnapshotter: true
-      
-      disableHolderPods: true
-
+      enableVolumeGroupSnapshot: true
+  
       rbdFSGroupPolicy: "File"
       cephFSFSGroupPolicy: "File"
 
