@@ -22,7 +22,7 @@ spec:
 
     cephClusterSpec:
       cephVersion:
-        image: quay.io/ceph/ceph:v18.2.2
+        image: quay.io/ceph/ceph:v19.2.0-20240927
       cephConfig:
         global:
           # speed up OSD recovery
@@ -65,8 +65,8 @@ spec:
             memory: 3Gi
           limits:
             memory: 4Gi
-      # auto-remove unhealthy OSDs
-      removeOSDsIfOutAndSafeToRemove: true
+      # automatically remove OSDs that are out and are safe to destroy
+      removeOSDsIfOutAndSafeToRemove: false
       storage:
         useAllNodes: false
         useAllDevices: false
