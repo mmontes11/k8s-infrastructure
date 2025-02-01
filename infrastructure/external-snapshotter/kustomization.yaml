@@ -4,8 +4,3 @@ namespace: storage
 resources:
   - external-snapshotter-deployment.yaml
   - external-snapshotter-rbac.yaml
-  - webhook-certificate.yaml
-  - webhook-configuration.yaml
-  - webhook-deployment.yaml
-  - webhook-rbac.yaml
-  - webhook-service.yaml

@@ -10,7 +10,7 @@ CERT_MANAGER_URL ?= https://github.com/cert-manager/cert-manager/releases/downlo
 GATEWAY_API_VERSION ?= v1.2.0/
 GATEWAY_API_URL ?= https://github.com/kubernetes-sigs/gateway-api/releases/download/$(GATEWAY_API_VERSION)/experimental-install.yaml
 
-EXTERNAL_SNAPSHOTTER_VERSION ?= v8.1.0
+EXTERNAL_SNAPSHOTTER_VERSION ?= v8.2.0
 EXTERNAL_SNAPSHOTTER_URL ?= https://github.com/kubernetes-csi/external-snapshotter/
 
 .PHONY: help
