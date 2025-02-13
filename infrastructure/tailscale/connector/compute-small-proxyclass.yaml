@@ -3,14 +3,13 @@ kind: ProxyClass
 metadata:
   name: compute-small
 spec:
+  tailscale:
+    acceptRoutes: true
   statefulSet:
     pod:
       nodeSelector:
         node.mmontes.io/type: compute-small
       tailscaleContainer:
-        env:
-          - name: TS_EXTRA_ARGS 
-            value: --accept-routes
         resources:
           requests:
             cpu: 100m
