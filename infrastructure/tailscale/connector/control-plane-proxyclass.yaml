@@ -11,6 +11,9 @@ spec:
         - effect: NoSchedule
           key: node-role.kubernetes.io/control-plane
       tailscaleContainer:
+        env:
+          - name: TS_EXTRA_ARGS 
+            value: --accept-routes
         resources:
           requests:
             cpu: 100m
