@@ -3,8 +3,6 @@ kind: ProxyClass
 metadata:
   name: compute-small
 spec:
-  tailscale:
-    acceptRoutes: true
   statefulSet:
     pod:
       nodeSelector:
