@@ -51,6 +51,12 @@ spec:
           fsType: btrfs
           location: /volume1
           protocol: iscsi
+      iscsi-delete: null
+      iscsi-retain: null
+      nfs-delete: null
+      nfs-retain: null
+      smb-delete: null
+      smb-retain: null
     volumeSnapshotClasses:
       iscsi:
         disabled: false
@@ -59,3 +65,5 @@ spec:
         parameters:
           description: "Kubernetes CSI"
           is_locked: "false"
+      delete: null
+      retain: null
