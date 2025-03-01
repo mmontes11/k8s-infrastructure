@@ -67,3 +67,20 @@ spec:
           is_locked: "false"
       delete: null
       retain: null
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              kind: ClusterRole
+              name: synology-snapshotter
+            patch: |
+              - op: add
+                path: /rules/-
+                value:
+                  apiGroups:
+                    - snapshot.storage.k8s.io
+                  resources:
+                    - volumesnapshotcontents/status
+                  verbs:
+                    - update
+                    - patch
