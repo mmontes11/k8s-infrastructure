@@ -82,5 +82,4 @@ spec:
                   resources:
                     - volumesnapshotcontents/status
                   verbs:
-                    - update
                     - patch
