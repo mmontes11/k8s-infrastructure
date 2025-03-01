@@ -10,23 +10,52 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: synology-csi
-      version: "0.9.10"
+      version: "0.10.1"
   interval: 1h0m0s
   values:
-    fullnameOverride: synology-csi
+    fullnameOverride: synology
     clientInfoSecret:
       create: false
       name: client-info
+    images:
+      attacher:
+        image: registry.k8s.io/sig-storage/csi-attacher
+        pullPolicy: IfNotPresent
+        tag: v4.8.1
+      nodeDriverRegistrar:
+        image: registry.k8s.io/sig-storage/csi-node-driver-registrar
+        pullPolicy: IfNotPresent
+        tag: v2.13.0
+      plugin:
+        image: synology/synology-csi
+        pullPolicy: IfNotPresent
+      provisioner:
+        image: registry.k8s.io/sig-storage/csi-provisioner
+        pullPolicy: IfNotPresent
+        tag: v5.2.0
+      resizer:
+        image: registry.k8s.io/sig-storage/csi-resizer
+        pullPolicy: IfNotPresent
+        tag: v1.13.2
+      snapshotter:
+        image: registry.k8s.io/sig-storage/csi-snapshotter
+        pullPolicy: IfNotPresent
+        tag: v8.2.0
     storageClasses:
-      delete: null
-      retain: null
-      storage:
+      iscsi:
         disabled: false
         isDefault: false
-        reclaimPolicy: Retain
+        reclaimPolicy: Delete
         parameters:
           dsm: "10.0.0.50"
-          fsType: ext4
+          fsType: btrfs
           location: /volume1
           protocol: iscsi
-          type: thin
+    volumeSnapshotClasses:
+      iscsi:
+        disabled: false
+        isDefault: false
+        deletionPolicy: Delete
+        parameters:
+          description: "Kubernetes CSI"
+          is_locked: "false"
