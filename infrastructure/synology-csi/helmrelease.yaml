@@ -51,8 +51,16 @@ spec:
           fsType: btrfs
           location: /volume1
           protocol: iscsi
+      iscsi-retain:
+        disabled: false
+        isDefault: false
+        reclaimPolicy: Retain
+        parameters:
+          dsm: "10.0.0.50"
+          fsType: btrfs
+          location: /volume1
+          protocol: iscsi
       iscsi-delete: null
-      iscsi-retain: null
       nfs-delete: null
       nfs-retain: null
       smb-delete: null
@@ -62,6 +70,13 @@ spec:
         disabled: false
         isDefault: false
         deletionPolicy: Delete
+        parameters:
+          description: "Kubernetes CSI"
+          is_locked: "false"
+      iscsi-retain:
+        disabled: false
+        isDefault: false
+        deletionPolicy: Retain
         parameters:
           description: "Kubernetes CSI"
           is_locked: "false"
