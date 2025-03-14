@@ -4,4 +4,3 @@ namespace: networking
 resources:
   - cluster-egress-networkpolicy.yaml
   - hubble-httproute.yaml
-  - monitoring-egress-networkpolicy.yaml
