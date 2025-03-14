@@ -1,0 +1,10 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: external
+spec:
+  staticConfigs:
+    - labels:
+        job: homelab
+      targets:
+        - 10.0.0.100:9100
