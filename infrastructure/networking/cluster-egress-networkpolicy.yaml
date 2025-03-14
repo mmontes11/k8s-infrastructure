@@ -3,7 +3,7 @@ kind: CiliumClusterwideNetworkPolicy
 metadata:
   name: cluster-egress
 spec:
-  description: "Deny access to host network for all namespaces except networking"
+  description: "Deny access to host network for all namespaces except networking and monitoring"
   endpointSelector:
     matchExpressions:
     - key: "k8s:io.kubernetes.pod.namespace"
