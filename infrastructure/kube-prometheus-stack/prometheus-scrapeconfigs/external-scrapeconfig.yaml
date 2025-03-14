@@ -5,6 +5,9 @@ metadata:
 spec:
   staticConfigs:
     - labels:
-        job: homelab
+        job: node-exporter
       targets:
         - 10.0.0.100:9100
+        - 10.1.0.30:9100
+        - 10.1.0.40:9100
+        - 10.1.0.100:9100
