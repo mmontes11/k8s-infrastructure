@@ -1,0 +1,17 @@
+apiVersion: "cilium.io/v2"
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: monitoring-egress
+spec:
+  description: "Allow monitoring namespace access to specific external IPs"
+  endpointSelector:
+    matchLabels:
+      k8s:io.kubernetes.pod.namespace: monitoring
+  egress:
+    - toCIDRSet:
+        - cidr: 10.0.0.50/32
+        - cidr: 10.0.0.100/32
+        - cidr: 10.1.0.30/32
+        - cidr: 10.1.0.40/32
+        - cidr: 10.1.0.50/32
+        - cidr: 10.1.0.100/32
