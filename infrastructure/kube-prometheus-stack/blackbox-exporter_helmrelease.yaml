@@ -5,7 +5,7 @@ metadata:
 spec:
   chart:
     spec:
-      chart: blackbox-exporter
+      chart: prometheus-blackbox-exporter
       sourceRef:
         kind: HelmRepository
         name: prometheus
