@@ -3,6 +3,7 @@ kind: HelmRelease
 metadata:
   name: blackbox-exporter
 spec:
+  releaseName: blackbox-exporter
   chart:
     spec:
       chart: prometheus-blackbox-exporter
