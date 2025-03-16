@@ -3,3 +3,4 @@ kind: Kustomization
 namespace: monitoring
 resources:
   - external-node-scrapeconfig.yaml
+  - external-snmp-scrapeconfig.yaml
