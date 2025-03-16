@@ -17,6 +17,7 @@ spec:
     securityContext:
       capabilities:
         add: ["NET_RAW"]
+        drop: null
     config:
       modules:
         icmp:
