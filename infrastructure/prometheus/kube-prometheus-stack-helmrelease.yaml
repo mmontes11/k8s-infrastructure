@@ -148,3 +148,7 @@ spec:
             gnetId: 5342
             revision: 9
             datasource: Prometheus
+          blackbox-icmp:
+            gnetId: 20338
+            revision: 3
+            datasource: Prometheus
