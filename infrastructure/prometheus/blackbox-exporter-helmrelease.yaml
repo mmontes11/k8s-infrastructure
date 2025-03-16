@@ -13,6 +13,7 @@ spec:
       version: "9.3.0"
   interval: 1h0m0s
   values:
+    fullnameOverride: blackbox-exporter
     config:
       modules:
         icmp:

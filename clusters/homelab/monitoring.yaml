@@ -40,14 +40,14 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/kube-prometheus-stack/prometheus-crds
+  path: ./infrastructure/prometheus/crds
   prune: true
   timeout: 5m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: kube-prometheus-stack
+  name: prometheus
   namespace: flux-system
 spec:
   dependsOn:
@@ -58,39 +58,39 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/kube-prometheus-stack
+  path: ./infrastructure/prometheus
   prune: true
   timeout: 5m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: kube-prometheus-stack-monitors
+  name: prometheus-monitors
   namespace: flux-system
 spec:
   dependsOn:
-    - name: kube-prometheus-stack
+    - name: prometheus
   interval: 5m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/kube-prometheus-stack/monitors
+  path: ./infrastructure/prometheus/monitors
   prune: true
   timeout: 5m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: prometheus-rules
+  name: prometheus-alerts
   namespace: flux-system
 spec:
   dependsOn:
-    - name: kube-prometheus-stack
+    - name: prometheus
   interval: 5m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/kube-prometheus-stack/prometheus-rules
+  path: ./infrastructure/prometheus/alerts
   prune: true
   timeout: 5m
 ---
@@ -101,11 +101,11 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: kube-prometheus-stack
+    - name: prometheus
   interval: 5m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/kube-prometheus-stack/prometheus-scrapeconfigs
+  path: ./infrastructure/prometheus/scrapeconfigs
   prune: true
   timeout: 5m

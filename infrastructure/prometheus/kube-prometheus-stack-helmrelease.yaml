@@ -9,9 +9,10 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: prometheus
-      version: "63.1.0"
+      version: "70.0.1"
   interval: 1h0m0s
   values:
+    fullnameOverride: prometheus
     crds:
       enabled: false
 

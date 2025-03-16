@@ -1,10 +1,10 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
-  name: prometheus-hardware-rules
+  name: hardware
 spec:
   groups:
-    - name: hardware-alerts
+    - name: hardware
       rules:
         - alert: HighTemperature
           expr: (node_hwmon_temp_celsius * on(instance, chip) group_left(chip_name) node_hwmon_chip_names) > 70

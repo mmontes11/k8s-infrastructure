@@ -1,7 +1,7 @@
 ROOK_VERSION ?= v1.15.2
 ROOK_URL ?= https://raw.githubusercontent.com/rook/rook/refs/tags/$(ROOK_VERSION)/deploy/examples/crds.yaml
 
-PROMETHEUS_VERSION ?= 63.1.0
+PROMETHEUS_VERSION ?= 70.0.1
 PROMETHEUS_URL ?= https://github.com/prometheus-community/helm-charts/releases/download/kube-prometheus-stack-$(PROMETHEUS_VERSION)/kube-prometheus-stack-$(PROMETHEUS_VERSION).tgz
 
 CERT_MANAGER_VERSION ?= v1.16.1
@@ -27,7 +27,7 @@ prometheus-crds: ### Get prometheus CRDs to be installed by flux.
 			rm -rf kube-prometheus-stack/; \
 	fi
 	curl -sL $(PROMETHEUS_URL) | tar xz -C .
-	cp kube-prometheus-stack/charts/crds/crds/*.yaml  infrastructure/kube-prometheus-stack/prometheus-crds
+	cp kube-prometheus-stack/charts/crds/crds/*.yaml  infrastructure/prometheus/crds
 	rm -rf kube-prometheus-stack/
 
 .PHONY: cert-manager-crds

@@ -1,7 +1,7 @@
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
-  name: external
+  name: external-node
 spec:
   staticConfigs:
     - labels:
