@@ -160,9 +160,13 @@ spec:
             datasource: 
               - name: DS_PROMETHEUS
                 value: Prometheus
+              - name: VAR_NASDEVICES
+                value: 1
           synology-detail:
             gnetId: 14284
             revision: 10
             datasource: 
               - name: DS_PROMETHEUS
                 value: Prometheus
+              - name: VAR_NASDEVICES
+                value: 1
