@@ -8,9 +8,9 @@ spec:
       rules:
         - alert: InstanceUnreachable
           expr: probe_success == 0
-          for: 2m
+          for: 5m
           labels:
             severity: critical
           annotations:
             summary: "Instance {{ $labels.instance }} is unreachable"
-            description: "The instance {{ $labels.instance }} has been unreachable for at least 2 minutes."
+            description: "The instance {{ $labels.instance }} has been unreachable for at least 5 minutes."
