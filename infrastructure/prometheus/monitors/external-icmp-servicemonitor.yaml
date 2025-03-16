@@ -1,0 +1,33 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: external-icmp
+  namespace: monitoring
+spec:
+  endpoints:
+  - path: /probe
+    port: http
+    scheme: http
+    params:
+      module:
+      - icmp
+      target:
+      - 10.0.0.100
+    metricRelabelings:
+    - action: replace
+      replacement: 10.0.0.100
+      sourceLabels:
+      - instance
+      targetLabel: instance
+    - action: replace
+      replacement: 10.0.0.100
+      sourceLabels:
+      - target
+      targetLabel: target
+  namespaceSelector:
+    matchNames:
+    - monitoring
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: blackbox-exporter
+      app.kubernetes.io/name: prometheus-blackbox-exporter
