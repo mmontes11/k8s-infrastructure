@@ -13,6 +13,26 @@ spec:
       module:
       - icmp
       target:
+      - 10.0.0.50
+    metricRelabelings:
+    - action: replace
+      replacement: 10.0.0.50
+      sourceLabels:
+      - instance
+      targetLabel: instance
+    - action: replace
+      replacement: 10.0.0.50
+      sourceLabels:
+      - target
+      targetLabel: target
+  - path: /probe
+    port: http
+    scheme: http
+    interval: 1m
+    params:
+      module:
+      - icmp
+      target:
       - 10.0.0.100
     metricRelabelings:
     - action: replace
@@ -142,6 +162,26 @@ spec:
       targetLabel: instance
     - action: replace
       replacement: 10.1.0.40
+      sourceLabels:
+      - target
+      targetLabel: target
+  - path: /probe
+    port: http
+    scheme: http
+    interval: 1m
+    params:
+      module:
+      - icmp
+      target:
+      - 10.1.0.50
+    metricRelabelings:
+    - action: replace
+      replacement: 10.1.0.50
+      sourceLabels:
+      - instance
+      targetLabel: instance
+    - action: replace
+      replacement: 10.1.0.50
       sourceLabels:
       - target
       targetLabel: target
