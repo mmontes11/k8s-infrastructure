@@ -15,9 +15,8 @@ spec:
   values:
     fullnameOverride: blackbox-exporter
     securityContext:
-      capabilities:
-        add: ["NET_RAW"]
-        drop: []
+      runAsUser: 0
+      runAsNonRoot: false
     config:
       modules:
         icmp:
