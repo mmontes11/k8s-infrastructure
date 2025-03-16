@@ -151,4 +151,6 @@ spec:
           blackbox-icmp:
             gnetId: 20338
             revision: 3
-            datasource: Prometheus
+            datasource: 
+              - name: DS_PROMETHEUS
+                value: Prometheus
