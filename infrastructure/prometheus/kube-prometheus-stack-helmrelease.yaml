@@ -154,3 +154,11 @@ spec:
             datasource: 
               - name: DS_PROMETHEUS
                 value: Prometheus
+          synology-overview:
+            gnetId: 14364
+            revision: 10
+            datasource: Prometheus
+          synology-detail:
+            gnetId: 14284
+            revision: 10
+            datasource: Prometheus
