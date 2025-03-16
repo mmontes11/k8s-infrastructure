@@ -8,6 +8,7 @@ spec:
   - path: /probe
     port: http
     scheme: http
+    interval: 1m
     params:
       module:
       - icmp
