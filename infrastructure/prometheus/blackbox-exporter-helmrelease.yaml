@@ -15,7 +15,6 @@ spec:
   values:
     fullnameOverride: blackbox-exporter
     securityContext:
-      runAsUser: 1000
       capabilities:
         add: ["NET_RAW"]
         drop: []
