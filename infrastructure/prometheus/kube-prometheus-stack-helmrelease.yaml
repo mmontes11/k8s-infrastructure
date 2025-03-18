@@ -9,7 +9,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: prometheus
-      version: "63.1.0"
+      version: "70.0.2"
   interval: 1h0m0s
   values:
     crds:
@@ -114,7 +114,7 @@ spec:
             datasource: Prometheus
           cert-manager:
             gnetId: 20842
-            revision: 2
+            revision: 3
             datasource: Prometheus
           metallb:
             gnetId: 14127
@@ -138,7 +138,7 @@ spec:
             datasource: Prometheus
           ceph-cluster:
             gnetId: 2842
-            revision: 17
+            revision: 18
             datasource: Prometheus
           ceph-osd:
             gnetId: 5336
