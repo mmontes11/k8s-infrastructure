@@ -10,7 +10,7 @@ spec:
         kind: HelmRepository
         name: jetstack
         namespace: flux-system
-      version: "v0.15.0"
+      version: "v0.16.0"
   interval: 1h0m0s
   values:
     crds: 
