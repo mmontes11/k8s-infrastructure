@@ -9,7 +9,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: metallb
-      version: "0.14.8"
+      version: "0.14.9"
   interval: 1h0m0s
   values:
     speaker:
