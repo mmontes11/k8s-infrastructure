@@ -1,10 +1,10 @@
-ROOK_VERSION ?= v1.15.2
+ROOK_VERSION ?= v1.16.5
 ROOK_URL ?= https://raw.githubusercontent.com/rook/rook/refs/tags/$(ROOK_VERSION)/deploy/examples/crds.yaml
 
-PROMETHEUS_VERSION ?= 70.0.1
+PROMETHEUS_VERSION ?= 70.0.2
 PROMETHEUS_URL ?= https://github.com/prometheus-community/helm-charts/releases/download/kube-prometheus-stack-$(PROMETHEUS_VERSION)/kube-prometheus-stack-$(PROMETHEUS_VERSION).tgz
 
-CERT_MANAGER_VERSION ?= v1.16.1
+CERT_MANAGER_VERSION ?= v1.17.1
 CERT_MANAGER_URL ?= https://github.com/cert-manager/cert-manager/releases/download/$(CERT_MANAGER_VERSION)/cert-manager.crds.yaml
 
 GATEWAY_API_VERSION ?= v1.2.0/
