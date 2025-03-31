@@ -5,7 +5,4 @@ metadata:
 spec:
   hostname: compute
   proxyClass: compute
-  subnetRouter:
-    advertiseRoutes:
-      - "10.0.0.0/24"
   exitNode: true
