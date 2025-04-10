@@ -26,7 +26,7 @@ spec:
         scrapeConfigSelector:
            matchLabels: null
         externalUrl: https://prometheus.mmontes-internal.duckdns.org
-        retention: 7d
+        retention: 90d
         storageSpec:
           volumeClaimTemplate:
             spec:
@@ -34,14 +34,14 @@ spec:
               accessModes: ["ReadWriteOnce"]
               resources:
                 requests:
-                  storage: 20Gi
+                  storage: 100Gi
 
     alertmanager:
       alertmanagerSpec:
         useExistingSecret: true
         configSecret: alertmanager
         externalUrl: https://alertmanager.mmontes-internal.duckdns.org
-        retention: 120h
+        retention: 7d
         storage:
           volumeClaimTemplate:
             spec:
