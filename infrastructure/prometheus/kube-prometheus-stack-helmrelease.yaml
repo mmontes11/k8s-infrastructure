@@ -41,7 +41,7 @@ spec:
         useExistingSecret: true
         configSecret: alertmanager
         externalUrl: https://alertmanager.mmontes-internal.duckdns.org
-        retention: 7d
+        retention: "168h"  # 7 days = 168 hours
         storage:
           volumeClaimTemplate:
             spec:
