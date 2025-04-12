@@ -19,5 +19,7 @@ spec:
       targetLabel: "__param_target"
     - sourceLabels: ["__param_target"]
       targetLabel: "instance"
+    - sourceLabels: ["__param_target"]
+      targetLabel: "target"  
     - targetLabel: "__address__"
       replacement: "10.1.0.40:9115"
