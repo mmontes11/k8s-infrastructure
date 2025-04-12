@@ -1,0 +1,22 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: external-blackbox
+spec:
+  jobName: external-blackbox
+  staticConfigs:
+    - targets:
+        - "https://google.com"
+        - "https://iot.mmontes-internal.duckdns.org"
+        - "https://github-explorer.mmontes.duckdns.org"
+  metricsPath: /probe
+  params:
+    module:
+      - http
+  relabelings:
+    - sourceLabels: ["__address__"]
+      targetLabel: "__param_target"
+    - sourceLabels: ["__param_target"]
+      targetLabel: "instance"
+    - targetLabel: "__address__"
+      replacement: "10.1.0.40:9115"
