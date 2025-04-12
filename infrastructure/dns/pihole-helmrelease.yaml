@@ -13,11 +13,6 @@ spec:
       version: "2.29.1"
   interval: 1h0m0s
   values:
-    image:
-      repository: "pihole/pihole"
-      tag: "2025.03.1"
-      pullPolicy: IfNotPresent
-
     replicaCount: 3
 
     priorityClassName: system-node-critical
@@ -64,6 +59,13 @@ spec:
         - address=/mmontes-internal.duckdns.org/10.0.0.70
       customSettings:
         - except-interface=nonexisting
+
+    podDnsConfig:
+      enabled: true
+      policy: "None"
+      nameservers:
+        - 8.8.8.8
+        - 8.8.4.4
 
     monitoring:
       # TODO: podmonitor causes helmrelease to fail after render because it already contains a 'release' key
