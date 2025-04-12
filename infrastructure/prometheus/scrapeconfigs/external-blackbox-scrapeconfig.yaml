@@ -3,6 +3,7 @@ kind: ScrapeConfig
 metadata:
   name: external-blackbox
 spec:
+  jobName: blackbox-exporter
   scrapeInterval: 1m
   staticConfigs:
     - targets:
