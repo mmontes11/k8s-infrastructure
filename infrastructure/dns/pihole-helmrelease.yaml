@@ -69,7 +69,7 @@ spec:
         port: 9617
         image:
           repository: ekofr/pihole-exporter
-          tag: v0.4.0
+          tag: v1.0.1
           pullPolicy: IfNotPresent
 
   postRenderers:
