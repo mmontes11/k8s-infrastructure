@@ -96,6 +96,10 @@ spec:
             gnetId: 10176
             revision: 3
             datasource: Prometheus
+          pihole-ui:
+            gnetId: 14475
+            revision: 4
+            datasource: Prometheus        
           flux:
             gnetId: 16714
             revision: 1
