@@ -17,7 +17,6 @@ spec:
 
     hostNetwork: true
 
-
     priorityClassName: system-node-critical
 
     podDisruptionBudget:
