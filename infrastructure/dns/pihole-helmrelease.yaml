@@ -53,9 +53,12 @@ spec:
       passwordKey: "password"
 
     dnsmasq:
+      enableCustomDnsMasq: true
       customDnsEntries:
         - address=/pihole.local/10.0.0.61
         - address=/mmontes-internal.duckdns.org/10.0.0.70
+      customSettings: |
+        except-interface=nonexisting
 
     monitoring:
       # TODO: podmonitor causes helmrelease to fail after render because it already contains a 'release' key
