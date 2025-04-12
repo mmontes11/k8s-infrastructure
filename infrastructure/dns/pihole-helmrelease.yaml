@@ -10,7 +10,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: pihole
-      version: "2.26.1"
+      version: "2.29.1"
   interval: 1h0m0s
   values:
     replicaCount: 3
