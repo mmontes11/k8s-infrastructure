@@ -15,6 +15,9 @@ spec:
   values:
     replicaCount: 3
 
+    hostNetwork: true
+
+
     priorityClassName: system-node-critical
 
     podDisruptionBudget:
