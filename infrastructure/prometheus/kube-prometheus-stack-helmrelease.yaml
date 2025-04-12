@@ -156,6 +156,12 @@ spec:
             gnetId: 5342
             revision: 9
             datasource: Prometheus
+          blackbox:
+            gnetId: 14928
+            revision: 6
+            datasource: 
+              - name: DS_PROMETHEUS
+                value: Prometheus
           blackbox-icmp:
             gnetId: 20338
             revision: 3
