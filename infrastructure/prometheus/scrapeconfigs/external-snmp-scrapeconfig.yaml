@@ -3,6 +3,7 @@ kind: ScrapeConfig
 metadata:
   name: external-snmp
 spec:
+  scrapeInterval: 1m
   staticConfigs:
     - targets:
         - "10.0.0.50"

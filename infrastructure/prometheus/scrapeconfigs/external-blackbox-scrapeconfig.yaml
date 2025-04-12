@@ -4,6 +4,7 @@ metadata:
   name: external-blackbox
 spec:
   jobName: external-blackbox
+  scrapeInterval: 1m
   staticConfigs:
     - targets:
         - "https://google.com"

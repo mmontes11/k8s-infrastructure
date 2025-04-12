@@ -3,6 +3,7 @@ kind: ScrapeConfig
 metadata:
   name: external-node
 spec:
+  scrapeInterval: 1m
   staticConfigs:
     - labels:
         job: node-exporter
