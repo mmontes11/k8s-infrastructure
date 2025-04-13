@@ -160,7 +160,7 @@ spec:
             gnetId: 7587
             revision: 3
             datasource: 
-              - name: DS_PROMETHEUS
+              - name: DS_SIGNCL-PROMETHEUS
                 value: Prometheus
           blackbox-icmp:
             gnetId: 20338
