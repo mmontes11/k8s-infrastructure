@@ -52,7 +52,7 @@ spec:
       customDnsEntries:
         - address=/mmontes.synology.me/10.0.0.50
         - address=/pihole.homelab/10.0.0.61
-        - address=/mmontes-internal.duckdns.org/10.0.0.70
+        - address=/.mmontes-internal.duckdns.org/10.0.0.70
         - address=/mmontes-ramallal.synology.me/10.1.0.50
         - address=/pihole.ramallal/10.1.0.100
       customSettings:
