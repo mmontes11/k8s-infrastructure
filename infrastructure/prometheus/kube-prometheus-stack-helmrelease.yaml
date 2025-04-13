@@ -157,7 +157,7 @@ spec:
             revision: 9
             datasource: Prometheus
           blackbox:
-            gnetId: 14928
+            gnetId: 7587
             revision: 6
             datasource: 
               - name: DS_PROMETHEUS
