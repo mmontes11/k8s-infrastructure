@@ -10,6 +10,8 @@ spec:
         - "https://google.com"
         - "https://iot.mmontes-internal.duckdns.org"
         - "https://github-explorer.mmontes.duckdns.org"
+        - "https://mmontes.synology.me:5001"
+        - "https://mmontes-ramallal.synology.me:5001"
   metricsPath: /probe
   params:
     module:
