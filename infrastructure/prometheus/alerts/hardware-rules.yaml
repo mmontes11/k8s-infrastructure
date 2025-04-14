@@ -7,7 +7,7 @@ spec:
     - name: hardware
       rules:
         - alert: HighTemperature
-          expr: (node_hwmon_temp_celsius * on(instance, chip) group_left(chip_name) node_hwmon_chip_names) > 70
+          expr: (node_hwmon_temp_celsius * on(instance, chip) group_left(chip_name) node_hwmon_chip_names) > 75
           for: 5m
           labels:
             severity: warning
