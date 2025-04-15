@@ -18,6 +18,8 @@ spec:
       enabled: true
       serviceMonitor:
         enabled: true
+    pprof:
+      enabled: true
     webhook:
       cert:
         certManager:
