@@ -43,6 +43,147 @@ spec:
           key: node.mmontes.io/storage
       provisionerNodeAffinity: node.mmontes.io/type=storage
         
+      csiRBDProvisionerResource: |
+        - name : csi-provisioner
+          resource:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              memory: 100Mi
+        - name : csi-resizer
+          resource:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              memory: 100Mi
+        - name : csi-attacher
+          resource:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              memory: 100Mi
+        - name : csi-snapshotter
+          resource:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              memory: 100Mi
+        - name : csi-rbdplugin
+          resource:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              memory: 100Mi
+        - name : csi-omap-generator
+          resource:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              memory: 100Mi
+        - name : liveness-prometheus
+          resource:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              memory: 100Mi
+
+      csiRBDPluginResource: |
+        - name : driver-registrar
+          resource:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              memory: 100Mi
+        - name : csi-rbdplugin
+          resource:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              memory: 100Mi
+        - name : liveness-prometheus
+          resource:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              memory: 100Mi
+
+      csiCephFSProvisionerResource: |
+        - name : csi-provisioner
+          resource:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              memory: 100Mi
+        - name : csi-resizer
+          resource:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              memory: 100Mi
+        - name : csi-attacher
+          resource:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              memory: 100Mi
+        - name : csi-snapshotter
+          resource:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              memory: 100Mi
+        - name : csi-cephfsplugin
+          resource:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              memory: 100Mi
+        - name : liveness-prometheus
+          resource:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              memory: 100Mi
+
+      csiCephFSPluginResource: |
+        - name : driver-registrar
+          resource:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              memory: 100Mi
+        - name : csi-cephfsplugin
+          resource:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              memory: 100Mi
+        - name : liveness-prometheus
+          resource:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              memory: 100Mi
+
       serviceMonitor:
         enabled: true
     
