@@ -27,7 +27,7 @@ spec:
         global:
           # speed up OSD recovery
           # https://docs.ceph.com/en/latest/rados/configuration/osd-config-ref/?highlight=osd_max_backfills#confval-osd_max_backfills
-          osd_max_backfills: "20"
+          osd_max_backfills: "10"
           # allowed clock drift (in seconds) between mons 
           # https://docs.ceph.com/en/latest/rados/configuration/mon-config-ref/?highlight=mon_clock_drift_allowed#confval-mon_clock_drift_allowed
           mon_clock_drift_allowed: "0.05"
@@ -50,21 +50,21 @@ spec:
         mgr:
           requests:
             cpu: 500m
-            memory: 1Gi
+            memory: 2Gi
           limits:
-            memory: 3Gi
+            memory: 2Gi
         mon:
           requests:
             cpu: 500m
-            memory: 512Mi
+            memory: 1Gi
           limits:
             memory: 1Gi
         osd:
           requests:
             cpu: 1
-            memory: 3Gi
+            memory: 4Gi
           limits:
-            memory: 5Gi
+            memory: 4Gi
         prepareosd:
           requests:
             cpu: "500m"
