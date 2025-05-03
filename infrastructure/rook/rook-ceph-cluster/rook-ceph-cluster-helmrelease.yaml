@@ -50,9 +50,9 @@ spec:
         mgr:
           requests:
             cpu: 500m
-            memory: 512Mi
+            memory: 1Gi
           limits:
-            memory: 2Gi
+            memory: 3Gi
         mon:
           requests:
             cpu: 500m
