@@ -16,8 +16,8 @@ spec:
   values:
     logLevel: DEBUG
     extraArgs:
-    - --requeue-sql=5m
-    - --requeue-sql-max-offset=1m
+    - --requeue-sql=10m
+    - --requeue-sql-max-offset=5m
     metrics:
       enabled: true
       serviceMonitor:
