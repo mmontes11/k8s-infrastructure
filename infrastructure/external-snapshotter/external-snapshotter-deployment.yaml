@@ -42,3 +42,9 @@ spec:
             # For example, in https://github.com/kubernetes-csi/csi-release-tools/pull/209, the snapshot-controller YAML is updated to add --prevent-volume-mode-conversion=true so that the feature can be enabled for certain e2e tests.
             # end snapshot controller args
           imagePullPolicy: IfNotPresent
+      # TODO: remove tolerations when worker nodes without taints are available in homelab-v2
+      tolerations:
+        - key: "node.mmontes.io/type"
+          operator: "Equal"
+          value: "compute-large"
+          effect: "NoSchedule"
