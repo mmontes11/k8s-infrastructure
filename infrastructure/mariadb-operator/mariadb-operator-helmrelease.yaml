@@ -11,16 +11,10 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: mariadb-operator
-      version: "0.38.1"
+      version: "25.08.0"
   interval: 1h0m0s
   values:
-    logLevel: DEBUG
-    extraArgs:
-    - --requeue-connection=1h
-    - --requeue-sql=10h
-    - --requeue-sql-max-offset=1h
-    - --requeue-sqljob=30s
-    - --requeue-maxscale=1h
+    logLevel: INFO
     metrics:
       enabled: true
       serviceMonitor:
