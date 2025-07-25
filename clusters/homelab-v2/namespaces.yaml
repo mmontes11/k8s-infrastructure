@@ -1,6 +1,26 @@
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: dns
+# ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: pki
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: monitoring
+---
 apiVersion: v1
 kind: Namespace
 metadata:
   name: storage
   labels:
     topolvm.io/webhook: ignore
+# ---
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: database

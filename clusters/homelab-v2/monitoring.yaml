@@ -1,0 +1,111 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: metrics-server
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: kubelet-csr-approver
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/metrics-server
+  prune: true
+  timeout: 5m
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+# kind: Kustomization
+# metadata:
+#   name: kubernetes-dashboard
+#   namespace: flux-system
+# spec:
+#   dependsOn:
+#     - name: rbac
+#   interval: 5m
+#   sourceRef:
+#     kind: GitRepository
+#     name: flux-system
+#   path: ./infrastructure/kubernetes-dashboard
+#   prune: true
+#   timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: prometheus-crds
+  namespace: flux-system
+spec:
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/prometheus/crds
+  prune: true
+  timeout: 5m
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+# kind: Kustomization
+# metadata:
+#   name: prometheus
+#   namespace: flux-system
+# spec:
+#   dependsOn:
+#     - name: prometheus-crds
+#     - name: sealed-secrets
+#     - name: gateway-api
+#   interval: 5m
+#   sourceRef:
+#     kind: GitRepository
+#     name: flux-system
+#   path: ./infrastructure/prometheus
+#   prune: true
+#   timeout: 5m
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+# kind: Kustomization
+# metadata:
+#   name: prometheus-monitors
+#   namespace: flux-system
+# spec:
+#   dependsOn:
+#     - name: prometheus
+#   interval: 5m
+#   sourceRef:
+#     kind: GitRepository
+#     name: flux-system
+#   path: ./infrastructure/prometheus/monitors
+#   prune: true
+#   timeout: 5m
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+# kind: Kustomization
+# metadata:
+#   name: prometheus-alerts
+#   namespace: flux-system
+# spec:
+#   dependsOn:
+#     - name: prometheus
+#   interval: 5m
+#   sourceRef:
+#     kind: GitRepository
+#     name: flux-system
+#   path: ./infrastructure/prometheus/alerts
+#   prune: true
+#   timeout: 5m
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+# kind: Kustomization
+# metadata:
+#   name: prometheus-scrapeconfigs
+#   namespace: flux-system
+# spec:
+#   dependsOn:
+#     - name: prometheus
+#   interval: 5m
+#   sourceRef:
+#     kind: GitRepository
+#     name: flux-system
+#   path: ./infrastructure/prometheus/scrapeconfigs
+#   prune: true
+#   timeout: 5m
