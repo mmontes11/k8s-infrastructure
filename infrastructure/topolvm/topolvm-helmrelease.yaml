@@ -31,33 +31,38 @@ spec:
             - |
               set -euo pipefail
 
+              apt-get update && apt-get install -y lvm2
+
               DEVICE=/dev/sdb
               VG_NAME=topolvm
               THIN_POOL_NAME=thinpool
 
-              if ! pvs "\$DEVICE" >/dev/null 2>&1; then
-                echo "Creating physical volume on \$DEVICE"
-                pvcreate "\$DEVICE"
-              else
-                echo "Physical volume already exists on \$DEVICE"
-              fi
-              pvdisplay "\$DEVICE"
+              echo "Waiting for $DEVICE..."
+              while [ ! -b "$DEVICE" ]; do sleep 1; done
 
-              if ! vgs "\$VG_NAME" >/dev/null 2>&1; then
-                echo "Creating volume group \$VG_NAME"
-                vgcreate "\$VG_NAME" "\$DEVICE"
+              if ! pvs "$DEVICE" >/dev/null 2>&1; then
+                echo "Creating physical volume on $DEVICE"
+                pvcreate "$DEVICE"
               else
-                echo "Volume group \$VG_NAME already exists"
+                echo "Physical volume already exists on $DEVICE"
               fi
-              vgdisplay "\$VG_NAME"
+              pvdisplay "$DEVICE"
 
-              if ! lvs "\$VG_NAME/\$THIN_POOL_NAME" >/dev/null 2>&1; then
-                echo "Creating thin pool \$THIN_POOL_NAME"
-                lvcreate --yes --type thin-pool -L 90%VG -n "\$THIN_POOL_NAME" "\$VG_NAME"
+              if ! vgs "$VG_NAME" >/dev/null 2>&1; then
+                echo "Creating volume group $VG_NAME"
+                vgcreate "$VG_NAME" "$DEVICE"
               else
-                echo "Thin pool \$THIN_POOL_NAME already exists"
+                echo "Volume group $VG_NAME already exists"
               fi
-              lvdisplay "\$VG_NAME/\$THIN_POOL_NAME"
+              vgdisplay "$VG_NAME"
+
+              if ! lvs "$VG_NAME/$THIN_POOL_NAME" >/dev/null 2>&1; then
+                echo "Creating thin pool $THIN_POOL_NAME"
+                lvcreate --yes --type thin-pool -L 90%VG -n "$THIN_POOL_NAME" "$VG_NAME"
+              else
+                echo "Thin pool $THIN_POOL_NAME already exists"
+              fi
+              lvdisplay "$VG_NAME/$THIN_POOL_NAME"
 
               echo "LVM thin pool setup complete"
           volumeMounts:
