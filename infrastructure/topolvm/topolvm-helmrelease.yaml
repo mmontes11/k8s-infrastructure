@@ -35,9 +35,6 @@ spec:
               VG_NAME=topolvm
               THIN_POOL_NAME=thinpool
 
-              echo "Waiting for \$DEVICE..."
-              while [ ! -b "\$DEVICE" ]; do sleep 1; done
-
               if ! pvs "\$DEVICE" >/dev/null 2>&1; then
                 echo "Creating physical volume on \$DEVICE"
                 pvcreate "\$DEVICE"
