@@ -1,0 +1,66 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: topolvm
+spec:
+  chart:
+    spec:
+      chart: topolvm
+      sourceRef:
+        kind: HelmRepository
+        name: topolvm
+      version: "15.5.6"
+  interval: 1h0m0s
+  values:
+    lvmd:
+      managed: true
+      deviceClasses:
+        - name: nvme
+          volume-group: topolvm
+          default: true
+          spare-gb: 10
+      tolerations:
+        - effect: NoSchedule
+          key: node.mmontes.io/type
+          value: compute-large
+        - effect: NoSchedule
+          key: node.mmontes.io/type
+          value: compute-xlarge
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node.mmontes.io/type
+                    operator: In
+                    values:
+                      - compute-large
+                      - compute-xlarge
+      metrics:
+        enabled: true
+      prometheus:
+        podMonitor:
+          enabled: true
+    node:
+      lvmdEmbedded: false
+      metrics:
+        enabled: true
+      prometheus:
+        podMonitor:
+          enabled: true
+    controller:
+      prometheus:
+        podMonitor:
+          enabled: true
+    storageClasses:
+      - name: topolvm
+        storageClass:
+          fsType: xfs
+          reclaimPolicy: Delete
+          isDefaultClass: false
+          volumeBindingMode: WaitForFirstConsumer
+          allowVolumeExpansion: true
+          additionalParameters:
+            topolvm.io/device-class: "nvme"
+    snapshot:
+      enabled: true
