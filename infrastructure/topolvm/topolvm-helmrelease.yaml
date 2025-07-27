@@ -25,7 +25,7 @@ spec:
           securityContext:
             privileged: true
           command:
-            - /bin/sh
+            - /bin/bash
             - -c
           args:
             - |
