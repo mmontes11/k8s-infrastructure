@@ -11,10 +11,3 @@ spec:
         name: metrics-server
       version: "3.12.1"
   interval: 1h0m0s
-  values:
-    defaultArgs:
-      - --secure-port=10250
-      - --cert-dir=/tmp
-      - --kubelet-preferred-address-types=Hostname,InternalIP,ExternalIP
-      - --kubelet-use-node-status-port
-      - --metric-resolution=15s
