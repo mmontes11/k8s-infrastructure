@@ -19,6 +19,55 @@ spec:
           volume-group: topolvm
           default: true
           spare-gb: 10
+      initContainers:
+        - name: init-lvm
+          image: ubuntu:24.04
+          securityContext:
+            privileged: true
+          command:
+            - /bin/sh
+            - -c
+          args:
+            - |
+              set -euxo pipefail
+
+              DEVICE=/dev/sdb
+              VG_NAME=topolvm
+              THIN_POOL_NAME=thinpool
+
+              echo "Waiting for \$DEVICE..."
+              while [ ! -b "\$DEVICE" ]; do sleep 1; done
+
+              if ! pvs "\$DEVICE" >/dev/null 2>&1; then
+                echo "Creating physical volume on \$DEVICE"
+                pvcreate "\$DEVICE"
+              else
+                echo "Physical volume already exists on \$DEVICE"
+              fi
+              pvdisplay "\$DEVICE"
+
+              if ! vgs "\$VG_NAME" >/dev/null 2>&1; then
+                echo "Creating volume group \$VG_NAME"
+                vgcreate "\$VG_NAME" "\$DEVICE"
+              else
+                echo "Volume group \$VG_NAME already exists"
+              fi
+              vgdisplay "\$VG_NAME"
+
+              if ! lvs "\$VG_NAME/\$THIN_POOL_NAME" >/dev/null 2>&1; then
+                echo "Creating thin pool \$THIN_POOL_NAME"
+                lvcreate --yes --type thin-pool -L 90%VG -n "\$THIN_POOL_NAME" "\$VG_NAME"
+              else
+                echo "Thin pool \$THIN_POOL_NAME already exists"
+              fi
+              lvdisplay "\$VG_NAME/\$THIN_POOL_NAME"
+
+              echo "LVM thin pool setup complete"
+          volumeMounts:
+            - name: devices-dir 
+              mountPath: /dev
+            - name: lvmd-socket-dir
+              mountPath: /run/topolvm
       tolerations:
         - effect: NoSchedule
           key: node.mmontes.io/type
@@ -43,12 +92,31 @@ spec:
           enabled: true
     node:
       lvmdEmbedded: false
+      tolerations:
+        - effect: NoSchedule
+          key: node.mmontes.io/type
+          value: compute-large
+        - effect: NoSchedule
+          key: node.mmontes.io/type
+          value: compute-xlarge
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node.mmontes.io/type
+                    operator: In
+                    values:
+                      - compute-large
+                      - compute-xlarge
       metrics:
         enabled: true
       prometheus:
         podMonitor:
           enabled: true
     controller:
+      # TODO: bump to 2 replicas when homelab-v2 fully migrated
+      replicaCount: 1
       prometheus:
         podMonitor:
           enabled: true
