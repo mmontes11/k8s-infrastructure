@@ -27,6 +27,7 @@ spec:
           command:
             - /bin/bash
             - -c
+          # TODO: bake this in a custom image
           args:
             - |
               set -euo pipefail
@@ -35,7 +36,6 @@ spec:
 
               DEVICE=/dev/sdb
               VG_NAME=topolvm
-              THIN_POOL_NAME=thinpool
 
               echo "Waiting for $DEVICE..."
               while [ ! -b "$DEVICE" ]; do sleep 1; done
@@ -56,15 +56,7 @@ spec:
               fi
               vgdisplay "$VG_NAME"
 
-              if ! lvs "$VG_NAME/$THIN_POOL_NAME" >/dev/null 2>&1; then
-                echo "Creating thin pool $THIN_POOL_NAME"
-                lvcreate --yes --type thin-pool -L 90%VG -n "$THIN_POOL_NAME" "$VG_NAME"
-              else
-                echo "Thin pool $THIN_POOL_NAME already exists"
-              fi
-              lvdisplay "$VG_NAME/$THIN_POOL_NAME"
-
-              echo "LVM thin pool setup complete"
+              echo "LVM init complete"
           volumeMounts:
             - name: devices-dir 
               mountPath: /dev
