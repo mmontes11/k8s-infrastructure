@@ -11,7 +11,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: mariadb-operator
-      version: "25.8.1"
+      version: "25.8.2"
   interval: 1h0m0s
   values:
     logLevel: INFO
