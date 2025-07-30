@@ -68,7 +68,7 @@ spec:
 
               if ! lvs "$VG_NAME/$THIN_POOL_NAME" >/dev/null 2>&1; then
                 echo "Creating thin pool $THIN_POOL_NAME in $VG_NAME"
-                lvcreate -T -Zn "$THIN_POOL_NAME" -L "$THIN_POOL_SIZE" "$VG_NAME"
+                lvcreate -T -n "$THIN_POOL_NAME" -L "$THIN_POOL_SIZE" "$VG_NAME"
               else
                 echo "Thin pool $THIN_POOL_NAME already exists in $VG_NAME"
               fi
