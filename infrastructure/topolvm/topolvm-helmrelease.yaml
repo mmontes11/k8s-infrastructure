@@ -18,9 +18,13 @@ spec:
         - name: nvme
           volume-group: topolvm
           default: true
-          spare-gb: 10
+          type: thin
+          spare-gb: 1
+          thin-pool:
+            name: "pool0"
+            overprovision-ratio: 5.0
       initContainers:
-        - name: init-lvm
+        - name: lvm-init
           image: ubuntu:24.04
           securityContext:
             privileged: true
@@ -36,6 +40,8 @@ spec:
 
               DEVICE=/dev/sdb
               VG_NAME=topolvm
+              THIN_POOL_NAME=pool0
+              THIN_POOL_SIZE=4G
 
               echo "Waiting for $DEVICE..."
               while [ ! -b "$DEVICE" ]; do sleep 1; done
@@ -55,6 +61,14 @@ spec:
                 echo "Volume group $VG_NAME already exists"
               fi
               vgdisplay "$VG_NAME"
+
+              if ! lvs "$VG_NAME/$THIN_POOL_NAME" >/dev/null 2>&1; then
+                echo "Creating thin pool $THIN_POOL_NAME in $VG_NAME"
+                lvcreate -T -n "$THIN_POOL_NAME" -L "$THIN_POOL_SIZE" "$VG_NAME"
+              else
+                echo "Thin pool $THIN_POOL_NAME already exists in $VG_NAME"
+              fi
+              lvdisplay "$VG_NAME/$THIN_POOL_NAME"
 
               echo "LVM init complete"
           volumeMounts:
