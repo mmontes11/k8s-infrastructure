@@ -62,11 +62,11 @@ spec:
               fi
               vgdisplay "$VG_NAME"
 
-              echo "Activating volume group $VG_NAME"
-              vgchange -a y "$VG_NAME"
-              vgmknodes "$VG_NAME"
+              # echo "Activating volume group $VG_NAME"
+              # vgchange -a y "$VG_NAME"
+              # vgmknodes "$VG_NAME"
 
-              sleep infinity
+              # sleep infinity
 
               if ! lvs "$VG_NAME/$THIN_POOL_NAME" >/dev/null 2>&1; then
                 echo "Creating thin pool $THIN_POOL_NAME in $VG_NAME"
