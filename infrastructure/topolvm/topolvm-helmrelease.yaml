@@ -65,8 +65,8 @@ spec:
               # echo "Activating volume group $VG_NAME"
               # vgchange -a y "$VG_NAME"
               # vgmknodes "$VG_NAME"
-
-              # sleep infinity
+              # lvcreate -V 1G --thin -n thin_volume vg1/tpool
+              sleep infinity
 
               if ! lvs "$VG_NAME/$THIN_POOL_NAME" >/dev/null 2>&1; then
                 echo "Creating thin pool $THIN_POOL_NAME in $VG_NAME"
