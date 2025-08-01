@@ -25,18 +25,17 @@ spec:
             overprovision-ratio: 5.0
       initContainers:
         - name: lvm-init
-          image: ubuntu:24.04
+          image: alpine:3.22.1
           securityContext:
             privileged: true
           command:
             - /bin/bash
             - -c
-          # TODO: bake this in a custom image
           args:
             - |
               set -euo pipefail
 
-              apt-get update && apt-get install -y lvm2
+              ln -s /sbin/lvm /usr/bin/lvm
 
               DEVICE=/dev/sdb
               VG_NAME=topolvm
@@ -82,6 +81,19 @@ spec:
               mountPath: /dev
             - name: lvmd-socket-dir
               mountPath: /run/topolvm
+            - name: lvm-bin
+              mountPath: /sbin/lvm
+            - name: lvm-conf
+              mountPath: /etc/lvm/lvm.conf
+      volumes:
+        - name: lvm-bin
+          hostPath:
+            path: /sbin/lvm
+            type: File
+        - name: lvm-conf
+          hostPath:
+            path: /etc/lvm/lvm.conf
+            type: File
       tolerations:
         - effect: NoSchedule
           key: node.mmontes.io/type
