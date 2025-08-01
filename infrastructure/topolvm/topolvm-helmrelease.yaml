@@ -79,13 +79,11 @@ spec:
           volumeMounts:
             - name: devices-dir 
               mountPath: /dev
-            - name: lvmd-socket-dir
-              mountPath: /run/topolvm
             - name: lvm-bin
               mountPath: /sbin/lvm
             - name: lvm-conf
               mountPath: /etc/lvm/lvm.conf
-      volumes:
+      additionalVolumes:
         - name: lvm-bin
           hostPath:
             path: /sbin/lvm
