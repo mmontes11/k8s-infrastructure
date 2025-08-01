@@ -25,7 +25,7 @@ spec:
             overprovision-ratio: 5.0
       initContainers:
         - name: lvm-init
-          image: ubuntu:25.04
+          image: ubuntu:24.04
           securityContext:
             privileged: true
           command:
