@@ -40,6 +40,8 @@ spec:
               THIN_POOL_NAME=pool0
               THIN_POOL_SIZE=4G
 
+              sleep infinity
+
               echo "Waiting for $DEVICE..."
               while [ ! -b "$DEVICE" ]; do sleep 1; done
 
