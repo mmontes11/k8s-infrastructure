@@ -79,8 +79,6 @@ spec:
           volumeMounts:
           - name: devices-dir 
             mountPath: /dev
-          - name: lvm-bin
-            mountPath: /sbin
       tolerations:
         - effect: NoSchedule
           key: node.mmontes.io/type
