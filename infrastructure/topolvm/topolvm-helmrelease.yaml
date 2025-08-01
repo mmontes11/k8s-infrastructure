@@ -35,7 +35,7 @@ spec:
             - |
               set -euo pipefail
 
-              ln -s /sbin/lvm /usr/bin/lvm
+              export PATH=$PATH:/sbin
 
               DEVICE=/dev/sdb
               VG_NAME=topolvm
@@ -77,21 +77,21 @@ spec:
 
               echo "LVM init complete"
           volumeMounts:
-            - name: devices-dir 
-              mountPath: /dev
-            - name: lvm-bin
-              mountPath: /sbin/lvm
-            - name: lvm-conf
-              mountPath: /etc/lvm/lvm.conf
+          - name: devices-dir 
+            mountPath: /dev
+          - name: lvm-bin
+            mountPath: /sbin
+          - name: lvm-conf
+            mountPath: /etc/lvm
       additionalVolumes:
         - name: lvm-bin
           hostPath:
-            path: /sbin/lvm
-            type: File
+            path: /sbin
+            type: Directory
         - name: lvm-conf
           hostPath:
-            path: /etc/lvm/lvm.conf
-            type: File
+            path: /etc/lvm
+            type: Directory
       tolerations:
         - effect: NoSchedule
           key: node.mmontes.io/type
