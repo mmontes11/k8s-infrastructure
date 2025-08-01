@@ -87,7 +87,6 @@ spec:
         - name: lvm-bin
           hostPath:
             path: /sbin
-            type: Directory
         # - name: lvm-conf
         #   hostPath:
         #     path: /etc/lvm
