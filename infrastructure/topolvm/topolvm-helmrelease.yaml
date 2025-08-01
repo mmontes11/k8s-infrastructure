@@ -81,17 +81,17 @@ spec:
             mountPath: /dev
           - name: lvm-bin
             mountPath: /sbin
-          - name: lvm-conf
-            mountPath: /etc/lvm
+          # - name: lvm-conf
+          #   mountPath: /etc/lvm
       additionalVolumes:
         - name: lvm-bin
           hostPath:
             path: /sbin
             type: Directory
-        - name: lvm-conf
-          hostPath:
-            path: /etc/lvm
-            type: Directory
+        # - name: lvm-conf
+        #   hostPath:
+        #     path: /etc/lvm
+        #     type: Directory
       tolerations:
         - effect: NoSchedule
           key: node.mmontes.io/type
