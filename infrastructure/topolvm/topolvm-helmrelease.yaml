@@ -52,6 +52,9 @@ spec:
               VG_NAME="${VG_NAME:-topolvm}"
               THIN_POOL_NAME="${THIN_POOL_NAME:-pool0}"
               THIN_POOL_SIZE="${THIN_POOL_SIZE:-95%FREE}"
+              if [[ "$NODE_NAME" == compute-large-* ]]; then
+                THIN_POOL_SIZE="99%FREE"
+              fi
 
               echo "Waiting for $DEVICE..."
               while [ ! -b "$DEVICE" ]; do sleep 1; done
