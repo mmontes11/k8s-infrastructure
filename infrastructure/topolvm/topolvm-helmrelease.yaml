@@ -19,10 +19,10 @@ spec:
           volume-group: topolvm
           default: true
           type: thin
-          spare-gb: 1
+          spare-gb: 30
           thin-pool:
             name: "pool0"
-            overprovision-ratio: 1.0
+            overprovision-ratio: 1.5
       initContainers:
         - name: lvm-init
           image: ubuntu:24.04
@@ -52,10 +52,7 @@ spec:
               DEVICE="${DEVICE:-/dev/sdb}"
               VG_NAME="${VG_NAME:-topolvm}"
               THIN_POOL_NAME="${THIN_POOL_NAME:-pool0}"
-              THIN_POOL_SIZE="${THIN_POOL_SIZE:-500G}"
-              if [[ "$NODE_NAME" == compute-xlarge-* ]]; then
-                THIN_POOL_SIZE=1.5T
-              fi
+              THIN_POOL_SIZE="${THIN_POOL_SIZE:-95%FREE}"
 
               echo "Waiting for $DEVICE..."
               while [ ! -b "$DEVICE" ]; do sleep 1; done
