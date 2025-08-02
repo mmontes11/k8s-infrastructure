@@ -22,7 +22,7 @@ spec:
           spare-gb: 1
           thin-pool:
             name: "pool0"
-            overprovision-ratio: 5.0
+            overprovision-ratio: 1.0
       initContainers:
         - name: lvm-init
           image: ubuntu:24.04
@@ -49,10 +49,13 @@ spec:
               }
               EOF
 
-              DEVICE=/dev/sdb
-              VG_NAME=topolvm
-              THIN_POOL_NAME=pool0
-              THIN_POOL_SIZE=4G
+              DEVICE="${DEVICE:-/dev/sdb}"
+              VG_NAME="${VG_NAME:-topolvm}"
+              THIN_POOL_NAME="${THIN_POOL_NAME:-pool0}"
+              THIN_POOL_SIZE="${THIN_POOL_SIZE:-500G}"
+              if [[ "$NODE_NAME" == compute-xlarge-* ]]; then
+                THIN_POOL_SIZE=1.5T
+              fi
 
               echo "Waiting for $DEVICE..."
               while [ ! -b "$DEVICE" ]; do sleep 1; done
@@ -82,6 +85,11 @@ spec:
               lvdisplay "$VG_NAME/$THIN_POOL_NAME"
 
               echo "LVM init complete"
+          env:
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
           volumeMounts:
           - name: devices-dir 
             mountPath: /dev
