@@ -1,0 +1,118 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: synology-csi
+spec:
+  releaseName: synology-csi
+  chart:
+    spec:
+      chart: synology-csi-talos
+      sourceRef:
+        kind: HelmRepository
+        name: synology-csi
+      version: "0.9.5-pre.4"
+  interval: 1h0m0s
+  values:
+    fullnameOverride: synology
+    clientInfoSecret:
+      create: false
+      name: client-info
+    images:
+      attacher:
+        image: registry.k8s.io/sig-storage/csi-attacher
+        pullPolicy: IfNotPresent
+        tag: v4.9.0
+      nodeDriverRegistrar:
+        image: registry.k8s.io/sig-storage/csi-node-driver-registrar
+        pullPolicy: IfNotPresent
+        tag: v2.14.0
+      plugin:
+        image: ghcr.io/zebernst/synology-csi
+        pullPolicy: IfNotPresent
+      provisioner:
+        image: registry.k8s.io/sig-storage/csi-provisioner
+        pullPolicy: IfNotPresent
+        tag: v5.3.0
+      resizer:
+        image: registry.k8s.io/sig-storage/csi-resizer
+        pullPolicy: IfNotPresent
+        tag: v1.14.0
+      snapshotter:
+        image: registry.k8s.io/sig-storage/csi-snapshotter
+        pullPolicy: IfNotPresent
+        tag: v8.3.0
+    storageClasses:
+      synology-iscsi:
+        disabled: false
+        isDefault: false
+        reclaimPolicy: Delete
+        parameters:
+          dsm: "10.0.0.50"
+          fsType: btrfs
+          location: /volume1
+          protocol: iscsi
+      synology-iscsi-retain:
+        disabled: false
+        isDefault: false
+        reclaimPolicy: Retain
+        parameters:
+          dsm: "10.0.0.50"
+          fsType: btrfs
+          location: /volume1
+          protocol: iscsi
+    volumeSnapshotClasses:
+      synology-iscsi:
+        disabled: false
+        isDefault: false
+        deletionPolicy: Delete
+        parameters:
+          description: "Kubernetes CSI"
+          is_locked: "false"
+      synology-iscsi-retain:
+        disabled: false
+        isDefault: false
+        deletionPolicy: Retain
+        parameters:
+          description: "Kubernetes CSI"
+          is_locked: "false"
+      delete: null
+      retain: null
+    node:
+      tolerations:
+        - effect: NoSchedule
+          key: node.mmontes.io/type
+          value: compute-large
+        - effect: NoSchedule
+          key: node.mmontes.io/type
+          value: compute-xlarge
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node.mmontes.io/type
+                    operator: In
+                    values:
+                      - compute-large
+                      - compute-xlarge
+    snapshotter:
+      tolerations:
+        - effect: NoSchedule
+          key: node.mmontes.io/type
+          value: compute-large
+        - effect: NoSchedule
+          key: node.mmontes.io/type
+          value: compute-xlarge
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node.mmontes.io/type
+                    operator: In
+                    values:
+                      - compute-large
+                      - compute-xlarge
+    test:
+      enabled: false
+

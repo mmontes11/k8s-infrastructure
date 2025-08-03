@@ -3,3 +3,5 @@ kind: Kustomization
 namespace: storage
 resources:
   - client-info-sealedsecret.yaml
+  - synology-csi-helmrelease.yaml
+  - synology-csi-helmrepository.yaml
