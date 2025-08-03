@@ -75,8 +75,6 @@ spec:
         parameters:
           description: "Kubernetes CSI"
           is_locked: "false"
-      delete: null
-      retain: null
     node:
       tolerations:
         - effect: NoSchedule
