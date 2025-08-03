@@ -19,28 +19,34 @@ spec:
       name: client-info
     images:
       attacher:
-        image: registry.k8s.io/sig-storage/csi-attacher
         pullPolicy: IfNotPresent
-        tag: v4.9.0
+        image:
+          repository: registry.k8s.io/sig-storage/csi-attacher
+          tag: v4.9.0
       nodeDriverRegistrar:
-        image: registry.k8s.io/sig-storage/csi-node-driver-registrar
         pullPolicy: IfNotPresent
-        tag: v2.14.0
+        image:
+          repository: registry.k8s.io/sig-storage/csi-node-driver-registrar
+          tag: v2.14.0
       plugin:
-        image: ghcr.io/zebernst/synology-csi
         pullPolicy: IfNotPresent
+        image:
+          repository: ghcr.io/zebernst/synology-csi
       provisioner:
-        image: registry.k8s.io/sig-storage/csi-provisioner
         pullPolicy: IfNotPresent
-        tag: v5.3.0
+        image:
+          repository: registry.k8s.io/sig-storage/csi-provisioner
+          tag: v5.3.0
       resizer:
-        image: registry.k8s.io/sig-storage/csi-resizer
         pullPolicy: IfNotPresent
-        tag: v1.14.0
+        image:
+          repository: registry.k8s.io/sig-storage/csi-resizer
+          tag: v1.14.0
       snapshotter:
-        image: registry.k8s.io/sig-storage/csi-snapshotter
         pullPolicy: IfNotPresent
-        tag: v8.3.0
+        image:
+          repository: registry.k8s.io/sig-storage/csi-snapshotter
+          tag: v8.3.0
     storageClasses:
       synology-iscsi:
         disabled: false
