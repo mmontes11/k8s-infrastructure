@@ -96,6 +96,8 @@ metadata:
   name: synology-csi
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: external-snapshotter-crds
   interval: 5m
   sourceRef:
     kind: GitRepository
