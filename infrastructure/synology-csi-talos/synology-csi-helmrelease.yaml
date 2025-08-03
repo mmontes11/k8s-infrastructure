@@ -6,7 +6,7 @@ spec:
   releaseName: synology-csi
   chart:
     spec:
-      chart: synology-csi-talos
+      chart: synology-csi
       sourceRef:
         kind: HelmRepository
         name: synology-csi
