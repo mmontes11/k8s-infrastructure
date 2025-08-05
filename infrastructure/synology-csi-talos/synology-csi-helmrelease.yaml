@@ -57,6 +57,15 @@ spec:
           fsType: btrfs
           location: /volume1
           protocol: iscsi
+      synology-iscsi-ext4:
+        disabled: false
+        isDefault: false
+        reclaimPolicy: Delete
+        parameters:
+          dsm: "10.0.0.50"
+          fsType: ext4
+          location: /volume1
+          protocol: iscsi
       synology-iscsi-retain:
         disabled: false
         isDefault: false
