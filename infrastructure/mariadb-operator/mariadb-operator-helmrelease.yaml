@@ -15,6 +15,10 @@ spec:
   interval: 1h0m0s
   values:
     logLevel: INFO
+    image:
+      repository: mmontes11/mariadb-operator
+      pullPolicy: IfNotPresent
+      tag: 25.8.3-dev
     metrics:
       enabled: true
       serviceMonitor:
