@@ -100,3 +100,60 @@ spec:
             topolvm.io/device-class: "nvme"
     snapshot:
       enabled: true
+    resources:
+      topolvm_node:
+        requests:
+          memory: 100Mi
+          cpu: 100m
+        limits:
+          memory: 500Mi
+          cpu: 500m
+      csi_registrar:
+        requests:
+          cpu: "25m"
+          memory: "10Mi"
+        limits:
+          cpu: "200m"
+          memory: "200Mi"
+      liveness_probe:
+        requests:
+          cpu: "25m"
+          memory: "10Mi"
+        limits:
+          cpu: "200m"
+          memory: "200Mi"
+      topolvm_controller:
+        requests:
+          memory: "50Mi"
+          cpu: "50m"
+        limits:
+          memory: "200Mi"
+          cpu: "200m"
+      csi_provisioner:
+        requests:
+          memory: "50Mi"
+          cpu: "50m"
+        limits:
+          memory: "200Mi"
+          cpu: "200m"
+      csi_resizer:
+        requests:
+          memory: "50Mi"
+          cpu: "50m"
+        limits:
+          memory: "200Mi"
+          cpu: "200m"
+      csi_snapshotter:
+        requests:
+          memory: "50Mi"
+          cpu: "50m"
+        limits:
+          memory: "200Mi"
+          cpu: "200m"
+      lvmd:
+        requests:
+          memory: 100Mi
+          cpu: 100m
+        limits:
+          memory: 500Mi
+          cpu: 500m
