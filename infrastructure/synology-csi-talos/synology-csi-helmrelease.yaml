@@ -103,6 +103,24 @@ spec:
         parameters:
           description: "Kubernetes CSI"
           is_locked: "false"
+    controller:
+      tolerations:
+        - effect: NoSchedule
+          key: node.mmontes.io/type
+          value: compute-large
+        - effect: NoSchedule
+          key: node.mmontes.io/type
+          value: compute-xlarge
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node.mmontes.io/type
+                    operator: In
+                    values:
+                      - compute-large
+                      - compute-xlarge
     node:
       tolerations:
         - effect: NoSchedule

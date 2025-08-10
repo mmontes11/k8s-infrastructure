@@ -83,8 +83,37 @@ spec:
         podMonitor:
           enabled: true
     controller:
-      # TODO: bump to 2 replicas when homelab-v2 fully migrated
-      replicaCount: 1
+      replicaCount: 2
+      tolerations:
+        - effect: NoSchedule
+          key: node.mmontes.io/type
+          value: compute-large
+        - effect: NoSchedule
+          key: node.mmontes.io/type
+          value: compute-xlarge
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app.kubernetes.io/component
+                    operator: In
+                    values:
+                      - controller
+                  - key: app.kubernetes.io/name
+                    operator: In
+                    values:
+                      - topolvm
+              topologyKey: kubernetes.io/hostname
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node.mmontes.io/type
+                    operator: In
+                    values:
+                      - compute-large
+                      - compute-xlarge
       prometheus:
         podMonitor:
           enabled: true
