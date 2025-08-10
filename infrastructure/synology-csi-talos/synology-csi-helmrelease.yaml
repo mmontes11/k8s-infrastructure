@@ -52,6 +52,7 @@ spec:
         disabled: false
         isDefault: false
         reclaimPolicy: Delete
+        volumeBindingMode: WaitForFirstConsumer
         parameters:
           dsm: "10.0.0.50"
           fsType: btrfs
@@ -61,6 +62,7 @@ spec:
         disabled: false
         isDefault: false
         reclaimPolicy: Retain
+        volumeBindingMode: WaitForFirstConsumer
         parameters:
           dsm: "10.0.0.50"
           fsType: btrfs
@@ -70,6 +72,7 @@ spec:
         disabled: false
         isDefault: false
         reclaimPolicy: Delete
+        volumeBindingMode: WaitForFirstConsumer
         parameters:
           dsm: "10.0.0.50"
           fsType: ext4
@@ -79,6 +82,7 @@ spec:
         disabled: false
         isDefault: false
         reclaimPolicy: Retain
+        volumeBindingMode: WaitForFirstConsumer
         parameters:
           dsm: "10.0.0.50"
           fsType: ext4
