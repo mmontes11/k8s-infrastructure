@@ -91,7 +91,7 @@ spec:
         - effect: NoSchedule
           key: node.mmontes.io/type
           value: compute-xlarge
-      affinity:
+      affinity: |
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             - labelSelector:
