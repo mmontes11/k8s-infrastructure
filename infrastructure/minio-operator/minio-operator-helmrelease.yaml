@@ -1,0 +1,17 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: minio-operator
+spec:
+  chart:
+    spec:
+      chart: operator
+      sourceRef:
+        kind: HelmRepository
+        name: minio-operator
+      version: "v7.1.1"
+  interval: 1h0m0s
+  values:
+    operator:
+      # TODO: set to 2 after migrating to homelab-v2
+      replicaCount: 1
