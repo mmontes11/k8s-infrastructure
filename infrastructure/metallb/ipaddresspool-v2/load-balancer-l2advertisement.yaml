@@ -1,7 +1,7 @@
 apiVersion: metallb.io/v1beta1
-kind: IPAddressPool
+kind: L2Advertisement
 metadata:
   name: load-balancer
 spec:
-  addresses:
-    - 10.0.0.60-10.0.0.89
+  ipAddressPools:
+    - load-balancer
