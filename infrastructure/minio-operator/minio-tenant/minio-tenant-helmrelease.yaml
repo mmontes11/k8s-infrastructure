@@ -16,8 +16,6 @@ spec:
       name: minio
       configSecret:
         name: minio-root
-        accessKey: CONSOLE_ACCESS_KEY
-        secretKey: CONSOLE_SECRET_KEY
         existingSecret: true
       pools:
         - name: pool-0
