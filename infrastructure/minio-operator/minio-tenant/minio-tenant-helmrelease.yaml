@@ -1,0 +1,60 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: minio-tenant
+spec:
+  chart:
+    spec:
+      chart: tenant
+      sourceRef:
+        kind: HelmRepository
+        name: minio-operator
+      version: "v7.1.1"
+  interval: 1h0m0s
+  values:
+    tenant:
+      name: minio
+      configSecret:
+        name: minio-root
+        accessKey: CONSOLE_ACCESS_KEY
+        secretKey: CONSOLE_SECRET_KEY
+        existingSecret: true
+      pools:
+        - name: pool-0
+          servers: 1
+          volumesPerServer: 1
+          storageClassName: synology
+          size: 10Gi
+          resources:
+            requests:
+              cpu: 1
+              memory: 1Gi
+            limits:
+              memory: 4Gi
+          tolerations:
+          - effect: NoSchedule
+            key: node.mmontes.io/type
+            value: compute-large
+      exposeServices: true
+      serviceMetadata:
+        minioServiceAnnotations:
+          metallb.universe.tf/loadBalancerIPs: 10.0.0.90
+        consoleServiceAnnotations:
+          metallb.universe.tf/loadBalancerIPs: 10.0.0.91
+      certificate:
+        requestAutoCert: false
+        externalCertSecret:
+          - name: minio-tls
+            type: cert-manager.io/v1
+      metrics:
+        enabled: true
+      prometheusOperator: true
+      features:
+        bucketDNS: true
+      buckets:
+        - name: pvc
+          objectLock: false
+        - name: mariadb
+          objectLock: false
+      users:
+        - name: minio

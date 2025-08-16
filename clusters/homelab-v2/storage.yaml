@@ -200,3 +200,19 @@ spec:
   path: ./infrastructure/minio-operator
   prune: true
   timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: minio-tenant
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: minio-operator
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/minio-operator/minio-tenant
+  prune: true
+  timeout: 5m
