@@ -48,14 +48,15 @@ spec:
       certificate:
         requestAutoCert: false
         externalCaCertSecret:
-          - name: homelab-bundle
+          - name: operator-ca-tls-minio   
             type: kubernetes.io/tls
         externalCertSecret:
           - name: minio-tls
             type: cert-manager.io/v1
       metrics:
         enabled: true
-      prometheusOperator: true
+      # TODO: enable when available in homelab-v2
+      prometheusOperator: false
       features:
         bucketDNS: true
       buckets:
