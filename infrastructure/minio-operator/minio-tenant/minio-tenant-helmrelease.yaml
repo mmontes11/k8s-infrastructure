@@ -14,6 +14,12 @@ spec:
   values:
     tenant:
       name: minio
+      # See: https://github.com/minio/operator/blob/master/helm/tenant/templates/tenant-configuration.yaml
+      # Example:
+      # export MINIO_ROOT_USER=<user>
+      # export MINIO_ROOT_PASSWORD=<password>
+      # export PROMETHEUS_NAME=<name>
+      # export PROMETHEUS_NAMESPACE=<password>
       configSecret:
         name: minio-config
         existingSecret: true
