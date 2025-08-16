@@ -35,7 +35,9 @@ spec:
             value: compute-large
           nodeSelector:
             node.mmontes.io/type: compute-large
-      exposeServices: true
+      exposeServices:
+        minio: true
+        console: true
       serviceMetadata:
         minioServiceAnnotations:
           metallb.universe.tf/loadBalancerIPs: 10.0.0.90
