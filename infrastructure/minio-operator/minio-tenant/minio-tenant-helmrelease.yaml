@@ -33,6 +33,8 @@ spec:
           - effect: NoSchedule
             key: node.mmontes.io/type
             value: compute-large
+          nodeSelector:
+            node.mmontes.io/type: compute-large
       exposeServices: true
       serviceMetadata:
         minioServiceAnnotations:
