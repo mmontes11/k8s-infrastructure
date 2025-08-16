@@ -9,4 +9,4 @@ spec:
       key: ca.crt
   target:
     secret:
-      key: ca.crt
+      key: tls.crt
