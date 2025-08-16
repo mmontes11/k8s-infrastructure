@@ -28,10 +28,10 @@ spec:
           servers: 1
           volumesPerServer: 1
           storageClassName: synology
-          size: 10Gi
+          size: 100Gi
           resources:
             requests:
-              cpu: 1
+              cpu: 2
               memory: 1Gi
             limits:
               memory: 4Gi
