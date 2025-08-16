@@ -1,12 +1,15 @@
 apiVersion: trust.cert-manager.io/v1alpha1
 kind: Bundle
 metadata:
-  name: homelab-bundle
+  name: operator-ca-tls-minio
 spec:
   sources:
   - secret:
       name: homelab-tls
       key: ca.crt
   target:
+    namespaceSelector:
+      matchLabels:
+        kubernetes.io/metadata.name: storage
     secret:
-      key: ca.crt
+      key: tls.crt
