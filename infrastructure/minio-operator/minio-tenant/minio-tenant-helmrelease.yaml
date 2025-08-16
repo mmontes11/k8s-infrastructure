@@ -47,6 +47,9 @@ spec:
           metallb.universe.tf/loadBalancerIPs: 10.0.0.91
       certificate:
         requestAutoCert: false
+        externalCaCertSecret:
+          - name: homelab-bundle
+            type: kubernetes.io/tls
         externalCertSecret:
           - name: minio-tls
             type: cert-manager.io/v1
