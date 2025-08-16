@@ -27,11 +27,11 @@ spec:
         - name: pool-0
           servers: 1
           volumesPerServer: 1
-          storageClassName: synology
+          storageClassName: synology-ext4
           size: 100Gi
           resources:
             requests:
-              cpu: 2
+              cpu: 1
               memory: 1Gi
             limits:
               memory: 4Gi
