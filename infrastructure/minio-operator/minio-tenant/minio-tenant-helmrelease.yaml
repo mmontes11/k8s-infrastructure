@@ -18,6 +18,7 @@ spec:
       # Example:
       # export MINIO_ROOT_USER=<user>
       # export MINIO_ROOT_PASSWORD=<password>
+      # export MINIO_PROMETHEUS_AUTH_TYPE=public
       configSecret:
         name: minio-config
         existingSecret: true
