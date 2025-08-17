@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: storage
 resources:
   - minio-config-sealedsecret.yaml
+  - minio-scrapeconfig.yaml
   - minio-sealedsecret.yaml
   - minio-tenant-helmrelease.yaml
   - minio-tls-certificate.yaml

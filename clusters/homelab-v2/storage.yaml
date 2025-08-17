@@ -209,6 +209,8 @@ metadata:
 spec:
   dependsOn:
     - name: minio-operator
+    - name: cert-manager-crds
+    - name: prometheus-crds
   interval: 5m
   sourceRef:
     kind: GitRepository

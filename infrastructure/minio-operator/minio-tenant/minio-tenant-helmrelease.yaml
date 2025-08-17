@@ -59,7 +59,7 @@ spec:
             type: cert-manager.io/v1
       metrics:
         enabled: true
-      prometheusOperator: true
+      prometheusOperator: false # using custom ScrapeConfig, as minio-operator does not handle custom CAs
       features:
         bucketDNS: true
       buckets:
