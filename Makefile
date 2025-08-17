@@ -1,7 +1,7 @@
 ROOK_VERSION ?= v1.16.5
 ROOK_URL ?= https://raw.githubusercontent.com/rook/rook/refs/tags/$(ROOK_VERSION)/deploy/examples/crds.yaml
 
-PROMETHEUS_VERSION ?= 70.0.2
+PROMETHEUS_VERSION ?= 76.4.0
 PROMETHEUS_URL ?= https://github.com/prometheus-community/helm-charts/releases/download/kube-prometheus-stack-$(PROMETHEUS_VERSION)/kube-prometheus-stack-$(PROMETHEUS_VERSION).tgz
 
 CERT_MANAGER_VERSION ?= v1.17.1
@@ -28,6 +28,16 @@ prometheus-crds: ### Get prometheus CRDs to be installed by flux.
 	fi
 	curl -sL $(PROMETHEUS_URL) | tar xz -C .
 	cp kube-prometheus-stack/charts/crds/crds/*.yaml  infrastructure/prometheus/crds
+	rm -rf kube-prometheus-stack/
+
+# TODO: merge with prometheus after migrating to homelab-v2 
+.PHONY: prometheus-crds-v2
+prometheus-crds-v2: ### Get prometheus-v2 CRDs to be installed by flux.
+	@if [ -d "kube-prometheus-stack" ]; then \
+			rm -rf kube-prometheus-stack/; \
+	fi
+	curl -sL $(PROMETHEUS_URL) | tar xz -C .
+	cp kube-prometheus-stack/charts/crds/crds/*.yaml  infrastructure/prometheus-v2/crds
 	rm -rf kube-prometheus-stack/
 
 .PHONY: cert-manager-crds

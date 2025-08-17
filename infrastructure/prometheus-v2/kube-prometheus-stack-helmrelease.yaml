@@ -1,0 +1,227 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+spec:
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus
+      version: "76.4.0"
+  interval: 1h0m0s
+  values:
+    crds:
+      enabled: false
+
+    prometheus:
+      prometheusSpec:
+        serviceMonitorSelector:
+          matchLabels: null
+        podMonitorSelector:
+          matchLabels: null
+        ruleSelector:
+           matchLabels: null
+        scrapeConfigSelector:
+           matchLabels: null
+        retention: "168h" # 7 days = 168 hour
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: topolvm
+              accessModes: ["ReadWriteOnce"]
+              resources:
+                requests:
+                  storage: 10Gi
+        tolerations:
+        - effect: NoSchedule
+          key: node.mmontes.io/type
+          value: compute-large
+        nodeSelector:
+          node.mmontes.io/type: compute-large
+        service:
+          annotations:
+            metallb.universe.tf/loadBalancerIPs: 10.0.0.92       
+
+    alertmanager:
+      alertmanagerSpec:
+        useExistingSecret: true
+        configSecret: alertmanager
+        retention: "24h"
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: topolvm
+              accessModes: ["ReadWriteOnce"]
+              resources:
+                requests:
+                  storage: 1Gi
+        tolerations:
+        - effect: NoSchedule
+          key: node.mmontes.io/type
+          value: compute-large
+        nodeSelector:
+          node.mmontes.io/type: compute-large
+        service:
+          annotations:
+            metallb.universe.tf/loadBalancerIPs: 10.0.0.93
+
+    grafana:
+      admin:
+        existingSecret: "grafana"
+        userKey: user
+        passwordKey: password
+      persistence:
+        enabled: true
+        storageClassName: topolvm
+        size: 1Gi
+      tolerations:
+      - effect: NoSchedule
+        key: node.mmontes.io/type
+        value: compute-large
+      nodeSelector:
+        node.mmontes.io/type: compute-large
+      plugins:
+        - grafana-piechart-panel
+      dashboardProviders:
+        dashboardproviders.yaml:
+          apiVersion: 1
+          providers:
+            - name: "default"
+              orgId: 1
+              folder: ""
+              type: file
+              disableDeletion: false
+              editable: true
+              options:
+                path: /var/lib/grafana/dashboards/default
+      dashboards:
+        default:
+          node-exporter:
+            gnetId: 11074
+            revision: 9
+            datasource: Prometheus
+          node-exporter-full:
+            gnetId: 1860
+            revision: 37
+            datasource: Prometheus
+          traefik:
+            gnetId: 11462
+            revision: 1
+            datasource: Prometheus
+          go-processes:
+            gnetId: 6671
+            revision: 2
+            datasource: Prometheus
+          go-metrics:
+            gnetId: 10826
+            revision: 1
+            datasource: Prometheus
+          pihole:
+            gnetId: 10176
+            revision: 3
+            datasource: Prometheus
+          pihole-ui:
+            gnetId: 14475
+            revision: 4
+            datasource: 
+              - name: DS_PROMETHEUS
+                value: Prometheus
+              - name: VAR_PIHOLEDEVICES
+                value: 3 
+          flux:
+            gnetId: 16714
+            revision: 1
+            datasource: Prometheus
+          cilium-agent:
+            gnetId: 16611
+            revision: 1
+            datasource: Prometheus
+          cilium-operator:
+            gnetId: 16612
+            revision: 1
+            datasource: Prometheus
+          cilium-hubble:
+            gnetId: 16613
+            revision: 1
+            datasource: Prometheus
+          cert-manager:
+            gnetId: 20842
+            revision: 3
+            datasource: Prometheus
+          metallb:
+            gnetId: 14127
+            revision: 1
+            datasource: Prometheus
+          mysql-overview:
+            gnetId: 7362
+            revision: 5
+            datasource: Prometheus
+          mysql-quickstart:
+            gnetId: 14057
+            revision: 1
+            datasource: Prometheus
+          mysql-replication:
+            gnetId: 7371
+            revision: 1
+            datasource: Prometheus
+          mariadb-galera:
+            gnetId: 13106
+            revision: 3
+            datasource: Prometheus
+          ceph-cluster:
+            gnetId: 2842
+            revision: 18
+            datasource: Prometheus
+          ceph-osd:
+            gnetId: 5336
+            revision: 9
+            datasource: Prometheus
+          ceph-pool:
+            gnetId: 5342
+            revision: 9
+            datasource: Prometheus
+          blackbox:
+            gnetId: 7587
+            revision: 3
+            datasource: 
+              - name: DS_SIGNCL-PROMETHEUS
+                value: Prometheus
+          blackbox-icmp:
+            gnetId: 20338
+            revision: 3
+            datasource: 
+              - name: DS_PROMETHEUS
+                value: Prometheus
+          synology-overview:
+            gnetId: 14364
+            revision: 10
+            datasource: 
+              - name: DS_PROMETHEUS
+                value: Prometheus
+              - name: VAR_NASDEVICES
+                value: 1
+          synology-detail:
+            gnetId: 14284
+            revision: 10
+            datasource: 
+              - name: DS_PROMETHEUS
+                value: Prometheus
+              - name: VAR_NASDEVICES
+                value: 1
+
+    prometheus-node-exporter:
+      tolerations:
+      - effect: NoSchedule
+        key: node.mmontes.io/type
+        value: compute-large
+      - effect: NoSchedule
+        key: node.mmontes.io/type
+        value: compute-xlarge
+      # TODO: update toleration after migrating to homelab-v2
+      - effect: NoSchedule
+        key: node.mmontes.io/storage
+      # - effect: NoSchedule
+      #   key: node.mmontes.io/type
+      #   value: storage

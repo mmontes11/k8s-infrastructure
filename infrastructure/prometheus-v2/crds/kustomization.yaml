@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - crd-alertmanagerconfigs.yaml
+  - crd-alertmanagers.yaml
+  - crd-podmonitors.yaml
+  - crd-probes.yaml
+  - crd-prometheusagents.yaml
+  - crd-prometheuses.yaml
+  - crd-prometheusrules.yaml
+  - crd-scrapeconfigs.yaml
+  - crd-servicemonitors.yaml
+  - crd-thanosrulers.yaml

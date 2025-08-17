@@ -30,6 +30,7 @@ spec:
 #   prune: true
 #   timeout: 5m
 ---
+# TODO: merge with prometheus after migrating to homelab-v2 
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
@@ -40,27 +41,27 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/prometheus/crds
+  path: ./infrastructure/prometheus-v2/crds
   prune: true
   timeout: 5m
-# ---
-# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-# kind: Kustomization
-# metadata:
-#   name: prometheus
-#   namespace: flux-system
-# spec:
-#   dependsOn:
-#     - name: prometheus-crds
-#     - name: sealed-secrets
-#     - name: gateway-api
-#   interval: 5m
-#   sourceRef:
-#     kind: GitRepository
-#     name: flux-system
-#   path: ./infrastructure/prometheus
-#   prune: true
-#   timeout: 5m
+---
+# TODO: merge with prometheus after migrating to homelab-v2 
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: prometheus
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: prometheus-crds
+    - name: sealed-secrets
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/prometheus-v2
+  prune: true
+  timeout: 5m
 # ---
 # apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 # kind: Kustomization
