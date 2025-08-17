@@ -16,6 +16,11 @@ spec:
       enabled: false
 
     prometheus:
+      # TODO: remove after migrating to homelab-v2
+      service:
+        type: LoadBalancer
+        annotations:
+          metallb.universe.tf/loadBalancerIPs: 10.0.0.92       
       prometheusSpec:
         serviceMonitorSelector:
           matchLabels: null
@@ -40,12 +45,13 @@ spec:
           value: compute-large
         nodeSelector:
           node.mmontes.io/type: compute-large
-        service:
-          type: LoadBalancer
-          annotations:
-            metallb.universe.tf/loadBalancerIPs: 10.0.0.92       
 
     alertmanager:
+      # TODO: remove after migrating to homelab-v2
+      service:
+        type: LoadBalancer
+        annotations:
+          metallb.universe.tf/loadBalancerIPs: 10.0.0.93
       alertmanagerSpec:
         useExistingSecret: true
         configSecret: alertmanager
@@ -64,10 +70,6 @@ spec:
           value: compute-large
         nodeSelector:
           node.mmontes.io/type: compute-large
-        service:
-          type: LoadBalancer
-          annotations:
-            metallb.universe.tf/loadBalancerIPs: 10.0.0.93
 
     grafana:
       admin:
@@ -78,6 +80,7 @@ spec:
         enabled: true
         storageClassName: topolvm
         size: 1Gi
+      # TODO: remove after migrating to homelab-v2
       service:
         type: LoadBalancer
         annotations:
