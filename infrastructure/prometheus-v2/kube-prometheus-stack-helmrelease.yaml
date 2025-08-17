@@ -225,12 +225,6 @@ spec:
             datasource: 
               - name: DS_PROMETHEUS
                 value: Prometheus
-          minio-overview:
-            gnetId: 10946
-            revision: 1
-            datasource: 
-              - name: DS_PROMETHEUS
-                value: Prometheus
 
     prometheus-node-exporter:
       tolerations:
