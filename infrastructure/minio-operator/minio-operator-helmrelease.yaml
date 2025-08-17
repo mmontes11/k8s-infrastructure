@@ -15,3 +15,8 @@ spec:
     operator:
       # TODO: set to 2 after migrating to homelab-v2
       replicaCount: 1
+      env:
+        - name: PROMETHEUS_NAMESPACE
+          value: "monitoring"
+        - name: PROMETHEUS_NAME
+          value: "kube-prometheus-stack-prometheus"

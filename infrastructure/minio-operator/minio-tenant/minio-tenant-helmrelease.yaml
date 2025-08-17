@@ -18,8 +18,6 @@ spec:
       # Example:
       # export MINIO_ROOT_USER=<user>
       # export MINIO_ROOT_PASSWORD=<password>
-      # export PROMETHEUS_NAME=<name>
-      # export PROMETHEUS_NAMESPACE=<password>
       configSecret:
         name: minio-config
         existingSecret: true
@@ -61,8 +59,7 @@ spec:
             type: cert-manager.io/v1
       metrics:
         enabled: true
-      # TODO: enable when available in homelab-v2
-      prometheusOperator: false
+      prometheusOperator: true
       features:
         bucketDNS: true
       buckets:
