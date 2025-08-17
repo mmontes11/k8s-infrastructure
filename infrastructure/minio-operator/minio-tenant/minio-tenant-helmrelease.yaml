@@ -61,8 +61,7 @@ spec:
             type: cert-manager.io/v1
       metrics:
         enabled: true
-      # TODO: enable when available in homelab-v2
-      prometheusOperator: false
+      prometheusOperator: true
       features:
         bucketDNS: true
       buckets:
