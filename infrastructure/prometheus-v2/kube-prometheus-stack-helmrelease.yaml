@@ -41,6 +41,7 @@ spec:
         nodeSelector:
           node.mmontes.io/type: compute-large
         service:
+          type: LoadBalancer
           annotations:
             metallb.universe.tf/loadBalancerIPs: 10.0.0.92       
 
@@ -64,6 +65,7 @@ spec:
         nodeSelector:
           node.mmontes.io/type: compute-large
         service:
+          type: LoadBalancer
           annotations:
             metallb.universe.tf/loadBalancerIPs: 10.0.0.93
 
@@ -76,6 +78,10 @@ spec:
         enabled: true
         storageClassName: topolvm
         size: 1Gi
+      service:
+        type: LoadBalancer
+        annotations:
+          metallb.universe.tf/loadBalancerIPs: 10.0.0.94
       tolerations:
       - effect: NoSchedule
         key: node.mmontes.io/type
