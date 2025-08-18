@@ -184,3 +184,11 @@ spec:
                 value: Prometheus
               - name: VAR_NASDEVICES
                 value: 1
+          volsync:
+            gnetId: 21356
+            revision: 3
+            datasource: 
+              - name: DS_PROMETHEUS
+                value: Prometheus
+              - name: VAR_REPLICATIONDESTNAME
+                value: ".*-dst|.*-bootstrap"
