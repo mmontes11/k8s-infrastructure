@@ -9,19 +9,10 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: volsync
-      version: "v0.10.0"
+      version: "v0.13.0"
   interval: 1h0m0s
   values:
     replicaCount: 2
-
-    image:
-      repository: ghcr.io/mmontes11/volsync
-      tag: v0.10.0
-      pullPolicy: Always
-    rsync-tls:
-      repository: ghcr.io/mmontes11/volsync
-      tag: v0.10.0
-      pullPolicy: Always
 
     manageCRDs: true
 
