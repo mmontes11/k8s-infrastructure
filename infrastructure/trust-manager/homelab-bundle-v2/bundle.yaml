@@ -1,0 +1,12 @@
+apiVersion: trust.cert-manager.io/v1alpha1
+kind: Bundle
+metadata:
+  name: homelab-bundle-v2
+spec:
+  sources:
+  - secret:
+      name: homelab-tls-v2
+      key: ca.crt
+  target:
+    secret:
+      key: ca.crt
