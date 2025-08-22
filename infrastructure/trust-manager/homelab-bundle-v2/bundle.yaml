@@ -5,7 +5,7 @@ metadata:
 spec:
   sources:
   - secret:
-      name: homelab-bundle-v2
+      name: homelab-tls-v2
       key: ca.crt
   target:
     secret:
