@@ -66,7 +66,7 @@ spec:
       buckets:
         - name: pvc
           objectLock: false
-        - name: mariadb
+        - name: database
           objectLock: false
       users:
         - name: minio
