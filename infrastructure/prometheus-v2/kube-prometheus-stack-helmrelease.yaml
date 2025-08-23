@@ -225,6 +225,14 @@ spec:
             datasource: 
               - name: DS_PROMETHEUS
                 value: Prometheus
+          volsync:
+            gnetId: 21356
+            revision: 3
+            datasource: 
+              - name: DS_PROMETHEUS
+                value: Prometheus
+              - name: VAR_REPLICATIONDESTNAME
+                value: ".*"
 
     prometheus-node-exporter:
       tolerations:
