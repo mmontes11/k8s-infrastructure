@@ -27,7 +27,7 @@ spec:
           servers: 1
           volumesPerServer: 1
           storageClassName: synology-ext4
-          size: 100Gi
+          size: 2Ti
           resources:
             requests:
               cpu: 1
