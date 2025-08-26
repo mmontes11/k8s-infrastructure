@@ -94,19 +94,19 @@ spec:
 #   path: ./infrastructure/prometheus/alerts
 #   prune: true
 #   timeout: 5m
-# ---
-# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-# kind: Kustomization
-# metadata:
-#   name: prometheus-scrapeconfigs
-#   namespace: flux-system
-# spec:
-#   dependsOn:
-#     - name: prometheus
-#   interval: 5m
-#   sourceRef:
-#     kind: GitRepository
-#     name: flux-system
-#   path: ./infrastructure/prometheus/scrapeconfigs
-#   prune: true
-#   timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: prometheus-scrapeconfigs
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: prometheus
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/prometheus-v2/scrapeconfigs
+  prune: true
+  timeout: 5m

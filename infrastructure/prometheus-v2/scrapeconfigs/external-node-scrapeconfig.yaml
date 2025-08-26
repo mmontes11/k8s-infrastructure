@@ -1,0 +1,11 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: external-node
+spec:
+  scrapeInterval: 1m
+  staticConfigs:
+    - labels:
+        job: node-exporter
+      targets:
+        - 10.0.0.11:9100
