@@ -8,8 +8,7 @@ spec:
       rules:
         # General high temperature alert (excluding Proxmox)
         - alert: HighTemperature
-          expr: (node_hwmon_temp_celsius * on(instance, chip) group_left(chip_name) node_hwmon_chip_names) > 80
-                unless node_hwmon_temp_celsius{instance="10.0.0.11"}
+          expr: (node_hwmon_temp_celsius{instance!="10.0.0.11"} * on(instance, chip) group_left(chip_name) node_hwmon_chip_names) > 80
           for: 5m
           labels:
             severity: warning
