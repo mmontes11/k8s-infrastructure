@@ -30,9 +30,11 @@ spec:
            matchLabels: null
         scrapeConfigSelector:
            matchLabels: null
-        retention: "168h" # 7 days = 168 hour
+        retention: 90d
         storageSpec:
           volumeClaimTemplate:
+            metadata:
+              name: prometheus
             spec:
               storageClassName: topolvm
               accessModes: ["ReadWriteOnce"]
@@ -55,9 +57,11 @@ spec:
       alertmanagerSpec:
         useExistingSecret: true
         configSecret: alertmanager
-        retention: "24h"
+        retention: "168h"  # 7 days = 168 hours
         storage:
           volumeClaimTemplate:
+            metadata:
+              name: alertmanager
             spec:
               storageClassName: topolvm
               accessModes: ["ReadWriteOnce"]
