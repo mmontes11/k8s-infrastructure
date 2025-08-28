@@ -12,7 +12,9 @@ spec:
       daily: 7
     pruneIntervalDays: 14
     unlock: prometheus-1
-    copyMethod: Clone
+    # Direct method is required to inherit tolerations from Pod.
+    # TODO: use Clone after migrating to homelab-v2  
+    copyMethod: Direct
     moverResources:
       requests:
         cpu: 1
