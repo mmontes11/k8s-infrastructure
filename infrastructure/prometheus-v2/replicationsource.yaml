@@ -5,7 +5,7 @@ metadata:
 spec:
   sourcePVC: data-prometheus-kube-prometheus-stack-prometheus-0
   trigger:
-    manual: prometheus-1
+    schedule: "0 2 * * *"
   restic:
     repository: restic-prometheus
     retain:
