@@ -33,14 +33,12 @@ spec:
         retention: 90d
         storageSpec:
           volumeClaimTemplate:
-            metadata:
-              name: prometheus
             spec:
               storageClassName: topolvm
               accessModes: ["ReadWriteOnce"]
               resources:
                 requests:
-                  storage: 10Gi
+                  storage: 100Gi
         tolerations:
         - effect: NoSchedule
           key: node.mmontes.io/type
@@ -60,8 +58,6 @@ spec:
         retention: "168h"  # 7 days = 168 hours
         storage:
           volumeClaimTemplate:
-            metadata:
-              name: alertmanager
             spec:
               storageClassName: topolvm
               accessModes: ["ReadWriteOnce"]
