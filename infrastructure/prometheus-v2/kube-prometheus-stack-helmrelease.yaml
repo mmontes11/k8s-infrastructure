@@ -33,6 +33,8 @@ spec:
         retention: 90d
         storageSpec:
           volumeClaimTemplate:
+            metadata:
+              name: data
             spec:
               storageClassName: topolvm
               accessModes: ["ReadWriteOnce"]
@@ -58,6 +60,8 @@ spec:
         retention: "168h"  # 7 days = 168 hours
         storage:
           volumeClaimTemplate:
+            metadata:
+              name: data
             spec:
               storageClassName: topolvm
               accessModes: ["ReadWriteOnce"]
