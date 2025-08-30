@@ -6,5 +6,6 @@ resources:
   - grafana-sealedsecret.yaml
   - kube-prometheus-stack-helmrelease.yaml
   - prometheus-helmrepository.yaml
+  - replicationdestination.yaml
   - replicationsource.yaml
   - restic-sealedsecret.yaml
