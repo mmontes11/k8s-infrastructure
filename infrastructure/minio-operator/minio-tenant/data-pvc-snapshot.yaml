@@ -14,6 +14,6 @@ spec:
       storage: 2Ti
   storageClassName: synology-ext4-retain
   dataSource:
-    name: data0-minio-pool-0-0-minio-202508301355 
+    name: data0-minio-pool-0-0-minio-202508301800
     kind: VolumeSnapshot
     apiGroup: snapshot.storage.k8s.io
