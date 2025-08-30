@@ -13,4 +13,4 @@ spec:
     maxCount: 7
   schedule: "*/5 * * * *"
   snapshotTemplate:
-    snapshotClassName: synology-retain
+    snapshotClassName: synology
