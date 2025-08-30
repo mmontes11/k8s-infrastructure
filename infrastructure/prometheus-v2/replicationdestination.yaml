@@ -1,10 +1,10 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
-  name: photoprism-prometheus
+  name: prometheus
 spec:
   trigger:
-    manual: prometheus-3
+    manual: prometheus-1
   restic:
     repository: restic-prometheus
     destinationPVC: data-prometheus-kube-prometheus-stack-prometheus-0

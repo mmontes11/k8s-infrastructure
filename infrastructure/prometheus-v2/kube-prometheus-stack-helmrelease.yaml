@@ -38,6 +38,11 @@ spec:
             spec:
               storageClassName: topolvm
               accessModes: ["ReadWriteOnce"]
+              # TODO: enable after migrating to homelab-v2  
+              # dataSourceRef:
+              #   kind: ReplicationDestination
+              #   apiGroup: volsync.backube
+              #   name: prometheus
               resources:
                 requests:
                   storage: 100Gi
