@@ -1,0 +1,16 @@
+apiVersion: snapscheduler.backube/v1
+kind: SnapshotSchedule
+metadata:
+  name: minio
+spec:
+  claimSelector:
+    matchLabels:
+      v1.min.io/pool: pool-0
+      v1.min.io/tenant: minio
+  disabled: false
+  retention:
+    expires: "168h" # 1 week
+    maxCount: 7
+  schedule: "*/5 * * * *"
+  snapshotTemplate:
+    snapshotClassName: synology-retain
