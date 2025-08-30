@@ -8,7 +8,7 @@ spec:
   source:
     # SSH into Synology NAS and run "synoiscsiwebapi lun list_snapshot" as root. Then provide the "uuid" field as "snapshotHandle".
     snapshotHandle: 5299b327-734e-4838-a889-ac7882874f0e
-  volumeSnapshotClassName: synology-retain
+  volumeSnapshotClassName: synology
   volumeSnapshotRef:
     apiVersion: snapshot.storage.k8s.io/v1
     kind: VolumeSnapshot
@@ -21,7 +21,7 @@ metadata:
   name: minio-provisioned
   namespace: storage
 spec:
-  volumeSnapshotClassName: synology-retain
+  volumeSnapshotClassName: synology
   source:
     volumeSnapshotContentName: minio-provisioned
 ---
