@@ -27,7 +27,7 @@ spec:
           servers: 1
           volumesPerServer: 1
           storageClassName: synology-ext4-retain
-          size: 10Gi
+          size: 2Ti
           resources:
             requests:
               cpu: 1
