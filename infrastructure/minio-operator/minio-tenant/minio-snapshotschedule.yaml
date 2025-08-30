@@ -12,6 +12,7 @@ spec:
   retention:
     expires: "168h" # 1 week
     maxCount: 7
-  schedule: "0 3 * * *"
+  # schedule: "0 3 * * *"
+  schedule: "*/5 * * * *"
   snapshotTemplate:
     snapshotClassName: synology
