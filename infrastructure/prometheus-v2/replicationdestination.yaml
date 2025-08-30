@@ -4,7 +4,7 @@ metadata:
   name: photoprism-prometheus
 spec:
   trigger:
-    manual: prometheus-1
+    manual: prometheus-2
   restic:
     repository: restic-prometheus
     destinationPVC: data-prometheus-kube-prometheus-stack-prometheus-0
