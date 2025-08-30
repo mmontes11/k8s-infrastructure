@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: data0-minio-pool-0-0-test
+  labels:
+    v1.min.io/console: minio-console
+    v1.min.io/pool: pool-0
+    v1.min.io/tenant: minio
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Ti
+  storageClassName: synology-ext4
+  dataSource:
+    name: data0-minio-pool-0-0-minio-202508301355 
+    kind: VolumeSnapshot
+    apiGroup: snapshot.storage.k8s.io
