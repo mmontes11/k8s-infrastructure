@@ -12,6 +12,8 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: monitoring
+  annotations:
+    volsync.backube/privileged-movers: "true"
 ---
 apiVersion: v1
 kind: Namespace
