@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: minio-provisioned
+spec:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 1Gi
+  claimRef:
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    name: data0-minio-pool-0-0
+    namespace: storage
+  csi:
+    driver: csi.san.synology.com
+    fsType: ext4
+    # SSH into Synology NAS and run "synoiscsiwebapi lun list" as root. Then provide the "uuid" field as "volumeHandle".
+    volumeHandle: a124295b-9c54-4954-a28e-07ff57bd8c2e
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: synology-ext4-retain
+  volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: data0-minio-pool-0-0
+  namespace: storage
+  labels:
+    v1.min.io/console: minio-console
+    v1.min.io/pool: pool-0
+    v1.min.io/tenant: minio
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Ti
+  storageClassName: "" # Empty string must be explicitly set otherwise default StorageClass will be set
+  volumeName: minio-provisioned
