@@ -1,0 +1,46 @@
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshotContent
+metadata:
+  name: minio-provisioned
+spec:
+  deletionPolicy: Delete
+  driver: csi.san.synology.com
+  source:
+    # SSH into Synology NAS and run "synoiscsiwebapi lun list_snapshot" as root. Then provide the "uuid" field as "snapshotHandle".
+    snapshotHandle: 5299b327-734e-4838-a889-ac7882874f0e
+  volumeSnapshotClassName: synology-retain
+  volumeSnapshotRef:
+    apiVersion: snapshot.storage.k8s.io/v1
+    kind: VolumeSnapshot
+    name: minio-provisioned
+    namespace: storage
+---
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshot
+metadata:
+  name: minio-provisioned
+  namespace: storage
+spec:
+  volumeSnapshotClassName: synology-retain
+  source:
+    volumeSnapshotContentName: minio-provisioned
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: data0-minio-pool-0-0
+  labels:
+    v1.min.io/console: minio-console
+    v1.min.io/pool: pool-0
+    v1.min.io/tenant: minio
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Ti
+  storageClassName: synology-ext4-retain
+  dataSource:
+    name: minio-provisioned
+    kind: VolumeSnapshot
+    apiGroup: snapshot.storage.k8s.io
