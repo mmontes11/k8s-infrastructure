@@ -5,7 +5,6 @@ metadata:
 spec:
   claimSelector:
     matchLabels:
-      v1.min.io/console: minio-console
       v1.min.io/pool: pool-0
       v1.min.io/tenant: minio
   disabled: false
