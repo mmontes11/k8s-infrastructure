@@ -16,7 +16,7 @@ spec:
     driver: csi.san.synology.com
     fsType: ext4
     # SSH into Synology NAS and run "synoiscsiwebapi lun list" as root. Then provide the "uuid" field as "volumeHandle".
-    volumeHandle: a124295b-9c54-4954-a28e-07ff57bd8c2e
+    volumeHandle: 52d98031-94b4-40ab-830d-5743f68516dd
   persistentVolumeReclaimPolicy: Retain
   storageClassName: synology-ext4-retain
   volumeMode: Filesystem

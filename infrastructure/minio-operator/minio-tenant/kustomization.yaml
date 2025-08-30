@@ -3,8 +3,8 @@ kind: Kustomization
 namespace: storage
 resources:
   # - data-pvc-snapshot.yaml
-  - data-pvc-snapshot-provisioned.yaml
-  # - data-pvc-provisioned.yaml
+  # - data-pvc-snapshot-provisioned.yaml
+  - data-pvc-provisioned.yaml
   - minio-config-sealedsecret.yaml
   - minio-scrapeconfig.yaml
   - minio-sealedsecret.yaml
