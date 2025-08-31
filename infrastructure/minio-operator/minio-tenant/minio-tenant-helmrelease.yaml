@@ -68,5 +68,7 @@ spec:
           objectLock: false
         - name: database
           objectLock: false
+        - name: management
+          objectLock: false
       users:
         - name: minio
