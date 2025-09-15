@@ -1,0 +1,214 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: external-icmp
+  namespace: monitoring
+spec:
+  endpoints:
+  - path: /probe
+    port: http
+    scheme: http
+    interval: 1m
+    params:
+      module:
+      - icmp
+      target:
+      - 10.0.0.50
+    metricRelabelings:
+    - action: replace
+      replacement: 10.0.0.50
+      sourceLabels:
+      - instance
+      targetLabel: instance
+    - action: replace
+      replacement: 10.0.0.50
+      sourceLabels:
+      - target
+      targetLabel: target
+  - path: /probe
+    port: http
+    scheme: http
+    interval: 1m
+    params:
+      module:
+      - icmp
+      target:
+      - 10.0.0.100
+    metricRelabelings:
+    - action: replace
+      replacement: 10.0.0.100
+      sourceLabels:
+      - instance
+      targetLabel: instance
+    - action: replace
+      replacement: 10.0.0.100
+      sourceLabels:
+      - target
+      targetLabel: target
+  - path: /probe
+    port: http
+    scheme: http
+    interval: 1m
+    params:
+      module:
+      - icmp
+      target:
+      - 10.1.0.20
+    metricRelabelings:
+    - action: replace
+      replacement: 10.1.0.20
+      sourceLabels:
+      - instance
+      targetLabel: instance
+    - action: replace
+      replacement: 10.1.0.20
+      sourceLabels:
+      - target
+      targetLabel: target
+  - path: /probe
+    port: http
+    scheme: http
+    interval: 1m
+    params:
+      module:
+      - icmp
+      target:
+      - 10.1.0.21
+    metricRelabelings:
+    - action: replace
+      replacement: 10.1.0.21
+      sourceLabels:
+      - instance
+      targetLabel: instance
+    - action: replace
+      replacement: 10.1.0.21
+      sourceLabels:
+      - target
+      targetLabel: target
+  - path: /probe
+    port: http
+    scheme: http
+    interval: 1m
+    params:
+      module:
+      - icmp
+      target:
+      - 10.1.0.22
+    metricRelabelings:
+    - action: replace
+      replacement: 10.1.0.22
+      sourceLabels:
+      - instance
+      targetLabel: instance
+    - action: replace
+      replacement: 10.1.0.22
+      sourceLabels:
+      - target
+      targetLabel: target
+  - path: /probe
+    port: http
+    scheme: http
+    interval: 1m
+    params:
+      module:
+      - icmp
+      target:
+      - 10.1.0.23
+    metricRelabelings:
+    - action: replace
+      replacement: 10.1.0.23
+      sourceLabels:
+      - instance
+      targetLabel: instance
+    - action: replace
+      replacement: 10.1.0.23
+      sourceLabels:
+      - target
+      targetLabel: target
+  - path: /probe
+    port: http
+    scheme: http
+    interval: 1m
+    params:
+      module:
+      - icmp
+      target:
+      - 10.1.0.30
+    metricRelabelings:
+    - action: replace
+      replacement: 10.1.0.30
+      sourceLabels:
+      - instance
+      targetLabel: instance
+    - action: replace
+      replacement: 10.1.0.30
+      sourceLabels:
+      - target
+      targetLabel: target
+  - path: /probe
+    port: http
+    scheme: http
+    interval: 1m
+    params:
+      module:
+      - icmp
+      target:
+      - 10.1.0.40
+    metricRelabelings:
+    - action: replace
+      replacement: 10.1.0.40
+      sourceLabels:
+      - instance
+      targetLabel: instance
+    - action: replace
+      replacement: 10.1.0.40
+      sourceLabels:
+      - target
+      targetLabel: target
+  - path: /probe
+    port: http
+    scheme: http
+    interval: 1m
+    params:
+      module:
+      - icmp
+      target:
+      - 10.1.0.50
+    metricRelabelings:
+    - action: replace
+      replacement: 10.1.0.50
+      sourceLabels:
+      - instance
+      targetLabel: instance
+    - action: replace
+      replacement: 10.1.0.50
+      sourceLabels:
+      - target
+      targetLabel: target
+  - path: /probe
+    port: http
+    scheme: http
+    interval: 1m
+    params:
+      module:
+      - icmp
+      target:
+      - 10.1.0.100
+    metricRelabelings:
+    - action: replace
+      replacement: 10.1.0.100
+      sourceLabels:
+      - instance
+      targetLabel: instance
+    - action: replace
+      replacement: 10.1.0.100
+      sourceLabels:
+      - target
+      targetLabel: target
+  namespaceSelector:
+    matchNames:
+    - monitoring
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: blackbox-exporter
+      app.kubernetes.io/name: prometheus-blackbox-exporter

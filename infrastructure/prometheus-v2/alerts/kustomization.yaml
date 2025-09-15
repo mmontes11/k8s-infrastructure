@@ -3,3 +3,4 @@ kind: Kustomization
 namespace: monitoring
 resources:
   - hardware-rules.yaml
+  - network-rules.yaml
