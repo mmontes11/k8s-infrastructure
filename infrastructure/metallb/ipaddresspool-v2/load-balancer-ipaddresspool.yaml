@@ -1,8 +1,0 @@
-# TODO: merge IPAddressPool after finishing migration to homelab-v2
-apiVersion: metallb.io/v1beta1
-kind: IPAddressPool
-metadata:
-  name: load-balancer
-spec:
-  addresses:
-    - 10.0.0.90-10.0.0.99

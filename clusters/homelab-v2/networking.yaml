@@ -38,28 +38,28 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/metallb/ipaddresspool-v2
+  path: ./infrastructure/metallb/ipaddresspool
   prune: true
   timeout: 5m
-# ---
-# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-# kind: Kustomization
-# metadata:
-#   name: dns
-#   namespace: flux-system
-# spec:
-#   dependsOn:
-#     - name: gateway-api
-#     - name: sealed-secrets
-#     - name: sources
-#     - name: prometheus-crds
-#   interval: 5m
-#   sourceRef:
-#     kind: GitRepository
-#     name: flux-system
-#   path: ./infrastructure/dns
-#   prune: true
-#   timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: dns
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: gateway-api
+    - name: sealed-secrets
+    - name: sources
+    - name: prometheus-crds
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/dns
+  prune: true
+  timeout: 5m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization

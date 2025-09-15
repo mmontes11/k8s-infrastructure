@@ -4,4 +4,4 @@ metadata:
   name: load-balancer
 spec:
   addresses:
-    - 10.0.0.60-10.0.0.89
+    - 10.0.0.60-10.0.0.99
