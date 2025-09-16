@@ -6,6 +6,7 @@ resources:
   # - data-pvc-snapshot-provisioned.yaml
   - data-pvc-provisioned.yaml
   - minio-config-sealedsecret.yaml
+  - minio-httproute.yaml
   - minio-scrapeconfig.yaml
   - minio-sealedsecret.yaml
   - minio-snapshotschedule.yaml
