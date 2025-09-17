@@ -20,7 +20,6 @@ spec:
           memory: 128Mi
         limits:
           memory: 512Mi
-      # TODO: remove after finishing migration to homelab-v2
       tolerations:
         - effect: NoSchedule
           key: node.mmontes.io/type

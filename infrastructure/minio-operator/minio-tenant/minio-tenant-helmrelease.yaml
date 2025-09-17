@@ -40,11 +40,9 @@ spec:
             value: compute-large
           nodeSelector:
             node.mmontes.io/type: compute-large
-      # TODO: remove after finishing migration to homelab-v2
       exposeServices:
         minio: true
         console: true
-      # TODO: remove after finishing migration to homelab-v2
       serviceMetadata:
         minioServiceAnnotations:
           metallb.universe.tf/loadBalancerIPs: 10.0.0.90

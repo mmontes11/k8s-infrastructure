@@ -13,8 +13,7 @@ spec:
   interval: 1h0m0s
   values:
     operator:
-      # TODO: set to 2 after migrating to homelab-v2
-      replicaCount: 1
+      replicaCount: 2
       env:
         - name: PROMETHEUS_NAMESPACE
           value: "monitoring"
