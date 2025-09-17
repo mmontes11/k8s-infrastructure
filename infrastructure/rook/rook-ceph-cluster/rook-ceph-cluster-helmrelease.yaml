@@ -150,7 +150,7 @@ spec:
           isDefault: true
           reclaimPolicy: Delete
           allowVolumeExpansion: true
-          volumeBindingMode: "Immediate"
+          volumeBindingMode: "WaitForFirstConsumer"
           mountOptions: []
           parameters:
             imageFormat: "2"
@@ -210,7 +210,7 @@ spec:
           pool: data0
           reclaimPolicy: Delete
           allowVolumeExpansion: true
-          volumeBindingMode: "Immediate"
+          volumeBindingMode: "WaitForFirstConsumer"
           mountOptions: []
           parameters:
             csi.storage.k8s.io/provisioner-secret-name: rook-csi-cephfs-provisioner
