@@ -10,7 +10,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: rook
-      version: "v1.16.5"
+      version: "v1.18.2"
   interval: 1h0m0s
   values:
     operatorNamespace: storage
@@ -22,7 +22,7 @@ spec:
 
     cephClusterSpec:
       cephVersion:
-        image: quay.io/ceph/ceph:v19.2.0-20240927
+        image: quay.io/ceph/ceph:v19.2.3
       cephConfig:
         global:
           # speed up OSD recovery
@@ -127,7 +127,8 @@ spec:
         all:
           tolerations:
             - effect: NoSchedule
-              key: node.mmontes.io/storage
+              key: node.mmontes.io/type
+              value: storage
           nodeAffinity:
             requiredDuringSchedulingIgnoredDuringExecution:
               nodeSelectorTerms:
@@ -165,7 +166,7 @@ spec:
     cephBlockPoolsVolumeSnapshotClass:
       enabled: true
       name: rook-ceph
-      isDefault: false
+      isDefault: true
       deletionPolicy: Delete
 
     cephFileSystems:
@@ -191,7 +192,8 @@ spec:
             placement:
               tolerations:
                 - effect: NoSchedule
-                  key: node.mmontes.io/storage
+                  key: node.mmontes.io/type
+                  value: storage
               nodeAffinity:
                 requiredDuringSchedulingIgnoredDuringExecution:
                   nodeSelectorTerms:

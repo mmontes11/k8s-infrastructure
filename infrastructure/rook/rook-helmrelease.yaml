@@ -10,7 +10,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: rook
-      version: "v1.16.5"
+      version: "v1.18.2"
   interval: 1h0m0s
   values:
     crds:
@@ -26,7 +26,17 @@ spec:
       limits:
         memory: 300Mi
 
-    csi:      
+    ceph-csi-operator:
+      nameOverride: ceph-csi
+      fullnameOverride: ceph-csi
+      controllerManager:
+        manager:
+          env:
+            csiServiceAccountPrefix: "ceph-csi-"
+
+    csi:
+      rookUseCsiOperator: true
+
       enableRbdDriver: true
       enableCephfsDriver: true
 
@@ -40,9 +50,42 @@ spec:
       provisionerReplicas: 2
       provisionerTolerations:
         - effect: NoSchedule
-          key: node.mmontes.io/storage
+          key: node.mmontes.io/type
+          value: storage
       provisionerNodeAffinity: node.mmontes.io/type=storage
         
+      pluginTolerations:
+        - effect: NoSchedule
+          key: node.mmontes.io/type
+          value: compute-large
+        - effect: NoSchedule
+          key: node.mmontes.io/type
+          value: compute-xlarge
+
+      cephcsi:
+        repository: quay.io/cephcsi/cephcsi
+        tag: v3.15.0
+
+      registrar:
+        repository: registry.k8s.io/sig-storage/csi-node-driver-registrar
+        tag: v2.14.0
+
+      provisioner:
+        repository: registry.k8s.io/sig-storage/csi-provisioner
+        tag: v5.3.0
+
+      snapshotter:
+        repository: registry.k8s.io/sig-storage/csi-snapshotter
+        tag: v8.3.0
+
+      attacher:
+        repository: registry.k8s.io/sig-storage/csi-attacher
+        tag: v4.9.0
+
+      resizer:
+        repository: registry.k8s.io/sig-storage/csi-resizer
+        tag: v1.14.0
+
       csiRBDProvisionerResource: |
         - name : csi-provisioner
           resource:

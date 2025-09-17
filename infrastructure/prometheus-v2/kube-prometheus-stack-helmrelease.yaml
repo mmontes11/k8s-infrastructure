@@ -251,9 +251,6 @@ spec:
       - effect: NoSchedule
         key: node.mmontes.io/type
         value: compute-xlarge
-      # TODO: update toleration after migrating to homelab-v2
       - effect: NoSchedule
-        key: node.mmontes.io/storage
-      # - effect: NoSchedule
-      #   key: node.mmontes.io/type
-      #   value: storage
+        key: node.mmontes.io/type
+        value: storage
