@@ -3,4 +3,6 @@ kind: Kustomization
 namespace: networking
 resources:
   - compute-connector.yaml
+  - compute-large-connector.yaml
+  - compute-large-proxyclass.yaml
   - compute-proxyclass.yaml

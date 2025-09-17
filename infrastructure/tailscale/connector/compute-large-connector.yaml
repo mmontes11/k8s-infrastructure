@@ -1,0 +1,8 @@
+apiVersion: tailscale.com/v1alpha1
+kind: Connector
+metadata:
+  name: compute-large
+spec:
+  hostname: compute-large
+  proxyClass: compute-large
+  exitNode: true
