@@ -8,9 +8,7 @@ spec:
   restic:
     repository: restic-prometheus
     destinationPVC: data-prometheus-kube-prometheus-stack-prometheus-0
-    # Direct method is required to inherit tolerations from Pod.
-    # TODO: use Snapshot after migrating to homelab-v2  
-    copyMethod: Direct
+    copyMethod: Snapshot
     moverResources:
       requests:
         cpu: 1

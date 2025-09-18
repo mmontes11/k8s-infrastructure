@@ -5,17 +5,15 @@ metadata:
 spec:
   sourcePVC: data-prometheus-kube-prometheus-stack-prometheus-0
   trigger:
-    schedule: "0 2 * * *"
-    # manual: prometheus-2
+    # schedule: "0 2 * * *"
+    manual: prometheus-2
   restic:
     repository: restic-prometheus
     retain:
       daily: 7
     pruneIntervalDays: 14
     unlock: prometheus-1
-    # Direct method is required to inherit tolerations from Pod.
-    # TODO: use Clone after migrating to homelab-v2  
-    copyMethod: Direct
+    copyMethod: Clone
     moverResources:
       requests:
         cpu: 1

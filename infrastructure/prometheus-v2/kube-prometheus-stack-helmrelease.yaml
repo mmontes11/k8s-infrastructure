@@ -15,12 +15,7 @@ spec:
     crds:
       enabled: false
 
-    prometheus:
-      # TODO: remove after migrating to homelab-v2
-      service:
-        type: LoadBalancer
-        annotations:
-          metallb.universe.tf/loadBalancerIPs: 10.0.0.92       
+    prometheus:  
       prometheusSpec:
         serviceMonitorSelector:
           matchLabels: null
@@ -36,7 +31,6 @@ spec:
             metadata:
               name: data
             spec:
-              storageClassName: topolvm
               accessModes: ["ReadWriteOnce"]
               # TODO: enable after migrating to homelab-v2  
               # dataSourceRef:
@@ -46,19 +40,8 @@ spec:
               resources:
                 requests:
                   storage: 100Gi
-        tolerations:
-        - effect: NoSchedule
-          key: node.mmontes.io/type
-          value: compute-large
-        nodeSelector:
-          node.mmontes.io/type: compute-large
 
     alertmanager:
-      # TODO: remove after migrating to homelab-v2
-      service:
-        type: LoadBalancer
-        annotations:
-          metallb.universe.tf/loadBalancerIPs: 10.0.0.93
       alertmanagerSpec:
         useExistingSecret: true
         configSecret: alertmanager
@@ -68,17 +51,10 @@ spec:
             metadata:
               name: data
             spec:
-              storageClassName: topolvm
               accessModes: ["ReadWriteOnce"]
               resources:
                 requests:
                   storage: 1Gi
-        tolerations:
-        - effect: NoSchedule
-          key: node.mmontes.io/type
-          value: compute-large
-        nodeSelector:
-          node.mmontes.io/type: compute-large
 
     grafana:
       admin:
@@ -89,17 +65,6 @@ spec:
         enabled: true
         storageClassName: topolvm
         size: 1Gi
-      # TODO: remove after migrating to homelab-v2
-      service:
-        type: LoadBalancer
-        annotations:
-          metallb.universe.tf/loadBalancerIPs: 10.0.0.94
-      tolerations:
-      - effect: NoSchedule
-        key: node.mmontes.io/type
-        value: compute-large
-      nodeSelector:
-        node.mmontes.io/type: compute-large
       plugins:
         - grafana-piechart-panel
       dashboardProviders:
