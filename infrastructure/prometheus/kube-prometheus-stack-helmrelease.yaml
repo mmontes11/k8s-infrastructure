@@ -9,13 +9,13 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: prometheus
-      version: "70.0.2"
+      version: "76.4.0"
   interval: 1h0m0s
   values:
     crds:
       enabled: false
 
-    prometheus:
+    prometheus:  
       prometheusSpec:
         serviceMonitorSelector:
           matchLabels: null
@@ -25,13 +25,17 @@ spec:
            matchLabels: null
         scrapeConfigSelector:
            matchLabels: null
-        externalUrl: https://prometheus.mmontes-internal.duckdns.org
         retention: 90d
         storageSpec:
           volumeClaimTemplate:
+            metadata:
+              name: data
             spec:
-              storageClassName: rook-ceph
               accessModes: ["ReadWriteOnce"]
+              dataSourceRef:
+                kind: ReplicationDestination
+                apiGroup: volsync.backube
+                name: prometheus
               resources:
                 requests:
                   storage: 100Gi
@@ -40,22 +44,25 @@ spec:
       alertmanagerSpec:
         useExistingSecret: true
         configSecret: alertmanager
-        externalUrl: https://alertmanager.mmontes-internal.duckdns.org
         retention: "168h"  # 7 days = 168 hours
         storage:
           volumeClaimTemplate:
+            metadata:
+              name: data
             spec:
-              storageClassName: rook-ceph
               accessModes: ["ReadWriteOnce"]
               resources:
                 requests:
-                  storage: 5Gi
+                  storage: 1Gi
 
     grafana:
       admin:
         existingSecret: "grafana"
         userKey: user
         passwordKey: password
+      persistence:
+        enabled: true
+        size: 1Gi
       plugins:
         - grafana-piechart-panel
       dashboardProviders:
@@ -184,6 +191,12 @@ spec:
                 value: Prometheus
               - name: VAR_NASDEVICES
                 value: 1
+          minio:
+            gnetId: 13502
+            revision: 26
+            datasource: 
+              - name: DS_PROMETHEUS
+                value: Prometheus
           volsync:
             gnetId: 21356
             revision: 3
@@ -192,3 +205,15 @@ spec:
                 value: Prometheus
               - name: VAR_REPLICATIONDESTNAME
                 value: ".*"
+
+    prometheus-node-exporter:
+      tolerations:
+      - effect: NoSchedule
+        key: node.mmontes.io/type
+        value: compute-large
+      - effect: NoSchedule
+        key: node.mmontes.io/type
+        value: compute-xlarge
+      - effect: NoSchedule
+        key: node.mmontes.io/type
+        value: storage

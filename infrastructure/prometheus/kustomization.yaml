@@ -7,6 +7,9 @@ resources:
   - blackbox-exporter-helmrelease.yaml
   - grafana-httproute.yaml
   - grafana-sealedsecret.yaml
-  - helmrepository.yaml
   - kube-prometheus-stack-helmrelease.yaml
+  - prometheus-helmrepository.yaml
   - prometheus-httproute.yaml
+  - replicationdestination.yaml
+  - replicationsource.yaml
+  - restic-sealedsecret.yaml

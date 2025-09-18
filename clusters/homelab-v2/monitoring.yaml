@@ -30,7 +30,6 @@ spec:
   prune: true
   timeout: 5m
 ---
-# TODO: merge with prometheus after migrating to homelab-v2 
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
@@ -41,11 +40,10 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/prometheus-v2/crds
+  path: ./infrastructure/prometheus/crds
   prune: true
   timeout: 5m
 ---
-# TODO: merge with prometheus after migrating to homelab-v2 
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
@@ -59,11 +57,10 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/prometheus-v2
+  path: ./infrastructure/prometheus
   prune: true
   timeout: 5m
 ---
-# TODO: merge with prometheus after migrating to homelab-v2 
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
@@ -76,7 +73,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/prometheus-v2/monitors
+  path: ./infrastructure/prometheus/monitors
   prune: true
   timeout: 5m
 ---
@@ -92,7 +89,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/prometheus-v2/alerts
+  path: ./infrastructure/prometheus/alerts
   prune: true
   timeout: 5m
 ---
@@ -108,6 +105,6 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/prometheus-v2/scrapeconfigs
+  path: ./infrastructure/prometheus/scrapeconfigs
   prune: true
   timeout: 5m

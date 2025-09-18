@@ -30,16 +30,6 @@ prometheus-crds: ### Get prometheus CRDs to be installed by flux.
 	cp kube-prometheus-stack/charts/crds/crds/*.yaml  infrastructure/prometheus/crds
 	rm -rf kube-prometheus-stack/
 
-# TODO: merge with prometheus after migrating to homelab-v2 
-.PHONY: prometheus-crds-v2
-prometheus-crds-v2: ### Get prometheus-v2 CRDs to be installed by flux.
-	@if [ -d "kube-prometheus-stack" ]; then \
-			rm -rf kube-prometheus-stack/; \
-	fi
-	curl -sL $(PROMETHEUS_URL) | tar xz -C .
-	cp kube-prometheus-stack/charts/crds/crds/*.yaml  infrastructure/prometheus-v2/crds
-	rm -rf kube-prometheus-stack/
-
 .PHONY: cert-manager-crds
 cert-manager-crds: ### Get cert-manager CRDs to be installed by flux.
 	curl -sSLo infrastructure/cert-manager/crds/crds.yaml $(CERT_MANAGER_URL)
