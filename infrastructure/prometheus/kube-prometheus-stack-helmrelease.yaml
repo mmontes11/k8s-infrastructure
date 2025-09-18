@@ -209,6 +209,8 @@ spec:
     prometheus-node-exporter:
       tolerations:
       - effect: NoSchedule
+        key: node-role.kubernetes.io/control-plane
+      - effect: NoSchedule
         key: node.mmontes.io/type
         value: compute-large
       - effect: NoSchedule
