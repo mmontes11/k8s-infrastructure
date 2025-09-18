@@ -17,7 +17,6 @@ spec:
       limits:
         memory: 4Gi
     cacheCapacity: 10Gi
-    cacheStorageClassName: topolvm
     cacheAccessModes:
       - ReadWriteOnce
     customCA:
