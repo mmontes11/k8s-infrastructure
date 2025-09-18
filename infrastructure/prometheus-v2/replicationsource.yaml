@@ -30,7 +30,6 @@ spec:
                   values:
                     - compute-large
     cacheCapacity: 10Gi
-    cacheStorageClassName: topolvm
     cacheAccessModes:
       - ReadWriteOnce
     customCA:
