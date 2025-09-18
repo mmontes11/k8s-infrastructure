@@ -4,8 +4,8 @@ metadata:
   name: prometheus
 spec:
   trigger:
-    schedule: "0 4 * * *"
-    # manual: prometheus-2
+    # schedule: "0 4 * * *"
+    manual: prometheus-2
   restic:
     repository: restic-prometheus
     destinationPVC: data-prometheus-kube-prometheus-stack-prometheus-0
