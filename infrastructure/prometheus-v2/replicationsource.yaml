@@ -20,15 +20,6 @@ spec:
         memory: 300Mi
       limits:
         memory: 4Gi
-    moverAffinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-                - key: node.mmontes.io/type
-                  operator: In
-                  values:
-                    - compute-large
     cacheCapacity: 10Gi
     cacheAccessModes:
       - ReadWriteOnce
