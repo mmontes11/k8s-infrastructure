@@ -34,7 +34,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./tenants/media-v2
+  path: ./tenants/media
   prune: true
   timeout: 5m
 ---
