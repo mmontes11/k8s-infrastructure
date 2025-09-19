@@ -16,6 +16,14 @@ spec:
         memory: 300Mi
       limits:
         memory: 4Gi
+    moverAffinity:
+      podAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                app.kubernetes.io/name: prometheus
+                app.kubernetes.io/instance: kube-prometheus-stack-prometheus
+            topologyKey: kubernetes.io/hostname
     cacheCapacity: 10Gi
     cacheAccessModes:
       - ReadWriteOnce
