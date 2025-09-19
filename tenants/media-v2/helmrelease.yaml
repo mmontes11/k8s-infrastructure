@@ -18,5 +18,5 @@ spec:
     repo:
       url: ssh://git@github.com/mmontes11/k8s-media
       branch: main
-      path: ./clusters/homelab-v2
+      path: ./clusters/homelab
       secretName: flux-system
