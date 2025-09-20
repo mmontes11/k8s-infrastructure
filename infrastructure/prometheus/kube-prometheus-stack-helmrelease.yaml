@@ -25,6 +25,7 @@ spec:
            matchLabels: null
         scrapeConfigSelector:
            matchLabels: null
+        externalUrl: https://prometheus.mmontes-internal.duckdns.org
         retention: 90d
         storageSpec:
           volumeClaimTemplate:
@@ -44,6 +45,7 @@ spec:
       alertmanagerSpec:
         useExistingSecret: true
         configSecret: alertmanager
+        externalUrl: https://alertmanager.mmontes-internal.duckdns.org
         retention: "168h"  # 7 days = 168 hours
         storage:
           volumeClaimTemplate:
