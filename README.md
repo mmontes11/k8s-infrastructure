@@ -4,7 +4,7 @@ Infrastructure and tenant bootstrapping using [Flux](https://fluxcd.io/).
 ### [Clusters](./clusters) 
 
 Entrypoint for each cluster that is used by Flux when bootstrapping:
-- [homelab](https://github.com/mmontes11/k8s-bootstrap/blob/main/bootstrap.sh): Provisioned by [k8s-bootstrap](https://github.com/mmontes11/k8s-bootstrap).
+- [homelab](https://github.com/mmontes11/k8s-bootstrap/blob/main/bootstrap.sh): Provisioned by [k8s-management](https://github.com/mmontes11/k8s-management) and [k8s-bootstrap](https://github.com/mmontes11/k8s-bootstrap?tab=readme-ov-file#add-node-to-a-existing-talos-cluster).
 
 
 ### [Infrastructure](./infrastructure) 
