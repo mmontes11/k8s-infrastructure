@@ -14,7 +14,7 @@ Cluster-wide resources and workloads shared between all the tenants.
 ### [Tenants](./tenants) 
 
 Entrypoint for the tenant resources, which live in separated repositories:
-- [ai](https://github.com/gotway/k8s-ai)
+- [ai](https://github.com/mmontes11/k8s-ai)
 - [github-explorer](https://github.com/mmontes11/k8s-github-explorer)
 - [iot](https://github.com/mmontes11/k8s-iot)
 - [media](https://github.com/mmontes11/k8s-media)
