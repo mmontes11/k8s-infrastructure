@@ -34,10 +34,6 @@ spec:
             spec:
               accessModes: 
                 - "ReadWriteOnce"
-              dataSourceRef:
-                kind: ReplicationDestination
-                apiGroup: volsync.backube
-                name: prometheus
               resources:
                 requests:
                   storage: 100Gi
