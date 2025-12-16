@@ -1,7 +1,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
-  name: job-rules
+  name: job
 spec:
   groups:
   - name: kubernetes-jobs.rules
