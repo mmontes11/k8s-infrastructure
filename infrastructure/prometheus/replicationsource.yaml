@@ -12,7 +12,7 @@ spec:
     retain:
       daily: 7
     pruneIntervalDays: 14
-    unlock: prometheus-1
+    unlock: prometheus-2
     copyMethod: Clone
     moverResources:
       requests:
