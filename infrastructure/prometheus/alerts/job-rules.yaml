@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: job-rules
+spec:
+  groups:
+  - name: kubernetes-jobs.rules
+    rules:
+    - alert: KubernetesJobFailed
+      expr: kube_job_status_failed > 0
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Kubernetes Job failed (namespace={{ $labels.namespace }}, job={{ $labels.job_name }})"
+        description: |
+          kube_job_status_failed is > 0 for job {{ $labels.job_name }} in namespace {{ $labels.namespace }}.
+          Instance: {{ $labels.instance }} — Pod: {{ $labels.pod }}.
