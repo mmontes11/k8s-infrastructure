@@ -15,4 +15,3 @@ spec:
         summary: "Kubernetes Job failed (namespace={{ $labels.namespace }}, job={{ $labels.job_name }})"
         description: |
           kube_job_status_failed is > 0 for job {{ $labels.job_name }} in namespace {{ $labels.namespace }}.
-          Instance: {{ $labels.instance }} — Pod: {{ $labels.pod }}.
