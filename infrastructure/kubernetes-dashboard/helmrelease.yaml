@@ -33,6 +33,7 @@ spec:
           memory: 200Mi
         limits:
           memory: 400Mi
+    # See: https://github.com/kubernetes/dashboard/issues/9052#issuecomment-3372730036
     kong:
       env:
         dns_order: "LAST,A,CNAME,SRV"
