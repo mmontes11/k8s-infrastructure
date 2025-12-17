@@ -9,7 +9,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: kubernetes-dashboard
-      version: "7.13.0"
+      version: "7.14.0"
   interval: 1h0m0s
   values:
     auth:
@@ -33,3 +33,7 @@ spec:
           memory: 200Mi
         limits:
           memory: 400Mi
+    kong:
+      env:
+        dns_order: "LAST,A,CNAME,SRV"
+        ADMIN_LISTEN: "0.0.0.0:8444 http2 ssl"
