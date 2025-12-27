@@ -11,6 +11,6 @@ resources:
   - prometheus-helmrepository.yaml
   - prometheus-httproute.yaml
   - prometheus-pvc.yaml
-  - replicationdestination.yaml
-  - replicationsource.yaml
-  - restic-sealedsecret.yaml
+  - prometheus-replicationdestination.yaml
+  - prometheus-replicationsource.yaml
+  - prometheus-restic-sealedsecret.yaml
