@@ -5,8 +5,8 @@ metadata:
 spec:
   sourcePVC: grafana
   trigger:
-    # schedule: "0 1 * * *"
-    manual: grafana-2
+    schedule: "0 1 * * *"
+    # manual: grafana-2
   restic:
     repository: restic-grafana
     retain:
