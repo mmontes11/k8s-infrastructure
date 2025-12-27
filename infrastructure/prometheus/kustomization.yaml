@@ -7,6 +7,7 @@ resources:
   - blackbox-exporter-helmrelease.yaml
   - grafana-httproute.yaml
   - grafana-pvc.yaml
+  - grafana-replicationdestination.yaml
   - grafana-replicationsource.yaml
   - grafana-restic-sealedsecret.yaml
   - grafana-sealedsecret.yaml
