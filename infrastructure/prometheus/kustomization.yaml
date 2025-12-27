@@ -6,6 +6,9 @@ resources:
   - alertmanager-sealedsecret.yaml
   - blackbox-exporter-helmrelease.yaml
   - grafana-httproute.yaml
+  - grafana-pvc.yaml
+  - grafana-replicationsource.yaml
+  - grafana-restic-sealedsecret.yaml
   - grafana-sealedsecret.yaml
   - kube-prometheus-stack-helmrelease.yaml
   - prometheus-helmrepository.yaml

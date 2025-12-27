@@ -1,0 +1,29 @@
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: grafana
+spec:
+  sourcePVC: kube-prometheus-stack-grafana
+  # sourcePVC: grafana
+  trigger:
+    # schedule: "0 1 * * *"
+    manual: grafana-1
+  restic:
+    repository: restic-grafana
+    retain:
+      daily: 7
+    pruneIntervalDays: 14
+    unlock: grafana-1
+    copyMethod: Clone
+    moverResources:
+      requests:
+        cpu: 1
+        memory: 300Mi
+      limits:
+        memory: 4Gi
+    cacheCapacity: 10Gi
+    cacheAccessModes:
+      - ReadWriteOnce
+    customCA:
+      secretName: homelab-bundle
+      key: ca.crt
