@@ -3,8 +3,7 @@ kind: ReplicationSource
 metadata:
   name: grafana
 spec:
-  sourcePVC: kube-prometheus-stack-grafana
-  # sourcePVC: grafana
+  sourcePVC: grafana
   trigger:
     # schedule: "0 1 * * *"
     manual: grafana-2
