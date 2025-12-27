@@ -62,7 +62,7 @@ spec:
         passwordKey: password
       persistence:
         enabled: true
-        size: 1Gi
+        existingClaim: grafana
       plugins:
         - grafana-piechart-panel
       dashboardProviders:
