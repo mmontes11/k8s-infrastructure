@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+type: LoadBalancer
+metadata:
+  name: buildkit-amd64
+  labels:
+    app: buildkit-amd64
+  annotations:
+    metallb.universe.tf/loadBalancerIPs: 10.0.0.90
+spec:
+  ports:
+    - port: 1234
+      protocol: TCP
+  selector:
+    app: buildkit-amd64

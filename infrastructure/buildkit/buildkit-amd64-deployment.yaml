@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: buildkit-amd64
+  labels:
+    app: buildkit-amd64
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: buildkit-amd64
+  template:
+    metadata:
+      labels:
+        app: buildkit-amd64
+    spec:
+      containers:
+        - name: buildkit-amd64
+          image: moby/buildkit:v0.26.3
+          args:
+            - --addr
+            - unix:///run/buildkit/buildkit-amd64.sock
+            - --addr
+            - tcp://0.0.0.0:1234
+          resources:
+            requests:
+              cpu: "4"
+              memory: 512Mi
+            limits:
+              memory: 1Gi
+          readinessProbe:
+            exec:
+              command:
+                - buildctl
+                - debug
+                - workers
+            initialDelaySeconds: 5
+            periodSeconds: 30
+          livenessProbe:
+            exec:
+              command:
+                - buildctl
+                - debug
+                - workers
+            initialDelaySeconds: 5
+            periodSeconds: 30
+          securityContext:
+            privileged: true
+          ports:
+            - containerPort: 1234
+          volumeMounts:
+            - name: buildkit
+              mountPath: /var/lib/buildkit
+      volumes:
+        - name: buildkit
+          persistentVolumeClaim:
+            claimName: buildkit-amd64
