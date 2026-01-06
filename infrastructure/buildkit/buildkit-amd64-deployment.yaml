@@ -25,8 +25,6 @@ spec:
           image: moby/buildkit:v0.26.3
           args:
             - --addr
-            - unix:///run/buildkit/buildkit.sock
-            - --addr
             - tcp://0.0.0.0:1234
           resources:
             requests:
@@ -35,19 +33,13 @@ spec:
             limits:
               memory: 1Gi
           readinessProbe:
-            exec:
-              command:
-                - buildctl
-                - debug
-                - workers
+            tcpSocket:
+              port: 1234
             initialDelaySeconds: 5
             periodSeconds: 30
           livenessProbe:
-            exec:
-              command:
-                - buildctl
-                - debug
-                - workers
+            tcpSocket:
+              port: 1234
             initialDelaySeconds: 5
             periodSeconds: 30
           securityContext:
