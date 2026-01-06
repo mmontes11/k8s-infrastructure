@@ -25,7 +25,7 @@ spec:
           image: moby/buildkit:v0.26.3
           args:
             - --addr
-            - unix:///run/buildkit/buildkit-amd64.sock
+            - unix:///run/buildkit/buildkit.sock
             - --addr
             - tcp://0.0.0.0:1234
           resources:
