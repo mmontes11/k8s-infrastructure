@@ -6,6 +6,8 @@ metadata:
     app: buildkit-amd64
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: buildkit-amd64
@@ -14,8 +16,6 @@ spec:
       labels:
         app: buildkit-amd64
     spec:
-      strategy:
-        type: Recreate
       tolerations:
       - effect: NoSchedule
         key: node.mmontes.io/type
