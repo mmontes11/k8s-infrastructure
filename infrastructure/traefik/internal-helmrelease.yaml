@@ -45,6 +45,7 @@ spec:
       - "--experimental.kubernetesgateway"
       - "--providers.kubernetesgateway"
       - "--providers.kubernetesgateway.labelselector=gatewayclass.mmontes.io/type=traefik-internal"
+      - "--providers.kubernetesgateway.experimentalchannel=true"
     service:
       annotations:
         metallb.universe.tf/loadBalancerIPs: 10.0.0.70
