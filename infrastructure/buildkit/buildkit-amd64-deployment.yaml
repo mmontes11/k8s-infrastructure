@@ -24,8 +24,8 @@ spec:
             - tcp://0.0.0.0:1234
           resources:
             requests:
-              cpu: "1"
-              memory: 512Mi
+              cpu: 300m
+              memory: 128Mi
             limits:
               memory: 1Gi
           readinessProbe:
