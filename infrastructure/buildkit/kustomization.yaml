@@ -5,3 +5,4 @@ resources:
   - buildkit-amd64-deployment.yaml
   - buildkit-amd64-pvc.yaml
   - buildkit-amd64-service.yaml
+  - buildkit-amd64-tcproute.yaml

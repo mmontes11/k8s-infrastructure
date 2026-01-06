@@ -29,6 +29,9 @@ spec:
         redirectTo:
           port: websecure
           priority: 10
+      builder-amd64:
+        containerPort: 3000
+        protocol: TCP
     providers:
       kubernetesCRD:
         enabled: true

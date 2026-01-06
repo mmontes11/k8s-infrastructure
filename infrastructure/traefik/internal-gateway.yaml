@@ -29,3 +29,12 @@ spec:
           - name: websecure-internal-tls
             kind: Secret
             group: core
+    - name: builder-amd64
+      port: 3000
+      protocol: TCP
+      allowedRoutes:
+        namespaces:
+          from: Selector
+          selector:
+            matchLabels:
+              kubernetes.io/metadata.name: container 

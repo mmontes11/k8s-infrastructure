@@ -4,10 +4,7 @@ metadata:
   name: buildkit-amd64
   labels:
     app: buildkit-amd64
-  annotations:
-    metallb.universe.tf/loadBalancerIPs: 10.0.0.90
 spec:
-  type: LoadBalancer
   ports:
     - port: 1234
       protocol: TCP

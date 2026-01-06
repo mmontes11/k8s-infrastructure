@@ -1,0 +1,15 @@
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: TCPRoute
+metadata:
+  name: buildkit-amd64
+  labels:
+    app: buildkit-amd64
+spec:
+  parentRefs:
+    - name: traefik-internal
+      namespace: networking
+      sectionName: builder-amd64
+  rules:
+     - backendRefs:
+        - name: buildkit-amd64
+          port: 1234
