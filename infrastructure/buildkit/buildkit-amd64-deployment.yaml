@@ -48,6 +48,12 @@ spec:
             privileged: true
           ports:
             - containerPort: 1234
+          tolerations:
+          - effect: NoSchedule
+            key: node.mmontes.io/type
+            value: compute-large
+          nodeSelector:
+            node.mmontes.io/type: compute-large
           volumeMounts:
             - name: buildkit
               mountPath: /var/lib/buildkit
