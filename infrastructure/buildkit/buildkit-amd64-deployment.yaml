@@ -51,9 +51,9 @@ spec:
           tolerations:
           - effect: NoSchedule
             key: node.mmontes.io/type
-            value: compute-large
+            value: compute-xlarge
           nodeSelector:
-            node.mmontes.io/type: compute-large
+            node.mmontes.io/type: compute-xlarge
           volumeMounts:
             - name: buildkit
               mountPath: /var/lib/buildkit
