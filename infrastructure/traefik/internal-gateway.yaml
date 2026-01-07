@@ -37,4 +37,14 @@ spec:
           from: Selector
           selector:
             matchLabels:
+              kubernetes.io/metadata.name: container
+    - name: builder-arm64
+      port: 3001
+      protocol: TCP
+      allowedRoutes:
+        namespaces:
+          from: Selector
+          selector:
+            matchLabels:
               kubernetes.io/metadata.name: container 
+

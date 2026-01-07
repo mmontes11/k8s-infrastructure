@@ -6,3 +6,7 @@ resources:
   - buildkit-amd64-pvc.yaml
   - buildkit-amd64-service.yaml
   - buildkit-amd64-tcproute.yaml
+  - buildkit-arm64-deployment.yaml
+  - buildkit-arm64-pvc.yaml
+  - buildkit-arm64-service.yaml
+  - buildkit-arm64-tcproute.yaml

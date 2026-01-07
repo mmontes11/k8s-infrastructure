@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: buildkit-arm64
+  labels:
+    app: buildkit-arm64
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: buildkit-arm64
+  template:
+    metadata:
+      labels:
+        app: buildkit-arm64
+    spec:
+      nodeSelector:
+        kubernetes.io/arch: arm64
+      containers:
+        - name: buildkit-arm64
+          image: moby/buildkit:v0.26.3
+          args:
+            - --addr
+            - tcp://0.0.0.0:1234
+            - --debug
+          resources:
+            requests:
+              cpu: 300m
+              memory: 128Mi
+            limits:
+              memory: 1Gi
+          readinessProbe:
+            tcpSocket:
+              port: 1234
+            initialDelaySeconds: 5
+            periodSeconds: 30
+          livenessProbe:
+            tcpSocket:
+              port: 1234
+            initialDelaySeconds: 5
+            periodSeconds: 30
+          securityContext:
+            privileged: true
+          ports:
+            - containerPort: 1234
+          volumeMounts:
+            - name: buildkit
+              mountPath: /var/lib/buildkit
+      volumes:
+        - name: buildkit
+          persistentVolumeClaim:
+            claimName: buildkit-arm64

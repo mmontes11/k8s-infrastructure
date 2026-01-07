@@ -37,6 +37,14 @@ spec:
         exposedPort: 3000
         targetPort: builder-amd64
         protocol: TCP
+      builder-arm64:
+        containerPort: 3001
+        port: 3001
+        expose:
+          default: true
+        exposedPort: 3001
+        targetPort: builder-arm64
+        protocol: TCP
     providers:
       kubernetesCRD:
         enabled: true
