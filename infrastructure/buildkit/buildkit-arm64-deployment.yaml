@@ -28,8 +28,6 @@ spec:
             - --addr
             - tcp://0.0.0.0:1234
             - --debug
-            - --root
-            - /var/lib/buildkit/cache
           resources:
             requests:
               cpu: 300m
@@ -51,13 +49,9 @@ spec:
           ports:
             - containerPort: 1234
           volumeMounts:
-            - name: buildkit-runtime
+            - name: buildkit
               mountPath: /var/lib/buildkit
-            - name: buildkit-cache
-              mountPath: /var/lib/buildkit/cache
       volumes:
-        - name: buildkit-runtime
-          emptyDir: {}
-        - name: buildkit-cache
+        - name: buildkit
           persistentVolumeClaim:
             claimName: buildkit-arm64
