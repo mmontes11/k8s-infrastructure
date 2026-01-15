@@ -51,7 +51,12 @@ spec:
           volumeMounts:
             - name: buildkit
               mountPath: /var/lib/buildkit
+            - name: unix
+              mountPath: /var/lib/buildkit/buildkitd.lock 
+              subPath: buildkitd.lock 
       volumes:
         - name: buildkit
           persistentVolumeClaim:
             claimName: buildkit-arm64
+        - name: unix
+          emptyDir: {}
