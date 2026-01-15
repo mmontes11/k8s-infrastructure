@@ -54,7 +54,7 @@ spec:
             - containerPort: 1234
           volumeMounts:
             - name: buildkit
-              mountPath: /var/lib/buildkit
+              mountPath: /var/lib/buildkit/runc-overlayfs
       volumes:
         - name: buildkit
           persistentVolumeClaim:
