@@ -20,6 +20,16 @@ spec:
         value: compute-xlarge
       nodeSelector:
         node.mmontes.io/type: compute-xlarge
+      initContainers:
+      - name: lock
+        image: busybox:1.36.1
+        command:
+          - sh
+          - -c
+          - rm -f /var/lib/buildkit/buildkitd.lock
+        volumeMounts:
+          - name: buildkit
+            mountPath: /var/lib/buildkit
       containers:
         - name: buildkit-amd64
           image: moby/buildkit:v0.26.3
@@ -49,7 +59,7 @@ spec:
             - containerPort: 1234
           volumeMounts:
             - name: buildkit
-              mountPath: /var/lib/buildkit/runc-overlayfs
+              mountPath: /var/lib/buildkit
       volumes:
         - name: buildkit
           persistentVolumeClaim:
