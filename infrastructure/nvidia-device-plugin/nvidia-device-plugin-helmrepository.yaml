@@ -1,0 +1,7 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: nvidia-device-plugin
+spec:
+  interval: 5m
+  url: https://nvidia.github.io/k8s-device-plugin
