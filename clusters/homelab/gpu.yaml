@@ -1,0 +1,45 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: nvidia-device-plugin
+  namespace: flux-system
+spec:
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/nvidia-device-plugin
+  prune: true
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: nvidia-dcgm-exporter
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: nvidia-device-plugin
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/nvidia-dcgm-exporter
+  prune: true
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: nvidia-dcgm-exporter-alerts
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: nvidia-dcgm-exporter
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/nvidia-dcgm-exporter/alerts
+  prune: true
+  timeout: 5m

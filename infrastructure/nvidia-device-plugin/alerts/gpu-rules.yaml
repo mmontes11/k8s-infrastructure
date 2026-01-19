@@ -1,0 +1,26 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: gpu
+spec:
+  groups:
+    - name: dcgm-exporter
+      rules:
+        - alert: HighGpuUsage
+          expr: |
+            avg_over_time(DCGM_FI_DEV_GPU_UTIL[5m]) > 85
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "High GPU usage on {{ $labels.instance }}"
+            description: "GPU utilization has been above 85% for more than 5 minutes."
+        - alert: HighGpuTemperature
+          expr: |
+            avg_over_time(DCGM_FI_DEV_GPU_TEMP[5m]) > 85
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "High GPU temperature on {{ $labels.instance }}"
+            description: "GPU temperature has exceeded 85°C for more than 5 minutes."

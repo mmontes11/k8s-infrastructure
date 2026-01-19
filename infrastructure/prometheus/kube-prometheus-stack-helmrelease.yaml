@@ -205,6 +205,12 @@ spec:
                 value: Prometheus
               - name: VAR_REPLICATIONDESTNAME
                 value: ".*"
+          nvidia-dcgm-exporter:
+            gnetId: 12239
+            revision: 2
+            datasource: 
+              - name: DS_PROMETHEUS
+                value: Prometheus
 
     prometheus-node-exporter:
       tolerations:

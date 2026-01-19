@@ -1,0 +1,39 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: nvidia-device-plugin
+spec:
+  chart:
+    spec:
+      chart: nvidia-device-plugin
+      sourceRef:
+        kind: HelmRepository
+        name: nvidia-device-plugin
+      version: "0.18.0"
+  interval: 1h0m0s
+  values:
+    runtimeClassName: nvidia
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: nvidia.com/gpu.present
+              operator: Exists
+    tolerations:
+    - key: nvidia.com/gpu
+      operator: Exists
+      effect: NoSchedule
+    - key: node.mmontes.io/type
+      value: compute-xlarge
+      effect: NoSchedule
+    config:
+      map:
+        default: |-
+          version: v1
+          sharing:
+            timeSlicing:
+              renameByDefault: false
+              resources:
+                - name: nvidia.com/gpu
+                  replicas: 6
