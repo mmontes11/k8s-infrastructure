@@ -12,6 +12,13 @@ spec:
       version: "4.7.1"
   interval: 1h0m0s
   values:
+    serviceMonitor:
+      enabled: true
+      relabelings:
+        - sourceLabels:
+            - job
+          targetLabel: instance
+          action: Replace
     runtimeClassName: nvidia
     affinity:
       nodeAffinity:
