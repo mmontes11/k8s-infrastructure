@@ -4,8 +4,8 @@ metadata:
   name: buildkit-arm64
 spec:
   accessModes:
-  - ReadWriteOnce
+  - ReadWriteMany
   resources:
     requests:
       storage: 50Gi
-  storageClassName: rook-ceph
+  storageClassName: rook-ceph-fs

@@ -6,8 +6,6 @@ metadata:
     app: buildkit-arm64
 spec:
   replicas: 1
-  strategy:
-    type: Recreate
   selector:
     matchLabels:
       app: buildkit-arm64
