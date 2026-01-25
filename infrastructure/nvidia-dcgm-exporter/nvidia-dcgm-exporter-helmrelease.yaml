@@ -40,3 +40,15 @@ spec:
       limits:
         memory: 1Gi
         nvidia.com/gpu: 1
+  # Disable DCGM_EXPORTER_KUBERNETES to avoid exporting metrics per Pod/Namespace and export a single metric per GPU instead
+  # See: https://github.com/NVIDIA/dcgm-exporter/blob/main/deployment/templates/daemonset.yaml#L133
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              kind: DaemonSet
+              name: nvidia-dcgm-exporter  
+            patch: |-
+              - op: replace
+                path: /spec/template/spec/containers/0/env/0/value
+                value: "false"
