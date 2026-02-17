@@ -13,9 +13,13 @@ spec:
   interval: 1h0m0s
   values:
     operator:
-      replicaCount: 2
+      replicaCount: 1
       env:
         - name: PROMETHEUS_NAMESPACE
           value: "monitoring"
         - name: PROMETHEUS_NAME
           value: "kube-prometheus-stack-prometheus"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 120Mi
