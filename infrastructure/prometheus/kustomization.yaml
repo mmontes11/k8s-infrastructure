@@ -4,6 +4,9 @@ namespace: monitoring
 resources:
   - alertmanager-httproute.yaml
   - alertmanager-pvc.yaml
+  # - alertmanager-replicationdestination.yaml
+  - alertmanager-replicationsource.yaml
+  - alertmanager-restic-sealedsecret.yaml
   - alertmanager-sealedsecret.yaml
   - blackbox-exporter-helmrelease.yaml
   - grafana-httproute.yaml
