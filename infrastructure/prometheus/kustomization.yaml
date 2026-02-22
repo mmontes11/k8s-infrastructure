@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: monitoring
 resources:
   - alertmanager-httproute.yaml
+  - alertmanager-pvc.yaml
   - alertmanager-sealedsecret.yaml
   - blackbox-exporter-helmrelease.yaml
   - grafana-httproute.yaml
