@@ -8,7 +8,7 @@ spec:
     manual: alertmanager-1
   restic:
     repository: restic-alertmanager
-    destinationPVC: data-alertmanager-kube-alertmanager-stack-alertmanager-0
+    destinationPVC: data-alertmanager-kube-prometheus-stack-alertmanager-0
     copyMethod: Snapshot
     moverResources:
       requests:
