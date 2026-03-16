@@ -22,7 +22,7 @@ spec:
           spare-gb: 30
           thin-pool:
             name: "pool0"
-            overprovision-ratio: 1.5
+            overprovision-ratio: 10.0
       initContainers:
         - name: lvm-init
           image: ghcr.io/mmontes11/lvm-init:v0.1.0
