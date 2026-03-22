@@ -65,6 +65,12 @@ spec:
         existingClaim: grafana
       plugins:
         - grafana-piechart-panel
+      sidecar:
+        dashboards:
+          enabled: true
+          label: grafana_dashboard
+          labelValue: "1"
+          searchNamespace: monitoring
       dashboardProviders:
         dashboardproviders.yaml:
           apiVersion: 1
