@@ -8,7 +8,7 @@ spec:
       - database
   selector:
     matchLabels:
-      name: redis-operator 
+      name: redis-operator-metrics 
   endpoints:
     - port: metrics
       interval: 30s
