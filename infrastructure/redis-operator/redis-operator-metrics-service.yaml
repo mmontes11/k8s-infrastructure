@@ -3,8 +3,7 @@ kind: Service
 metadata:
   name: redis-operator
   labels:
-    app.kubernetes.io/name: redis-operator
-    app.kubernetes.io/component: operator
+    name: redis-operator  
 spec:
   ports:
     - name: metrics
@@ -12,4 +11,4 @@ spec:
       targetPort: 8080
       protocol: TCP
   selector:
-    app.kubernetes.io/name: redis-operator
+    name: redis-operator  

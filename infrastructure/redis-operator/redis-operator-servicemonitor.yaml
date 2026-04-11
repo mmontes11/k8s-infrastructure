@@ -2,20 +2,13 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: redis-operator
-  namespace: database
-  labels:
-    app: redis-operator
-    release: prometheus
 spec:
   namespaceSelector:
     matchNames:
       - database
   selector:
-    matchExpressions:
-      - key: app.kubernetes.io/name
-        operator: In
-        values:
-          - redis-operator
+    matchLabels:
+      name: redis-operator 
   endpoints:
     - port: metrics
       interval: 30s
