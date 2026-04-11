@@ -39,7 +39,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: redis
+    - name: redis-operator
   interval: 5m
   sourceRef:
     kind: GitRepository
