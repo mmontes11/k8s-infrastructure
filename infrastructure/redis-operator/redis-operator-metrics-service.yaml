@@ -11,4 +11,4 @@ spec:
       targetPort: 8080
       protocol: TCP
   selector:
-    name: redis-operator-metrics  
+    name: redis-operator
