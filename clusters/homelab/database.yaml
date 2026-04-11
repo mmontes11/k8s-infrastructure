@@ -44,7 +44,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/redis
+  path: ./infrastructure/redis-operator/redis
   prune: true
   timeout: 5m
 
