@@ -4,3 +4,5 @@ namespace: database
 resources:
   - redis-operator-helmrelease.yaml
   - redis-operator-helmrepository.yaml
+  - redis-operator-metrics-service.yaml
+  - redis-operator-servicemonitor.yaml
