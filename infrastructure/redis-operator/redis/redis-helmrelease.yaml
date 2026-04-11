@@ -13,15 +13,16 @@ spec:
   interval: 1h0m0s
   values:
     redisStandalone:
-      requests:
-        cpu: 200m
-        memory: 128Mi
-      limits:
-        memory: 512Mi
+      resources:
+        requests:
+          cpu: 200m
+          memory: 128Mi
+        limits:
+          memory: 512Mi
     storageSpec:
       volumeClaimTemplate:
         spec:
-          storageClassName: rook-ceph
+          storageClassName: topolvm
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:
@@ -29,6 +30,12 @@ spec:
     podSecurityContext:
       runAsUser: 1000
       fsGroup: 1000
+    tolerations:
+    - effect: NoSchedule
+      key: node.mmontes.io/type
+      value: compute-large
+    nodeSelector:
+      node.mmontes.io/type: compute-large
     serviceMonitor:
       enabled: true
     redisExporter:
