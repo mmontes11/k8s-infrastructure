@@ -24,7 +24,9 @@ spec:
       enabled: true
     service:
       name: redis-operator
+      namespace: database
     certificate:
       name: redis-operator
+      secretName: redis-operator
     featureGates:
       GenerateConfigInInitContainer: true
