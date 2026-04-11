@@ -5,3 +5,5 @@ resources:
   - llamacpp-dashboard.yaml
   - lmcache-dashboard.yaml
   - vllm-dashboard.yaml
+  - redis-operator-cluster-dashboard.yaml
+  - redis-operator-dashboard.yaml
