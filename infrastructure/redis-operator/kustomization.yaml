@@ -6,4 +6,3 @@ resources:
   - redis-operator-helmrepository.yaml
   - redis-operator-metrics-service.yaml
   - redis-operator-servicemonitor.yaml
-  - redis-operator-servicemonitor.yaml
