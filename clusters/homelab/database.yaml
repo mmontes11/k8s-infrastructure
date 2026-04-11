@@ -31,3 +31,20 @@ spec:
   path: ./infrastructure/redis-operator
   prune: true
   timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: redis
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: redis
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/redis
+  prune: true
+  timeout: 5m
+

@@ -1,0 +1,35 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: redis
+spec:
+  chart:
+    spec:
+      chart: redis
+      sourceRef:
+        kind: HelmRepository
+        name: redis-operator
+      version: "0.16.9"
+  interval: 1h0m0s
+  values:
+    redisStandalone:
+      requests:
+        cpu: 200m
+        memory: 128Mi
+      limits:
+        memory: 512Mi
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: rook-ceph
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 5Gi
+    podSecurityContext:
+      runAsUser: 1000
+      fsGroup: 1000
+    serviceMonitor:
+      enabled: true
+    redisExporter:
+      enabled: true
