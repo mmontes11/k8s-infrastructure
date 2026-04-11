@@ -22,7 +22,7 @@ spec:
     storageSpec:
       volumeClaimTemplate:
         spec:
-          storageClassName: topolvm
+          storageClassName: rook-ceph
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:
@@ -30,13 +30,9 @@ spec:
     podSecurityContext:
       runAsUser: 1000
       fsGroup: 1000
-    tolerations:
-    - effect: NoSchedule
-      key: node.mmontes.io/type
-      value: compute-large
-    nodeSelector:
-      node.mmontes.io/type: compute-large
     serviceMonitor:
       enabled: true
     redisExporter:
       enabled: true
+      image: quay.io/opstree/redis-exporter
+      tag: "v1.82.0"
