@@ -1,0 +1,30 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: redis-operator
+spec:
+  chart:
+    spec:
+      chart: redis-operator
+      sourceRef:
+        kind: HelmRepository
+        name: redis-operator
+      version: "0.24.0"
+  interval: 1h0m0s
+  values:
+    redisOperator:
+      webhook: true
+      metrics:
+        enabled: true
+    issuer:
+      create: false
+      kind: ClusterIssuer
+      name: homelab
+    certmanager:
+      enabled: true
+    service:
+      name: redis-operator
+    certificate:
+      name: redis-operator
+    featureGates:
+      GenerateConfigInInitContainer: true
