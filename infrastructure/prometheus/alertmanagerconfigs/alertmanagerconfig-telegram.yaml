@@ -2,10 +2,6 @@ apiVersion: monitoring.coreos.com/v1alpha1
 kind: AlertmanagerConfig
 metadata:
   name: alertmanager-telegram
-  namespace: monitoring
-  labels:
-    release: infrastructure-prometheus
-    alertmanagerConfig: telegram
 spec:
   route:
     groupBy:
@@ -17,12 +13,14 @@ spec:
     repeatInterval: 12h
     receiver: telegram
     routes:
-      - receiver: telegram
-        matchers:
-          - name: severity
-            matchType: "=~"
-            value: "warning|critical"
+      - matchers:
+        - alertname =~ "InfoInhibitor|Watchdog"
+        receiver: 'null'
+      - match:
+        receiver: telegram
+        continue: true
   receivers:
+    - name: 'null'
     - name: telegram
       telegramConfigs:
         - botToken:
