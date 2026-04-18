@@ -65,23 +65,21 @@ spec:
           {{- else if eq .CommonLabels.severity "warning" -}}
           🟠 <b>{{ .CommonLabels.alertname }}</b>
           {{- else -}}
-          ⚪️ <b>{{ .CommonLabels.alertname }}</b>
+          🟡 <b>{{ .CommonLabels.alertname }}</b>
           {{- end }}
-          <b>Status</b>: 🔥 FIRING
           {{- else if eq .Status "resolved" -}}
-          ⚪️ <b>{{ .CommonLabels.alertname }}</b>
-          <b>Status</b>: ✅ RESOLVED
+          🟢 <b>{{ .CommonLabels.alertname }}</b>
           {{- end }}
           {{- range .Alerts }}
 
           <b>Description</b>: {{ .Annotations.description }}
           <b>Graph</b>: <a href="{{ .GeneratorURL }}">📈</a>
-          {{ if .Annotations.runbook_url }}
+          {{- if .Annotations.runbook_url }}
           <b>Runbook</b>: <a href="{{ .Annotations.runbook_url }}">🗒️</a>
-          {{ end }}
+          {{- end }}
           <b>Labels</b>:
           {{ range .Labels.SortedPairs -}}
-          • *{{ .Name }}*: `{{ .Value }}` 
+          • <b>{{ .Name }}</b>: <code>{{ .Value }}</code> 
           {{ end }}
           {{- end }}
           {{ end }}
