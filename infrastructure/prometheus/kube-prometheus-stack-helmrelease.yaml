@@ -44,11 +44,6 @@ spec:
         configSecret: alertmanager
         externalUrl: https://alertmanager.mmontes-internal.duckdns.org
         retention: "168h"  # 7 days = 168 hours
-        alertmanagerConfigSelector:
-          matchLabels:
-            alertmanagerConfig: telegram
-        alertmanagerConfigMatcherStrategy:
-          type: None
         storage:
           volumeClaimTemplate:
             metadata:
@@ -59,50 +54,6 @@ spec:
               resources:
                 requests:
                   storage: 1Gi
-      templateFiles:
-        telegram.tmpl: |-
-          {{ define "telegram.default.message" }}
-          {{- if eq .Status "firing" -}}
-          {{- if eq .CommonLabels.severity "critical" -}}
-          \U0001F534 Alert: {{ .CommonLabels.alertname }}
-          {{- else if eq .CommonLabels.severity "warning" -}}
-          \U0001F7E0 Alert: {{ .CommonLabels.alertname }}
-          {{- else -}}
-          \u26AA Alert: {{ .CommonLabels.alertname }}
-          {{- end }}
-          Status: \U0001F525 FIRING
-          Severity: {{ if eq .CommonLabels.severity "critical" }}\U0001F534 {{ .CommonLabels.severity | title }}{{ else if eq .CommonLabels.severity "warning" }}\U0001F7E0 {{ .CommonLabels.severity | title }}{{ else }}\u26AA {{ .CommonLabels.severity | title }}{{ end }}
-          {{- else if eq .Status "resolved" -}}
-          \u26AA Alert: {{ .CommonLabels.alertname }}
-          Status: \u2705 RESOLVED
-          Severity: {{ if eq .CommonLabels.severity "critical" }}\U0001F7E2 {{ .CommonLabels.severity | title }}{{ else if eq .CommonLabels.severity "warning" }}\U0001F7E2 {{ .CommonLabels.severity | title }}{{ else }}\u26AA {{ .CommonLabels.severity | title }}{{ end }}
-          {{- end }}
-
-          {{- range .Alerts -}}
-
-          {{- if .Labels.job }}
-          Job: `{{ .Labels.job }}`
-          {{- end }}
-
-          {{- if .Labels.namespace }}
-          Namespace: `{{ .Labels.namespace }}`
-          {{- end }}
-
-          {{- if .Labels.instance }}
-          Instance: `{{ .Labels.instance }}`
-          {{- end }}
-
-          {{- if .Annotations.runbook_url }}
-          [Runbook]({{ .Annotations.runbook_url }})
-          {{- end }}
-          {{- if .Annotations.summary }}
-          Summary: {{ .Annotations.summary }}
-          {{- end }}
-          {{- if .Annotations.description }}
-          Description: {{ .Annotations.description }}
-          {{- end }}
-          {{- end }}
-          {{ end }}
 
     grafana:
       admin:

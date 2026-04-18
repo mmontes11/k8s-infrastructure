@@ -9,7 +9,6 @@ resources:
   - alertmanager-restic-sealedsecret.yaml
   - alertmanager-sealedsecret.yaml
   - alertmanager-telegram-sealedsecret.yaml
-  - alertmanagerconfig-telegram.yaml
   - blackbox-exporter-helmrelease.yaml
   - grafana-httproute.yaml
   - grafana-pvc.yaml
