@@ -74,14 +74,15 @@ spec:
           Status: ✅ RESOLVED
           Severity: {{ if eq .CommonLabels.severity "critical" }}🟢 {{ .CommonLabels.severity | title }}{{ else if eq .CommonLabels.severity "warning" }}🟢 {{ .CommonLabels.severity | title }}{{ else }}⚪️ {{ .CommonLabels.severity | title }}{{ end }}
           {{- end }}
-
-          {{ range .Alerts }}
+          {{- range .Alerts }}
             *Description*: {{ .Annotations.description }}
             *Graph*: [📈]({{ .GeneratorURL }})
-            {{ if .Annotations.runbook_url }}*Runbook*: [🗒️]({{ .Annotations.runbook_url }}) {{ end }}
+            {{- if .Annotations.runbook_url }}*Runbook*: [🗒️]({{ .Annotations.runbook_url }})
+            {{- end }}
             *Labels*:
-            {{ range .Labels.SortedPairs }} • *{{ .Name }}*: `{{ .Value }}`
-            {{ end }}
+            {{- range .Labels.SortedPairs }} • *{{ .Name }}*: `{{ .Value }}`
+            {{- end }}
+          {{- end }}
           {{ end }}
 
     grafana:
