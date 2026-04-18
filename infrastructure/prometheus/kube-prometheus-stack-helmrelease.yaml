@@ -60,29 +60,32 @@ spec:
         telegram.tmpl: |-
           {{ define "telegram.default.message" }}
           {{- if eq .Status "firing" -}}
-              {{- if eq .CommonLabels.severity "critical" -}}
-                  🔴 Alert: {{ .CommonLabels.alertname }}
-              {{- else if eq .CommonLabels.severity "warning" -}}
-                  🟠 Alert: {{ .CommonLabels.alertname }}
-              {{- else -}}
-                  ⚪️ Alert: {{ .CommonLabels.alertname }}
-              {{- end }}
-          Status: 🔥 FIRING
-          Severity: {{ if eq .CommonLabels.severity "critical" }}🔴 {{ .CommonLabels.severity | title }}{{ else if eq .CommonLabels.severity "warning" }}🟠 {{ .CommonLabels.severity | title }}{{ else }}⚪️ {{ .CommonLabels.severity | title }}{{ end }}
+            {{- if eq .CommonLabels.severity "critical" -}}
+                🔴 <b>{{ .CommonLabels.alertname }}</b>
+            {{- else if eq .CommonLabels.severity "warning" -}}
+                🟠 <b>{{ .CommonLabels.alertname }}</b>
+            {{- else -}}
+                ⚪️ <b>{{ .CommonLabels.alertname }}</b>
+            {{- end }}
+            <b>Status</b>: 🔥 FIRING
           {{- else if eq .Status "resolved" -}}
-              ⚪️ Alert: {{ .CommonLabels.alertname }}
-          Status: ✅ RESOLVED
-          Severity: {{ if eq .CommonLabels.severity "critical" }}🟢 {{ .CommonLabels.severity | title }}{{ else if eq .CommonLabels.severity "warning" }}🟢 {{ .CommonLabels.severity | title }}{{ else }}⚪️ {{ .CommonLabels.severity | title }}{{ end }}
+              ⚪️ <b>{{ .CommonLabels.alertname }}</b>
+            <b>Status</b>: ✅ RESOLVED
           {{- end }}
           {{- range .Alerts }}
+            <br>
             <b>Description</b>: {{ .Annotations.description }}
             <b>Graph</b>: <a href="{{ .GeneratorURL }}">📈</a>
-            {{- if .Annotations.runbook_url }}<b>Runbook</b>: <a href="{{ .Annotations.runbook_url }}">🗒️</a>
+            {{- if .Annotations.runbook_url }}
+            <b>Runbook</b>: <a href="{{ .Annotations.runbook_url }}">🗒️</a>
             {{- end }}
             <b>Labels</b>:
-            {{- range .Labels.SortedPairs }} • <b>{{ .Name }}</b>: <code>{{ .Value }}</code>
+            <ul>
+            {{- range .Labels.SortedPairs }}
+              <li><b>{{ .Name }}</b>: <code>{{ .Value }}</code></li>
             {{- end }}
-          {{- end }}
+            </ul>
+            {{- end }}
           {{ end }}
 
     grafana:
