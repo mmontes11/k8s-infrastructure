@@ -61,14 +61,14 @@ spec:
           {{ define "telegram.default.message" }}
           {{- if eq .Status "firing" -}}
           {{- if eq .CommonLabels.severity "critical" -}}
-          🔴 <b><code>{{ .CommonLabels.alertname }}</code></b>
+          🔴 <b>Alert</b>: <code>{{ .CommonLabels.alertname }}</code>
           {{- else if eq .CommonLabels.severity "warning" -}}
-          🟠 <b><code>{{ .CommonLabels.alertname }}</code></b>
+          🟠 <b>Alert</b>: <code>{{ .CommonLabels.alertname }}</code>
           {{- else -}}
-          🟡 <b><code>{{ .CommonLabels.alertname }}</code></b>
+          🟡 <b>Alert</b>: <code>{{ .CommonLabels.alertname }}</code>
           {{- end }}
           {{- else if eq .Status "resolved" -}}
-          🟢 <b><code>{{ .CommonLabels.alertname }}</code></b>
+          🟢 <b>Alert</b>: <code>{{ .CommonLabels.alertname }}</code>
           {{- end }}
 
           <b>Status</b>: {{ if eq .Status "firing" }}🔥{{ else }}✅{{ end }} <code>{{ .Status }}</code> 
