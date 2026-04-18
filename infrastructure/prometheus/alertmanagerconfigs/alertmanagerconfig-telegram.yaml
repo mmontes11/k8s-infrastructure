@@ -28,5 +28,5 @@ spec:
             key: token
           chatID: 565598
           parseMode: MarkdownV2
-          disableNotification: false
+          disableNotifications: false
           sendResolved: true
