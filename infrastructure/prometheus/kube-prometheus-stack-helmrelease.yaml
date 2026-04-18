@@ -76,15 +76,13 @@ spec:
 
           <b>Description</b>: {{ .Annotations.description }}
           <b>Graph</b>: <a href="{{ .GeneratorURL }}">📈</a>
-          {{- if .Annotations.runbook_url }}
+          {{ if .Annotations.runbook_url }}
           <b>Runbook</b>: <a href="{{ .Annotations.runbook_url }}">🗒️</a>
-          {{- end }}
+          {{ end }}
           <b>Labels</b>:
-          <ul>
-          {{- range .Labels.SortedPairs }}
-            <li><b>{{ .Name }}</b>: <code>{{ .Value }}</code></li>
-          {{- end }}
-          </ul>
+          {{ range .Labels.SortedPairs -}}
+          • *{{ .Name }}*: `{{ .Value }}` 
+          {{ end }}
           {{- end }}
           {{ end }}
 
