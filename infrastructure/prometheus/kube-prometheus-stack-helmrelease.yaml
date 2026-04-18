@@ -73,7 +73,6 @@ spec:
 
           <b>Status</b>: {{ if eq .Status "firing" }}🔥{{ else }}✅{{ end }} {{ .Status }}
           <b>Severity</b>: {{ if eq .CommonLabels.severity "critical" }}💥{{ else if eq .CommonLabels.severity "warning" }}⚠️{{ else }}📢{{ end }} {{ .CommonLabels.severity }}
-          <b>Alerts</b>:
           {{- range .Alerts }}
 
           <b>Description</b>: {{ .Annotations.description }}

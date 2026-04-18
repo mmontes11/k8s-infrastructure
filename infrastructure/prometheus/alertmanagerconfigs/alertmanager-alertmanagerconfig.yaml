@@ -1,7 +1,7 @@
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: AlertmanagerConfig
 metadata:
-  name: alertmanager-telegram
+  name: alertmanager
 spec:
   route:
     groupBy:
