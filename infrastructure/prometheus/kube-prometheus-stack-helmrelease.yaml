@@ -71,8 +71,8 @@ spec:
           🟢 <b>{{ .CommonLabels.alertname | title }}</b>
           {{- end }}
 
-          <b>Status</b>: {{ if eq .Status "firing" }}🔥{{ else }}✅{{ end }} {{ .Status }}
-          <b>Severity</b>: {{ if eq .CommonLabels.severity "critical" }}💥{{ else if eq .CommonLabels.severity "warning" }}⚠️{{ else }}📢{{ end }} {{ .CommonLabels.severity }}
+          <b>Status</b>: {{ if eq .Status "firing" }}🔥{{ else }}✅{{ end }} <code>{{ .Status }}</code> 
+          <b>Severity</b>: {{ if eq .CommonLabels.severity "critical" }}💥{{ else if eq .CommonLabels.severity "warning" }}⚠️{{ else }}📢{{ end }} <code>{{ .CommonLabels.severity }}</code> 
           {{- range .Alerts }}
 
           <b>Description</b>: {{ .Annotations.description }}
