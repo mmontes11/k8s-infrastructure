@@ -31,6 +31,6 @@ spec:
             name: alertmanager-telegram
             key: token
           chatID: 565598
-          parseMode: MarkdownV2
+          parseMode: HTML
           disableNotifications: false
           sendResolved: true

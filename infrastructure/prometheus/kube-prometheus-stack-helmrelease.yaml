@@ -75,12 +75,12 @@ spec:
           Severity: {{ if eq .CommonLabels.severity "critical" }}🟢 {{ .CommonLabels.severity | title }}{{ else if eq .CommonLabels.severity "warning" }}🟢 {{ .CommonLabels.severity | title }}{{ else }}⚪️ {{ .CommonLabels.severity | title }}{{ end }}
           {{- end }}
           {{- range .Alerts }}
-            *Description*: {{ .Annotations.description }}
-            *Graph*: [📈]({{ .GeneratorURL }})
-            {{- if .Annotations.runbook_url }}*Runbook*: [🗒️]({{ .Annotations.runbook_url }})
+            <b>Description</b>: {{ .Annotations.description }}
+            <b>Graph</b>: <a href="{{ .GeneratorURL }}">📈</a>
+            {{- if .Annotations.runbook_url }}<b>Runbook</b>: <a href="{{ .Annotations.runbook_url }}">🗒️</a>
             {{- end }}
-            *Labels*:
-            {{- range .Labels.SortedPairs }} • *{{ .Name }}*: `{{ .Value }}`
+            <b>Labels</b>:
+            {{- range .Labels.SortedPairs }} • <b>{{ .Name }}</b>: <code>{{ .Value }}</code>
             {{- end }}
           {{- end }}
           {{ end }}
