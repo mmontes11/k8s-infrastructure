@@ -14,11 +14,15 @@ spec:
     receiver: telegram
     routes:
       - matchers:
-        - alertname =~ "InfoInhibitor|Watchdog"
+        - name: alertname
+          matchType: "=~"
+          value: "InfoInhibitor|Watchdog"
         receiver: 'null'
-      - match:
+      - matchers:
+        - name: severity
+          matchType: "=~"
+          value: "warning|critical"
         receiver: telegram
-        continue: true
   receivers:
     - name: 'null'
     - name: telegram
