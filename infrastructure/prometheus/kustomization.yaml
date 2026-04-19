@@ -4,20 +4,20 @@ namespace: monitoring
 resources:
   - alertmanager-httproute.yaml
   - alertmanager-pvc.yaml
-  - alertmanager-replicationdestination.yaml
-  - alertmanager-replicationsource.yaml
+  # - alertmanager-replicationdestination.yaml
+  # - alertmanager-replicationsource.yaml
   - alertmanager-restic-sealedsecret.yaml
   - blackbox-exporter-helmrelease.yaml
   - grafana-httproute.yaml
   - grafana-pvc.yaml
-  - grafana-replicationdestination.yaml
-  - grafana-replicationsource.yaml
+  # - grafana-replicationdestination.yaml
+  # - grafana-replicationsource.yaml
   - grafana-restic-sealedsecret.yaml
   - grafana-sealedsecret.yaml
   - kube-prometheus-stack-helmrelease.yaml
   - prometheus-helmrepository.yaml
   - prometheus-httproute.yaml
   - prometheus-pvc.yaml
-  - prometheus-replicationdestination.yaml
-  - prometheus-replicationsource.yaml
+  # - prometheus-replicationdestination.yaml
+  # - prometheus-replicationsource.yaml
   - prometheus-restic-sealedsecret.yaml
