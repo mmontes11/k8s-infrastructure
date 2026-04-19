@@ -27,6 +27,12 @@ spec:
            matchLabels: null
         externalUrl: https://prometheus.mmontes-internal.duckdns.org
         retention: 365d
+        resources:
+          requests:
+            cpu: "1"
+            memory: "2Gi"
+          limits:
+            memory: "4Gi"
         storageSpec:
           volumeClaimTemplate:
             metadata:
