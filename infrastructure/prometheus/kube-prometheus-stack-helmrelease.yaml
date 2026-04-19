@@ -42,7 +42,7 @@ spec:
                 - "ReadWriteOnce"
               resources:
                 requests:
-                  storage: 500Gi
+                  storage: 200Gi
 
     alertmanager:
       alertmanagerSpec:
