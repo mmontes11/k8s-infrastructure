@@ -4,7 +4,6 @@ namespace: monitoring
 # TODO: 
 # move pvc, replicationdestination and replicationsource to its own kustomization: prometheus-storage
 # prometheus dependsOn prometheus-storage
-# only enable prometheus-storage when bootstrapping
 resources:
   - alertmanager-httproute.yaml
   - alertmanager-pvc.yaml
