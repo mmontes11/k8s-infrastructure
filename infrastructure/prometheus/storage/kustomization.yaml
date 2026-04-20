@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: monitoring
+resources:
+  - alertmanager-pvc.yaml
+  - alertmanager-replicationdestination.yaml
+  # - alertmanager-replicationsource.yaml
+  - alertmanager-restic-sealedsecret.yaml
+  - grafana-pvc.yaml
+  - grafana-replicationdestination.yaml
+  # - grafana-replicationsource.yaml
+  - grafana-restic-sealedsecret.yaml
+  - prometheus-pvc.yaml
+  - prometheus-replicationdestination.yaml
+  # - prometheus-replicationsource.yaml
+  - prometheus-restic-sealedsecret.yaml
