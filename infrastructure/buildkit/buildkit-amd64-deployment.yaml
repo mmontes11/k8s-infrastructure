@@ -32,7 +32,7 @@ spec:
             mountPath: /var/lib/buildkit
       containers:
         - name: buildkit-amd64
-          image: moby/buildkit:v0.27.1
+          image: moby/buildkit:v0.28.1
           args:
             - --addr
             - tcp://0.0.0.0:1234

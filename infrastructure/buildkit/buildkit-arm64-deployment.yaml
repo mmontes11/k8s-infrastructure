@@ -20,7 +20,7 @@ spec:
         kubernetes.io/arch: arm64
       containers:
         - name: buildkit-arm64
-          image: moby/buildkit:v0.27.1
+          image: moby/buildkit:v0.28.1
           args:
             - --addr
             - tcp://0.0.0.0:1234
