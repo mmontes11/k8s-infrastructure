@@ -3,4 +3,4 @@ kind: Kustomization
 namespace: pki
 resources:
   - kubelet-csr-approver-helmrelease.yaml
-  - kubelet-csr-approver-ocirepository.yaml
+  - kubelet-csr-approver-helmrepository.yaml

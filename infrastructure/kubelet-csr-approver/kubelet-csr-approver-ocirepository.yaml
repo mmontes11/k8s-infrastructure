@@ -1,9 +1,0 @@
-apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: OCIRepository
-metadata:
-  name: kubelet-csr-approver
-spec:
-  interval: 5m
-  url: oci://ghcr.io/charts/kubelet-csr-approver
-  ref:
-    tag: "1.2.2"
