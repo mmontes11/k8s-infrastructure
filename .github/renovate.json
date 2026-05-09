@@ -8,50 +8,6 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/(^|/)flux-system/gotk-components\\.yaml$/"
-      ],
-      "matchStrings": [
-        "image:\\s+ghcr\\.io/fluxcd/source-controller:(?<currentValue>.+?)(?:\\s|$)"
-      ],
-      "datasourceTemplate": "github-releases",
-      "packageNameTemplate": "fluxcd/source-controller"
-    },
-    {
-      "customType": "regex",
-      "managerFilePatterns": [
-        "/(^|/)flux-system/gotk-components\\.yaml$/"
-      ],
-      "matchStrings": [
-        "image:\\s+ghcr\\.io/fluxcd/kustomize-controller:(?<currentValue>.+?)(?:\\s|$)"
-      ],
-      "datasourceTemplate": "github-releases",
-      "packageNameTemplate": "fluxcd/kustomize-controller"
-    },
-    {
-      "customType": "regex",
-      "managerFilePatterns": [
-        "/(^|/)flux-system/gotk-components\\.yaml$/"
-      ],
-      "matchStrings": [
-        "image:\\s+ghcr\\.io/fluxcd/helm-controller:(?<currentValue>.+?)(?:\\s|$)"
-      ],
-      "datasourceTemplate": "github-releases",
-      "packageNameTemplate": "fluxcd/helm-controller"
-    },
-    {
-      "customType": "regex",
-      "managerFilePatterns": [
-        "/(^|/)flux-system/gotk-components\\.yaml$/"
-      ],
-      "matchStrings": [
-        "image:\\s+ghcr\\.io/fluxcd/notification-controller:(?<currentValue>.+?)(?:\\s|$)"
-      ],
-      "datasourceTemplate": "github-releases",
-      "packageNameTemplate": "fluxcd/notification-controller"
-    },
-    {
-      "customType": "regex",
-      "managerFilePatterns": [
         "/(^|/)infrastructure/buildkit/.*-deployment\\.yaml$/"
       ],
       "matchStrings": [
@@ -406,20 +362,6 @@
       "datasourceTemplate": "helm",
       "packageNameTemplate": "volsync",
       "registryUrlTemplate": "https://backube.github.io/helm-charts/"
-    }
-  ],
-  "packageRules": [
-    {
-      "matchDatasources": [
-        "github-releases"
-      ],
-      "matchPackageNames": [
-        "fluxcd/source-controller",
-        "fluxcd/kustomize-controller",
-        "fluxcd/helm-controller",
-        "fluxcd/notification-controller"
-      ],
-      "groupName": "Flux controllers"
     }
   ]
 }
