@@ -4,8 +4,10 @@ namespace: monitoring
 resources:
   - alertmanager-httproute.yaml
   - blackbox-exporter-helmrelease.yaml
+  - blackbox-exporter-ocirepository.yaml
   - grafana-httproute.yaml
   - grafana-sealedsecret.yaml
   - kube-prometheus-stack-helmrelease.yaml
+  - kube-prometheus-stack-ocirepository.yaml
   - prometheus-helmrepository.yaml
   - prometheus-httproute.yaml

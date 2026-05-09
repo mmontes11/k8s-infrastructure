@@ -1,16 +1,12 @@
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: rook-ceph-cluster
 spec:
   releaseName: rook-ceph-cluster
-  chart:
-    spec:
-      chart: rook-ceph-cluster
-      sourceRef:
-        kind: HelmRepository
-        name: rook
-      version: "v1.18.2"
+  chartRef:
+    kind: OCIRepository
+    name: rook-ceph-cluster
   interval: 1h0m0s
   values:
     operatorNamespace: storage

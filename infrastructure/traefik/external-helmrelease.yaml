@@ -1,15 +1,11 @@
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: traefik-external
 spec:
-  chart:
-    spec:
-      chart: traefik
-      sourceRef:
-        kind: HelmRepository
-        name: traefik
-      version: "32.1.0"
+  chartRef:
+    kind: OCIRepository
+    name: traefik
   interval: 1h0m0s
   values:
     instanceLabelOverride: traefik-external

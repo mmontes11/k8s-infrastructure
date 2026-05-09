@@ -1,16 +1,12 @@
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: blackbox-exporter
 spec:
   releaseName: blackbox-exporter
-  chart:
-    spec:
-      chart: prometheus-blackbox-exporter
-      sourceRef:
-        kind: HelmRepository
-        name: prometheus
-      version: "9.3.0"
+  chartRef:
+    kind: OCIRepository
+    name: prometheus-blackbox-exporter
   interval: 1h0m0s
   values:
     fullnameOverride: blackbox-exporter

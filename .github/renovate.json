@@ -1,0 +1,367 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "prConcurrentLimit": 0,
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/buildkit/.*-deployment\\.yaml$/"
+      ],
+      "matchStrings": [
+        "image:\\s+busybox:(?<currentValue>.+)"
+      ],
+      "datasourceTemplate": "docker",
+      "packageNameTemplate": "busybox"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/buildkit/.*-deployment\\.yaml$/"
+      ],
+      "matchStrings": [
+        "image:\\s+moby/buildkit:(?<currentValue>.+)"
+      ],
+      "datasourceTemplate": "docker",
+      "packageNameTemplate": "moby/buildkit"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/cert-manager/helmrelease\\.yaml$/"
+      ],
+      "matchStrings": [
+        "chart:\\s+cert-manager\\s*\\n\\s+sourceRef:\\s*\\n\\s+kind:\\s+HelmRepository\\s*\\n\\s+name:\\s+jetstack\\s*\\n\\s+version:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "helm",
+      "packageNameTemplate": "cert-manager",
+      "registryUrlTemplate": "https://charts.jetstack.io"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/dns/duckdns-helmrelease\\.yaml$/"
+      ],
+      "matchStrings": [
+        "chart:\\s+duckdns\\s*\\n\\s+sourceRef:\\s*\\n\\s+kind:\\s+HelmRepository\\s*\\n\\s+name:\\s+mmontes\\s*\\n\\s+version:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "helm",
+      "packageNameTemplate": "duckdns",
+      "registryUrlTemplate": "https://mmontes11.github.io/charts"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/dns/pihole-helmrelease\\.yaml$/"
+      ],
+      "matchStrings": [
+        "chart:\\s+pihole\\s*\\n\\s+sourceRef:\\s*\\n\\s+kind:\\s+HelmRepository\\s*\\n\\s+name:\\s+pihole\\s*\\n\\s+version:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "helm",
+      "packageNameTemplate": "pihole",
+      "registryUrlTemplate": "https://mojo2600.github.io/pihole-kubernetes"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/external-snapshotter/external-snapshotter-deployment\\.yaml$/"
+      ],
+      "matchStrings": [
+        "image:\\s+registry\\.k8s\\.io/sig-storage/snapshot-controller:(?<currentValue>.+)"
+      ],
+      "datasourceTemplate": "docker",
+      "packageNameTemplate": "registry.k8s.io/sig-storage/snapshot-controller",
+      "registryUrlTemplate": "https://registry.k8s.io"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/kubelet-csr-approver/kubelet-csr-approver-ocirepository\\.yaml$/"
+      ],
+      "matchStrings": [
+        "ref:\\s*\\n\\s+tag:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "docker",
+      "packageNameTemplate": "ghcr.io/charts/kubelet-csr-approver",
+      "registryUrlTemplate": "https://ghcr.io"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/mariadb-operator/mariadb-operator-crds-helmrelease\\.yaml$/"
+      ],
+      "matchStrings": [
+        "chart:\\s+mariadb-operator-crds\\s*\\n\\s+sourceRef:\\s*\\n\\s+kind:\\s+HelmRepository\\s*\\n\\s+name:\\s+mariadb-operator\\s*\\n\\s+version:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "helm",
+      "packageNameTemplate": "mariadb-operator-crds",
+      "registryUrlTemplate": "https://helm.mariadb.com/mariadb-operator"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/mariadb-operator/mariadb-operator-helmrelease\\.yaml$/"
+      ],
+      "matchStrings": [
+        "chart:\\s+mariadb-operator\\s*\\n\\s+sourceRef:\\s*\\n\\s+kind:\\s+HelmRepository\\s*\\n\\s+name:\\s+mariadb-operator\\s*\\n\\s+version:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "helm",
+      "packageNameTemplate": "mariadb-operator",
+      "registryUrlTemplate": "https://helm.mariadb.com/mariadb-operator"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/metrics-server/helmrelease\\.yaml$/"
+      ],
+      "matchStrings": [
+        "chart:\\s+metrics-server\\s*\\n\\s+sourceRef:\\s*\\n\\s+kind:\\s+HelmRepository\\s*\\n\\s+name:\\s+metrics-server\\s*\\n\\s+version:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "helm",
+      "packageNameTemplate": "metrics-server",
+      "registryUrlTemplate": "https://kubernetes-sigs.github.io/metrics-server"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/metallb/metallb-helmrelease\\.yaml$/"
+      ],
+      "matchStrings": [
+        "chart:\\s+metallb\\s*\\n\\s+sourceRef:\\s*\\n\\s+kind:\\s+HelmRepository\\s*\\n\\s+name:\\s+metallb\\s*\\n\\s+version:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "helm",
+      "packageNameTemplate": "metallb",
+      "registryUrlTemplate": "https://metallb.github.io/metallb"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/minio-operator/minio-operator-helmrelease\\.yaml$/"
+      ],
+      "matchStrings": [
+        "chart:\\s+operator\\s*\\n\\s+sourceRef:\\s*\\n\\s+kind:\\s+HelmRepository\\s*\\n\\s+name:\\s+minio-operator\\s*\\n\\s+version:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "helm",
+      "packageNameTemplate": "operator",
+      "registryUrlTemplate": "https://operator.min.io"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/minio-operator/minio-tenant/minio-tenant-helmrelease\\.yaml$/"
+      ],
+      "matchStrings": [
+        "chart:\\s+tenant\\s*\\n\\s+sourceRef:\\s*\\n\\s+kind:\\s+HelmRepository\\s*\\n\\s+name:\\s+minio-operator\\s*\\n\\s+version:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "helm",
+      "packageNameTemplate": "tenant",
+      "registryUrlTemplate": "https://operator.min.io"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/nvidia-dcgm-exporter/nvidia-dcgm-exporter-helmrelease\\.yaml$/"
+      ],
+      "matchStrings": [
+        "chart:\\s+dcgm-exporter\\s*\\n\\s+sourceRef:\\s*\\n\\s+kind:\\s+HelmRepository\\s*\\n\\s+name:\\s+nvidia-dcgm-exporter\\s*\\n\\s+version:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "helm",
+      "packageNameTemplate": "dcgm-exporter",
+      "registryUrlTemplate": "https://nvidia.github.io/dcgm-exporter/helm-charts"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/nvidia-device-plugin/nvidia-device-plugin-helmrelease\\.yaml$/"
+      ],
+      "matchStrings": [
+        "chart:\\s+nvidia-device-plugin\\s*\\n\\s+sourceRef:\\s*\\n\\s+kind:\\s+HelmRepository\\s*\\n\\s+name:\\s+nvidia-device-plugin\\s*\\n\\s+version:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "helm",
+      "packageNameTemplate": "nvidia-device-plugin",
+      "registryUrlTemplate": "https://nvidia.github.io/k8s-device-plugin"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/prometheus/blackbox-exporter-ocirepository\\.yaml$/"
+      ],
+      "matchStrings": [
+        "ref:\\s*\\n\\s+tag:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "docker",
+      "packageNameTemplate": "ghcr.io/prometheus-community/charts/prometheus-blackbox-exporter",
+      "registryUrlTemplate": "https://ghcr.io"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/prometheus/kube-prometheus-stack-ocirepository\\.yaml$/"
+      ],
+      "matchStrings": [
+        "ref:\\s*\\n\\s+tag:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "docker",
+      "packageNameTemplate": "ghcr.io/prometheus-community/charts/kube-prometheus-stack",
+      "registryUrlTemplate": "https://ghcr.io"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/redis-operator/redis-operator-helmrelease\\.yaml$/"
+      ],
+      "matchStrings": [
+        "chart:\\s+redis-operator\\s*\\n\\s+sourceRef:\\s*\\n\\s+kind:\\s+HelmRepository\\s*\\n\\s+name:\\s+redis-operator\\s*\\n\\s+version:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "helm",
+      "packageNameTemplate": "redis-operator",
+      "registryUrlTemplate": "https://ot-container-kit.github.io/helm-charts/"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/redis-operator/redis/redis-helmrelease\\.yaml$/"
+      ],
+      "matchStrings": [
+        "chart:\\s+redis\\s*\\n\\s+sourceRef:\\s*\\n\\s+kind:\\s+HelmRepository\\s*\\n\\s+name:\\s+redis-operator\\s*\\n\\s+version:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "helm",
+      "packageNameTemplate": "redis",
+      "registryUrlTemplate": "https://ot-container-kit.github.io/helm-charts/"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/rook/rook-ceph-cluster/rook-ceph-cluster-ocirepository\\.yaml$/"
+      ],
+      "matchStrings": [
+        "ref:\\s*\\n\\s+tag:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "docker",
+      "packageNameTemplate": "ghcr.io/rook/rook-ceph-cluster",
+      "registryUrlTemplate": "https://ghcr.io"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/rook/rook-ceph-ocirepository\\.yaml$/"
+      ],
+      "matchStrings": [
+        "ref:\\s*\\n\\s+tag:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "docker",
+      "packageNameTemplate": "ghcr.io/rook/rook-ceph",
+      "registryUrlTemplate": "https://ghcr.io"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/sealed-secrets/sealed-secrets-helmrelease\\.yaml$/"
+      ],
+      "matchStrings": [
+        "chart:\\s+sealed-secrets\\s*\\n\\s+sourceRef:\\s*\\n\\s+kind:\\s+HelmRepository\\s*\\n\\s+name:\\s+sealed-secrets\\s*\\n\\s+version:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "helm",
+      "packageNameTemplate": "sealed-secrets",
+      "registryUrlTemplate": "https://bitnami-labs.github.io/sealed-secrets"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/snapscheduler/snapscheduler-helmrelease\\.yaml$/"
+      ],
+      "matchStrings": [
+        "chart:\\s+snapscheduler\\s*\\n\\s+sourceRef:\\s*\\n\\s+kind:\\s+HelmRepository\\s*\\n\\s+name:\\s+snapscheduler\\s*\\n\\s+version:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "helm",
+      "packageNameTemplate": "snapscheduler",
+      "registryUrlTemplate": "https://backube.github.io/helm-charts/"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/synology-csi-talos/synology-csi-helmrelease\\.yaml$/"
+      ],
+      "matchStrings": [
+        "chart:\\s+synology-csi\\s*\\n\\s+sourceRef:\\s*\\n\\s+kind:\\s+HelmRepository\\s*\\n\\s+name:\\s+synology-csi\\s*\\n\\s+version:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "helm",
+      "packageNameTemplate": "synology-csi",
+      "registryUrlTemplate": "https://zebernst.github.io/synology-csi-talos"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/synology-csi/helmrelease\\.yaml$/"
+      ],
+      "matchStrings": [
+        "chart:\\s+synology-csi\\s*\\n\\s+sourceRef:\\s*\\n\\s+kind:\\s+HelmRepository\\s*\\n\\s+name:\\s+synology-csi\\s*\\n\\s+version:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "helm",
+      "packageNameTemplate": "synology-csi",
+      "registryUrlTemplate": "https://christian-schlichtherle.github.io/synology-csi-chart"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/tailscale/tailscale-helmrelease\\.yaml$/"
+      ],
+      "matchStrings": [
+        "chart:\\s+tailscale-operator\\s*\\n\\s+sourceRef:\\s*\\n\\s+kind:\\s+HelmRepository\\s*\\n\\s+name:\\s+tailscale\\s*\\n\\s+version:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "helm",
+      "packageNameTemplate": "tailscale-operator",
+      "registryUrlTemplate": "https://pkgs.tailscale.com/helmcharts"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/topolvm/topolvm-helmrelease\\.yaml$/"
+      ],
+      "matchStrings": [
+        "chart:\\s+topolvm\\s*\\n\\s+sourceRef:\\s*\\n\\s+kind:\\s+HelmRepository\\s*\\n\\s+name:\\s+topolvm\\s*\\n\\s+version:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "helm",
+      "packageNameTemplate": "topolvm",
+      "registryUrlTemplate": "https://topolvm.github.io/topolvm"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/trust-manager/helmrelease\\.yaml$/"
+      ],
+      "matchStrings": [
+        "chart:\\s+trust-manager\\s*\\n\\s+sourceRef:\\s*\\n\\s+kind:\\s+HelmRepository\\s*\\n\\s+name:\\s+jetstack\\s*\\n\\s+version:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "helm",
+      "packageNameTemplate": "trust-manager",
+      "registryUrlTemplate": "https://charts.jetstack.io"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/traefik/traefik-ocirepository\\.yaml$/"
+      ],
+      "matchStrings": [
+        "ref:\\s*\\n\\s+tag:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "docker",
+      "packageNameTemplate": "ghcr.io/traefik/helm/traefik",
+      "registryUrlTemplate": "https://ghcr.io"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/volsync/volsync-helmrelease\\.yaml$/"
+      ],
+      "matchStrings": [
+        "chart:\\s+volsync\\s*\\n\\s+sourceRef:\\s*\\n\\s+kind:\\s+HelmRepository\\s*\\n\\s+name:\\s+volsync\\s*\\n\\s+version:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "helm",
+      "packageNameTemplate": "volsync",
+      "registryUrlTemplate": "https://backube.github.io/helm-charts/"
+    }
+  ]
+}
