@@ -42,6 +42,17 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
+        "/(^|/)infrastructure/cert-manager/crds/kustomization\\.yaml$/"
+      ],
+      "matchStrings": [
+        "releases/download/(?<currentValue>v[^/]+)/cert-manager\\.crds\\.yaml"
+      ],
+      "datasourceTemplate": "github-releases",
+      "packageNameTemplate": "cert-manager/cert-manager"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
         "/(^|/)infrastructure/dns/duckdns-helmrelease\\.yaml$/"
       ],
       "matchStrings": [
@@ -194,6 +205,17 @@
       "datasourceTemplate": "docker",
       "packageNameTemplate": "ghcr.io/prometheus-community/charts/prometheus-blackbox-exporter",
       "registryUrlTemplate": "https://ghcr.io"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/prometheus/crds/kustomization\\.yaml$/"
+      ],
+      "matchStrings": [
+        "releases/download/(?<currentValue>v[^/]+)/bundle\\.yaml"
+      ],
+      "datasourceTemplate": "github-releases",
+      "packageNameTemplate": "prometheus-operator/prometheus-operator"
     },
     {
       "customType": "regex",
