@@ -11,17 +11,6 @@
         "/(^|/)infrastructure/buildkit/.*-deployment\\.yaml$/"
       ],
       "matchStrings": [
-        "image:\\s+busybox:(?<currentValue>.+)"
-      ],
-      "datasourceTemplate": "docker",
-      "packageNameTemplate": "busybox"
-    },
-    {
-      "customType": "regex",
-      "managerFilePatterns": [
-        "/(^|/)infrastructure/buildkit/.*-deployment\\.yaml$/"
-      ],
-      "matchStrings": [
         "image:\\s+moby/buildkit:(?<currentValue>.+)"
       ],
       "datasourceTemplate": "docker",
