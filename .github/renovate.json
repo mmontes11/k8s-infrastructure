@@ -353,6 +353,17 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
+        "/(^|/)infrastructure/rook/rook-crds/kustomization\\.yaml$/"
+      ],
+      "matchStrings": [
+        "raw\\.githubusercontent\\.com/rook/rook/refs/tags/(?<currentValue>v[0-9]+\\.[0-9]+\\.[0-9]+)"
+      ],
+      "datasourceTemplate": "github-releases",
+      "packageNameTemplate": "rook/rook"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
         "/(^|/)infrastructure/traefik/traefik-ocirepository\\.yaml$/"
       ],
       "matchStrings": [
