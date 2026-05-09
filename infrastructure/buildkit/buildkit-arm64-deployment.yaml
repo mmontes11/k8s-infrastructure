@@ -28,7 +28,7 @@ spec:
             mountPath: /var/lib/buildkit
       containers:
         - name: buildkit-arm64
-          image: moby/buildkit:v0.26.3
+          image: moby/buildkit:v0.29.0
           args:
             - --addr
             - tcp://0.0.0.0:1234
