@@ -209,13 +209,14 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/(^|/)infrastructure/prometheus/crds/kustomization\\.yaml$/"
+        "/(^|/)infrastructure/prometheus/crds/prometheus-operator-crds-ocirepository\\.yaml$/"
       ],
       "matchStrings": [
-        "releases/download/(?<currentValue>v[^/]+)/bundle\\.yaml"
+        "ref:\\s*\\n\\s+tag:\\s+\"?(?<currentValue>[^\"]+)\"?"
       ],
-      "datasourceTemplate": "github-releases",
-      "packageNameTemplate": "prometheus-operator/prometheus-operator"
+      "datasourceTemplate": "docker",
+      "packageNameTemplate": "ghcr.io/prometheus-community/charts/prometheus-operator-crds",
+      "registryUrlTemplate": "https://ghcr.io"
     },
     {
       "customType": "regex",
