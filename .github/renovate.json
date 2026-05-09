@@ -33,7 +33,7 @@
         "/(^|/)infrastructure/cert-manager/helmrelease\\.yaml$/"
       ],
       "matchStrings": [
-        "chart:\\s+cert-manager\\s*\\n\\s+sourceRef:\\s*\\n\\s+kind:\\s+HelmRepository\\s*\\n\\s+name:\\s+jetstack\\s*\\n\\s+version:\\s+\"?(?<currentValue>[^\"]+)\"?"
+        "chart:\\s+cert-manager\\s*\\n\\s+sourceRef:\\s*\\n\\s+kind:\\s+HelmRepository\\s*\\n\\s+name:\\s+jetstack\\s*\\n\\s+(?:namespace:\\s+\\S+\\s*\\n)?\\s+version:\\s+\"?(?<currentValue>[^\"]+)\"?"
       ],
       "datasourceTemplate": "helm",
       "packageNameTemplate": "cert-manager",
