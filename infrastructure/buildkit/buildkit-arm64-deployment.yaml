@@ -9,6 +9,8 @@ spec:
   selector:
     matchLabels:
       app: buildkit-arm64
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
