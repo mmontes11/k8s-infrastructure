@@ -6,4 +6,4 @@ spec:
   interval: 5m
   url: oci://ghcr.io/prometheus-community/charts/kube-prometheus-stack
   ref:
-    tag: "76.4.0"
+    tag: "84.5.0"
