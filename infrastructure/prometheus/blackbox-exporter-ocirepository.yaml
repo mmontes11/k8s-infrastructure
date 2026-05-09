@@ -5,5 +5,8 @@ metadata:
 spec:
   interval: 5m
   url: oci://ghcr.io/prometheus-community/charts/prometheus-blackbox-exporter
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
   ref:
     tag: "9.3.0"
