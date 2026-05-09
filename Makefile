@@ -1,9 +1,6 @@
 ROOK_VERSION ?= v1.16.5
 ROOK_URL ?= https://raw.githubusercontent.com/rook/rook/refs/tags/$(ROOK_VERSION)/deploy/examples/crds.yaml
 
-PROMETHEUS_VERSION ?= 76.4.0
-PROMETHEUS_URL ?= https://github.com/prometheus-community/helm-charts/releases/download/kube-prometheus-stack-$(PROMETHEUS_VERSION)/kube-prometheus-stack-$(PROMETHEUS_VERSION).tgz
-
 GATEWAY_API_VERSION ?= v1.2.0/
 GATEWAY_API_URL ?= https://github.com/kubernetes-sigs/gateway-api/releases/download/$(GATEWAY_API_VERSION)/experimental-install.yaml
 
@@ -17,15 +14,6 @@ help: ## Display this help.
 .PHONY: rook-crds
 rook-crds: ### Get rook CRDs to be installed by flux.
 	curl -sSLo infrastructure/rook/rook-crds/crds.yaml $(ROOK_URL)
-
-.PHONY: prometheus-crds
-prometheus-crds: ### Get prometheus CRDs to be installed by flux.
-	@if [ -d "kube-prometheus-stack" ]; then \
-			rm -rf kube-prometheus-stack/; \
-	fi
-	curl -sL $(PROMETHEUS_URL) | tar xz -C .
-	cp kube-prometheus-stack/charts/crds/crds/*.yaml  infrastructure/prometheus/crds
-	rm -rf kube-prometheus-stack/
 
 .PHONY: gateway-api-crds
 gateway-api-crds: ## Get gateway-api CRDs to be installed by flux.
