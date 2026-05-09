@@ -77,18 +77,6 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/(^|/)infrastructure/external-snapshotter/external-snapshotter-deployment\\.yaml$/"
-      ],
-      "matchStrings": [
-        "image:\\s+registry\\.k8s\\.io/sig-storage/snapshot-controller:(?<currentValue>.+)"
-      ],
-      "datasourceTemplate": "docker",
-      "packageNameTemplate": "registry.k8s.io/sig-storage/snapshot-controller",
-      "registryUrlTemplate": "https://registry.k8s.io"
-    },
-    {
-      "customType": "regex",
-      "managerFilePatterns": [
         "/(^|/)infrastructure/kubelet-csr-approver/kubelet-csr-approver-ocirepository\\.yaml$/"
       ],
       "matchStrings": [
