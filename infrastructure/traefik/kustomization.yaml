@@ -5,7 +5,7 @@ resources:
   - external-clusterrolebinding.yaml
   - external-gateway.yaml
   - external-helmrelease.yaml
-  - helmrepository.yaml
   - internal-clusterrolebinding.yaml
   - internal-gateway.yaml
   - internal-helmrelease.yaml
+  - traefik-ocirepository.yaml
