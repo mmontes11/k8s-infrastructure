@@ -9,7 +9,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: volsync
-      version: "v0.13.0"
+      version: "0.15.0"
   interval: 1h0m0s
   values:
     replicaCount: 2
