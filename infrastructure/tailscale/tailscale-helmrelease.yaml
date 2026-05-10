@@ -9,7 +9,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: tailscale
-      version: "1.72.1"
+      version: "1.96.5"
   interval: 1h0m0s
   values:
     installCRDs: true
