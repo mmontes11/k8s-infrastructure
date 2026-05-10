@@ -9,7 +9,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: snapscheduler
-      version: "3.4.0"
+      version: "3.5.0"
   interval: 1h0m0s
   values:
     replicaCount: 1
