@@ -11,10 +11,6 @@ spec:
         name: metallb
       version: "0.15.3"
   interval: 1h0m0s
-  install:
-    crds: CreateReplace
-  upgrade:
-    crds: CreateReplace
   values:
     speaker:
       priorityClassName: system-node-critical
