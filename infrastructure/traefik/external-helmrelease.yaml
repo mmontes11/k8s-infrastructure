@@ -7,7 +7,7 @@ spec:
     kind: OCIRepository
     name: traefik
   interval: 1h0m0s
-  skipCRDs: true
+  crds: Skip
   values:
     instanceLabelOverride: traefik-external
     logs:
