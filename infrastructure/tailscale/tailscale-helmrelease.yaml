@@ -11,6 +11,10 @@ spec:
         name: tailscale
       version: "1.96.5"
   interval: 1h0m0s
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
   values:
     installCRDs: true
     operatorConfig:

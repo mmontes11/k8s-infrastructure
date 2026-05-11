@@ -11,6 +11,10 @@ spec:
         name: minio-operator
       version: "v7.1.1"
   interval: 1h0m0s
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
   values:
     operator:
       replicaCount: 1

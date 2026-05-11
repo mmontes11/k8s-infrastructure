@@ -11,6 +11,10 @@ spec:
         name: topolvm
       version: "16.1.0"
   interval: 1h0m0s
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
   values:
     lvmd:
       managed: true

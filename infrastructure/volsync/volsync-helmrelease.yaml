@@ -11,10 +11,12 @@ spec:
         name: volsync
       version: "0.15.0"
   interval: 1h0m0s
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
   values:
     replicaCount: 2
-
     manageCRDs: true
-
     metrics:
       disableAuth: true

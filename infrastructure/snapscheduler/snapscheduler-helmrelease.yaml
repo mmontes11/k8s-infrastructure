@@ -11,21 +11,19 @@ spec:
         name: snapscheduler
       version: "3.5.0"
   interval: 1h0m0s
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
   values:
     replicaCount: 1
-
     image:
       image: ghcr.io/mmontes11/snapscheduler:v3.4.0
-
     rbacProxy:
       image:
         image: quay.io/brancz/kube-rbac-proxy:v0.18.1
-
     manageCRDs: true
-
     metrics:
       disableAuth: true
-
     nodeSelector: null
-
     affinity: null

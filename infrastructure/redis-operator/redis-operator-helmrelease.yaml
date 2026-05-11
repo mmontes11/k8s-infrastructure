@@ -11,6 +11,10 @@ spec:
         name: redis-operator
       version: "0.24.0"
   interval: 1h0m0s
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
   values:
     redisOperator:
       webhook: true
