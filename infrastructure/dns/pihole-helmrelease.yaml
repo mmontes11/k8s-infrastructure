@@ -25,8 +25,6 @@ spec:
       annotations:
         metallb.io/loadBalancerIPs: 10.0.0.60
         metallb.io/allow-shared-ip: pihole-dns-tcp,pihole-dns-udp
-        metallb.universe.tf/loadBalancerIPs: 10.0.0.60
-        metallb.universe.tf/allow-shared-ip: pihole-dns-tcp,pihole-dns-udp
 
     serviceDhcp:
       enabled: false
@@ -37,7 +35,6 @@ spec:
       externalTrafficPolicy: Local
       annotations:
         metallb.io/loadBalancerIPs: 10.0.0.61
-        metallb.universe.tf/loadBalancerIPs: 10.0.0.61
  
     resources:
       requests:

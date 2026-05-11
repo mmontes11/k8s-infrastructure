@@ -40,7 +40,6 @@ spec:
     service:
       annotations:
         metallb.io/loadBalancerIPs: 10.0.0.80
-        metallb.universe.tf/loadBalancerIPs: 10.0.0.80
     deployment:
       enabled: true
       kind: Deployment
