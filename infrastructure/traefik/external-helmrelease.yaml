@@ -39,6 +39,8 @@ spec:
         ingressClass: traefik-external
     additionalArguments:
       - "--serverstransport.insecureskipverify"
+      # Not using native helm values, as the chart does not support specific funtionality we rely on, like labelselector
+      # See: https://github.com/traefik/traefik-helm-chart/blob/55da74d888c3d57713ab0e03532aa99bc70bd4ca/traefik/values.yaml#L362
       - "--experimental.kubernetesgateway"
       - "--providers.kubernetesgateway"
       - "--providers.kubernetesgateway.labelselector=gatewayclass.mmontes.io/type=traefik-external"
