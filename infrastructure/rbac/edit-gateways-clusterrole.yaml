@@ -9,7 +9,12 @@ rules:
       - ""
     resources:
       - namespaces
+      - endpoints
+      - secrets
+      - services
+      - configmaps
     verbs:
+      - get
       - list
       - watch
   - apiGroups:
