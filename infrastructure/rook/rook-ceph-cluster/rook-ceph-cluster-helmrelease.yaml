@@ -17,8 +17,9 @@ spec:
       createPrometheusRules: true
 
     cephClusterSpec:
-      cephVersion:
-        image: quay.io/ceph/ceph:v19.2.3
+      cephImage:
+        repository: quay.io/ceph/ceph
+        tag: v19.2.3
       cephConfig:
         global:
           # speed up OSD recovery
