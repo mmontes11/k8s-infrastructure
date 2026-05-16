@@ -245,6 +245,18 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
+        "/(^|/)infrastructure/rook/rook-ceph-cluster/rook-ceph-cluster-helmrelease\\.yaml$/"
+      ],
+      "matchStrings": [
+        "cephImage:\\s*\\n\\s*repository:\\s*quay\\.io/ceph/ceph\\s*\\n\\s*tag:\\s+(?<currentValue>v[0-9]+\\.[0-9]+\\.[0-9]+)"
+      ],
+      "datasourceTemplate": "docker",
+      "packageNameTemplate": "quay.io/ceph/ceph",
+      "versioningTemplate": "semver"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
         "/(^|/)infrastructure/rook/rook-ceph-ocirepository\\.yaml$/"
       ],
       "matchStrings": [
