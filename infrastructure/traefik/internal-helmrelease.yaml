@@ -31,6 +31,7 @@ spec:
             to: websecure
             scheme: https
             permanent: true
+            priority: 10
       builder-amd64:
         containerPort: 3000
         port: 3000
