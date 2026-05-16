@@ -26,11 +26,12 @@ spec:
       isDefaultClass: false
     ports:
       web:
-        redirections:
-          entryPoint:
-            to: websecure
-            scheme: https
-            priority: 10
+        http:
+          redirections:
+            entryPoint:
+              to: websecure
+              scheme: https
+              priority: 10
     providers:
       kubernetesCRD:
         enabled: true
