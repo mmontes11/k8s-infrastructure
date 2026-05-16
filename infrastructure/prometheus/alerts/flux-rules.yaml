@@ -8,9 +8,9 @@ spec:
       rules:
         - alert: FluxResourceNotReady
           expr: gotk_resource_info{ready="0"} == 1
-          for: 5m
+          for: 15m
           labels:
             severity: warning
           annotations:
             summary: "Flux resource {{ $labels.customresource_kind }}/{{ $labels.name }} is not ready in {{ $labels.exported_namespace }}"
-            description: "The Flux resource {{ $labels.customresource_kind }}/{{ $labels.name }} in namespace {{ $labels.exported_namespace }} has been in a non-ready state for more than 5 minutes (group: {{ $labels.customresource_group }}, version: {{ $labels.customresource_version }})."
+            description: "The Flux resource {{ $labels.customresource_kind }}/{{ $labels.name }} in namespace {{ $labels.exported_namespace }} has been in a non-ready state for more than 15 minutes (group: {{ $labels.customresource_group }}, version: {{ $labels.customresource_version }})."
