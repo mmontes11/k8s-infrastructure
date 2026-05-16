@@ -11,7 +11,6 @@ resources:
   - kube-prometheus-stack-ocirepository.yaml
   - prometheus-helmrepository.yaml
   - prometheus-httproute.yaml
-  - test
 configMapGenerator:
   - name: flux-kube-state-metrics-config
     files:
