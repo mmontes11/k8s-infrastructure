@@ -12,5 +12,6 @@ spec:
           labels:
             severity: warning
           annotations:
-            summary: "Flux resource {{ $labels.customresource_kind }}/{{ $labels.name }} is not ready in {{ $labels.exported_namespace }}"
-            description: "The Flux resource {{ $labels.customresource_kind }}/{{ $labels.name }} in namespace {{ $labels.exported_namespace }} has been in a non-ready state for more than 15 minutes (group: {{ $labels.customresource_group }}, version: {{ $labels.customresource_version }})."
+            summary: "{{ $labels.customresource_kind }} not ready (name={{ $labels.name }}, namespace={{ $labels.namespace }})"
+            description: |
+              "Flux {{ $labels.customresource_kind }} resource has a not Ready condition (name={{ $labels.name }}, namespace={{ $labels.namespace }})."

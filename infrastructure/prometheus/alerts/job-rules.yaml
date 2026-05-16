@@ -12,6 +12,6 @@ spec:
       labels:
         severity: warning
       annotations:
-        summary: "Kubernetes Job failed (namespace={{ $labels.namespace }}, job={{ $labels.job_name }})"
+        summary: "Kubernetes Job failed (job={{ $labels.job_name }}, namespace={{ $labels.namespace }})"
         description: |
-          kube_job_status_failed is > 0 for job {{ $labels.job_name }} in namespace {{ $labels.namespace }}.
+          kube_job_status_failed is > 0 for Job {{ $labels.job_name }} in namespace {{ $labels.namespace }}.
