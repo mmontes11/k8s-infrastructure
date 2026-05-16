@@ -1,4 +1,4 @@
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: metrics-server
@@ -14,7 +14,7 @@ spec:
   prune: true
   timeout: 5m
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: grafana-dashboards
@@ -30,7 +30,7 @@ spec:
   prune: true
   timeout: 5m
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: prometheus-crds
@@ -44,7 +44,7 @@ spec:
   prune: true
   timeout: 5m
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: prometheus-storage
@@ -58,7 +58,7 @@ spec:
   prune: true
   timeout: 5m
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: prometheus
@@ -78,7 +78,7 @@ spec:
   suspend: false # suspend to pre-populate PVCs using prometheus-storage
   timeout: 5m
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: prometheus-monitors
@@ -94,7 +94,7 @@ spec:
   prune: true
   timeout: 5m
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: prometheus-alerts
@@ -110,7 +110,7 @@ spec:
   prune: true
   timeout: 5m
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: prometheus-scrapeconfigs
@@ -126,7 +126,7 @@ spec:
   prune: true
   timeout: 5m
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: prometheus-alertmanagerconfigs
@@ -142,7 +142,7 @@ spec:
   prune: true
   timeout: 5m
 # ---
-# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
 # kind: Kustomization
 # metadata:
 #   name: kubernetes-dashboard
