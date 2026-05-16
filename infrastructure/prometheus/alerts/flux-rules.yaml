@@ -7,7 +7,7 @@ spec:
     - name: flux
       rules:
         - alert: FluxResourceNotReady
-          expr: gotk_resource_info{ready="0"} == 1
+          expr: gotk_resource_info{ready="False"} == 1
           for: 15m
           labels:
             severity: warning
