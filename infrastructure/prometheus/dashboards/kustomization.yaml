@@ -2,8 +2,10 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: monitoring
 resources:
+  - flux-cluster-dashboard.yaml
+  - flux-control-plane-dashboard.yaml
   - llamacpp-dashboard.yaml
   - lmcache-dashboard.yaml
-  - vllm-dashboard.yaml
   - redis-operator-cluster-dashboard.yaml
   - redis-operator-dashboard.yaml
+  - vllm-dashboard.yaml

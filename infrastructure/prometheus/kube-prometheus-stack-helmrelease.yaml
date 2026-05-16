@@ -7,6 +7,10 @@ spec:
     kind: OCIRepository
     name: kube-prometheus-stack
   interval: 1h0m0s
+  valuesFrom:
+  - kind: ConfigMap
+    name: flux-kube-state-metrics-config
+    valuesKey: kube-state-metrics-config.yaml
   values:
     crds:
       enabled: false
@@ -153,10 +157,6 @@ spec:
                 value: Prometheus
               - name: VAR_PIHOLEDEVICES
                 value: 3 
-          flux:
-            gnetId: 16714
-            revision: 1
-            datasource: Prometheus
           cilium-agent:
             gnetId: 16611
             revision: 1
