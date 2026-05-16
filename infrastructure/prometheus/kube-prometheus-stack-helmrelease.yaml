@@ -97,6 +97,8 @@ spec:
       persistence:
         enabled: true
         existingClaim: grafana
+      deploymentStrategy:
+        type: Recreate
       plugins:
         - grafana-piechart-panel
       sidecar:
