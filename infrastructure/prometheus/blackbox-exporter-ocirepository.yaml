@@ -2,8 +2,6 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
   name: prometheus-blackbox-exporter
-  annotations:
-    api.fluxcd.io/upgrade: "v2.6.0"
 spec:
   interval: 5m
   url: oci://ghcr.io/prometheus-community/charts/prometheus-blackbox-exporter
