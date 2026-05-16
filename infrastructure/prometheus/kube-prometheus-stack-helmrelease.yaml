@@ -79,17 +79,23 @@ spec:
 
           <b>Status</b>: {{ if eq .Status "firing" }}🔥{{ else }}✅{{ end }} <code>{{ .Status }}</code> 
           <b>Severity</b>: {{ if eq .CommonLabels.severity "critical" }}💥{{ else if eq .CommonLabels.severity "warning" }}⚠️{{ else }}📢{{ end }} <code>{{ .CommonLabels.severity }}</code> 
-          {{- range .Alerts }}
+          {{- $limit := 3 }}
+          {{- range $i, $alert := .Alerts }}
+          {{- if ge $i $limit }}{{ continue }}{{- end }}
 
-          <b>Description</b>: {{ .Annotations.description }}
-          <b>Graph</b>: <a href="{{ .GeneratorURL }}">📈</a>
-          {{- if .Annotations.runbook_url }}
-          <b>Runbook</b>: <a href="{{ .Annotations.runbook_url }}">🗒️</a>
+          <b>Description</b>: {{ $alert.Annotations.description }}
+          <b>Graph</b>: <a href="{{ $alert.GeneratorURL }}">📈</a>
+          {{- if $alert.Annotations.runbook_url }}
+          <b>Runbook</b>: <a href="{{ $alert.Annotations.runbook_url }}">🗒️</a>
           {{- end }}
           <b>Labels</b>:
-          {{ range .Labels.SortedPairs -}}
+          {{- range $alert.Labels.SortedPairs }}
           • <b>{{ .Name }}</b>: <code>{{ .Value }}</code> 
-          {{ end }}
+          {{- end }}
+          {{- end }}
+          
+          {{- if gt (len .Alerts) $limit }}
+          ...
           {{- end }}
           {{ end }}
 
