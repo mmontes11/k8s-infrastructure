@@ -29,8 +29,6 @@ spec:
         redirections:
           entryPoint:
             to: websecure
-            scheme: https
-            permanent: true
             priority: 10
     providers:
       kubernetesCRD:
