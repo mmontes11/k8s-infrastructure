@@ -18,9 +18,13 @@ spec:
               kind: Deployment
               name: headlamp
             patch: |-
-              - op: replace
-                path: /spec/strategy/type
-                value: Recreate
+              apiVersion: apps/v1
+              kind: Deployment
+              metadata:
+                name: headlamp
+              spec:
+                strategy:
+                  type: Recreate
   values:
     clusterRoleBinding:
       create: true
