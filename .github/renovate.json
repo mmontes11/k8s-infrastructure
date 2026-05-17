@@ -384,6 +384,18 @@
       "datasourceTemplate": "helm",
       "packageNameTemplate": "volsync",
       "registryUrlTemplate": "https://backube.github.io/helm-charts/"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/headlamp/headlamp-helmrelease\\.yaml$/"
+      ],
+      "matchStrings": [
+        "chart:\\s+headlamp\\s*\\n\\s+sourceRef:\\s*\\n\\s+kind:\\s+HelmRepository\\s*\\n\\s+name:\\s+headlamp\\s*\\n\\s+version:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "helm",
+      "packageNameTemplate": "headlamp",
+      "registryUrlTemplate": "https://kubernetes-sigs.github.io/headlamp/"
     }
   ]
 }
