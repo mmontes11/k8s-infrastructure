@@ -35,10 +35,6 @@ spec:
       hostnames:
         - "headlamp.mmontes-internal.duckdns.org"
       rules:
-        - matches:
-            - path:
-                type: PathPrefix
-                value: /headlamp
-          backendRefs:
+        - backendRefs:
             - name: "headlamp"
               port: 80
