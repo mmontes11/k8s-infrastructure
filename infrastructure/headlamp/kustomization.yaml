@@ -4,3 +4,4 @@ namespace: monitoring
 resources:
   - headlamp-helmrelease.yaml
   - headlamp-helmrepository.yaml
+  - headlamp-sa-token-secret.yaml
