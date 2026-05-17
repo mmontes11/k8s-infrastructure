@@ -40,5 +40,5 @@ spec:
                 type: PathPrefix
                 value: /headlamp
           backendRefs:
-            - name: "{{ .Release.Name }}-headlamp"
+            - name: "headlamp"
               port: 80
