@@ -1,0 +1,46 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: headlamp
+spec:
+  chart:
+    spec:
+      chart: headlamp
+      sourceRef:
+        kind: HelmRepository
+        name: headlamp
+      version: "0.42.0"
+  interval: 1h0m0s
+  values:
+    config:
+      baseURL: https://headlamp.mmontes-internal.duckdns.org
+    clusterRoleBinding:
+      create: true
+      clusterRoleName: cluster-admin
+    persistentVolumeClaim:
+      enabled: true
+      accessModes:
+        - ReadWriteOnce
+      size: 1Gi
+      storageClassName: rook-ceph
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        memory: 128Mi
+    httpRoute:
+      enabled: true
+      parentRefs:
+        - name: traefik-internal
+          namespace: networking
+      hostnames:
+        - "headlamp.mmontes-internal.duckdns.org"
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /headlamp
+          backendRefs:
+            - name: "{{ .Release.Name }}-headlamp"
+              port: 80

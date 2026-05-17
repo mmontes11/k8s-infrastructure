@@ -1,7 +1,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: kubernetes-dashboard
+  name: headlamp
 spec:
   interval: 5m
-  url: https://kubernetes.github.io/dashboard
+  url: https://kubernetes-sigs.github.io/headlamp/

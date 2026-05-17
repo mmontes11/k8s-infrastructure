@@ -141,19 +141,17 @@ spec:
   path: ./infrastructure/prometheus/alertmanagerconfigs
   prune: true
   timeout: 5m
-# ---
-# apiVersion: kustomize.toolkit.fluxcd.io/v1
-# kind: Kustomization
-# metadata:
-#   name: kubernetes-dashboard
-#   namespace: flux-system
-# spec:
-#   dependsOn:
-#     - name: rbac
-#   interval: 5m
-#   sourceRef:
-#     kind: GitRepository
-#     name: flux-system
-#   path: ./infrastructure/kubernetes-dashboard
-#   prune: true
-#   timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: headlamp
+  namespace: flux-system
+spec:
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/headlamp
+  prune: true
+  timeout: 5m
