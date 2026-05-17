@@ -12,8 +12,6 @@ spec:
       version: "0.42.0"
   interval: 1h0m0s
   values:
-    config:
-      baseURL: https://headlamp.mmontes-internal.duckdns.org
     clusterRoleBinding:
       create: true
       clusterRoleName: cluster-admin
