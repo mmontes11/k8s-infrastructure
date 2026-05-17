@@ -11,6 +11,16 @@ spec:
         name: headlamp
       version: "0.42.0"
   interval: 1h0m0s
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              kind: Deployment
+              name: headlamp
+            patch: |-
+              - op: replace
+                path: /spec/strategy/type
+                value: Recreate
   values:
     clusterRoleBinding:
       create: true
