@@ -5,13 +5,9 @@ metadata:
 spec:
   dependsOn:
     - name: mariadb-operator-crds
-  chart:
-    spec:
-      chart: mariadb-operator
-      sourceRef:
-        kind: HelmRepository
-        name: mariadb-operator
-      version: "26.3.0"
+  chartRef:
+    kind: OCIRepository
+    name: mariadb-operator
   interval: 1h0m0s
   values:
     logLevel: INFO

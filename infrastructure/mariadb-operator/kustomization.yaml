@@ -3,5 +3,6 @@ kind: Kustomization
 namespace: database
 resources:
   - mariadb-operator-crds-helmrelease.yaml
+  - mariadb-operator-crds-ocirepository.yaml
   - mariadb-operator-helmrelease.yaml
-  - mariadb-operator-helmrepository.yaml
+  - mariadb-operator-ocirepository.yaml
