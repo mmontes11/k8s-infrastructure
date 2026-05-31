@@ -3,11 +3,7 @@ kind: HelmRelease
 metadata:
   name: mariadb-operator-crds
 spec:
-  chart:
-    spec:
-      chart: mariadb-operator-crds
-      sourceRef:
-        kind: HelmRepository
-        name: mariadb-operator
-      version: "26.3.0"
+  chartRef:
+    kind: OCIRepository
+    name: mariadb-operator-crds
   interval: 1h0m0s
