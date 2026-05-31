@@ -77,26 +77,26 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/(^|/)infrastructure/mariadb-operator/mariadb-operator-crds-helmrelease\\.yaml$/"
+        "/(^|/)infrastructure/mariadb-operator/mariadb-operator-crds-ocirepository\\.yaml$/"
       ],
       "matchStrings": [
-        "chart:\\s+mariadb-operator-crds\\s*\\n\\s+sourceRef:\\s*\\n\\s+kind:\\s+HelmRepository\\s*\\n\\s+name:\\s+mariadb-operator\\s*\\n\\s+version:\\s+\"?(?<currentValue>[^\"]+)\"?"
+        "ref:\\s*\\n\\s+tag:\\s+\"?(?<currentValue>[^\"]+)\"?"
       ],
-      "datasourceTemplate": "helm",
-      "packageNameTemplate": "mariadb-operator-crds",
-      "registryUrlTemplate": "https://helm.mariadb.com/mariadb-operator"
+      "datasourceTemplate": "docker",
+      "packageNameTemplate": "ghcr.io/mariadb-operator/charts/mariadb-operator-crds",
+      "registryUrlTemplate": "https://ghcr.io"
     },
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/(^|/)infrastructure/mariadb-operator/mariadb-operator-helmrelease\\.yaml$/"
+        "/(^|/)infrastructure/mariadb-operator/mariadb-operator-ocirepository\\.yaml$/"
       ],
       "matchStrings": [
-        "chart:\\s+mariadb-operator\\s*\\n\\s+sourceRef:\\s*\\n\\s+kind:\\s+HelmRepository\\s*\\n\\s+name:\\s+mariadb-operator\\s*\\n\\s+version:\\s+\"?(?<currentValue>[^\"]+)\"?"
+        "ref:\\s*\\n\\s+tag:\\s+\"?(?<currentValue>[^\"]+)\"?"
       ],
-      "datasourceTemplate": "helm",
-      "packageNameTemplate": "mariadb-operator",
-      "registryUrlTemplate": "https://helm.mariadb.com/mariadb-operator"
+      "datasourceTemplate": "docker",
+      "packageNameTemplate": "ghcr.io/mariadb-operator/charts/mariadb-operator",
+      "registryUrlTemplate": "https://ghcr.io"
     },
     {
       "customType": "regex",
