@@ -396,6 +396,18 @@
       "datasourceTemplate": "helm",
       "packageNameTemplate": "headlamp",
       "registryUrlTemplate": "https://kubernetes-sigs.github.io/headlamp/"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/seaweedfs-operator/seaweedfs-operator-helmrelease\\.yaml$/"
+      ],
+      "matchStrings": [
+        "chart:\\s+seaweedfs-operator\\s*\\n\\s+sourceRef:\\s*\\n\\s+kind:\\s+HelmRepository\\s*\\n\\s+name:\\s+seaweedfs-operator\\s*\\n\\s+version:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "github-releases",
+      "packageNameTemplate": "seaweedfs/seaweedfs-operator",
+      "extractVersion": "^(?<version>\\d+\\.\\d+\\.\\d+)$"
     }
   ]
 }
