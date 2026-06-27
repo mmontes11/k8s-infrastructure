@@ -1,0 +1,32 @@
+# Statically pre-provisioned volume for the SeaweedFS volume server.
+#
+# Dynamic provisioning of a 2Ti LUN makes the Synology thick-allocate (zero) the
+# whole volume up front (~120 MB/s), so the iSCSI mount times out and the volume
+# pod stays in ContainerCreating. Instead we point at a LUN created once on the
+# NAS and bind to it by label (spec.volume.storageSelector in the Seaweed CR).
+#
+# Get the LUN uuid for volumeHandle below by SSHing into the Synology NAS and
+# running, as root:
+#
+#   synoiscsiwebapi lun list
+#
+# Use the target LUN's "uuid" field as the volumeHandle.
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: seaweedfs-volume
+  labels:
+    app.kubernetes.io/name: seaweedfs
+    app.kubernetes.io/component: volume
+spec:
+  capacity:
+    storage: 2Ti
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ""
+  volumeMode: Filesystem
+  csi:
+    driver: csi.san.synology.com
+    fsType: btrfs
+    volumeHandle: d696d824-ddd8-487b-abbb-b104f3c23ffc

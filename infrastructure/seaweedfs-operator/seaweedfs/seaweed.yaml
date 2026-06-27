@@ -110,8 +110,18 @@ spec:
   volume:
     replicas: 1
     metricsPort: 9327
-    storageClassName: synology-retain
+    # Steady state: bind to the pre-provisioned PV (see ../storage) by label.
+    # storageClassName "" avoids the default rook-ceph SC and dynamic provisioning.
+    storageClassName: ""
+    storageSelector:
+      matchLabels:
+        app.kubernetes.io/name: seaweedfs
+        app.kubernetes.io/component: volume
+    # For first-time DYNAMIC provisioning instead, drop the selector and use:
+    #   storageClassName: synology-retain
     requests:
+      # Required so the PVC binds to the 2Ti PV (capacity match); with the
+      # selector + storageClassName "" it does NOT dynamically provision.
       storage: 2Ti
       cpu: 500m
       memory: 1Gi
