@@ -55,3 +55,29 @@ spec:
   host: "%"
   grantOption: false
   cleanupPolicy: Skip
+---
+# The SeaweedFS filer MySQL store does NOT auto-create its metadata table, so we
+# create it here (one-shot SqlJob, no schedule). Schema per the seaweedfs filer
+# scaffold: https://github.com/seaweedfs/seaweedfs/blob/master/weed/command/scaffold/filer.toml
+# VARCHAR(766) + utf8mb4 keeps the (dirhash, name) PK at exactly the 3072-byte
+# InnoDB index limit. CREATE TABLE IF NOT EXISTS makes this idempotent.
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: SqlJob
+metadata:
+  name: seaweedfs-filemeta
+spec:
+  mariaDbRef:
+    name: mariadb
+  username: seaweedfs
+  passwordSecretKeyRef:
+    name: mariadb
+    key: seaweedfs
+  database: seaweedfs
+  sql: |
+    CREATE TABLE IF NOT EXISTS `filemeta` (
+      `dirhash`   BIGINT NOT NULL       COMMENT 'first 64 bits of MD5 hash value of directory field',
+      `name`      VARCHAR(766) NOT NULL COMMENT 'directory or file name',
+      `directory` TEXT NOT NULL         COMMENT 'full path to parent directory',
+      `meta`      LONGBLOB,
+      PRIMARY KEY (`dirhash`, `name`)
+    ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
