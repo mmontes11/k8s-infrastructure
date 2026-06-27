@@ -406,8 +406,13 @@
         "chart:\\s+seaweedfs-operator\\s*\\n\\s+sourceRef:\\s*\\n\\s+kind:\\s+HelmRepository\\s*\\n\\s+name:\\s+seaweedfs-operator\\s*\\n\\s+version:\\s+\"?(?<currentValue>[^\"]+)\"?"
       ],
       "datasourceTemplate": "github-releases",
-      "packageNameTemplate": "seaweedfs/seaweedfs-operator",
-      "extractVersion": "^(?<version>\\d+\\.\\d+\\.\\d+)$"
+      "packageNameTemplate": "seaweedfs/seaweedfs-operator"
+    }
+  ],
+  "packageRules": [
+    {
+      "matchPackageNames": ["seaweedfs/seaweedfs-operator"],
+      "extractVersion": "^seaweedfs-operator-(?<version>\\d+\\.\\d+\\.\\d+)$"
     }
   ]
 }
