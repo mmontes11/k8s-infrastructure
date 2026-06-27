@@ -1,0 +1,27 @@
+---
+apiVersion: seaweed.seaweedfs.com/v1
+kind: Bucket
+metadata:
+  name: pvc
+spec:
+  clusterRef:
+    name: seaweedfs
+    namespace: storage
+---
+apiVersion: seaweed.seaweedfs.com/v1
+kind: Bucket
+metadata:
+  name: database
+spec:
+  clusterRef:
+    name: seaweedfs
+    namespace: storage
+---
+apiVersion: seaweed.seaweedfs.com/v1
+kind: Bucket
+metadata:
+  name: management
+spec:
+  clusterRef:
+    name: seaweedfs
+    namespace: storage

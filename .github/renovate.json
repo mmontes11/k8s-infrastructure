@@ -407,6 +407,18 @@
       ],
       "datasourceTemplate": "github-releases",
       "packageNameTemplate": "seaweedfs/seaweedfs-operator"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/seaweedfs-operator/seaweedfs/seaweed\\.yaml$/"
+      ],
+      "matchStrings": [
+        "image:\\s+chrislusf/seaweedfs:(?<currentValue>.+)"
+      ],
+      "datasourceTemplate": "github-releases",
+      "packageNameTemplate": "seaweedfs/seaweedfs",
+      "versioningTemplate": "loose"
     }
   ],
   "packageRules": [

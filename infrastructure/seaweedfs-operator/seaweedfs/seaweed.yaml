@@ -1,0 +1,154 @@
+apiVersion: seaweed.seaweedfs.com/v1
+kind: Seaweed
+metadata:
+  name: seaweedfs
+spec:
+  image: chrislusf/seaweedfs:4.36
+  volumeServerDiskCount: 1
+
+  # gRPC mTLS between components, certs issued by the homelab ClusterIssuer.
+  # NOTE: this secures inter-component gRPC ONLY; the HTTP/S3 endpoints stay
+  # plain HTTP. Edge TLS is terminated at the traefik-internal gateway.
+  tls:
+    enabled: true
+    issuerRef:
+      name: homelab
+      kind: ClusterIssuer
+      group: cert-manager.io
+
+  # Control plane only (volume allocation, topology, file-id assignment); not in
+  # the data path, so it runs on the default nodes.
+  master:
+    replicas: 1
+    metricsPort: 9327
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      memory: 512Mi
+
+  # Metadata gateway: serves the filer/S3 namespace by proxying metadata ops to
+  # the MariaDB store. Stateless and not in the bulk data path, so it runs on the
+  # default nodes.
+  filer:
+    replicas: 1
+    metricsPort: 9327
+    # No persistence: with the MariaDB metadata store the local leveldb2 store is
+    # disabled, so the filer's /data volume would be unused. The heavy load lives
+    # in MariaDB, so the filer also runs on the default nodes.
+    # Metadata store = multi-tenant MariaDB "seaweedfs" database. The default
+    # leveldb2 store is disabled and every WEED_MYSQL_* setting is injected from
+    # the sealed "seaweedfs-db" Secret (see db-sealedsecret.yaml). The operator
+    # ComponentSpec exposes `env` but not `envFrom`, so each key is referenced
+    # individually via secretKeyRef.
+    env:
+      - name: WEED_LEVELDB2_ENABLED
+        valueFrom:
+          secretKeyRef:
+            name: seaweedfs-db
+            key: WEED_LEVELDB2_ENABLED
+      - name: WEED_MYSQL_ENABLED
+        valueFrom:
+          secretKeyRef:
+            name: seaweedfs-db
+            key: WEED_MYSQL_ENABLED
+      - name: WEED_MYSQL_HOSTNAME
+        valueFrom:
+          secretKeyRef:
+            name: seaweedfs-db
+            key: WEED_MYSQL_HOSTNAME
+      - name: WEED_MYSQL_PORT
+        valueFrom:
+          secretKeyRef:
+            name: seaweedfs-db
+            key: WEED_MYSQL_PORT
+      - name: WEED_MYSQL_DATABASE
+        valueFrom:
+          secretKeyRef:
+            name: seaweedfs-db
+            key: WEED_MYSQL_DATABASE
+      - name: WEED_MYSQL_USERNAME
+        valueFrom:
+          secretKeyRef:
+            name: seaweedfs-db
+            key: WEED_MYSQL_USERNAME
+      - name: WEED_MYSQL_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: seaweedfs-db
+            key: WEED_MYSQL_PASSWORD
+      - name: WEED_MYSQL_CONNECTION_MAX_IDLE
+        valueFrom:
+          secretKeyRef:
+            name: seaweedfs-db
+            key: WEED_MYSQL_CONNECTION_MAX_IDLE
+      - name: WEED_MYSQL_CONNECTION_MAX_OPEN
+        valueFrom:
+          secretKeyRef:
+            name: seaweedfs-db
+            key: WEED_MYSQL_CONNECTION_MAX_OPEN
+      - name: WEED_MYSQL_CONNECTION_MAX_LIFETIME_SECONDS
+        valueFrom:
+          secretKeyRef:
+            name: seaweedfs-db
+            key: WEED_MYSQL_CONNECTION_MAX_LIFETIME_SECONDS
+      - name: WEED_MYSQL_INTERPOLATEPARAMS
+        valueFrom:
+          secretKeyRef:
+            name: seaweedfs-db
+            key: WEED_MYSQL_INTERPOLATEPARAMS
+    requests:
+      cpu: 200m
+      memory: 256Mi
+    limits:
+      memory: 1Gi
+
+  # Data plane: stores object bytes and serves all reads/writes. The one
+  # performance-critical component, kept on compute-large. The `storage` request
+  # sizes the PVC; the operator strips it from the container resources, so cpu /
+  # memory below apply to the volume server process.
+  volume:
+    replicas: 1
+    metricsPort: 9327
+    storageClassName: synology-retain
+    requests:
+      storage: 2Ti
+      cpu: 500m
+      memory: 1Gi
+    limits:
+      memory: 4Gi
+    nodeSelector:
+      node.mmontes.io/type: compute-large
+    tolerations:
+      - effect: NoSchedule
+        key: node.mmontes.io/type
+        value: compute-large
+
+  # Stateless S3 API translator. It does proxy object bytes, so under heavy S3
+  # throughput either pin it back to compute-large or scale `replicas`. For now
+  # it runs on the default nodes.
+  s3:
+    replicas: 1
+    metricsPort: 9327
+    configSecret:
+      name: seaweedfs-s3-config
+      key: seaweedfs_s3_config.json
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      memory: 512Mi
+
+  # Cluster management UI (the minio-console analog). Single stateless instance,
+  # served on 23646 and exposed via the seaweedfs.* HTTPRoute. Just a UI, so it
+  # runs on the default nodes.
+  admin:
+    metricsPort: 9327
+    # Basic-auth credentials for the UI (adminUser / adminPassword).
+    credentialsSecret:
+      name: seaweedfs-admin
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      memory: 512Mi
