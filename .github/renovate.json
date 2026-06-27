@@ -276,7 +276,7 @@
       ],
       "datasourceTemplate": "helm",
       "packageNameTemplate": "sealed-secrets",
-      "registryUrlTemplate": "https://bitnami-labs.github.io/sealed-secrets"
+      "registryUrlTemplate": "https://bitnami.github.io/sealed-secrets"
     },
     {
       "customType": "regex",
