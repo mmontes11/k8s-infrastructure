@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: storage
+resources:
+  - admin-sealedsecret.yaml
+  - db-sealedsecret.yaml
+  - s3-config-sealedsecret.yaml
+  - seaweed.yaml
+  - buckets.yaml
+  - httproute.yaml
