@@ -1,0 +1,88 @@
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: MariaDB
+metadata:
+  name: mariadb
+spec:
+  # Multi-tenant instance: tenants are provisioned via Database/User/Grant CRs
+  # (see seaweedfs.yaml). No top-level database/username is configured here.
+  rootPasswordSecretKeyRef:
+    name: mariadb
+    key: password
+
+  image: mariadb:11.8.6
+
+  replicas: 2
+
+  replication:
+    enabled: true
+    replica:
+      replPasswordSecretKeyRef:
+        name: mariadb
+        key: password
+
+  storage:
+    size: 10Gi
+    storageClassName: topolvm
+
+  tls:
+    enabled: true
+    required: false
+    serverCertIssuerRef:
+      name: homelab
+      kind: ClusterIssuer
+    clientCertIssuerRef:
+      name: homelab
+      kind: ClusterIssuer
+
+  metrics:
+    enabled: true
+
+  updateStrategy:
+    type: ReplicasFirstPrimaryLast
+    autoUpdateDataPlane: true
+
+  suspend: false
+
+  myCnf: |
+    [mariadb]
+    bind-address=*
+    default_storage_engine=InnoDB
+    binlog_format=row
+    innodb_autoinc_lock_mode=2
+    innodb_buffer_pool_size=1600MB
+    slow_query_log
+    slow_query_log_file=mariadb-slow.log
+
+  livenessProbe:
+    periodSeconds: 15
+    timeoutSeconds: 5
+
+  readinessProbe:
+    periodSeconds: 15
+    timeoutSeconds: 5
+
+  startupProbe:
+    failureThreshold: 30
+    periodSeconds: 15
+    timeoutSeconds: 5
+
+  resources:
+    requests:
+      cpu: 500m
+      memory: 2Gi
+    limits:
+      memory: 2Gi
+
+  tolerations:
+    - effect: NoSchedule
+      key: node.mmontes.io/type
+      value: compute-large
+
+  nodeSelector:
+    node.mmontes.io/type: compute-large
+
+  affinity:
+    antiAffinityEnabled: true
+
+  podDisruptionBudget:
+    maxUnavailable: 66%

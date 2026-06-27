@@ -1,0 +1,35 @@
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: PhysicalBackup
+metadata:
+  name: physicalbackup
+spec:
+  mariaDbRef:
+    name: mariadb
+    waitForIt: false
+  schedule:
+    cron: "0 2 * * *"
+    suspend: false
+    immediate: true
+    # onDemand: "1"
+  compression: gzip
+  maxRetention: 168h # 7 days
+  storage:
+    volume:
+      nfs:
+        server: 10.0.0.50
+        path: /volume1/mariadb/seaweedfs
+  target: PreferReplica
+  timeout: 1h
+  podAffinity: true
+  tolerations:
+    - effect: NoSchedule
+      key: node.mmontes.io/type
+      value: compute-large
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      memory: 512Mi
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 2
