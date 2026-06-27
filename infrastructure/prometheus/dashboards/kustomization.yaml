@@ -8,4 +8,5 @@ resources:
   - lmcache-dashboard.yaml
   - redis-operator-cluster-dashboard.yaml
   - redis-operator-dashboard.yaml
+  - seaweedfs-dashboard.yaml
   - vllm-dashboard.yaml
