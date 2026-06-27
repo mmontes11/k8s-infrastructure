@@ -115,7 +115,8 @@ spec:
         dashboards:
           enabled: true
           label: grafana_dashboard
-          searchNamespace: ALL
+          labelValue: "1"
+          searchNamespace: monitoring
       dashboardProviders:
         dashboardproviders.yaml:
           apiVersion: 1
