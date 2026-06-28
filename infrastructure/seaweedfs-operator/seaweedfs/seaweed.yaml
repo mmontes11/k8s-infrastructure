@@ -26,12 +26,6 @@ spec:
       memory: 256Mi
     limits:
       memory: 512Mi
-    nodeSelector:
-      node.mmontes.io/type: compute-large
-    tolerations:
-      - effect: NoSchedule
-        key: node.mmontes.io/type
-        value: compute-large
 
   # Metadata gateway: serves the filer/S3 namespace by proxying metadata ops to
   # the MariaDB store. Stateless and not in the bulk data path, so it runs on the
@@ -108,12 +102,6 @@ spec:
       memory: 256Mi
     limits:
       memory: 1Gi
-    nodeSelector:
-      node.mmontes.io/type: compute-large
-    tolerations:
-      - effect: NoSchedule
-        key: node.mmontes.io/type
-        value: compute-large
 
   # Data plane: stores object bytes and serves all reads/writes. The one
   # performance-critical component, kept on compute-large. The `storage` request
