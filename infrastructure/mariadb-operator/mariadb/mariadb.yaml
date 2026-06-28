@@ -36,7 +36,7 @@ spec:
     default_storage_engine=InnoDB
     binlog_format=row
     innodb_autoinc_lock_mode=2
-    innodb_buffer_pool_size=1600MB
+    innodb_buffer_pool_size=800MB
     slow_query_log
     slow_query_log_file=mariadb-slow.log
 
@@ -56,9 +56,9 @@ spec:
   resources:
     requests:
       cpu: 500m
-      memory: 2Gi
+      memory: 1Gi
     limits:
-      memory: 2Gi
+      memory: 1Gi
 
   tolerations:
     - effect: NoSchedule
