@@ -148,12 +148,6 @@ spec:
       memory: 1Gi
     limits:
       memory: 4Gi
-    nodeSelector:
-      node.mmontes.io/type: compute-large
-    tolerations:
-      - effect: NoSchedule
-        key: node.mmontes.io/type
-        value: compute-large
 
   # Cluster management UI (the minio-console analog). Single stateless instance,
   # served on 23646 and exposed via the seaweedfs.* HTTPRoute. Just a UI, so it
