@@ -144,8 +144,8 @@ spec:
       name: seaweedfs-s3-config
       key: seaweedfs_s3_config.json
     requests:
-      cpu: 100m
-      memory: 128Mi
+      cpu: 500m
+      memory: 256Mi
     limits:
       memory: 1Gi
 
