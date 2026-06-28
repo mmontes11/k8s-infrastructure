@@ -11,15 +11,6 @@ spec:
 
   image: mariadb:11.8.6
 
-  replicas: 2
-
-  replication:
-    enabled: true
-    replica:
-      replPasswordSecretKeyRef:
-        name: mariadb
-        key: password
-
   storage:
     size: 10Gi
     storageClassName: topolvm

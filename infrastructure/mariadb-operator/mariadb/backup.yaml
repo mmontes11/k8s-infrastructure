@@ -1,7 +1,7 @@
 apiVersion: k8s.mariadb.com/v1alpha1
-kind: PhysicalBackup
+kind: Backup
 metadata:
-  name: physicalbackup
+  name: backup
 spec:
   mariaDbRef:
     name: mariadb
@@ -10,7 +10,6 @@ spec:
     cron: "0 2 * * *"
     suspend: false
     immediate: true
-    # onDemand: "1"
   compression: gzip
   maxRetention: 168h # 7 days
   storage:
@@ -18,9 +17,7 @@ spec:
       nfs:
         server: 10.0.0.50
         path: /volume1/mariadb/seaweedfs
-  target: PreferReplica
-  timeout: 1h
-  podAffinity: true
+  logLevel: info
   tolerations:
     - effect: NoSchedule
       key: node.mmontes.io/type

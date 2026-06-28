@@ -5,7 +5,7 @@
 #   https://github.com/seaweedfs/seaweedfs/wiki/Environment-Variables#mysqlmariadb-configuration
 #
 #   WEED_MYSQL_ENABLED  = true
-#   WEED_MYSQL_HOSTNAME = mariadb-primary.database.svc.cluster.local   # primary (read-write) Service
+#   WEED_MYSQL_HOSTNAME = mariadb.database.svc.cluster.local   # standalone Service (single node)
 #   WEED_MYSQL_PORT     = 3306
 #   WEED_MYSQL_DATABASE = seaweedfs
 #   WEED_MYSQL_USERNAME = seaweedfs

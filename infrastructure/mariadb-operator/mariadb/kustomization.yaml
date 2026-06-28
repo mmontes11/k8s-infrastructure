@@ -3,6 +3,6 @@ kind: Kustomization
 namespace: database
 resources:
   - mariadb.yaml
-  - physicalbackup.yaml
+  - backup.yaml
   - sealedsecret.yaml
   - seaweedfs.yaml
