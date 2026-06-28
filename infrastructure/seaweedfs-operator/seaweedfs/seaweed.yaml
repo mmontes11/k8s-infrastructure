@@ -110,18 +110,27 @@ spec:
   volume:
     replicas: 1
     metricsPort: 9327
-    # Steady state: bind to the pre-provisioned PV (see ../storage) by label.
-    # storageClassName "" avoids the default rook-ceph SC and dynamic provisioning.
-    storageClassName: ""
-    storageSelector:
-      matchLabels:
-        app.kubernetes.io/name: seaweedfs
-        app.kubernetes.io/component: volume
-    # For first-time DYNAMIC provisioning instead, drop the selector and use:
-    #   storageClassName: synology-retain
+    # Dynamic provisioning (use this on the FIRST go): the operator's
+    # volumeClaimTemplate provisions a thin LUN on the Synology via this
+    # StorageClass. It is a Retain class, so the LUN survives PVC/CR deletion.
+    # ext4 (not btrfs) on purpose: the Synology volume is already btrfs, so an
+    # ext4 LUN avoids nested copy-on-write; and SeaweedFS volume files are large,
+    # append-mostly and compacted in place, which fragments badly on a CoW
+    # filesystem. btrfs snapshots/checksums are redundant here (the NAS does
+    # block-level LUN snapshots, and the stored objects are opaque blobs).
+    storageClassName: synology-ext4-retain
+    # Static provisioning (alternative, once the LUN exists): because the class
+    # is Retain, the LUN is kept and can be rebound without re-provisioning.
+    # Put the LUN's volumeHandle in the pre-provisioned PV (../storage) and swap
+    # the line above for selector-based binding:
+    #   storageClassName: ""          # opt out of dynamic + the default rook-ceph SC
+    #   storageSelector:
+    #     matchLabels:
+    #       app.kubernetes.io/name: seaweedfs
+    #       app.kubernetes.io/component: volume
     requests:
-      # Required so the PVC binds to the 2Ti PV (capacity match); with the
-      # selector + storageClassName "" it does NOT dynamically provision.
+      # PVC size: provisions a 2Ti thin LUN (dynamic), or the capacity the
+      # static PV must match.
       storage: 2Ti
       cpu: 500m
       memory: 1Gi
