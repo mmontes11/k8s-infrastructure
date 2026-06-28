@@ -28,5 +28,5 @@ spec:
   volumeMode: Filesystem
   csi:
     driver: csi.san.synology.com
-    fsType: btrfs
+    fsType: ext4
     volumeHandle: d696d824-ddd8-487b-abbb-b104f3c23ffc
