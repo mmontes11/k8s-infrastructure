@@ -118,16 +118,17 @@ spec:
     # append-mostly and compacted in place, which fragments badly on a CoW
     # filesystem. btrfs snapshots/checksums are redundant here (the NAS does
     # block-level LUN snapshots, and the stored objects are opaque blobs).
-    storageClassName: synology-ext4-retain
+    # storageClassName: synology-ext4-retain
+    #
     # Static provisioning (alternative, once the LUN exists): because the class
     # is Retain, the LUN is kept and can be rebound without re-provisioning.
     # Put the LUN's volumeHandle in the pre-provisioned PV (../storage) and swap
     # the line above for selector-based binding:
-    #   storageClassName: ""          # opt out of dynamic + the default rook-ceph SC
-    #   storageSelector:
-    #     matchLabels:
-    #       app.kubernetes.io/name: seaweedfs
-    #       app.kubernetes.io/component: volume
+    storageClassName: ""          # opt out of dynamic + the default rook-ceph SC
+    storageSelector:
+      matchLabels:
+        app.kubernetes.io/name: seaweedfs
+        app.kubernetes.io/component: volume
     requests:
       # PVC size: provisions a 2Ti thin LUN (dynamic), or the capacity the
       # static PV must match.
