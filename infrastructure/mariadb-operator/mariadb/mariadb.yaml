@@ -28,10 +28,6 @@ spec:
   metrics:
     enabled: true
 
-  updateStrategy:
-    type: ReplicasFirstPrimaryLast
-    autoUpdateDataPlane: true
-
   suspend: false
 
   myCnf: |
@@ -71,9 +67,3 @@ spec:
 
   nodeSelector:
     node.mmontes.io/type: compute-large
-
-  affinity:
-    antiAffinityEnabled: true
-
-  podDisruptionBudget:
-    maxUnavailable: 66%
