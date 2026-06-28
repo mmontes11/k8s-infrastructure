@@ -23,9 +23,9 @@ spec:
     metricsPort: 9327
     requests:
       cpu: 100m
-      memory: 256Mi
+      memory: 128Mi
     limits:
-      memory: 512Mi
+      memory: 256Mi
 
   # Metadata gateway: serves the filer/S3 namespace by proxying metadata ops to
   # the MariaDB store. Stateless and not in the bulk data path, so it runs on the
@@ -99,9 +99,9 @@ spec:
             key: WEED_MYSQL_INTERPOLATEPARAMS
     requests:
       cpu: 200m
-      memory: 256Mi
+      memory: 128Mi
     limits:
-      memory: 1Gi
+      memory: 256Mi
 
   # Data plane: stores object bytes and serves all reads/writes. The one
   # performance-critical component, kept on compute-large. The `storage` request
@@ -167,4 +167,4 @@ spec:
       cpu: 100m
       memory: 128Mi
     limits:
-      memory: 512Mi
+      memory: 256Mi
