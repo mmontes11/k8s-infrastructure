@@ -138,25 +138,16 @@ spec:
   # throughput either pin it back to compute-large or scale `replicas`. For now
   # it runs on the default nodes.
   s3:
-    replicas: 2
+    replicas: 1
     metricsPort: 9327
     configSecret:
       name: seaweedfs-s3-config
       key: seaweedfs_s3_config.json
-    affinity:
-      podAntiAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchLabels:
-                app.kubernetes.io/name: seaweedfs
-                app.kubernetes.io/component: s3
-                app.kubernetes.io/instance: seaweedfs
-            topologyKey: kubernetes.io/hostname
     requests:
       cpu: 500m
-      memory: 256Mi
+      memory: 1Gi
     limits:
-      memory: 2Gi
+      memory: 4Gi
 
   # Cluster management UI (the minio-console analog). Single stateless instance,
   # served on 23646 and exposed via the seaweedfs.* HTTPRoute. Just a UI, so it
