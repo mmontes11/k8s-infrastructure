@@ -147,7 +147,7 @@ spec:
       cpu: 100m
       memory: 128Mi
     limits:
-      memory: 512Mi
+      memory: 1Gi
 
   # Cluster management UI (the minio-console analog). Single stateless instance,
   # served on 23646 and exposed via the seaweedfs.* HTTPRoute. Just a UI, so it
