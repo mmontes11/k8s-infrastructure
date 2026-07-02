@@ -7,11 +7,6 @@ spec:
   scrapeInterval: 1m
   staticConfigs:
     - targets:
-        - "minio.storage.svc.cluster.local:443"
+        - "minio.storage.svc.cluster.local:80"
   metricsPath: /minio/v2/metrics/cluster
-  scheme: HTTPS
-  tlsConfig:
-    ca:
-      secret:
-        name: operator-ca-tls-minio
-        key: tls.crt
+  scheme: HTTP
