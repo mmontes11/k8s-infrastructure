@@ -19,6 +19,13 @@ Entrypoint for the tenant resources, which live in separated repositories:
 - [iot](https://github.com/mmontes11/k8s-iot)
 - [media](https://github.com/mmontes11/k8s-media)
 
+### Benchmarks
+
+Performance benchmarks for the infrastructure and its tenants:
+- [storage-bench](https://github.com/mmontes11/storage-bench): Storage performance benchmarks
+- [database-bench](https://github.com/mmontes11/database-bench): Database performance benchmarks
+- [llm-bench](https://github.com/mmontes11/llm-bench): LLM inference performance benchmarks
+
 ### Network map
 
 ![Network map](https://raw.githubusercontent.com/mmontes11/k8s-infrastructure/main/docs/network-map.png)
