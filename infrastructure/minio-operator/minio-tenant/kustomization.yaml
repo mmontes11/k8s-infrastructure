@@ -11,5 +11,4 @@ resources:
   - minio-sealedsecret.yaml
   - minio-snapshotschedule.yaml
   - minio-tenant-helmrelease.yaml
-  # TODO: re-enable TLS after benchmark
-  # - minio-tls-certificate.yaml
+  - minio-tls-certificate.yaml
