@@ -11,3 +11,4 @@ resources:
   - minio-sealedsecret.yaml
   - minio-snapshotschedule.yaml
   - minio-tenant-helmrelease.yaml
+  - minio-tls-certificate.yaml

@@ -42,6 +42,12 @@ spec:
             node.mmontes.io/type: compute-large
       certificate:
         requestAutoCert: false
+        externalCaCertSecret:
+          - name: operator-ca-tls-minio   
+            type: kubernetes.io/tls
+        externalCertSecret:
+          - name: minio-tls
+            type: cert-manager.io/v1
       metrics:
         enabled: true
       prometheusOperator: false # using custom ScrapeConfig, as minio-operator does not handle custom CAs
