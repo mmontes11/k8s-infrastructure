@@ -1,0 +1,19 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: minio-tls
+spec:
+  dnsNames:
+    - "minio.storage"
+    - "minio.storage.svc"
+    - "minio.storage.svc.cluster.local"
+    - "*.minio-hl.storage.svc.cluster.local"
+    - "*.minio.storage.svc.cluster.local"
+    - "*.storage.svc.cluster.local"
+  ipAddresses:
+    - "10.0.0.90"
+    - "10.0.0.91"
+  secretName: minio-tls
+  issuerRef:
+    name: homelab
+    kind: ClusterIssuer
