@@ -239,12 +239,6 @@ spec:
                 value: Prometheus
               - name: VAR_NASDEVICES
                 value: 1
-          minio:
-            gnetId: 13502
-            revision: 26
-            datasource: 
-              - name: DS_PROMETHEUS
-                value: Prometheus
           volsync:
             gnetId: 21356
             revision: 3

@@ -165,7 +165,7 @@ spec:
         key: node.mmontes.io/type
         value: compute-large
 
-  # Cluster management UI (the minio-console analog). Single stateless instance,
+  # Cluster management UI. Single stateless instance,
   # served on 23646 and exposed via the seaweedfs.* HTTPRoute. Just a UI, so it
   # runs on the default nodes.
   admin:

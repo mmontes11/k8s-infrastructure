@@ -125,30 +125,6 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/(^|/)infrastructure/minio-operator/minio-operator-helmrelease\\.yaml$/"
-      ],
-      "matchStrings": [
-        "chart:\\s+operator\\s*\\n\\s+sourceRef:\\s*\\n\\s+kind:\\s+HelmRepository\\s*\\n\\s+name:\\s+minio-operator\\s*\\n\\s+version:\\s+\"?(?<currentValue>[^\"]+)\"?"
-      ],
-      "datasourceTemplate": "helm",
-      "packageNameTemplate": "operator",
-      "registryUrlTemplate": "https://operator.min.io"
-    },
-    {
-      "customType": "regex",
-      "managerFilePatterns": [
-        "/(^|/)infrastructure/minio-operator/minio-tenant/minio-tenant-helmrelease\\.yaml$/"
-      ],
-      "matchStrings": [
-        "chart:\\s+tenant\\s*\\n\\s+sourceRef:\\s*\\n\\s+kind:\\s+HelmRepository\\s*\\n\\s+name:\\s+minio-operator\\s*\\n\\s+version:\\s+\"?(?<currentValue>[^\"]+)\"?"
-      ],
-      "datasourceTemplate": "helm",
-      "packageNameTemplate": "tenant",
-      "registryUrlTemplate": "https://operator.min.io"
-    },
-    {
-      "customType": "regex",
-      "managerFilePatterns": [
         "/(^|/)infrastructure/nvidia-dcgm-exporter/nvidia-dcgm-exporter-helmrelease\\.yaml$/"
       ],
       "matchStrings": [
