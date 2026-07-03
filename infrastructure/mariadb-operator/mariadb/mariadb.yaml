@@ -11,10 +11,10 @@ spec:
 
   image: mariadb:11.8.6
 
-  bootstrapFrom:
-    backupRef:
-      name: backup
-      kind: Backup
+  # bootstrapFrom:
+  #   backupRef:
+  #     name: backup
+  #     kind: Backup
 
   storage:
     size: 10Gi
