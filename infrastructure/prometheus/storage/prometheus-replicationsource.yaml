@@ -5,8 +5,8 @@ metadata:
 spec:
   sourcePVC: data-prometheus-kube-prometheus-stack-prometheus-0
   trigger:
-    schedule: "0 1 * * *"
-    # manual: prometheus-5
+    # schedule: "0 1 * * *"
+    manual: prometheus-6
   restic:
     repository: restic-prometheus
     retain:
@@ -23,6 +23,3 @@ spec:
     cacheCapacity: 10Gi
     cacheAccessModes:
       - ReadWriteOnce
-    customCA:
-      secretName: homelab-bundle
-      key: ca.crt
