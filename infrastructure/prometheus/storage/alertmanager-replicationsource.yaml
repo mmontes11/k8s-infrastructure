@@ -6,7 +6,7 @@ spec:
   sourcePVC: data-alertmanager-kube-prometheus-stack-alertmanager-0
   trigger:
     # schedule: "0 1 * * *"
-    manual: alertmanager-2
+    manual: alertmanager-3
   restic:
     repository: restic-alertmanager
     retain:
