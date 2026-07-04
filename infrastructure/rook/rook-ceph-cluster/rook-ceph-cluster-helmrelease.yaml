@@ -46,10 +46,10 @@ spec:
       resources:
         mgr:
           requests:
-            cpu: 500m
-            memory: 1Gi
+            cpu: 150m
+            memory: 512Mi
           limits:
-            memory: 2Gi
+            memory: 1.5Gi
         mon:
           requests:
             cpu: 500m
@@ -75,9 +75,10 @@ spec:
           #         OSDs ; for larger devices 2Gi may be required.
           #         cf. https://github.com/rook/rook/pull/11103
         mgr-sidecar:
+          # watch-active peak: 66m CPU, 53 MiB memory (1h). 100m CPU, 64 MiB mem = safe headroom.
           requests:
             cpu: "100m"
-            memory: "40Mi"
+            memory: "64Mi"
           limits:
             memory: "100Mi"
         crashcollector:
