@@ -17,10 +17,3 @@ spec:
         namespace: monitoring
         labels:
           grafana_dashboard: "1"
-    webhook:
-      cert:
-        certManager:
-          enabled: true
-          issuerRef:
-            kind: ClusterIssuer
-            name: homelab
