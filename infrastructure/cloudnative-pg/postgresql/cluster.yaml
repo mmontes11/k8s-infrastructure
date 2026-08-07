@@ -1,0 +1,89 @@
+# Multi-tenant PostgreSQL cluster using CloudNativePG.
+# Tenants are provisioned via Database/Role CRs (see multica.yaml).
+#
+# The cluster uses PostgreSQL 18 with pgvector support (standard-trixie image).
+#
+# Connection details for applications:
+#   Host: postgresql-rw.database.svc.cluster.local
+#   Port: 5432
+#   Database: <tenant database>
+#   User: <tenant user>
+#   Password: from Secret postgresql, key <tenant>-password
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgresql
+spec:
+  instances: 3
+
+  imageName: >-
+    ghcr.io/cloudnative-pg/postgresql:18.4-202608030910-standard-trixie@sha256:f0cc49632b5cc1e51f65ba03658c89bd31d64ea2672b14843a808a8d281417e1
+
+  storage:
+    size: 20Gi
+    storageClassName: topolvm
+
+  postgresql:
+    shared_preload_libraries:
+      - pgaudit
+      - pg_failover_slots
+
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1Gi
+    limits:
+      memory: 2Gi
+
+  monitoring:
+    enablePodMonitor: true
+    customQueriesConfigMap:
+      - key: queries
+        name: cnpg-default-queries
+
+  nodeSelector:
+    node.mmontes.io/type: compute-large
+
+  tolerations:
+    - effect: NoSchedule
+      key: node.mmontes.io/type
+      value: compute-large
+
+  affinity:
+    enablePodAntiAffinity: true
+    topologyKey: kubernetes.io/hostname
+
+  primaryUpdateStrategy: unsupervised
+  primaryUpdateMethod: switchover
+
+  startDelay: 30s
+  pauseDelay: 5s
+
+  certificates:
+    serverTLSSecret: postgresql-tls
+    serverAltDNSNames:
+      - postgresql-rw.database.svc.cluster.local
+    clientSSLSecret: postgresql-client-tls
+
+  bootstrap:
+    initdb:
+      database: app
+      owner: app
+      secret:
+        name: postgresql-superuser
+
+  managed:
+    roles:
+      - name: multica
+        superuser: false
+        createdb: false
+        login: true
+        passwordSecret:
+          name: postgresql
+          key: multica-password
+        connectionLimit: -1
+        ensure: present
+
+  replicationSlots:
+    highAvailability:
+      enabled: true

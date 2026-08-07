@@ -1,0 +1,24 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cloudnative-pg
+  namespace: cnpg-system
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: cloudnative-pg
+  interval: 1h0m0s
+  values:
+    config:
+      clusterWide: true
+    crds:
+      create: true
+    monitoring:
+      podMonitorEnabled: true
+    webhook:
+      cert:
+        certManager:
+          enabled: true
+          issuerRef:
+            kind: ClusterIssuer
+            name: homelab
