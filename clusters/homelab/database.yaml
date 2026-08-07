@@ -1,23 +1,6 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cloudnative-pg
-  namespace: flux-system
-spec:
-  dependsOn:
-    - name: cert-manager-crds
-    - name: prometheus-crds
-  interval: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  path: ./infrastructure/cloudnative-pg
-  prune: true
-  timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
   name: mariadb-operator
   namespace: flux-system
 spec:
@@ -84,17 +67,33 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: postgresql
+  name: cloudnative-pg
   namespace: flux-system
 spec:
   dependsOn:
-    - name: cloudnative-pg
-    - name: sealed-secrets
+    - name: prometheus-crds
   interval: 5m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/cloudnative-pg/postgresql
+  path: ./infrastructure/cloudnative-pg
   prune: true
   timeout: 5m
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
+# kind: Kustomization
+# metadata:
+#   name: postgresql
+#   namespace: flux-system
+# spec:
+#   dependsOn:
+#     - name: cloudnative-pg
+#     - name: sealed-secrets
+#   interval: 5m
+#   sourceRef:
+#     kind: GitRepository
+#     name: flux-system
+#   path: ./infrastructure/cloudnative-pg/postgresql
+#   prune: true
+#   timeout: 5m
 
