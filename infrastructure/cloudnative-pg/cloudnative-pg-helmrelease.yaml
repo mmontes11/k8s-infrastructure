@@ -2,7 +2,6 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: cloudnative-pg
-  namespace: cnpg-system
 spec:
   chartRef:
     kind: OCIRepository
@@ -11,10 +10,13 @@ spec:
   values:
     config:
       clusterWide: true
-    crds:
-      create: true
     monitoring:
       podMonitorEnabled: true
+      grafanaDashboard:
+        create: true
+        namespace: monitoring
+        labels:
+          grafana_dashboard: "1"
     webhook:
       cert:
         certManager:
