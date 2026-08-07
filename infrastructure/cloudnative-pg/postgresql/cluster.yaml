@@ -1,10 +1,10 @@
 # Multi-tenant PostgreSQL cluster using CloudNativePG.
-# Tenants are provisioned via Database/Role CRs (see multica.yaml).
+# Tenants are provisioned via Database/Role/Grant CRs (see multica.yaml).
 #
 # The cluster uses PostgreSQL 18 with pgvector support (standard-trixie image).
 #
 # Connection details for applications:
-#   Host: postgresql-rw.database.svc.cluster.local
+#   Host: postgresql.database.svc.cluster.local
 #   Port: 5432
 #   Database: <tenant database>
 #   User: <tenant user>
@@ -14,13 +14,13 @@ kind: Cluster
 metadata:
   name: postgresql
 spec:
-  instances: 3
+  instances: 1
 
   imageName: >-
     ghcr.io/cloudnative-pg/postgresql:18.4-202608030910-standard-trixie@sha256:f0cc49632b5cc1e51f65ba03658c89bd31d64ea2672b14843a808a8d281417e1
 
   storage:
-    size: 20Gi
+    size: 10Gi
     storageClassName: topolvm
 
   postgresql:
@@ -33,7 +33,7 @@ spec:
       cpu: 500m
       memory: 1Gi
     limits:
-      memory: 2Gi
+      memory: 1Gi
 
   monitoring:
     enablePodMonitor: true
@@ -49,20 +49,10 @@ spec:
       key: node.mmontes.io/type
       value: compute-large
 
-  affinity:
-    enablePodAntiAffinity: true
-    topologyKey: kubernetes.io/hostname
-
-  primaryUpdateStrategy: unsupervised
-  primaryUpdateMethod: switchover
-
-  startDelay: 30s
-  pauseDelay: 5s
-
   certificates:
     serverTLSSecret: postgresql-tls
     serverAltDNSNames:
-      - postgresql-rw.database.svc.cluster.local
+      - postgresql.database.svc.cluster.local
     clientSSLSecret: postgresql-client-tls
 
   bootstrap:
@@ -83,7 +73,3 @@ spec:
           key: multica-password
         connectionLimit: -1
         ensure: present
-
-  replicationSlots:
-    highAvailability:
-      enabled: true
