@@ -395,6 +395,30 @@
       "datasourceTemplate": "github-releases",
       "packageNameTemplate": "seaweedfs/seaweedfs",
       "versioningTemplate": "loose"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/cloudnative-pg/cloudnative-pg-ocirepository\\.yaml$/"
+      ],
+      "matchStrings": [
+        "ref:\\s*\\n\\s+tag:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "docker",
+      "packageNameTemplate": "ghcr.io/cloudnative-pg/charts/cloudnative-pg",
+      "registryUrlTemplate": "https://ghcr.io"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/cloudnative-pg/postgresql/cluster\\.yaml$/"
+      ],
+      "matchStrings": [
+        "imageName:\\s+ghcr\\.io/cloudnative-pg/postgresql:(?<currentValue>.+)"
+      ],
+      "datasourceTemplate": "docker",
+      "packageNameTemplate": "ghcr.io/cloudnative-pg/postgresql",
+      "registryUrlTemplate": "https://ghcr.io"
     }
   ],
   "packageRules": [
