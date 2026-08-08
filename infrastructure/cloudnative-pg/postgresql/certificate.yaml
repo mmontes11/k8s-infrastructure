@@ -1,0 +1,59 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: postgresql-server-tls
+spec:
+  secretName: postgresql-tls
+  duration: 2160h # 90d
+  renewBefore: 360h # 15d
+  issuerRef:
+    name: homelab
+    kind: ClusterIssuer
+  isCA: false
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  usages:
+    - server auth
+    - digital signature
+  dnsNames:
+    - postgresql
+    - postgresql.database
+    - postgresql.database.svc
+    - postgresql.database.svc.cluster
+    - postgresql.database.svc.cluster.local
+    - postgresql-r
+    - postgresql-r.database
+    - postgresql-r.database.svc
+    - postgresql-r.database.svc.cluster
+    - postgresql-r.database.svc.cluster.local
+    - postgresql-rw
+    - postgresql-rw.database
+    - postgresql-rw.database.svc
+    - postgresql-rw.database.svc.cluster
+    - postgresql-rw.database.svc.cluster.local
+  secretTemplate:
+    labels:
+      cnpg.io/reload: ""
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: postgresql-client-tls
+spec:
+  secretName: postgresql-client-tls
+  duration: 2160h # 90d
+  renewBefore: 360h # 15d
+  issuerRef:
+    name: homelab
+    kind: ClusterIssuer
+  isCA: false
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  usages:
+    - client auth
+    - digital signature
+  secretTemplate:
+    labels:
+      cnpg.io/reload: ""

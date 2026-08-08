@@ -10,3 +10,6 @@ spec:
   target:
     secret:
       key: ca.crt
+      metadata:
+        labels:
+          cnpg.io/reload: ""

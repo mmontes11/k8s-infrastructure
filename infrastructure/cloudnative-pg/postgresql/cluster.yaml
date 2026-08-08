@@ -1,14 +1,3 @@
-# Multi-tenant PostgreSQL cluster using CloudNativePG.
-# Tenants are provisioned via Database/Role/Grant CRs (see multica.yaml).
-#
-# The cluster uses PostgreSQL 18 with pgvector support (standard-trixie image).
-#
-# Connection details for applications:
-#   Host: postgresql.database.svc.cluster.local
-#   Port: 5432
-#   Database: <tenant database>
-#   User: <tenant user>
-#   Password: from Secret postgresql, key <tenant>-password
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
@@ -23,21 +12,15 @@ spec:
     storageClassName: topolvm
 
   postgresql:
-    shared_preload_libraries:
-      - pgaudit
-      - pg_failover_slots
+    parameters:
+      shared_buffers: "256MB"
 
   resources:
     requests:
-      cpu: 500m
+      cpu: 1
       memory: 1Gi
     limits:
       memory: 1Gi
-
-  monitoring:
-    customQueriesConfigMap:
-      - key: queries
-        name: cnpg-default-monitoring
 
   nodeSelector:
     node.mmontes.io/type: compute-large
@@ -49,25 +32,18 @@ spec:
 
   certificates:
     serverTLSSecret: postgresql-tls
-    serverAltDNSNames:
-      - postgresql.database.svc.cluster.local
+    serverCASecret: homelab-bundle
     clientSSLSecret: postgresql-client-tls
+    clientCASecret: homelab-bundle
+
+  monitoring:
+    customQueriesConfigMap:
+      - key: queries
+        name: cnpg-default-monitoring
 
   bootstrap:
     initdb:
       database: app
-      owner: postgresql
+      owner: app
       secret:
         name: postgresql
-
-  managed:
-    roles:
-      - name: multica
-        superuser: false
-        createdb: false
-        login: true
-        passwordSecret:
-          name: postgresql
-          key: multica-password
-        connectionLimit: -1
-        ensure: present

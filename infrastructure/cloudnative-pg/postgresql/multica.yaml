@@ -1,17 +1,23 @@
-# Multi-tenant configuration for the multica application.
-#
-# This creates:
-#   - A dedicated database 'multica' with pgvector extension
-#   - A dedicated role 'multica' with login privileges
-#   - Grants all privileges on the database to the role
-#
-# Connection string for multica:
-#   postgres://multica:<password>@postgresql-rw.database.svc.cluster.local:5432/multica?sslmode=require
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: multica
+spec:
+  name: multica
+  cluster:
+    name: postgresql
+  login: true
+  superuser: false
+  createdb: false
+  connectionLimit: -1
+  passwordSecret:
+    name: multica
+  databaseRoleReclaimPolicy: retain
 ---
 apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
-  name: multica-database
+  name: multica
 spec:
   name: multica
   owner: multica
@@ -19,35 +25,4 @@ spec:
     name: postgresql
   extensions:
     - name: vector
-  template:
-    encoding: UTF8
-    localeProvider: libc
----
-apiVersion: postgresql.cnpg.io/v1
-kind: Role
-metadata:
-  name: multica-role
-spec:
-  name: multica
-  login: true
-  superuser: false
-  createdb: false
-  connectionLimit: -1
-  passwordSecret:
-    name: postgresql
-    key: multica-password
-  cluster:
-    name: postgresql
-  ensure: present
----
-apiVersion: postgresql.cnpg.io/v1
-kind: Grant
-metadata:
-  name: multica-grant
-spec:
-  cluster:
-    name: postgresql
-  database: multica
-  role: multica
-  privileges:
-    - ALL
+  databaseReclaimPolicy: retain
