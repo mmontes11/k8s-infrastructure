@@ -16,6 +16,7 @@ spec:
   usages:
     - server auth
     - digital signature
+  commonName: postgresql.database.svc.cluster.local
   dnsNames:
     - postgresql
     - postgresql.database
@@ -54,6 +55,7 @@ spec:
   usages:
     - client auth
     - digital signature
+  commonName: postgresql-client
   secretTemplate:
     labels:
       cnpg.io/reload: ""
