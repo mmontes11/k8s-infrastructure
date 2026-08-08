@@ -20,12 +20,12 @@ spec:
 
   storage:
     size: 10Gi
-    storageClassName: topolvm
+    storageClass: topolvm
 
   certificates:
     serverCASecret: homelab-bundle
     serverTLSSecret: postgresql-tls
-    clientCASecret: homelab-bundle
+    clientCASecret: homelab-bundqle
     replicationTLSSecret: postgresql-client-tls
 
   monitoring:
@@ -44,11 +44,10 @@ spec:
     limits:
       memory: 1Gi
 
-  tolerations:
+  affinity:
+    tolerations:
     - effect: NoSchedule
       key: node.mmontes.io/type
       value: compute-large
-
-  affinity:
     nodeSelector:
       node.mmontes.io/type: compute-large
