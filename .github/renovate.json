@@ -18,14 +18,14 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/(^|/)infrastructure/cert-manager/helmrelease\\.yaml$/"
+        "/(^|/)infrastructure/cert-manager/ocirepository\\.yaml$/"
       ],
       "matchStrings": [
-        "chart:\\s+cert-manager\\s*\\n\\s+sourceRef:\\s*\\n\\s+kind:\\s+HelmRepository\\s*\\n\\s+name:\\s+jetstack\\s*\\n\\s+(?:namespace:\\s+\\S+\\s*\\n)?\\s+version:\\s+\"?(?<currentValue>[^\"]+)\"?"
+        "ref:\\s*\\n\\s+tag:\\s+\"?(?<currentValue>[^\"]+)\"?"
       ],
-      "datasourceTemplate": "helm",
-      "packageNameTemplate": "cert-manager",
-      "registryUrlTemplate": "https://charts.jetstack.io"
+      "datasourceTemplate": "docker",
+      "packageNameTemplate": "quay.io/jetstack/charts/cert-manager",
+      "registryUrlTemplate": "https://quay.io"
     },
     {
       "customType": "regex",
@@ -317,14 +317,14 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/(^|/)infrastructure/trust-manager/helmrelease\\.yaml$/"
+        "/(^|/)infrastructure/trust-manager/ocirepository\\.yaml$/"
       ],
       "matchStrings": [
-        "chart:\\s+trust-manager\\s*\\n\\s+sourceRef:\\s*\\n\\s+kind:\\s+HelmRepository\\s*\\n\\s+name:\\s+jetstack\\s*\\n\\s+version:\\s+\"?(?<currentValue>[^\"]+)\"?"
+        "ref:\\s*\\n\\s+tag:\\s+\"?(?<currentValue>[^\"]+)\"?"
       ],
-      "datasourceTemplate": "helm",
-      "packageNameTemplate": "trust-manager",
-      "registryUrlTemplate": "https://charts.jetstack.io"
+      "datasourceTemplate": "docker",
+      "packageNameTemplate": "quay.io/jetstack/charts/trust-manager",
+      "registryUrlTemplate": "https://quay.io"
     },
     {
       "customType": "regex",

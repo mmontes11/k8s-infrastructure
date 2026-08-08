@@ -3,3 +3,4 @@ kind: Kustomization
 namespace: pki
 resources:
   - helmrelease.yaml
+  - ocirepository.yaml

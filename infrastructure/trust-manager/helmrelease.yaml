@@ -3,14 +3,9 @@ kind: HelmRelease
 metadata:
   name: trust-manager
 spec:
-  chart:
-    spec:
-      chart: trust-manager
-      sourceRef:
-        kind: HelmRepository
-        name: jetstack
-        namespace: flux-system
-      version: "v0.16.0"
+  chartRef:
+    kind: OCIRepository
+    name: trust-manager
   interval: 1h0m0s
   install:
     crds: CreateReplace
