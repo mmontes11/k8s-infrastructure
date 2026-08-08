@@ -23,10 +23,10 @@ spec:
     storageClassName: topolvm
 
   certificates:
-    serverTLSSecret: postgresql-tls
     serverCASecret: homelab-bundle
-    clientSSLSecret: postgresql-client-tls
+    serverTLSSecret: postgresql-tls
     clientCASecret: homelab-bundle
+    replicationTLSSecret: postgresql-client-tls
 
   monitoring:
     customQueriesConfigMap:
@@ -49,5 +49,6 @@ spec:
       key: node.mmontes.io/type
       value: compute-large
 
-  nodeSelector:
-    node.mmontes.io/type: compute-large
+  affinity:
+    nodeSelector:
+      node.mmontes.io/type: compute-large
