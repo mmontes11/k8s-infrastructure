@@ -25,7 +25,7 @@ spec:
   certificates:
     serverCASecret: homelab-bundle
     serverTLSSecret: postgresql-tls
-    clientCASecret: homelab-bundqle
+    clientCASecret: homelab-bundle
     replicationTLSSecret: postgresql-client-tls
 
   monitoring:
