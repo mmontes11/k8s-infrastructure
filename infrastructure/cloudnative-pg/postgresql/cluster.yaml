@@ -3,32 +3,24 @@ kind: Cluster
 metadata:
   name: postgresql
 spec:
+  enableSuperuserAccess: true
+  superuserSecret:
+    name: postgresql-super
+
   instances: 1
 
   imageName: ghcr.io/cloudnative-pg/postgresql:18.4
 
+  bootstrap:
+    initdb:
+      database: app
+      owner: app
+      secret:
+        name: postgresql
+
   storage:
     size: 10Gi
     storageClassName: topolvm
-
-  postgresql:
-    parameters:
-      shared_buffers: "256MB"
-
-  resources:
-    requests:
-      cpu: 1
-      memory: 1Gi
-    limits:
-      memory: 1Gi
-
-  nodeSelector:
-    node.mmontes.io/type: compute-large
-
-  tolerations:
-    - effect: NoSchedule
-      key: node.mmontes.io/type
-      value: compute-large
 
   certificates:
     serverTLSSecret: postgresql-tls
@@ -41,9 +33,21 @@ spec:
       - key: queries
         name: cnpg-default-monitoring
 
-  bootstrap:
-    initdb:
-      database: app
-      owner: app
-      secret:
-        name: postgresql
+  postgresql:
+    parameters:
+      shared_buffers: "256MB"
+
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1Gi
+    limits:
+      memory: 1Gi
+
+  tolerations:
+    - effect: NoSchedule
+      key: node.mmontes.io/type
+      value: compute-large
+
+  nodeSelector:
+    node.mmontes.io/type: compute-large
