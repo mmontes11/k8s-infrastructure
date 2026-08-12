@@ -9,7 +9,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: topolvm
-      version: "16.1.0"
+      version: "17.1.0"
   interval: 1h0m0s
   install:
     crds: CreateReplace
