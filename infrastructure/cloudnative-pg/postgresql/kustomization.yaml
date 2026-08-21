@@ -7,5 +7,7 @@ resources:
   - multica-sealedsecret.yaml
   - multica.yaml
   - podmonitor.yaml
+  - s3-sealedsecret.yaml
+  - scheduledbackup.yaml
   - sealedsecret.yaml
   - super-sealedsecret.yaml
