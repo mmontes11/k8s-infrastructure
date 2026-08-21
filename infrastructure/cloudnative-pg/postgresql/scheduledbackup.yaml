@@ -1,0 +1,13 @@
+---
+# Daily full physical backup (barman-cloud object store) at 23:00, mirroring the
+# MariaDB physical backup schedule. The CNPG cron format is 6 fields (seconds first).
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: postgresql
+spec:
+  cluster:
+    name: postgresql
+  schedule: "0 0 23 * * *"
+  immediate: true
+  backupOwnerReference: cluster
