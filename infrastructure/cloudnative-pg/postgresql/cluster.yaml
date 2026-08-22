@@ -37,28 +37,18 @@ spec:
     parameters:
       shared_buffers: "256MB"
 
-  # Full physical backups + WAL archiving to the SeaweedFS S3 store, same bucket
-  # and endpoint as the rest of the infra (see the MariaDB PITR setup in
-  # k8s-media). Barman's object-store layout uses fixed subfolders: base backups
-  # land in s3://database/postgresql/base/, WALs in s3://database/postgresql/wal/.
-  # Retention is 7 days for both, matching the MariaDB 168h retention.
-  backup:
-    barmanObjectStore:
-      destinationPath: s3://database/postgresql
-      endpointURL: http://seaweedfs-s3.storage.svc.cluster.local:8333
-      data:
-        compression: gzip
-      wal:
-        compression: gzip
-      s3Credentials:
-        accessKeyId:
-          name: postgresql-s3
-          key: AWS_ACCESS_KEY_ID
-        secretAccessKey:
-          name: postgresql-s3
-          key: AWS_SECRET_ACCESS_KEY
-    retentionPolicy: 7d
-    target: primary
+  # Full physical backups + WAL archiving to the SeaweedFS S3 store via the
+  # Barman Cloud CNPG-I plugin; CNPG deprecates the in-tree barmanObjectStore
+  # support in favour of it. The plugin server runs in this namespace (see
+  # ../plugin-barman-cloud-helmrelease.yaml) and the store configuration lives
+  # in objectstore.yaml. serverName keeps the previous barman layout so the
+  # existing backups and WALs in s3://database/postgresql stay reachable.
+  plugins:
+  - name: barman-cloud.cloudnative-pg.io
+    isWALArchiver: true
+    parameters:
+      barmanObjectName: postgresql-barman
+      serverName: postgresql
 
   resources:
     requests:
