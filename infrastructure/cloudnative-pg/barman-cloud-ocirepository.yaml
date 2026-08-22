@@ -9,4 +9,4 @@ spec:
     operation: copy
   ref:
     tag: "0.7.1"
-  url: oci://ghcr.io/cloudnative-pg/charts/barman-cloud
+  url: oci://ghcr.io/cloudnative-pg/charts/plugin-barman-cloud
