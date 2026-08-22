@@ -12,6 +12,7 @@ spec:
       compression: gzip
     wal:
       compression: gzip
+      maxParallel: 8
     s3Credentials:
       accessKeyId:
         name: postgresql-s3
