@@ -419,6 +419,42 @@
       "datasourceTemplate": "docker",
       "packageNameTemplate": "ghcr.io/cloudnative-pg/postgresql",
       "registryUrlTemplate": "https://ghcr.io"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/cloudnative-pg/plugin-barman-cloud-ocirepository\\.yaml$/"
+      ],
+      "matchStrings": [
+        "ref:\\s*\\n\\s+tag:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "docker",
+      "packageNameTemplate": "ghcr.io/cloudnative-pg/charts/plugin-barman-cloud",
+      "registryUrlTemplate": "https://ghcr.io"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/cloudnative-pg/plugin-barman-cloud-helmrelease\\.yaml$/"
+      ],
+      "matchStrings": [
+        "image:\\s*\\n\\s+tag:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "docker",
+      "packageNameTemplate": "ghcr.io/cloudnative-pg/plugin-barman-cloud",
+      "registryUrlTemplate": "https://ghcr.io"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/cloudnative-pg/plugin-barman-cloud-helmrelease\\.yaml$/"
+      ],
+      "matchStrings": [
+        "sidecarImage:\\s*\\n\\s+tag:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "docker",
+      "packageNameTemplate": "ghcr.io/cloudnative-pg/plugin-barman-cloud-sidecar",
+      "registryUrlTemplate": "https://ghcr.io"
     }
   ],
   "packageRules": [

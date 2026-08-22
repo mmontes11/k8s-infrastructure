@@ -6,6 +6,9 @@ resources:
   - cluster.yaml
   - multica-sealedsecret.yaml
   - multica.yaml
+  - objectstore.yaml
   - podmonitor.yaml
+  - s3-sealedsecret.yaml
+  - scheduledbackup.yaml
   - sealedsecret.yaml
   - super-sealedsecret.yaml
