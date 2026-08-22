@@ -423,7 +423,7 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/(^|/)infrastructure/cloudnative-pg/barman-cloud-ocirepository\\.yaml$/"
+        "/(^|/)infrastructure/cloudnative-pg/plugin-barman-cloud-ocirepository\\.yaml$/"
       ],
       "matchStrings": [
         "ref:\\s*\\n\\s+tag:\\s+\"?(?<currentValue>[^\"]+)\"?"
@@ -435,7 +435,7 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/(^|/)infrastructure/cloudnative-pg/barman-cloud-helmrelease\\.yaml$/"
+        "/(^|/)infrastructure/cloudnative-pg/plugin-barman-cloud-helmrelease\\.yaml$/"
       ],
       "matchStrings": [
         "image:\\s*\\n\\s+tag:\\s+\"?(?<currentValue>[^\"]+)\"?"
@@ -447,7 +447,7 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/(^|/)infrastructure/cloudnative-pg/barman-cloud-helmrelease\\.yaml$/"
+        "/(^|/)infrastructure/cloudnative-pg/plugin-barman-cloud-helmrelease\\.yaml$/"
       ],
       "matchStrings": [
         "sidecarImage:\\s*\\n\\s+tag:\\s+\"?(?<currentValue>[^\"]+)\"?"
