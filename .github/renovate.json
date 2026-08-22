@@ -423,13 +423,14 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/(^|/)infrastructure/cloudnative-pg/plugin-barman-cloud/kustomization\\.yaml$/"
+        "/(^|/)infrastructure/cloudnative-pg/barman-cloud-ocirepository\\.yaml$/"
       ],
       "matchStrings": [
-        "releases/download/v(?<currentValue>[0-9]+\\.[0-9]+\\.[0-9]+)/manifest\\.yaml"
+        "ref:\\s*\\n\\s+tag:\\s+\"?(?<currentValue>[^\"]+)\"?"
       ],
-      "datasourceTemplate": "github-releases",
-      "packageNameTemplate": "cloudnative-pg/plugin-barman-cloud"
+      "datasourceTemplate": "docker",
+      "packageNameTemplate": "ghcr.io/cloudnative-pg/charts/plugin-barman-cloud",
+      "registryUrlTemplate": "https://ghcr.io"
     }
   ],
   "packageRules": [

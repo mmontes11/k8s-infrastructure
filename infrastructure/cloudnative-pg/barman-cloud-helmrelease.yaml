@@ -16,4 +16,4 @@ spec:
   healthChecks:
     runs:
     - kind: Deployment
-      name: barman-cloud
+      name: barman-cloud-plugin-barman-cloud
