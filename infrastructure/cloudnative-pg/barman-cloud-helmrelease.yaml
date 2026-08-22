@@ -13,6 +13,13 @@ spec:
     crds: CreateReplace
   upgrade:
     crds: CreateReplace
+  values:
+    # Pin the plugin server and pod sidecar to an explicit release instead of
+    # relying on the chart appVersion, so renovate can track them independently
+    image:
+      tag: "v0.14.0"
+    sidecarImage:
+      tag: "v0.14.0"
   healthChecks:
     runs:
     - kind: Deployment

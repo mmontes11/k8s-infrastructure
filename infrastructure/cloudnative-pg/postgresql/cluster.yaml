@@ -12,54 +12,17 @@ spec:
 
   imageName: ghcr.io/cloudnative-pg/postgresql:18.4
 
+  # Single bootstrap block: initdb for the first creation.
+  # For a restore, comment out the initdb sub-block and uncomment exactly one
+  # of the recovery variants below plus the shared externalClusters entry.
+  # plugins/externalClusters live alongside bootstrap: the recovery variants
+  # reference the Barman store configured through them.
   bootstrap:
     initdb:
       database: app
       owner: app
       secret:
         name: postgresql
-
-  storage:
-    size: 10Gi
-    storageClass: topolvm
-
-  certificates:
-    serverCASecret: homelab-bundle
-    serverTLSSecret: postgresql-tls
-    clientCASecret: homelab-bundle
-    replicationTLSSecret: postgresql-client-tls
-
-  monitoring:
-    customQueriesConfigMap:
-      - key: queries
-        name: cnpg-default-monitoring
-
-  postgresql:
-    parameters:
-      shared_buffers: "256MB"
-
-  # Full physical backups + WAL archiving to the SeaweedFS S3 store via the Barman Cloud CNPG-I plugin
-  plugins:
-  - name: barman-cloud.cloudnative-pg.io
-    isWALArchiver: true
-    parameters:
-      barmanObjectName: seaweedfs-s3
-      serverName: postgresql
-
-  resources:
-    requests:
-      cpu: 500m
-      memory: 1Gi
-    limits:
-      memory: 1Gi
-
-  affinity:
-    tolerations:
-    - effect: NoSchedule
-      key: node.mmontes.io/type
-      value: compute-large
-    nodeSelector:
-      node.mmontes.io/type: compute-large
 
   # ---------------------------------------------------------------------------
   # RESTORE — uncomment the matching block only when a restore is needed
@@ -85,6 +48,15 @@ spec:
 #       recoveryTarget:
 #         # RFC3339 or PostgreSQL timestamp; no timezone = UTC
 #         targetTime: "2026-08-22T06:00:00Z"
+
+  # Full physical backups + WAL archiving to the SeaweedFS S3 store via the Barman Cloud CNPG-I plugin
+  plugins:
+  - name: barman-cloud.cloudnative-pg.io
+    isWALArchiver: true
+    parameters:
+      barmanObjectName: seaweedfs-s3
+      serverName: postgresql
+
 #   # Shared by both variants: Barman store to pull the backup and WALs from
 #   externalClusters:
 #   - name: postgresql
@@ -93,3 +65,37 @@ spec:
 #       parameters:
 #         barmanObjectName: seaweedfs-s3
 #         serverName: postgresql
+
+  storage:
+    size: 10Gi
+    storageClass: topolvm
+
+  certificates:
+    serverCASecret: homelab-bundle
+    serverTLSSecret: postgresql-tls
+    clientCASecret: homelab-bundle
+    replicationTLSSecret: postgresql-client-tls
+
+  monitoring:
+    customQueriesConfigMap:
+      - key: queries
+        name: cnpg-default-monitoring
+
+  postgresql:
+    parameters:
+      shared_buffers: "256MB"
+
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1Gi
+    limits:
+      memory: 1Gi
+
+  affinity:
+    tolerations:
+    - effect: NoSchedule
+      key: node.mmontes.io/type
+      value: compute-large
+    nodeSelector:
+      node.mmontes.io/type: compute-large
