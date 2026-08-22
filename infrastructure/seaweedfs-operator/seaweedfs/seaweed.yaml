@@ -3,7 +3,7 @@ kind: Seaweed
 metadata:
   name: seaweedfs
 spec:
-  image: chrislusf/seaweedfs:4.36
+  image: chrislusf/seaweedfs:4.44
   volumeServerDiskCount: 1
 
   # gRPC mTLS between components, certs issued by the homelab ClusterIssuer.
