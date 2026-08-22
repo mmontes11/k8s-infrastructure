@@ -1,7 +1,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: barman-cloud
+  name: plugin-barman-cloud
 spec:
   interval: 5m
   layerSelector:
