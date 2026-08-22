@@ -1,0 +1,24 @@
+# Barman Cloud object store backing the Barman Cloud CNPG-I backup plugin.
+# Barman's object-store layout uses fixed subfolders: base backups land in
+# s3://database/postgresql/base/, WALs in s3://database/postgresql/wal/.
+# Retention is 7 days, matching the MariaDB 168h retention.
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: postgresql-barman
+spec:
+  retentionPolicy: 7d
+  configuration:
+    destinationPath: s3://database/postgresql
+    endpointURL: http://seaweedfs-s3.storage.svc.cluster.local:8333
+    data:
+      compression: gzip
+    wal:
+      compression: gzip
+    s3Credentials:
+      accessKeyId:
+        name: postgresql-s3
+        key: AWS_ACCESS_KEY_ID
+      secretAccessKey:
+        name: postgresql-s3
+        key: AWS_SECRET_ACCESS_KEY

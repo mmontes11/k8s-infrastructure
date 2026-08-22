@@ -71,6 +71,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
+    - name: cert-manager-crds
     - name: prometheus-crds
   interval: 5m
   sourceRef:

@@ -4,3 +4,5 @@ namespace: database
 resources:
   - cloudnative-pg-ocirepository.yaml
   - cloudnative-pg-helmrelease.yaml
+  - plugin-barman-cloud-ocirepository.yaml
+  - plugin-barman-cloud-helmrelease.yaml
