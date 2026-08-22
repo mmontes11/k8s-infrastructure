@@ -64,3 +64,57 @@ spec:
       value: compute-large
     nodeSelector:
       node.mmontes.io/type: compute-large
+
+  # ---------------------------------------------------------------------------
+  # RESTORE — uncomment the matching block only when a restore is needed
+  #
+  # CNPG restores by recreating the cluster from a backup. This repo is
+  # Flux-managed, so suspend the Kustomization first or Flux will re-apply
+  # the live spec in the meantime:
+  #   1. kubectl -n flux-system patch kustomization postgresql \
+  #        --patch '{"spec":{"suspend":true}}' --type merge
+  #   2. kubectl -n database delete cluster postgresql
+  #      (the topolvm PVCs are kept; recovery restores onto the existing volumes)
+  #   3. comment out `bootstrap.initdb` above, uncomment ONE of the two
+  #      bootstrap.recovery variants below plus the shared externalClusters
+  #      block, then apply: kubectl -n database apply -f cluster.yaml
+  #   4. once the cluster is healthy, restore `bootstrap.initdb`, re-comment
+  #      the recovery blocks, and resume Flux:
+  #      kubectl -n flux-system patch kustomization postgresql \
+  #        --patch '{"spec":{"suspend":false}}' --type merge
+  #
+  # Both variants read the Barman store s3://database/postgresql (server name
+  # `postgresql`, matching the plugins block above).
+  # ---------------------------------------------------------------------------
+#
+#   # Restore from the latest base backup only, without replaying archived WALs
+#   bootstrap:
+#     recovery:
+#       source: postgresql
+#       database: app
+#       owner: app
+#       secret:
+#         name: postgresql
+#       recoveryTarget:
+#         targetImmediate: true
+#
+#   # Restore from a base backup + archived WALs up to a point in time (PITR)
+#   bootstrap:
+#     recovery:
+#       source: postgresql
+#       database: app
+#       owner: app
+#       secret:
+#         name: postgresql
+#       recoveryTarget:
+#         # RFC3339 or PostgreSQL timestamp; no timezone = UTC
+#         targetTime: "2026-08-22T06:00:00Z"
+#
+#   # Shared by both variants: Barman store to pull the backup and WALs from
+#   externalClusters:
+#   - name: postgresql
+#     plugin:
+#       name: barman-cloud.cloudnative-pg.io
+#       parameters:
+#         barmanObjectName: postgresql-barman
+#         serverName: postgresql
