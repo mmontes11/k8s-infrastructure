@@ -1,0 +1,54 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: database
+resources:
+  - https://github.com/cloudnative-pg/plugin-barman-cloud/releases/download/v0.14.0/manifest.yaml
+patches:
+  - target:
+      kind: ServiceAccount
+    patch: |-
+      - op: replace
+        path: /metadata/namespace
+        value: database
+  - target:
+      kind: Role
+    patch: |-
+      - op: replace
+        path: /metadata/namespace
+        value: database
+  - target:
+      kind: RoleBinding
+    patch: |-
+      - op: replace
+        path: /metadata/namespace
+        value: database
+  - target:
+      kind: Secret
+    patch: |-
+      - op: replace
+        path: /metadata/namespace
+        value: database
+  - target:
+      kind: Service
+    patch: |-
+      - op: replace
+        path: /metadata/namespace
+        value: database
+  - target:
+      kind: Deployment
+    patch: |-
+      - op: replace
+        path: /metadata/namespace
+        value: database
+  - target:
+      kind: Certificate
+    patch: |-
+      - op: replace
+        path: /metadata/namespace
+        value: database
+  - target:
+      kind: Issuer
+    patch: |-
+      - op: replace
+        path: /metadata/namespace
+        value: database
