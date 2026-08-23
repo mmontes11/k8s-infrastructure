@@ -12,42 +12,49 @@ spec:
 
   imageName: ghcr.io/cloudnative-pg/postgresql:18.4
 
-  # Single bootstrap block: initdb for the first creation.
-  # For a restore, comment out the initdb sub-block and uncomment exactly one
-  # of the recovery variants below plus the shared externalClusters entry.
-  # plugins/externalClusters live alongside bootstrap: the recovery variants
-  # reference the Barman store configured through them.
+  # ---------------------------------------------------------------------------
+  # INIT — uncomment this block only when a init is needed
+  # See: https://cloudnative-pg.io/docs/1.30/cloudnative-pg.v1/#bootstrapinitdb
+  # ---------------------------------------------------------------------------
   bootstrap:
     initdb:
       database: app
       owner: app
       secret:
         name: postgresql
+      walSegmentSize: 16 # 16MB, default
 
   # ---------------------------------------------------------------------------
-  # RESTORE — uncomment the matching block only when a restore is needed
+  # RECOVERY — uncomment the matching block only when a recovery is needed
+  # See: https://cloudnative-pg.io/docs/1.30/cloudnative-pg.v1/#bootstraprecovery
   # ---------------------------------------------------------------------------
-#   # Restore from the latest base backup only, without replaying archived WALs
-#   bootstrap:
-#     recovery:
-#       source: postgresql
-#       database: app
-#       owner: app
-#       secret:
-#         name: postgresql
-#       recoveryTarget:
-#         targetImmediate: true
-#   # Restore from a base backup + archived WALs up to a point in time (PITR)
-#   bootstrap:
-#     recovery:
-#       source: postgresql
-#       database: app
-#       owner: app
-#       secret:
-#         name: postgresql
-#       recoveryTarget:
-#         # RFC3339 or PostgreSQL timestamp; no timezone = UTC
-#         targetTime: "2026-08-22T06:00:00Z"
+  # bootstrap:
+  #   recovery:
+  #     source: postgresql
+  #     database: app
+  #     owner: app
+  #     secret:
+  #       name: postgresql
+  #     recoveryTarget:
+  #       targetImmediate: true
+  # bootstrap:
+  #   recovery:
+  #     source: postgresql
+  #     database: app
+  #     owner: app
+  #     secret:
+  #       name: postgresql
+  #     recoveryTarget:
+  #       # RFC3339 or PostgreSQL timestamp; no timezone = UTC
+  #       targetTime: "2026-08-22T06:00:00Z"
+  # # Shared by both variants: Barman store to pull the backup and WALs from
+  # externalClusters:
+  # - name: postgresql
+  #   plugin:
+  #     name: barman-cloud.cloudnative-pg.io
+  #     parameters:
+  #       barmanObjectName: seaweedfs-s3
+  #       serverName: postgresql
 
   # Full physical backups + WAL archiving to the SeaweedFS S3 store via the Barman Cloud CNPG-I plugin
   plugins:
@@ -56,15 +63,6 @@ spec:
     parameters:
       barmanObjectName: seaweedfs-s3
       serverName: postgresql
-
-#   # Shared by both variants: Barman store to pull the backup and WALs from
-#   externalClusters:
-#   - name: postgresql
-#     plugin:
-#       name: barman-cloud.cloudnative-pg.io
-#       parameters:
-#         barmanObjectName: seaweedfs-s3
-#         serverName: postgresql
 
   storage:
     size: 10Gi
