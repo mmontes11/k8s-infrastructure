@@ -10,9 +10,10 @@ spec:
     endpointURL: http://seaweedfs-s3.storage.svc.cluster.local:8333
     data:
       compression: gzip
+      jobs: 4
     wal:
       compression: gzip
-      maxParallel: 8
+      maxParallel: 4
     s3Credentials:
       accessKeyId:
         name: postgresql-s3
