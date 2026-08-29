@@ -16,13 +16,13 @@ spec:
   # INIT — uncomment this block only when a init is needed
   # See: https://cloudnative-pg.io/docs/1.30/cloudnative-pg.v1/#bootstrapinitdb
   # ---------------------------------------------------------------------------
-  bootstrap:
-    initdb:
-      database: app
-      owner: app
-      secret:
-        name: postgresql
-      walSegmentSize: 16 # 16MB, default
+  # bootstrap:
+  #   initdb:
+  #     database: app
+  #     owner: app
+  #     secret:
+  #       name: postgresql
+  #     walSegmentSize: 16 # 16MB, default
 
   # ---------------------------------------------------------------------------
   # RECOVERY — uncomment the matching block only when a recovery is needed
@@ -38,15 +38,15 @@ spec:
   #     recoveryTarget:
   #       backupID: 20260829T124511 # From Backup status CR or s3://database/postgresql/base
   #       targetImmediate: true
-  # bootstrap:
-  #   recovery:
-  #     source: postgresql
-  #     database: app
-  #     owner: app
-  #     secret:
-  #       name: postgresql
-  #     recoveryTarget:
-  #       targetTime: "2026-08-22T06:00:00Z" # RFC3339 or PostgreSQL timestamp; no timezone = UTC
+  bootstrap:
+    recovery:
+      source: postgresql
+      database: app
+      owner: app
+      secret:
+        name: postgresql
+      recoveryTarget:
+        targetTime: "2026-08-29T14:00:00.000Z" # RFC3339 or PostgreSQL timestamp; no timezone = UTC
   # Shared by both variants: Barman store to pull the backup and WALs from
   # Where backups and WALs are read from.
   externalClusters:
