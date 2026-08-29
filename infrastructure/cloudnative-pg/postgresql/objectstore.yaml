@@ -19,3 +19,6 @@ spec:
       secretAccessKey:
         name: postgresql-s3
         key: AWS_SECRET_ACCESS_KEY
+instanceSidecarConfiguration:
+  additionalContainerArgs:
+    - --log-level=debug
