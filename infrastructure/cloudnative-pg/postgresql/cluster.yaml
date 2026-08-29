@@ -55,7 +55,7 @@ spec:
       name: barman-cloud.cloudnative-pg.io
       parameters:
         barmanObjectName: seaweedfs-s3
-        serverName: postgresql
+        serverName: postgresql-1
 
   # Full physical backups + WAL archiving to the SeaweedFS S3 store via the Barman Cloud CNPG-I plugin
   # Where backups and WALs are written to.
@@ -64,7 +64,7 @@ spec:
     isWALArchiver: true
     parameters:
       barmanObjectName: seaweedfs-s3
-      serverName: postgresql-1 # Must not match serverName in externalClusters, otherwise restoration will fail.
+      serverName: postgresql-2 # Must not match serverName in externalClusters, otherwise restoration will fail.
 
   storage:
     size: 10Gi
