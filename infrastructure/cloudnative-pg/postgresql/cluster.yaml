@@ -48,13 +48,13 @@ spec:
   #     recoveryTarget:
   #       targetTime: "2026-08-22T06:00:00Z" # RFC3339 or PostgreSQL timestamp; no timezone = UTC
   # # Shared by both variants: Barman store to pull the backup and WALs from
-  # externalClusters:
-  # - name: postgresql
-  #   plugin:
-  #     name: barman-cloud.cloudnative-pg.io
-  #     parameters:
-  #       barmanObjectName: seaweedfs-s3
-  #       serverName: postgresql
+  externalClusters:
+  - name: postgresql
+    plugin:
+      name: barman-cloud.cloudnative-pg.io
+      parameters:
+        barmanObjectName: seaweedfs-s3
+        serverName: postgresql
 
   # Full physical backups + WAL archiving to the SeaweedFS S3 store via the Barman Cloud CNPG-I plugin
   plugins:
