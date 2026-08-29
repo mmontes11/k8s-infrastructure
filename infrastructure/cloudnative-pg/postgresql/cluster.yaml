@@ -47,7 +47,6 @@ spec:
         name: postgresql
       recoveryTarget:
         targetTime: "2026-08-29T14:00:00.000Z" # RFC3339 or PostgreSQL timestamp; no timezone = UTC
-  # Shared by both variants: Barman store to pull the backup and WALs from
   # Where backups and WALs are read from.
   externalClusters:
   - name: postgresql
