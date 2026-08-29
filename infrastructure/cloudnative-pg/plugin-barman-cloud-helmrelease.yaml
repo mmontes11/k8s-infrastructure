@@ -20,7 +20,3 @@ spec:
       tag: "v0.14.0"
     sidecarImage:
       tag: "v0.14.0"
-  healthChecks:
-    runs:
-    - kind: Deployment
-      name: plugin-barman-cloud
