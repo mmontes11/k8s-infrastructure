@@ -47,7 +47,8 @@ spec:
   #       name: postgresql
   #     recoveryTarget:
   #       targetTime: "2026-08-22T06:00:00Z" # RFC3339 or PostgreSQL timestamp; no timezone = UTC
-  # # Shared by both variants: Barman store to pull the backup and WALs from
+  # Shared by both variants: Barman store to pull the backup and WALs from
+  # Where backups and WALs are read from.
   externalClusters:
   - name: postgresql
     plugin:
@@ -57,12 +58,13 @@ spec:
         serverName: postgresql
 
   # Full physical backups + WAL archiving to the SeaweedFS S3 store via the Barman Cloud CNPG-I plugin
+  # Where backups and WALs are written to.
   plugins:
   - name: barman-cloud.cloudnative-pg.io
     isWALArchiver: true
     parameters:
       barmanObjectName: seaweedfs-s3
-      serverName: postgresql
+      serverName: postgresql-1 # Must not match serverName in externalClusters, otherwise restoration will fail.
 
   storage:
     size: 10Gi
