@@ -9,7 +9,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: seaweedfs-operator
-      version: "0.1.32"
+      version: "0.1.40"
   interval: 1h0m0s
   install:
     crds: CreateReplace
