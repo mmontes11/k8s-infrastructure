@@ -115,7 +115,7 @@ spec:
         nodes:
           - name: storage-0
             devices:
-              - name: nvme0n1
+              - name: nvme0n1p3
           - name: storage-1
             devices:
               - name: nvme0n1p3
