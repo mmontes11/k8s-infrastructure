@@ -9,7 +9,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: metallb
-      version: "0.15.3"
+      version: "0.16.1"
   interval: 1h0m0s
   install:
     crds: CreateReplace
