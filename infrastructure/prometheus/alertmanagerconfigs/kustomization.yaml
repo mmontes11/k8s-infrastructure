@@ -4,3 +4,5 @@ namespace: monitoring
 resources:
   - alertmanager-alertmanagerconfig.yaml
   - alertmanager-telegram-sealedsecret.yaml
+  - alertmanager-multica-alertmanagerconfig.yaml
+  - alertmanager-multica-sealedsecret.yaml
