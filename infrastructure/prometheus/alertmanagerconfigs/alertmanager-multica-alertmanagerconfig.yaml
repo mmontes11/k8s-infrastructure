@@ -7,7 +7,7 @@ spec:
     matchers:
       - name: alertname
         matchType: "!=~"
-        value: "^(Watchdog|HighGpuUsage|NodeDiskIOSaturation)$"
+        value: "^(Watchdog|NodeDiskIOSaturation|HighGpuUsage|InstanceUnreachable)$"
     receiver: multica
   receivers:
     - name: multica
