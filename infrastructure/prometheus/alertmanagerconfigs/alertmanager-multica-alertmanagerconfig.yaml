@@ -15,4 +15,4 @@ spec:
         - urlSecret:
             name: alertmanager-multica
             key: url
-          sendResolved: true
+          sendResolved: false
