@@ -4,12 +4,27 @@ metadata:
   name: alertmanager-multica
 spec:
   route:
-    matchers:
-      - name: alertname
-        matchType: "!=~"
-        value: "^(Watchdog|NodeDiskIOSaturation|HighGpuUsage|InstanceUnreachable)$"
-    receiver: multica
+    groupBy:
+      - alertname
+      - job
+      - namespace
+    groupWait: 30s
+    groupInterval: 5m
+    repeatInterval: 72h
+    receiver: 'null'
+    routes:
+      - matchers:
+        - name: alertname
+          matchType: "=~"
+          value: "InfoInhibitor|Watchdog|NodeDiskIOSaturation|HighGpuUsage|InstanceUnreachable"
+        receiver: 'null'
+      - matchers:
+        - name: severity
+          matchType: "=~"
+          value: "warning|critical"
+        receiver: multica
   receivers:
+    - name: 'null'
     - name: multica
       webhookConfigs:
         - urlSecret:
