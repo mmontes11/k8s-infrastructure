@@ -10,7 +10,7 @@ spec:
       - namespace
     groupWait: 30s
     groupInterval: 5m
-    repeatInterval: 72h
+    repeatInterval: 168h # 1 week
     receiver: 'null'
     routes:
       - matchers:
