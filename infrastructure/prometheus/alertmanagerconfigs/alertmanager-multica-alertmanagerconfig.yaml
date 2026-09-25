@@ -3,20 +3,21 @@ kind: AlertmanagerConfig
 metadata:
   name: alertmanager-multica
 spec:
+  # See: https://prometheus-operator.dev/docs/api-reference/api/#monitoring.coreos.com/v1alpha1.Route
   route:
     groupBy:
       - alertname
       - job
       - namespace
-    groupWait: 5m # require sustained firing before the first issue; suppresses rapid flapping
-    groupInterval: 5m
-    repeatInterval: 168h # 1 week
+    groupWait: 1h # require sustained firing before the first issue. This is very expensive, as it requires the whole GPU to load the model.
+    groupInterval: 168h # 1 week
+    repeatInterval: 730h # 1 month
     receiver: 'null'
     routes:
       - matchers:
         - name: alertname
           matchType: "=~"
-          value: "InfoInhibitor|Watchdog|NodeDiskIOSaturation|HighGpuUsage|InstanceUnreachable|HighGpuTemperature|HighTemperature|CephNodeNetworkPacketErrors"
+          value: "InfoInhibitor|Watchdog|NodeDiskIOSaturation|InstanceUnreachable|HighTemperature|HighGpuUsage|HighGpuTemperature|CephNodeNetworkPacketErrors"
         receiver: 'null'
       - matchers:
         - name: severity
