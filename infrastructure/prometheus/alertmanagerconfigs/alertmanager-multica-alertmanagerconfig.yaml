@@ -8,7 +8,7 @@ spec:
       - alertname
       - job
       - namespace
-    groupWait: 30s
+    groupWait: 5m # require sustained firing before the first issue; suppresses rapid flapping
     groupInterval: 5m
     repeatInterval: 168h # 1 week
     receiver: 'null'
@@ -16,7 +16,7 @@ spec:
       - matchers:
         - name: alertname
           matchType: "=~"
-          value: "InfoInhibitor|Watchdog|NodeDiskIOSaturation|HighGpuUsage|InstanceUnreachable"
+          value: "InfoInhibitor|Watchdog|NodeDiskIOSaturation|HighGpuUsage|InstanceUnreachable|HighGpuTemperature|HighTemperature|CephNodeNetworkPacketErrors"
         receiver: 'null'
       - matchers:
         - name: severity
