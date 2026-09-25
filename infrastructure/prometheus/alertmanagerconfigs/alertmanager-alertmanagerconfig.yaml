@@ -3,14 +3,15 @@ kind: AlertmanagerConfig
 metadata:
   name: alertmanager
 spec:
+  # See: https://prometheus-operator.dev/docs/api-reference/api/#monitoring.coreos.com/v1alpha1.Route
   route:
     groupBy:
       - alertname
       - job
       - namespace
-    groupWait: 30s
-    groupInterval: 5m
-    repeatInterval: 12h
+    groupWait: 5m
+    groupInterval: 15m
+    repeatInterval: 24h
     receiver: telegram
     routes:
       - matchers:
