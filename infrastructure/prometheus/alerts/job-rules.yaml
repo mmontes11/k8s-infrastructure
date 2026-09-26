@@ -6,12 +6,12 @@ spec:
   groups:
   - name: kubernetes-jobs.rules
     rules:
-    - alert: KubernetesJobFailed
+    - alert: KubeJobStatusFailed
       expr: kube_job_status_failed > 0
       for: 5m
       labels:
         severity: warning
       annotations:
-        summary: "Kubernetes Job failed (job={{ $labels.job_name }}, namespace={{ $labels.namespace }})"
+        summary: "Job {{ $labels.namespace }}/{{ $labels.job_name }} failed"
         description: |
           kube_job_status_failed is > 0 for Job {{ $labels.job_name }} in namespace {{ $labels.namespace }}.
