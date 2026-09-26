@@ -26,7 +26,7 @@ spec:
         scrapeConfigSelector:
            matchLabels: null
         externalUrl: https://prometheus.mmontes-internal.duckdns.org
-        retention: 730d # 2 years
+        retention: 1460d # 4 years
         resources:
           requests:
             cpu: "1"
@@ -42,7 +42,7 @@ spec:
                 - "ReadWriteOnce"
               resources:
                 requests:
-                  storage: 500Gi
+                  storage: 1Ti
 
     alertmanager:
       alertmanagerSpec:
