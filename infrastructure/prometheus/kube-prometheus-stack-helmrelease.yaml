@@ -47,7 +47,7 @@ spec:
     alertmanager:
       alertmanagerSpec:
         externalUrl: https://alertmanager.mmontes-internal.duckdns.org
-        retention: "168h"  # 7 days = 168 hours
+        retention: 730h # 1 month
         alertmanagerConfigSelector:
           matchLabels: null
         alertmanagerConfigMatcherStrategy:
@@ -61,7 +61,7 @@ spec:
                 - "ReadWriteOnce"
               resources:
                 requests:
-                  storage: 1Gi
+                  storage: 5Gi
       templateFiles:
         telegram.tmpl: |-
           {{ define "telegram.default.message" }}
