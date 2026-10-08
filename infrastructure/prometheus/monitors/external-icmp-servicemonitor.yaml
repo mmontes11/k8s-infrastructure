@@ -53,6 +53,26 @@ spec:
       module:
       - icmp
       target:
+      - 10.0.0.120
+    metricRelabelings:
+    - action: replace
+      replacement: 10.0.0.120
+      sourceLabels:
+      - instance
+      targetLabel: instance
+    - action: replace
+      replacement: 10.0.0.120
+      sourceLabels:
+      - target
+      targetLabel: target
+  - path: /probe
+    port: http
+    scheme: http
+    interval: 1m
+    params:
+      module:
+      - icmp
+      target:
       - 10.1.0.20
     metricRelabelings:
     - action: replace
