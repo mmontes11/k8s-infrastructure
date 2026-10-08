@@ -17,7 +17,7 @@ spec:
       - matchers:
         - name: alertname
           matchType: "=~"
-          value: "InfoInhibitor|Watchdog|NodeDiskIOSaturation|InstanceUnreachable|HighTemperature|HighGpuUsage|HighGpuTemperature"
+          value: "InfoInhibitor|Watchdog|TargetDown|NodeDiskIOSaturation|InstanceUnreachable|HighTemperature|HighGpuUsage|HighGpuTemperature"
         receiver: 'null'
       - matchers:
         - name: severity
