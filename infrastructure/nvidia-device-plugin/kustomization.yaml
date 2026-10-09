@@ -1,0 +1,7 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: gpu
+resources:
+ - nvidia-device-plugin-helmrelease.yaml
+ - nvidia-device-plugin-helmrepository.yaml
+ - nvidia-runtimeclass.yaml

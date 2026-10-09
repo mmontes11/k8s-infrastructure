@@ -3,7 +3,6 @@ kind: Kustomization
 namespace: monitoring
 resources:
   - flux-rules.yaml
-  - gpu-rules.yaml
   - hardware-rules.yaml
   - job-rules.yaml
   - network-rules.yaml
