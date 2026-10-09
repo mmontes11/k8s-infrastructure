@@ -1,0 +1,87 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: gpu-operator
+spec:
+  chart:
+    spec:
+      chart: gpu-operator
+      sourceRef:
+        kind: OCIRepository
+        name: gpu-operator
+  interval: 1h0m0s
+  values:
+    # Driver and container-toolkit are provided by Talos OS system extensions
+    # (nvidia-open-gpu-kernel-modules-lts + nvidia-container-toolkit-lts schematics),
+    # so the gpu-operator must not deploy its own.
+    # Reference: https://docs.siderolabs.com/talos/v1.13/configure-your-talos-cluster/hardware-and-drivers/nvidia-gpu
+    driver:
+      enabled: false
+    toolkit:
+      enabled: false
+    hostPaths:
+      driverInstallDir: /usr/local
+    # Let the operand DaemonSets (device-plugin, dcgm-exporter, operator-validator, ...)
+    # schedule on the GPU node, which carries the NoSchedule taint
+    # node.mmontes.io/type=compute-xlarge. The chart default only tolerates nvidia.com/gpu.
+    daemonsets:
+      tolerations:
+        - key: nvidia.com/gpu
+          operator: Exists
+          effect: NoSchedule
+        - key: node.mmontes.io/type
+          value: compute-xlarge
+          effect: NoSchedule
+    # The NFD worker is what labels the GPU node with
+    # feature.node.kubernetes.io/pci-10de.present, which the operator uses to place every
+    # operand. We pin it to the GPU node via nodeAffinity (nvidia.com/gpu.present — the same
+    # label the old device-plugin/dcgm-exporter DaemonSets used) and drop the control-plane
+    # toleration: NFD does not need to run on the control plane.
+    node-feature-discovery:
+      worker:
+        tolerations:
+          - key: nvidia.com/gpu
+            operator: Exists
+            effect: NoSchedule
+          - key: node.mmontes.io/type
+            value: compute-xlarge
+            effect: NoSchedule
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+                - matchExpressions:
+                    - key: nvidia.com/gpu.present
+                      operator: Exists
+    # Preserve the previous time-slicing configuration: 10 shareable nvidia.com/gpu, no rename.
+    devicePlugin:
+      config:
+        create: true
+        name: device-plugin-config
+        default: default
+        data:
+          default: |-
+            version: v1
+            sharing:
+              timeSlicing:
+                renameByDefault: false
+                resources:
+                - name: nvidia.com/gpu
+                  replicas: 10
+    # Preserve the previous DCGM exporter monitoring + resources.
+    # enablePodLabels / enablePodUID stay false (defaults) => DCGM_EXPORTER_KUBERNETES=false,
+    # i.e. one metric set per GPU instead of per-Pod (replaces the old postRenderer patch).
+    dcgmExporter:
+      serviceMonitor:
+        enabled: true
+        relabelings:
+          - sourceLabels:
+              - job
+            targetLabel: instance
+            action: Replace
+      resources:
+        requests:
+          memory: 256Mi
+        limits:
+          memory: 1Gi
+          nvidia.com/gpu: 1
