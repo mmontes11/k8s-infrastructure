@@ -68,7 +68,7 @@ spec:
                 renameByDefault: false
                 resources:
                 - name: nvidia.com/gpu
-                  replicas: 10
+                  replicas: 20
     # Preserve the previous DCGM exporter monitoring + resources.
     # enablePodLabels / enablePodUID stay false (defaults) => DCGM_EXPORTER_KUBERNETES=false,
     # i.e. one metric set per GPU instead of per-Pod (replaces the old postRenderer patch).
