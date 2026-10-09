@@ -3,14 +3,13 @@ kind: HelmRelease
 metadata:
   name: gpu-operator
 spec:
-  chartRef:
-    kind: OCIRepository
-    name: gpu-operator
+  chart:
+    spec:
+      chart: gpu-operator
+      sourceRef:
+        kind: OCIRepository
+        name: gpu-operator
   interval: 1h0m0s
-  install:
-    crds: CreateReplace
-  upgrade:
-    crds: CreateReplace
   values:
     # Driver and container-toolkit are provided by Talos OS system extensions
     # (nvidia-open-gpu-kernel-modules-lts + nvidia-container-toolkit-lts schematics),
