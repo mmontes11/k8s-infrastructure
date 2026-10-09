@@ -1,0 +1,12 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: gpu-operator
+spec:
+  interval: 5m
+  url: oci://nvcr.io/nvidia/cloud-native-charts/gpu-operator
+  ref:
+    tag: v26.7.1
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy

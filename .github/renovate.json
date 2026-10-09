@@ -455,6 +455,18 @@
       "datasourceTemplate": "docker",
       "packageNameTemplate": "ghcr.io/cloudnative-pg/plugin-barman-cloud-sidecar",
       "registryUrlTemplate": "https://ghcr.io"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/gpu-operator/gpu-operator-ocirepository\\.yaml$/"
+      ],
+      "matchStrings": [
+        "ref:\\s*\\n\\s+tag:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "docker",
+      "packageNameTemplate": "nvcr.io/nvidia/cloud-native-charts/gpu-operator",
+      "registryUrlTemplate": "https://nvcr.io"
     }
   ],
   "packageRules": [
