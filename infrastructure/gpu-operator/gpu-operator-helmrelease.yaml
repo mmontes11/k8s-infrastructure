@@ -54,7 +54,7 @@ spec:
                 - matchExpressions:
                     - key: nvidia.com/gpu.present
                       operator: Exists
-    # Preserve the previous time-slicing configuration: 10 shareable nvidia.com/gpu, no rename.
+    # Preserve the previous time-slicing configuration: 20 shareable nvidia.com/gpu, no rename.
     devicePlugin:
       config:
         create: true
