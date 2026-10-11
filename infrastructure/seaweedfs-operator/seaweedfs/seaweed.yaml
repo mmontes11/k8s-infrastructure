@@ -139,6 +139,12 @@ spec:
       memory: 4Gi
     nodeSelector:
       node.mmontes.io/type: compute-large
+      # TEMPORARY (LAB-226): the Synology LUN is stuck attached to compute-large-2
+      # because the compute-large kubelets cannot re-register after the v1.37
+      # upgrade, so their Node status (volumesInUse) is frozen and the volume is
+      # never detached. Pin the volume server to where the LUN is attached; revert
+      # once the kubelets register again.
+      kubernetes.io/hostname: compute-large-2
     tolerations:
       - effect: NoSchedule
         key: node.mmontes.io/type
