@@ -86,3 +86,20 @@ spec:
         limits:
           memory: 1Gi
           nvidia.com/gpu: 1
+  # The dcgm-exporter distroless image sets USER root:root (a name, not a UID). Since the
+  # GPU node moved to Talos v1.14 (containerd 2.3), resolving that name fails with
+  # "failed to create containerd container: no users found". Running the operands with a
+  # numeric UID/GID skips the name lookup. All operands already run as root.
+  # The chart does not expose daemonsets.podSecurityContext, so patch the ClusterPolicy.
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              kind: ClusterPolicy
+              name: cluster-policy
+            patch: |-
+              - op: add
+                path: /spec/daemonsets/podSecurityContext
+                value:
+                  runAsUser: 0
+                  runAsGroup: 0
