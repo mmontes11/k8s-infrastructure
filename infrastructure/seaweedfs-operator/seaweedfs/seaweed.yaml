@@ -137,18 +137,18 @@ spec:
       memory: 1Gi
     limits:
       memory: 4Gi
+    # TEMPORARY (LAB-226): the compute-large kubelets cannot register against the
+    # v1.37 apiserver (POST nodes -> 422), so they never update their Node status.
+    # Kubelet only mounts an attachable (CSI) volume after it has reported it in
+    # status.volumesInUse, so the Synology LUN cannot be mounted on any
+    # compute-large node. Run the volume server on compute-xlarge, whose kubelet is
+    # healthy; move it back to compute-large once those kubelets register again.
     nodeSelector:
-      node.mmontes.io/type: compute-large
-      # TEMPORARY (LAB-226): the Synology LUN is stuck attached to compute-large-2
-      # because the compute-large kubelets cannot re-register after the v1.37
-      # upgrade, so their Node status (volumesInUse) is frozen and the volume is
-      # never detached. Pin the volume server to where the LUN is attached; revert
-      # once the kubelets register again.
-      kubernetes.io/hostname: compute-large-2
+      node.mmontes.io/type: compute-xlarge
     tolerations:
       - effect: NoSchedule
         key: node.mmontes.io/type
-        value: compute-large
+        value: compute-xlarge
 
   # Stateless S3 API translator. It does proxy object bytes, so under heavy S3
   # throughput either pin it back to compute-large or scale `replicas`. For now
