@@ -73,6 +73,14 @@ spec:
     # enablePodLabels / enablePodUID stay false (defaults) => DCGM_EXPORTER_KUBERNETES=false,
     # i.e. one metric set per GPU instead of per-Pod (replaces the old postRenderer patch).
     dcgmExporter:
+      # TODO: Verify images before bumping. See: https://hub.docker.com/r/nvidia/dcgm-exporter/tags.
+      # Latest images aren't properly built, they have the wrong architecture:
+      # "dcgm-exporter-entrypoint.sh: exec format error"
+      # Tags tested that reuturn an error in linux/amd64: 4.6.1-4.8.4-distroless, 4.8.4.
+      repository: nvcr.io/nvidia/k8s
+      image: dcgm-exporter
+      version: 4.8.3
+      imagePullPolicy: IfNotPresent
       serviceMonitor:
         enabled: true
         relabelings:
