@@ -11,10 +11,11 @@ spec:
 
   image: mariadb:12.3.3
 
-  # bootstrapFrom:
-  #   backupRef:
-  #     name: backup
-  #     kind: Backup
+  bootstrapFrom:
+    backupRef:
+      name: backup
+      kind: Backup
+    targetRecoveryTime: 2026-10-09T02:00:01Z
 
   storage:
     size: 10Gi
