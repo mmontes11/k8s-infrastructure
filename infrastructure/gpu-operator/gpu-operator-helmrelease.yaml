@@ -70,9 +70,16 @@ spec:
                 - name: nvidia.com/gpu
                   replicas: 20
     # Preserve the previous DCGM exporter monitoring + resources.
-    # enablePodLabels / enablePodUID stay false (defaults) => DCGM_EXPORTER_KUBERNETES=false,
-    # i.e. one metric set per GPU instead of per-Pod (replaces the old postRenderer patch).
+    # The gpu-operator 26.x DaemonSet template hardcodes DCGM_EXPORTER_KUBERNETES=true
+    # (per-Pod mode: one metric series per GPU/Pod pair). Override it via the spec env
+    # list to keep one metric set per GPU, like the old standalone release did
+    # (replaces the old postRenderer patch; NVIDIA/gpu-operator#2674).
+    # Note: enablePodLabels/enablePodUID only control the pod-label/UID enrichment
+    # on top of that, not the per-Pod mode itself.
     dcgmExporter:
+      env:
+        - name: DCGM_EXPORTER_KUBERNETES
+          value: "false"
       # TODO: Verify images before bumping. See: https://hub.docker.com/r/nvidia/dcgm-exporter/tags.
       # Latest images aren't properly built, they have the wrong architecture:
       # "dcgm-exporter-entrypoint.sh: exec format error"
