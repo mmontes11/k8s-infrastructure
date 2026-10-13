@@ -15,7 +15,6 @@ spec:
     backupRef:
       name: backup
       kind: Backup
-    targetRecoveryTime: 2026-10-09T02:00:01Z
 
   storage:
     size: 10Gi
