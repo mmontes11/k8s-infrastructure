@@ -3,6 +3,7 @@ kind: ReplicationSource
 metadata:
   name: grafana
 spec:
+  paused: true
   sourcePVC: grafana
   trigger:
     schedule: "0 1 * * *"

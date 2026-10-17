@@ -3,6 +3,7 @@ kind: ReplicationSource
 metadata:
   name: alertmanager
 spec:
+  paused: true
   sourcePVC: data-alertmanager-kube-prometheus-stack-alertmanager-0
   trigger:
     schedule: "0 1 * * *"
