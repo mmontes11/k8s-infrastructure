@@ -66,7 +66,7 @@ spec:
       serverName: postgresql-2 # Must not match serverName in externalClusters, otherwise restoration will fail.
 
   storage:
-    size: 10Gi
+    size: 20Gi
     storageClass: topolvm
 
   certificates:
