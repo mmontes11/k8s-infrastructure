@@ -3,7 +3,7 @@ kind: ReplicationSource
 metadata:
   name: prometheus
 spec:
-  paused: true
+  paused: false
   sourcePVC: data-prometheus-kube-prometheus-stack-prometheus-0
   trigger:
     schedule: "0 1 * * *"
