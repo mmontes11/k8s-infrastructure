@@ -467,12 +467,49 @@
       "datasourceTemplate": "docker",
       "packageNameTemplate": "nvcr.io/nvidia/cloud-native-charts/gpu-operator",
       "registryUrlTemplate": "https://nvcr.io"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/envoy-ai-gateway/crds/kustomization\\.yaml$/"
+      ],
+      "matchStrings": [
+        "releases/download/(?<currentValue>v[^/]+)/envoy-gateway-crds\\.yaml"
+      ],
+      "datasourceTemplate": "github-releases",
+      "packageNameTemplate": "envoyproxy/gateway"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/gateway-api-inference-extension/kustomization\\.yaml$/"
+      ],
+      "matchStrings": [
+        "config/crd\\?ref=(?<currentValue>v[0-9.]+)"
+      ],
+      "datasourceTemplate": "github-releases",
+      "packageNameTemplate": "kubernetes-sigs/gateway-api-inference-extension"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/envoy-ai-gateway/envoy-ai-gateway-ocirepository\\.yaml$/"
+      ],
+      "matchStrings": [
+        "ref:\\s*\\n\\s+tag:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "docker",
+      "packageNameTemplate": "envoyproxy/gateway-helm"
     }
   ],
   "packageRules": [
     {
       "matchPackageNames": ["seaweedfs/seaweedfs-operator"],
       "extractVersion": "^seaweedfs-operator-(?<version>\\d+\\.\\d+\\.\\d+)$"
+    },
+    {
+      "matchPackageNames": ["envoyproxy/gateway", "envoyproxy/gateway-helm"],
+      "groupName": "envoy-gateway"
     }
   ]
 }

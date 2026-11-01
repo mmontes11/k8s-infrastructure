@@ -1,6 +1,6 @@
 # RBAC so Envoy Gateway can read InferencePool resources (GAIE).
 #
-# The gateway-helm chart (v1.9.2) does not include the
+# The gateway-helm chart (v1.9.3) does not include the
 # inference.networking.k8s.io group in the RBAC of its `envoy-gateway`
 # ServiceAccount, so with extensionManager.backendResources configured the
 # controller crash-loops (cannot list/watch InferencePool).

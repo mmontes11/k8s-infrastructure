@@ -1,33 +1,18 @@
-# Envoy Gateway CRDs (gateway.envoyproxy.io), rendered from the official
-# `gateway-crds-helm` chart v1.9.2.
+# Envoy Gateway CRDs (gateway.envoyproxy.io), installed from the static
+# `envoy-gateway-crds.yaml` asset of the matching Envoy Gateway GitHub
+# release — the "installing CRDs separately" path documented upstream
+# (https://gateway.envoyproxy.io/latest/install/install-helm/#installing-crds-separately).
 #
-# These are vendored (not a kustomization URL like the `gateway-api`
-# Kustomization) because no non-vendored install path exists for this chart:
-#   - Kustomization URL: the envoyproxy/gateway repo (v1.9.2, full tree
-#     checked) ships no static CRD YAML — every CRD file is a Helm template
-#     (gated on .Values.crds.envoyGateway.enabled), and the repo's static
-#     `envoy-gateway-crds.yaml` release asset is unreachable by kustomize's
-#     git-based GitHub fetcher (release assets are not in the git tree).
-#   - HelmRelease: the full rendered manifest (2.58 MiB) exceeds Helm's
-#     1 MiB release-Secret limit — reproduced: `Secret
-#     "sh.helm.release.v1.envoy-ai-gateway-crds.v1" is invalid: data: Too
-#     long`. Splitting is not possible either: the largest single CRD
-#     (envoyproxies, 1.43 MiB) alone exceeds the limit, and the chart has no
-#     per-CRD enable values.
+# A HelmRelease of the gateway-crds-helm chart is not an option: the rendered
+# release exceeds Helm's 1 MiB release-Secret limit (envoyproxy/gateway#6105,
+# reproduced). The release asset is not fetchable by the local kustomize CLI
+# (v5.4.3) but IS by Flux source-controller — same pattern as the
+# cert-manager CRDs Kustomization in this repo.
 #
-# The Gateway API CRDs the same chart also ships are owned by the
-# `gateway-api` Kustomization (gateway-api v1.5.1 experimental) and are NOT
-# included here. Flux server-side apply handles the large CRD sizes that
-# client-side apply would reject. Re-render when the chart version changes.
+# The version is pinned in the asset URL and upgraded by Renovate (see
+# .github/renovate.json, github-releases datasource), grouped with the
+# gateway-helm chart tag so the CRDs and the controller bump together.
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: networking
 resources:
-  - envoy-gateway-crds-backendtrafficpolicies.yaml
-  - envoy-gateway-crds-backends.yaml
-  - envoy-gateway-crds-clienttrafficpolicies.yaml
-  - envoy-gateway-crds-envoyextensionpolicies.yaml
-  - envoy-gateway-crds-envoypatchpolicies.yaml
-  - envoy-gateway-crds-envoyproxies.yaml
-  - envoy-gateway-crds-httproutefilters.yaml
-  - envoy-gateway-crds-securitypolicies.yaml
+  - https://github.com/envoyproxy/gateway/releases/download/v1.9.3/envoy-gateway-crds.yaml
