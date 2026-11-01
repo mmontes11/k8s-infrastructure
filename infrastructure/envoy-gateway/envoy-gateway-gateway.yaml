@@ -1,6 +1,7 @@
 # GatewayClass and data-plane Gateway for the AI stack (LAB-362).
 #
-# With the GatewayNamespace deploy mode (see envoy-gateway-values.yaml) the
+# With the GatewayNamespace deploy mode (see envoy-gateway-helmrelease.yaml)
+# the
 # Envoy proxy for this Gateway is deployed into this namespace as
 # `envoy-gateway` (Deployment + LoadBalancer Service).
 #
@@ -11,7 +12,9 @@
 #   - HTTPS for mmontes-llm.duckdns.org (exact match). The Certificate and
 #     secret are created automatically by cert-manager from the
 #     cert-manager.io/cluster-issuer annotation, one per listener.
-#   - Local DNS resolution of the hostname is a Pi-hole record (homelab repo).
+#   - Local DNS resolution of the hostname: a Pi-hole record (homelab repo)
+#     for LAN clients and a CoreDNS `hosts` entry in infrastructure/dns for
+#     in-cluster clients.
 #   - The HTTP listener has no hostname so the ai tenant's HTTPRoutes
 #     (Stage 4, LAB-369) keep their existing hostnames.
 apiVersion: gateway.networking.k8s.io/v1
