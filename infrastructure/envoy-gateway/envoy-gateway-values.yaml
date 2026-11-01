@@ -1,4 +1,4 @@
-# Envoy Gateway values for the envoy-ai-gateway data plane (LAB-362).
+# Envoy Gateway values for the envoy-gateway data plane (LAB-362).
 #
 # Merged from theagentrouter/agent-router @ 931b020400a40c0e0f9a819a1c4b229ef945b8bd:
 #   - manifests/envoy-gateway-values.yaml                          (base)
@@ -10,18 +10,18 @@
 #     (LAB-363) installs into the `ai` namespace with the chart's default
 #     service name `ai-gateway-controller` (gRPC port 1063), so the fqdn is
 #     `ai-gateway-controller.ai.svc.cluster.local` instead of the upstream
-#     `...envoy-ai-gateway-system...` default.
+#     agent-router default namespace.
 #   - rateLimit.backend.redis.url: the existing multi-tenant redis
 #     (redis-operator tenant `redis` in `database`, managed by
 #     k8s-infrastructure) instead of deploying a dedicated Redis.
 #   - crds.enabled: false — the chart's bundled CRDs are the Gateway API
 #     CRDs, which are owned by the `gateway-api` Kustomization in
 #     flux-system (gateway-api v1.5.1, experimental channel). The Envoy
-#     Gateway CRDs are installed by the `envoy-ai-gateway-crds` Kustomization
+#     Gateway CRDs are installed by the `envoy-gateway-crds` Kustomization
 #     (see ./crds) from the release asset envoy-gateway-crds.yaml, the
 #     upstream-documented "installing CRDs separately" path.
 #   - provider.kubernetes.deploy.type: GatewayNamespace — the data-plane
-#     proxy for the `envoy-ai-gateway` Gateway is deployed into the Gateway's
+#     proxy for the `envoy-gateway` Gateway is deployed into the Gateway's
 #     own namespace (`networking`); GAIE conformance requires the namespaced
 #     deploy mode.
 config:

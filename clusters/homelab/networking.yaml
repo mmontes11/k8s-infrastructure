@@ -159,25 +159,25 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: envoy-ai-gateway-crds
+  name: envoy-gateway-crds
   namespace: flux-system
 spec:
   interval: 5m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/envoy-ai-gateway/crds
+  path: ./infrastructure/envoy-gateway/crds
   prune: true
   timeout: 5m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: envoy-ai-gateway
+  name: envoy-gateway
   namespace: flux-system
 spec:
   dependsOn:
-    - name: envoy-ai-gateway-crds
+    - name: envoy-gateway-crds
     - name: gateway-api
     - name: gateway-api-inference-extension
     - name: metallb-ipaddresspool
@@ -188,7 +188,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/envoy-ai-gateway
+  path: ./infrastructure/envoy-gateway
   prune: true
   timeout: 5m
 ---
