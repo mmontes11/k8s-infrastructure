@@ -180,10 +180,7 @@ spec:
     - name: envoy-gateway-crds
     - name: gateway-api
     - name: gateway-api-inference-extension
-    - name: metallb-ipaddresspool
     - name: cert-manager-crds
-    # Rate limiting backend (existing redis-operator tenant, `database`).
-    - name: redis
   interval: 5m
   sourceRef:
     kind: GitRepository
