@@ -1,0 +1,13 @@
+# Gateway API Inference Extension (GAIE) CRDs, installed standalone from the
+# upstream release so consumers (KServe LLMInferenceService, Envoy Gateway)
+# share one owner instead of each chart vendoring its own copy.
+# Same pattern as the `gateway-api` Kustomization.
+#
+# v1.5.0 is byte-identical to v1.5.0-rc.2, the release the kserve-llmisvc
+# chart v0.21.0 previously vendored (createGIECRDs is disabled there, see
+# k8s-ai).
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: networking
+resources:
+  - https://github.com/kubernetes-sigs/gateway-api-inference-extension/config/crd?ref=v1.5.0
