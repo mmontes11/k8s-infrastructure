@@ -18,7 +18,8 @@
 #     CRDs, which are owned by the `gateway-api` Kustomization in
 #     flux-system (gateway-api v1.5.1, experimental channel). The Envoy
 #     Gateway CRDs are installed by the `envoy-ai-gateway-crds` Kustomization
-#     (see ./crds, vendored — no URL/Helm path exists, see its header).
+#     (see ./crds) from the release asset envoy-gateway-crds.yaml, the
+#     upstream-documented "installing CRDs separately" path.
 #   - provider.kubernetes.deploy.type: GatewayNamespace — the data-plane
 #     proxy for the `envoy-ai-gateway` Gateway is deployed into the Gateway's
 #     own namespace (`networking`); GAIE conformance requires the namespaced
