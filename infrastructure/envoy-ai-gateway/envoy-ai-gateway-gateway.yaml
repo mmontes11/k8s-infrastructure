@@ -1,0 +1,54 @@
+# GatewayClass and data-plane Gateway for the AI stack (LAB-362).
+#
+# With the GatewayNamespace deploy mode (see envoy-ai-gateway-values.yaml) the
+# Envoy proxy for this Gateway is deployed into this namespace as
+# `envoy-ai-gateway` (Deployment + LoadBalancer Service).
+#
+# External access (same pattern as traefik):
+#   - LoadBalancer pinned to 10.0.0.71 (MetalLB `load-balancer` pool) via
+#     spec.infrastructure.annotations, which Envoy Gateway copies onto the
+#     proxy's workload and Service.
+#   - HTTPS for mmontes-llm.duckdns.org (exact match). The Certificate and
+#     secret are created automatically by cert-manager from the
+#     cert-manager.io/cluster-issuer annotation, one per listener.
+#   - Local DNS resolution of the hostname is a Pi-hole record (homelab repo).
+#   - The HTTP listener has no hostname so the ai tenant's HTTPRoutes
+#     (Stage 4, LAB-369) keep their existing hostnames.
+apiVersion: gateway.networking.k8s.io/v1
+kind: GatewayClass
+metadata:
+  name: envoy
+spec:
+  controllerName: gateway.envoyproxy.io/gatewayclass-controller
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: envoy-ai-gateway
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+spec:
+  gatewayClassName: envoy
+  infrastructure:
+    annotations:
+      metallb.io/loadBalancerIPs: 10.0.0.71
+  listeners:
+    - name: http
+      protocol: HTTP
+      port: 80
+      allowedRoutes:
+        namespaces:
+          from: All
+    - name: websecure
+      protocol: HTTPS
+      port: 443
+      hostname: mmontes-llm.duckdns.org
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          # Envoy Gateway requires the core group to be omitted on Secret refs.
+          - name: envoy-ai-gateway-tls
+            kind: Secret
