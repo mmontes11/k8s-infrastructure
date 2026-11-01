@@ -1,8 +1,0 @@
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-namespace: networking
-resources:
-  - envoy-ai-gateway-gateway.yaml
-  - envoy-ai-gateway-helmrelease.yaml
-  - envoy-ai-gateway-inferencepool-rbac.yaml
-  - envoy-ai-gateway-ocirepository.yaml
