@@ -11,13 +11,14 @@
 #     service name `ai-gateway-controller` (gRPC port 1063), so the fqdn is
 #     `ai-gateway-controller.ai.svc.cluster.local` instead of the upstream
 #     `...envoy-ai-gateway-system...` default.
-#   - rateLimit.backend.redis.url: Redis is deployed into `ai` by the
-#     `envoy-ai-gateway` Kustomization in k8s-ai.
+#   - rateLimit.backend.redis.url: the existing multi-tenant redis
+#     (redis-operator tenant `redis` in `database`, managed by
+#     k8s-infrastructure) instead of deploying a dedicated Redis.
 #   - crds.enabled: false — the chart's bundled CRDs are the Gateway API
 #     CRDs, which are owned by the `gateway-api` Kustomization in
 #     flux-system (gateway-api v1.5.1, experimental channel). The Envoy
 #     Gateway CRDs are installed by the `envoy-ai-gateway-crds` Kustomization
-#     (see ./crds).
+#     (see ./crds, vendored — no URL/Helm path exists, see its header).
 #   - provider.kubernetes.deploy.type: GatewayNamespace — the data-plane
 #     proxy for the `envoy-ai-gateway` Gateway is deployed into the Gateway's
 #     own namespace (`networking`); GAIE conformance requires the namespaced
@@ -84,7 +85,8 @@ config:
       backend:
         type: Redis
         redis:
-          # Redis deployed into `ai` for this stack (k8s-ai).
-          url: redis.ai.svc.cluster.local:6379
+          # Existing multi-tenant redis (redis-operator tenant `redis`,
+          # `database` namespace, k8s-infrastructure).
+          url: redis.database.svc.cluster.local:6379
 crds:
   enabled: false

@@ -6,6 +6,11 @@
 # controller crash-loops (cannot list/watch InferencePool).
 # Ported from theagentrouter/agent-router
 # (manifests/charts/ai-gateway-helm/templates/envoy_gateway_cluster_role_for_inference_pool.yaml).
+#
+# Kept as a static manifest (not a kustomization URL): that agent-router
+# file is the only upstream copy and it is a Helm chart template
+# ({{ include }} / .Values.envoyGateway.namespace), which kustomize cannot
+# consume; envoyproxy/gateway ships no InferencePool RBAC at all.
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
