@@ -1,0 +1,20 @@
+# Envoy Gateway CRDs (gateway.envoyproxy.io), vendored from the gateway-helm
+# chart v1.9.2 (charts/gateway-helm/crds/ rendered with `helm template`).
+#
+# Vendored because the chart bundles them into the OCI artifact, where they
+# exceed Helm's 1 MiB release-Secret limit, and because the chart's `crds/`
+# directory only carries the Gateway API CRDs (owned by the `gateway-api`
+# Kustomization, gateway-api v1.5.1 experimental). Flux server-side apply
+# handles the large CRD sizes that client-side apply would reject.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: networking
+resources:
+  - envoy-gateway-crds-backendtrafficpolicies.yaml
+  - envoy-gateway-crds-backends.yaml
+  - envoy-gateway-crds-clienttrafficpolicies.yaml
+  - envoy-gateway-crds-envoyextensionpolicies.yaml
+  - envoy-gateway-crds-envoypatchpolicies.yaml
+  - envoy-gateway-crds-envoyproxies.yaml
+  - envoy-gateway-crds-httproutefilters.yaml
+  - envoy-gateway-crds-securitypolicies.yaml
