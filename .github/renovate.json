@@ -471,6 +471,18 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
+        "/(^|/)infrastructure/lws/lws-ocirepository\\.yaml$/"
+      ],
+      "matchStrings": [
+        "ref:\\s*\\n\\s+tag:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "docker",
+      "packageNameTemplate": "registry.k8s.io/lws/charts/lws",
+      "registryUrlTemplate": "https://registry.k8s.io"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
         "/(^|/)infrastructure/envoy-gateway/crds/kustomization\\.yaml$/"
       ],
       "matchStrings": [
