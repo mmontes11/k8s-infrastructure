@@ -54,3 +54,17 @@ spec:
   path: ./infrastructure/buildkit
   prune: true
   timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: lws
+  namespace: flux-system
+spec:
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/lws
+  prune: true
+  timeout: 5m
