@@ -1,0 +1,25 @@
+# ServiceMonitor for the Envoy Gateway rate-limit service (LAB-365).
+#
+# The `envoy-ratelimit` Deployment/Service (token rate limiting, backed by
+# the multi-tenant redis in `database`) is deployed next to the proxy by
+# the GatewayNamespace deploy mode. Its Prometheus metrics
+# (envoy_ratelimit_*) listen on the Service port `metrics` (19001) at
+# /metrics (USE_PROMETHEUS=true is set by the controller by default).
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: envoy-ratelimit
+spec:
+  namespaceSelector:
+    matchNames:
+      - networking
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: envoy-ratelimit
+      app.kubernetes.io/component: ratelimit
+  endpoints:
+    - port: metrics
+      path: /metrics
+      interval: 30s
+      scrapeTimeout: 25s
+      honorLabels: false
