@@ -1,9 +1,9 @@
 # PodMonitor for the Envoy Gateway data-plane proxy (LAB-365).
 #
-# Under the GatewayNamespace deploy mode the proxy for the `envoy-gateway`
+# Under the GatewayNamespace deploy mode the proxy for the `ai-gateway`
 # Gateway is a Deployment in this namespace whose pods carry
 # app.kubernetes.io/name=envoy, app.kubernetes.io/component=proxy and
-# gateway.networking.k8s.io/gateway-name=envoy-gateway. A PodMonitor (not
+# gateway.networking.k8s.io/gateway-name=ai-gateway. A PodMonitor (not
 # a ServiceMonitor) is required because the proxy Service only exposes the
 # listener ports (80/443); Envoy's admin Prometheus endpoint
 # (envoy_cluster_* / envoy_http_* — the gateway-side request, retry,
@@ -21,7 +21,7 @@ spec:
     matchLabels:
       app.kubernetes.io/name: envoy
       app.kubernetes.io/component: proxy
-      gateway.networking.k8s.io/gateway-name: envoy-gateway
+      gateway.networking.k8s.io/gateway-name: ai-gateway
   podMetricsEndpoints:
     - port: metrics
       path: /stats/prometheus

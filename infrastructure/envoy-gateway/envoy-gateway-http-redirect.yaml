@@ -27,7 +27,7 @@ metadata:
   name: envoy-gateway-http-redirect
 spec:
   parentRefs:
-    - name: envoy-gateway
+    - name: ai-gateway
       sectionName: http
   rules:
     - filters:
