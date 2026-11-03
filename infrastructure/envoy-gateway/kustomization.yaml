@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: networking
 resources:
   - envoy-gateway-gateway.yaml
+  - envoy-gateway-envoyproxy.yaml
   - envoy-gateway-helmrelease.yaml
   - envoy-gateway-inferencepool-rbac.yaml
   - envoy-gateway-ocirepository.yaml
