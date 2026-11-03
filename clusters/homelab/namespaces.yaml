@@ -41,3 +41,8 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: lws
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: envoy-internal

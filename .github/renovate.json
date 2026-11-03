@@ -483,7 +483,7 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/(^|/)infrastructure/envoy-gateway/crds/kustomization\\.yaml$/"
+        "/(^|/)infrastructure/envoy-internal/crds/kustomization\\.yaml$/"
       ],
       "matchStrings": [
         "releases/download/(?<currentValue>v[^/]+)/envoy-gateway-crds\\.yaml"
@@ -505,7 +505,7 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/(^|/)infrastructure/envoy-gateway/envoy-gateway-ocirepository\\.yaml$/"
+        "/(^|/)infrastructure/envoy-internal/envoy-internal-ocirepository\\.yaml$/"
       ],
       "matchStrings": [
         "ref:\\s*\\n\\s+tag:\\s+\"?(?<currentValue>[^\"]+)\"?"

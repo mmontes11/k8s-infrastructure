@@ -159,25 +159,25 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: envoy-gateway-crds
+  name: envoy-internal-crds
   namespace: flux-system
 spec:
   interval: 5m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/envoy-gateway/crds
+  path: ./infrastructure/envoy-internal/crds
   prune: true
   timeout: 5m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: envoy-gateway
+  name: envoy-internal
   namespace: flux-system
 spec:
   dependsOn:
-    - name: envoy-gateway-crds
+    - name: envoy-internal-crds
     - name: gateway-api
     - name: gateway-api-inference-extension
     - name: cert-manager-crds
@@ -185,7 +185,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/envoy-gateway
+  path: ./infrastructure/envoy-internal
   prune: true
   timeout: 5m
 ---
