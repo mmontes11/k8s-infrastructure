@@ -9,4 +9,3 @@ resources:
   - envoy-gateway-inferencepool-rbac.yaml
   - envoy-gateway-ocirepository.yaml
   - envoy-proxy-podmonitor.yaml
-  - envoy-ratelimit-servicemonitor.yaml
