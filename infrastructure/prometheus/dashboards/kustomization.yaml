@@ -10,6 +10,7 @@ resources:
   - flux-control-plane-dashboard.yaml
   - global-ratelimit-dashboard.yaml
   - llamacpp-dashboard.yaml
+  - llm-d-vllm-overview-dashboard.yaml
   - lmcache-dashboard.yaml
   - redis-operator-cluster-dashboard.yaml
   - redis-operator-dashboard.yaml
