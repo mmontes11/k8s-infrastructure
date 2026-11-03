@@ -35,6 +35,6 @@ roleRef:
   name: envoy-gateway-inferencepool-role
 subjects:
   - kind: ServiceAccount
-    # Created by the gateway-helm chart into the release namespace (`networking`).
+    # Created by the gateway-helm chart into the release namespace (`envoy-internal`).
     name: envoy-gateway
-    namespace: networking
+    namespace: envoy-internal

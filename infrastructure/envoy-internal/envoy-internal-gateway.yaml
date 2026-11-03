@@ -1,15 +1,27 @@
 # GatewayClass and data-plane Gateway for the AI stack (LAB-362).
 #
-# With the GatewayNamespace deploy mode (see envoy-gateway-helmrelease.yaml)
-# the
+# Lives in the dedicated `envoy-internal` namespace. With the
+# GatewayNamespace deploy mode (see envoy-internal-helmrelease.yaml) the
 # Envoy proxy for this Gateway is deployed into this namespace as
-# `envoy-gateway` (Deployment + LoadBalancer Service).
+# `envoy-internal` (Deployment + LoadBalancer Service).
+#
+# The controller watches only the namespaces set in
+# provider.kubernetes.watch (envoy-internal + the `ai` tenant whose routes
+# attach to this Gateway). It is named `envoy-internal` — the internal of
+# the planned envoy-internal / envoy-external pair (traefik pattern) — and
+# the dedicated namespace is what makes that split possible: Envoy Gateway
+# can only restrict its watch to a set of namespaces
+# (provider.kubernetes.watch), so each future controller gets its own
+# namespace.
 #
 # External access (same pattern as traefik):
 #   - Data-plane customization — LoadBalancer pinned to 10.0.0.71 (MetalLB
-#     `load-balancer` pool), deployment resources and priority class — is set
-#     on the EnvoyProxy CR referenced through spec.infrastructure.parametersRef
-#     (see envoy-gateway-envoyproxy.yaml), per the Envoy Gateway docs.
+#     `load-balancer` pool), deployment resources and priority class — is
+#     set through the chart values under
+#     config.envoyGateway.envoyProxy (envoy-internal-helmrelease.yaml),
+#     which the controller loads from the `envoy-gateway-config`
+#     ConfigMap. It serves as the default EnvoyProxy configuration for
+#     every proxy this controller manages (here: exactly this Gateway).
 #   - HTTPS for mmontes-llm.duckdns.org (exact match). The Certificate and
 #     secret are created automatically by cert-manager from the
 #     cert-manager.io/cluster-issuer annotation, one per listener.
@@ -28,18 +40,11 @@ spec:
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-  name: envoy-gateway
+  name: envoy-internal
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
   gatewayClassName: envoy
-  infrastructure:
-    # Point the data plane at our EnvoyProxy for the LoadBalancer IP pin,
-    # resources and priority class (envoy-gateway-envoyproxy.yaml).
-    parametersRef:
-      group: gateway.envoyproxy.io
-      kind: EnvoyProxy
-      name: envoy-gateway
   listeners:
     - name: http
       protocol: HTTP
@@ -58,5 +63,5 @@ spec:
         mode: Terminate
         certificateRefs:
           # Envoy Gateway requires the core group to be omitted on Secret refs.
-          - name: envoy-gateway-tls
+          - name: envoy-internal-tls
             kind: Secret

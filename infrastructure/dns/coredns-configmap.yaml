@@ -18,7 +18,7 @@ data:
 
         # Static records for service hostnames served by cluster LoadBalancers.
         # mmontes-llm.duckdns.org is the Envoy Gateway data plane (pinned to
-        # 10.0.0.71); see infrastructure/envoy-gateway.
+        # 10.0.0.71); see infrastructure/envoy-internal.
         hosts {
             10.0.0.71 mmontes-llm.duckdns.org
             fallthrough

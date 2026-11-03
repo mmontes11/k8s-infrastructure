@@ -18,21 +18,46 @@
 #     - crds.enabled: false — the chart's bundled CRDs are the Gateway API
 #       CRDs, which are owned by the `gateway-api` Kustomization in
 #       flux-system (gateway-api v1.5.1, experimental channel). The Envoy
-#       Gateway CRDs are installed by the `envoy-gateway-crds` Kustomization
+#       Gateway CRDs are installed by the `envoy-internal-crds` Kustomization
 #       (see ./crds) from the release asset envoy-gateway-crds.yaml, the
 #       upstream-documented "installing CRDs separately" path.
 #     - provider.kubernetes.deploy.type: GatewayNamespace — the data-plane
-#       proxy for the `envoy-gateway` Gateway is deployed into the Gateway's
-#       own namespace (`networking`); GAIE conformance requires the namespaced
-#       deploy mode.
+#       proxy for the `envoy-internal` Gateway is deployed into the
+#       Gateway's own namespace (`envoy-internal`); GAIE conformance
+#       requires the namespaced deploy mode.
+#     - provider.kubernetes.watch: Namespaces mode restricted to
+#       `envoy-internal` (the controller's own namespace, always included)
+#       and `ai`, whose routes attach to this Gateway
+#       (allowedRoutes: All). Envoy Gateway can only watch a set of
+#       namespaces (no per-object selector), which is why the controller
+#       and Gateway get a dedicated namespace in preparation for the
+#       envoy-internal / envoy-external pair (traefik pattern). Add a
+#       namespace here when another tenant's routes attach (e.g. `media`,
+#       Stage 4, LAB-369).
+#     - config.envoyGateway.envoyProxy: data-plane customization. The
+#       gateway-helm chart renders .Values.config.envoyGateway as the
+#       EnvoyGateway configuration in the `envoy-gateway-config` ConfigMap
+#       (mounted at /config/envoy-gateway.yaml, loaded with
+#       --config-path); its `envoyProxy` field is the default
+#       EnvoyProxySpec applied to every managed proxy (here: exactly the
+#       `envoy-internal` Gateway). The EnvoyGateway CRD is not shipped in
+#       the release asset nor by the chart, so the chart values are the
+#       only supported way to configure the controller.
+#       - envoyService.annotations: pin the proxy's LoadBalancer Service to
+#         10.0.0.71 (MetalLB `load-balancer` pool), same pattern as traefik.
+#       - envoyDeployment.container.resources: sized after traefik (CPU
+#         100m / memory requests 128Mi, limit 512Mi — the proxy here also
+#         serves the AI traffic).
+#       - envoyDeployment.pod.priorityClassName: system-node-critical, same
+#         as the traefik internal deployment.
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: envoy-gateway
+  name: envoy-internal
 spec:
   chartRef:
     kind: OCIRepository
-    name: envoy-gateway
+    name: envoy-internal
   interval: 10m
   install:
     crds: Skip
@@ -51,6 +76,13 @@ spec:
           kubernetes:
             deploy:
               type: GatewayNamespace
+            # Restrict the watch to this controller's namespace and the
+            # `ai` tenant (see file header).
+            watch:
+              type: Namespaces
+              namespaces:
+                - envoy-internal
+                - ai
             # Token rate limiting: pin the rate limit service image per the
             # agent-router token_ratelimit example.
             rateLimitDeployment:
@@ -64,6 +96,24 @@ spec:
                           - imagePullPolicy: IfNotPresent
                             name: envoy-ratelimit
                             image: docker.io/envoyproxy/ratelimit:60d8e81b
+        # Default EnvoyProxy configuration for every managed proxy (see
+        # file header): LB pin, resources and priority class.
+        envoyProxy:
+          provider:
+            kubernetes:
+              envoyDeployment:
+                container:
+                  resources:
+                    requests:
+                      cpu: 100m
+                      memory: 128Mi
+                    limits:
+                      memory: 512Mi
+                pod:
+                  priorityClassName: system-node-critical
+              envoyService:
+                annotations:
+                  metallb.io/loadBalancerIPs: 10.0.0.71
         extensionApis:
           # Not strictly required, but recommended for backward/future compatibility.
           enableEnvoyPatchPolicy: true
