@@ -15,8 +15,11 @@
 #   - Local DNS resolution of the hostname: a Pi-hole record (homelab repo)
 #     for LAN clients and a CoreDNS `hosts` entry in infrastructure/dns for
 #     in-cluster clients.
-#   - The HTTP listener has no hostname so the ai tenant's HTTPRoutes
-#     (Stage 4, LAB-369) keep their existing hostnames.
+#   - The HTTP listener is redirect-only (LAB-374): it accepts routes from
+#     the Gateway's own namespace only (allowedRoutes.from: Same) and serves
+#     the single catch-all HTTP -> HTTPS redirect
+#     (envoy-gateway-http-redirect.yaml). Tenant routes attach to the
+#     websecure listener only, whose hostname they must match.
 apiVersion: gateway.networking.k8s.io/v1
 kind: GatewayClass
 metadata:
@@ -36,12 +39,14 @@ spec:
     annotations:
       metallb.io/loadBalancerIPs: 10.0.0.71
   listeners:
+    # Redirect-only: the catch-all envoy-gateway-http-redirect HTTPRoute
+    # (same namespace) is the only route accepted on :80 (LAB-374).
     - name: http
       protocol: HTTP
       port: 80
       allowedRoutes:
         namespaces:
-          from: All
+          from: Same
     - name: websecure
       protocol: HTTPS
       port: 443
