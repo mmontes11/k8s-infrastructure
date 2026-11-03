@@ -103,6 +103,6 @@ spec:
             redis:
               # Existing multi-tenant redis (redis-operator tenant `redis`,
               # `database` namespace, k8s-infrastructure).
-              url: redis.database.svc.cluster.local:6379
+              url: redis.database.svc.cluster.local:6379/3
     crds:
       enabled: false
