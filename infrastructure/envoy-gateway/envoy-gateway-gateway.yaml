@@ -1,9 +1,14 @@
 # GatewayClass and data-plane Gateway for the AI stack (LAB-362).
 #
 # With the GatewayNamespace deploy mode (see envoy-gateway-helmrelease.yaml)
-# the
-# Envoy proxy for this Gateway is deployed into this namespace as
-# `envoy-gateway` (Deployment + LoadBalancer Service).
+# the Envoy proxy for this Gateway is deployed into this namespace with
+# resources named after the Gateway (Deployment + LoadBalancer Service +
+# ServiceAccount). The Gateway is named `ai-gateway` (LAB-374), NOT
+# `envoy-gateway`: in GatewayNamespace mode the controller refuses to create
+# proxy resources that collide with its own well-known resource names
+# (the Helm release creates the controller Deployment/Service/ServiceAccount
+# `envoy-gateway` in this namespace), so a Gateway named `envoy-gateway`
+# here would never get a proxy.
 #
 # External access (same pattern as traefik):
 #   - LoadBalancer pinned to 10.0.0.71 (MetalLB `load-balancer` pool) via
@@ -30,7 +35,7 @@ spec:
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-  name: envoy-gateway
+  name: ai-gateway
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
