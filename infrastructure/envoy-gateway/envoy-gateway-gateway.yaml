@@ -6,9 +6,10 @@
 # `envoy-gateway` (Deployment + LoadBalancer Service).
 #
 # External access (same pattern as traefik):
-#   - LoadBalancer pinned to 10.0.0.71 (MetalLB `load-balancer` pool) via
-#     spec.infrastructure.annotations, which Envoy Gateway copies onto the
-#     proxy's workload and Service.
+#   - Data-plane customization — LoadBalancer pinned to 10.0.0.71 (MetalLB
+#     `load-balancer` pool), deployment resources and priority class — is set
+#     on the EnvoyProxy CR referenced through spec.infrastructure.parametersRef
+#     (see envoy-gateway-envoyproxy.yaml), per the Envoy Gateway docs.
 #   - HTTPS for mmontes-llm.duckdns.org (exact match). The Certificate and
 #     secret are created automatically by cert-manager from the
 #     cert-manager.io/cluster-issuer annotation, one per listener.
@@ -33,8 +34,12 @@ metadata:
 spec:
   gatewayClassName: envoy
   infrastructure:
-    annotations:
-      metallb.io/loadBalancerIPs: 10.0.0.71
+    # Point the data plane at our EnvoyProxy for the LoadBalancer IP pin,
+    # resources and priority class (envoy-gateway-envoyproxy.yaml).
+    parametersRef:
+      group: gateway.envoyproxy.io
+      kind: EnvoyProxy
+      name: envoy-gateway
   listeners:
     - name: http
       protocol: HTTP
