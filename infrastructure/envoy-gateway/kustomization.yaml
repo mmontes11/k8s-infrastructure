@@ -5,6 +5,7 @@ resources:
   - envoy-gateway-controller-servicemonitor.yaml
   - envoy-gateway-gateway.yaml
   - envoy-gateway-helmrelease.yaml
+  - envoy-gateway-http-redirect.yaml
   - envoy-gateway-inferencepool-rbac.yaml
   - envoy-gateway-ocirepository.yaml
   - envoy-proxy-podmonitor.yaml
