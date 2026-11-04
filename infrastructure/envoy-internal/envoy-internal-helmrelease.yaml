@@ -18,22 +18,22 @@
 #     - crds.enabled: false — the chart's bundled CRDs are the Gateway API
 #       CRDs, which are owned by the `gateway-api` Kustomization in
 #       flux-system (gateway-api v1.5.1, experimental channel). The Envoy
-#       Gateway CRDs are installed by the `envoy-internal-crds` Kustomization
+#       Gateway CRDs are installed by the `envoy-gateway-crds` Kustomization
 #       (see ./crds) from the release asset envoy-gateway-crds.yaml, the
 #       upstream-documented "installing CRDs separately" path.
 #     - provider.kubernetes.deploy.type: GatewayNamespace — the data-plane
 #       proxy for the `envoy-internal` Gateway is deployed into the
 #       Gateway's own namespace (`envoy-internal`); GAIE conformance
 #       requires the namespaced deploy mode.
-#     - provider.kubernetes.watch: Namespaces mode restricted to
-#       `envoy-internal` (the controller's own namespace, always included)
-#       and `ai`, whose routes attach to this Gateway
-#       (allowedRoutes: All). Envoy Gateway can only watch a set of
-#       namespaces (no per-object selector), which is why the controller
-#       and Gateway get a dedicated namespace in preparation for the
-#       envoy-internal / envoy-external pair (traefik pattern). Add a
-#       namespace here when another tenant's routes attach (e.g. `media`,
-#       Stage 4, LAB-369).
+#     - provider.kubernetes.watch: unset — the controller watches all
+#       namespaces. Multiple tenants attach routes to this Gateway
+#       (allowedRoutes: All), so a per-namespace watch restriction is not
+#       worth it (review round 5).
+#     - config.envoyGateway.gateway.controllerName:
+#       gateway.envoyproxy.io/envoy-internal — tenant specific, following
+#       the traefik-internal GatewayClass naming pattern, so the planned
+#       envoy-internal / envoy-external pair can coexist in one cluster
+#       (the controller only accepts GatewayClasses it matches).
 #     - config.envoyGateway.envoyProxy: data-plane customization. The
 #       gateway-helm chart renders .Values.config.envoyGateway as the
 #       EnvoyGateway configuration in the `envoy-gateway-config` ConfigMap
@@ -67,7 +67,9 @@ spec:
     config:
       envoyGateway:
         gateway:
-          controllerName: gateway.envoyproxy.io/gatewayclass-controller
+          # Tenant specific (traefik-internal naming pattern); must match
+          # the GatewayClass controllerName in envoy-internal-gateway.yaml.
+          controllerName: gateway.envoyproxy.io/envoy-internal
         logging:
           level:
             default: info
@@ -76,13 +78,8 @@ spec:
           kubernetes:
             deploy:
               type: GatewayNamespace
-            # Restrict the watch to this controller's namespace and the
-            # `ai` tenant (see file header).
-            watch:
-              type: Namespaces
-              namespaces:
-                - envoy-internal
-                - ai
+            # No provider.kubernetes.watch — the controller watches all
+            # namespaces (multiple tenants; see file header).
             # Token rate limiting: pin the rate limit service image per the
             # agent-router token_ratelimit example.
             rateLimitDeployment:
