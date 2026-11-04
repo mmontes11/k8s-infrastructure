@@ -159,7 +159,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: envoy-internal-crds
+  name: envoy-gateway-crds
   namespace: flux-system
 spec:
   interval: 5m
@@ -177,7 +177,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: envoy-internal-crds
+    - name: envoy-gateway-crds
     - name: gateway-api
     - name: gateway-api-inference-extension
     - name: cert-manager-crds

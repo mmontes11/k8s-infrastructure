@@ -5,14 +5,12 @@
 # Envoy proxy for this Gateway is deployed into this namespace as
 # `envoy-internal` (Deployment + LoadBalancer Service).
 #
-# The controller watches only the namespaces set in
-# provider.kubernetes.watch (envoy-internal + the `ai` tenant whose routes
-# attach to this Gateway). It is named `envoy-internal` — the internal of
-# the planned envoy-internal / envoy-external pair (traefik pattern) — and
-# the dedicated namespace is what makes that split possible: Envoy Gateway
-# can only restrict its watch to a set of namespaces
-# (provider.kubernetes.watch), so each future controller gets its own
-# namespace.
+# Named after the traefik-internal pattern: the internal of the planned
+# envoy-internal / envoy-external pair. The GatewayClass and the controller
+# name are tenant specific (gateway.envoyproxy.io/envoy-internal) so the
+# pair can coexist in one cluster. The controller watches all namespaces —
+# multiple tenants attach routes to this Gateway, so a per-namespace watch
+# restriction is not worth it (review round 5).
 #
 # External access (same pattern as traefik):
 #   - Data-plane customization — LoadBalancer pinned to 10.0.0.71 (MetalLB
@@ -33,9 +31,11 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: GatewayClass
 metadata:
-  name: envoy
+  name: envoy-internal
+  labels:
+    gatewayclass.mmontes.io/type: envoy-internal
 spec:
-  controllerName: gateway.envoyproxy.io/gatewayclass-controller
+  controllerName: gateway.envoyproxy.io/envoy-internal
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
@@ -44,7 +44,7 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
-  gatewayClassName: envoy
+  gatewayClassName: envoy-internal
   listeners:
     - name: http
       protocol: HTTP
