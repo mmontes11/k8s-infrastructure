@@ -1,5 +1,5 @@
 apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
+kind: PodMonitor
 metadata:
   name: envoy-proxy
 spec:
@@ -11,7 +11,7 @@ spec:
       app.kubernetes.io/name: envoy
       app.kubernetes.io/component: proxy
       gateway.networking.k8s.io/gateway-name: envoy-internal
-  endpoints:
+  podMetricsEndpoints:
     - port: metrics
       path: /stats/prometheus
       interval: 30s
