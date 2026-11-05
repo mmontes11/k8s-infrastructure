@@ -1,0 +1,28 @@
+# ServiceMonitor for the Envoy Gateway controller (LAB-365).
+#
+# The gateway-helm chart (v1.9.3) exposes the controller's Prometheus
+# metrics (envoy_gateway_*) on the `envoy-gateway` Service port `metrics`
+# (19001) at /metrics. The chart hardcodes the controller resource name
+# `envoy-gateway` (templates/envoy-gateway-service.yaml) regardless of the
+# Helm release name (`envoy-internal`), so the Service lives in this
+# `envoy-internal` namespace as `envoy-gateway`. It is selected by the
+# controller's own label control-plane=envoy-gateway (the data-plane proxy
+# Service shares the namespace but carries app.kubernetes.io/name=envoy
+# labels instead).
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: envoy-gateway-controller
+spec:
+  namespaceSelector:
+    matchNames:
+      - envoy-internal
+  selector:
+    matchLabels:
+      control-plane: envoy-gateway
+  endpoints:
+    - port: metrics
+      path: /metrics
+      interval: 30s
+      scrapeTimeout: 25s
+      honorLabels: false

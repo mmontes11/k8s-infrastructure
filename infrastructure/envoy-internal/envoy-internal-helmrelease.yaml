@@ -5,16 +5,17 @@
 #   Merged from theagentrouter/agent-router @ 931b020400a40c0e0f9a819a1c4b229ef945b8bd:
 #     - manifests/envoy-gateway-values.yaml                          (base)
 #     - examples/inference-pool/envoy-gateway-values-addon.yaml      (InferencePool backend)
-#     - examples/token_ratelimit/envoy-gateway-values-addon.yaml     (token rate limiting)
 #   Adaptations for the homelab layout:
+#     - No token rate limiting (LAB-374): the gateway is internal, no rate
+#       limiting applies. The token_ratelimit values addon (agent-router
+#       examples/token_ratelimit/envoy-gateway-values-addon.yaml, introduced
+#       in the initial draft of this PR) and the rate-limit ServiceMonitor
+#       were removed.
 #     - extensionManager.service.fqdn.hostname: the Agent Router controller
 #       (LAB-363) installs into the `ai` namespace with the chart's default
 #       service name `ai-gateway-controller` (gRPC port 1063), so the fqdn is
 #       `ai-gateway-controller.ai.svc.cluster.local` instead of the upstream
 #       agent-router default namespace.
-#     - rateLimit.backend.redis.url: the existing multi-tenant redis
-#       (redis-operator tenant `redis` in `database`, managed by
-#       k8s-infrastructure) instead of deploying a dedicated Redis.
 #     - crds.enabled: false — the chart's bundled CRDs are the Gateway API
 #       CRDs, which are owned by the `gateway-api` Kustomization in
 #       flux-system (gateway-api v1.5.1, experimental channel). The Envoy
@@ -80,19 +81,6 @@ spec:
               type: GatewayNamespace
             # No provider.kubernetes.watch — the controller watches all
             # namespaces (multiple tenants; see file header).
-            # Token rate limiting: pin the rate limit service image per the
-            # agent-router token_ratelimit example.
-            rateLimitDeployment:
-              patch:
-                type: StrategicMerge
-                value:
-                  spec:
-                    template:
-                      spec:
-                        containers:
-                          - imagePullPolicy: IfNotPresent
-                            name: envoy-ratelimit
-                            image: docker.io/envoyproxy/ratelimit:60d8e81b
         # Default EnvoyProxy configuration for every managed proxy (see
         # file header): LB pin, resources and priority class.
         envoyProxy:
@@ -144,12 +132,5 @@ spec:
             - group: inference.networking.k8s.io
               kind: InferencePool
               version: v1
-        rateLimit:
-          backend:
-            type: Redis
-            redis:
-              # Existing multi-tenant redis (redis-operator tenant `redis`,
-              # `database` namespace, k8s-infrastructure).
-              url: redis.database.svc.cluster.local:6379/3
     crds:
       enabled: false

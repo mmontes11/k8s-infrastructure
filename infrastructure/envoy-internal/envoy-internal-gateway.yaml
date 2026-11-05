@@ -2,8 +2,9 @@
 #
 # Lives in the dedicated `envoy-internal` namespace. With the
 # GatewayNamespace deploy mode (see envoy-internal-helmrelease.yaml) the
-# Envoy proxy for this Gateway is deployed into this namespace as
-# `envoy-internal` (Deployment + LoadBalancer Service).
+# Envoy proxy for this Gateway is deployed into this namespace (ServiceAccount
+# named after the Gateway, Deployment + LoadBalancer Service as
+# `envoy-envoy-internal-<hash>`).
 #
 # Named after the traefik-internal pattern: the internal of the planned
 # envoy-internal / envoy-external pair. The GatewayClass and the controller
@@ -11,6 +12,13 @@
 # pair can coexist in one cluster. The controller watches all namespaces —
 # multiple tenants attach routes to this Gateway, so a per-namespace watch
 # restriction is not worth it (review round 5).
+#
+# Naming constraint: the gateway-helm chart hardcodes the controller's own
+# resources (Deployment/Service/ServiceAccount) to the name `envoy-gateway`
+# in the Gateway's namespace, and the GatewayNamespace data plane takes the
+# ServiceAccount's name from the Gateway. A Gateway named `envoy-gateway`
+# would collide with the controller and never get a proxy — this name
+# (`envoy-internal`) avoids that.
 #
 # External access (same pattern as traefik):
 #   - Data-plane customization — LoadBalancer pinned to 10.0.0.71 (MetalLB
@@ -26,8 +34,11 @@
 #   - Local DNS resolution of the hostname: a Pi-hole record (homelab repo)
 #     for LAN clients and a CoreDNS `hosts` entry in infrastructure/dns for
 #     in-cluster clients.
-#   - The HTTP listener has no hostname so the ai tenant's HTTPRoutes
-#     (Stage 4, LAB-369) keep their existing hostnames.
+#   - The HTTP listener is redirect-only (LAB-374): it accepts routes from
+#     the Gateway's own namespace only (allowedRoutes.from: Same) and serves
+#     the single catch-all HTTP -> HTTPS redirect
+#     (envoy-internal-http-redirect.yaml). Tenant routes attach to the
+#     websecure listener only, whose hostname they must match.
 apiVersion: gateway.networking.k8s.io/v1
 kind: GatewayClass
 metadata:
@@ -46,12 +57,14 @@ metadata:
 spec:
   gatewayClassName: envoy-internal
   listeners:
+    # Redirect-only: the catch-all envoy-internal-http-redirect HTTPRoute
+    # (same namespace) is the only route accepted on :80 (LAB-374).
     - name: http
       protocol: HTTP
       port: 80
       allowedRoutes:
         namespaces:
-          from: All
+          from: Same
     - name: websecure
       protocol: HTTPS
       port: 443
