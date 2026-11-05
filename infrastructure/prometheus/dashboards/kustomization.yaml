@@ -2,11 +2,18 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: monitoring
 resources:
+  - ai-gateway-dashboard.yaml
+  - envoy-clusters-dashboard.yaml
+  - envoy-gateway-global-dashboard.yaml
+  - envoy-proxy-global-dashboard.yaml
   - flux-cluster-dashboard.yaml
   - flux-control-plane-dashboard.yaml
+  - global-ratelimit-dashboard.yaml
   - llamacpp-dashboard.yaml
+  - llm-d-vllm-overview-dashboard.yaml
   - lmcache-dashboard.yaml
   - redis-operator-cluster-dashboard.yaml
   - redis-operator-dashboard.yaml
+  - resources-monitor-dashboard.yaml
   - seaweedfs-dashboard.yaml
   - vllm-dashboard.yaml
