@@ -483,13 +483,24 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/(^|/)infrastructure/envoy-internal/crds/kustomization\\.yaml$/"
+        "/(^|/)infrastructure/envoy/crds/kustomization\\.yaml$/"
       ],
       "matchStrings": [
         "releases/download/(?<currentValue>v[^/]+)/envoy-gateway-crds\\.yaml"
       ],
       "datasourceTemplate": "github-releases",
       "packageNameTemplate": "envoyproxy/gateway"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/envoy/envoy-internal/envoy-internal-ocirepository\\.yaml$/"
+      ],
+      "matchStrings": [
+        "ref:\\s*\\n\\s+tag:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "docker",
+      "packageNameTemplate": "envoyproxy/gateway-helm"
     },
     {
       "customType": "regex",
@@ -501,17 +512,6 @@
       ],
       "datasourceTemplate": "github-releases",
       "packageNameTemplate": "kubernetes-sigs/gateway-api-inference-extension"
-    },
-    {
-      "customType": "regex",
-      "managerFilePatterns": [
-        "/(^|/)infrastructure/envoy-internal/envoy-internal-ocirepository\\.yaml$/"
-      ],
-      "matchStrings": [
-        "ref:\\s*\\n\\s+tag:\\s+\"?(?<currentValue>[^\"]+)\"?"
-      ],
-      "datasourceTemplate": "docker",
-      "packageNameTemplate": "envoyproxy/gateway-helm"
     },
     {
       "customType": "regex",
