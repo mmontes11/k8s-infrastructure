@@ -16,10 +16,8 @@ data:
         }
         prometheus :9153
 
-        # Static records for service hostnames served by cluster LoadBalancers.
-        # mmontes-llm.duckdns.org is the Envoy Gateway data plane (pinned to
-        # 10.0.0.71); see infrastructure/envoy-internal.
         hosts {
+            10.0.0.70 mmontes-internal.duckdns.org
             10.0.0.71 mmontes-llm.duckdns.org
             fallthrough
         }
