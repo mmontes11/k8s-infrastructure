@@ -1,16 +1,3 @@
-# RBAC so Envoy Gateway can read InferencePool resources (GAIE).
-#
-# The gateway-helm chart (v1.9.3) does not include the
-# inference.networking.k8s.io group in the RBAC of its `envoy-gateway`
-# ServiceAccount, so with extensionManager.backendResources configured the
-# controller crash-loops (cannot list/watch InferencePool).
-# Ported from theagentrouter/agent-router
-# (manifests/charts/ai-gateway-helm/templates/envoy_gateway_cluster_role_for_inference_pool.yaml).
-#
-# Kept as a static manifest (not a kustomization URL): that agent-router
-# file is the only upstream copy and it is a Helm chart template
-# ({{ include }} / .Values.envoyGateway.namespace), which kustomize cannot
-# consume; envoyproxy/gateway ships no InferencePool RBAC at all.
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:

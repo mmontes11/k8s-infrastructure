@@ -1,26 +1,3 @@
-# Gateway-level forced HTTP -> HTTPS redirect (LAB-374).
-#
-# The "Force HTTP -> HTTPS redirect" pattern from the Envoy Gateway docs
-# (https://gateway.envoyproxy.io/docs/tasks/traffic/http-redirect/):
-#
-#   - The Gateway's http listener (envoy-internal-gateway.yaml) restricts
-#     allowedRoutes to the Gateway's own namespace, so tenant routes can no
-#     longer attach to :80; they bind to the websecure (443) listener only.
-#   - This single catch-all route in the Gateway's namespace (no hostnames,
-#     no path matches) is the only route accepted on :80 and redirects every
-#     request, for any hostname, to the same host over HTTPS. Tenant routes
-#     cannot override it, so the redirect is defined once at the gateway
-#     level instead of per route.
-#
-# statusCode 308 (Permanent Redirect) rather than the 301 in the docs'
-# example: 308 preserves the request method and body across the redirect
-# (RFC 9110), which the API clients (POST /v1/chat/completions) rely on —
-# several HTTP clients downgrade a 301/302 POST to GET.
-#
-# Let's Encrypt issuance is unaffected by the :80 redirect: the
-# cert-manager.io/cluster-issuer annotation on the Gateway resolves to the
-# `letsencrypt-production` ClusterIssuer, which uses the DNS-01 DuckDNS
-# webhook solver (not HTTP-01).
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:

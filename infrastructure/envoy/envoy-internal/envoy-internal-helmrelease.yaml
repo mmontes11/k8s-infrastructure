@@ -1,56 +1,3 @@
-# Envoy Gateway HelmRelease (LAB-362).
-#
-# Values are inlined under spec.values (per review) instead of a separate
-# valuesFile. Provenance and homelab adaptations:
-#   Merged from theagentrouter/agent-router @ 931b020400a40c0e0f9a819a1c4b229ef945b8bd:
-#     - manifests/envoy-gateway-values.yaml                          (base)
-#     - examples/inference-pool/envoy-gateway-values-addon.yaml      (InferencePool backend)
-#   Adaptations for the homelab layout:
-#     - No token rate limiting (LAB-374): the gateway is internal, no rate
-#       limiting applies. The token_ratelimit values addon (agent-router
-#       examples/token_ratelimit/envoy-gateway-values-addon.yaml, introduced
-#       in the initial draft of this PR) and the rate-limit ServiceMonitor
-#       were removed.
-#     - extensionManager.service.fqdn.hostname: the Agent Router controller
-#       (LAB-363) installs into the `ai` namespace with the chart's default
-#       service name `ai-gateway-controller` (gRPC port 1063), so the fqdn is
-#       `ai-gateway-controller.ai.svc.cluster.local` instead of the upstream
-#       agent-router default namespace.
-#     - crds.enabled: false — the chart's bundled CRDs are the Gateway API
-#       CRDs, which are owned by the `gateway-api` Kustomization in
-#       flux-system (gateway-api v1.5.1, experimental channel). The Envoy
-#       Gateway CRDs are installed by the `envoy-gateway-crds` Kustomization
-#       (see ./crds) from the release asset envoy-gateway-crds.yaml, the
-#       upstream-documented "installing CRDs separately" path.
-#     - provider.kubernetes.deploy.type: GatewayNamespace — the data-plane
-#       proxy for the `envoy-internal` Gateway is deployed into the
-#       Gateway's own namespace (`envoy-internal`); GAIE conformance
-#       requires the namespaced deploy mode.
-#     - provider.kubernetes.watch: unset — the controller watches all
-#       namespaces. Multiple tenants attach routes to this Gateway
-#       (allowedRoutes: All), so a per-namespace watch restriction is not
-#       worth it (review round 5).
-#     - config.envoyGateway.gateway.controllerName:
-#       gateway.envoyproxy.io/envoy-internal — tenant specific, following
-#       the traefik-internal GatewayClass naming pattern, so the planned
-#       envoy-internal / envoy-external pair can coexist in one cluster
-#       (the controller only accepts GatewayClasses it matches).
-#     - config.envoyGateway.envoyProxy: data-plane customization. The
-#       gateway-helm chart renders .Values.config.envoyGateway as the
-#       EnvoyGateway configuration in the `envoy-gateway-config` ConfigMap
-#       (mounted at /config/envoy-gateway.yaml, loaded with
-#       --config-path); its `envoyProxy` field is the default
-#       EnvoyProxySpec applied to every managed proxy (here: exactly the
-#       `envoy-internal` Gateway). The EnvoyGateway CRD is not shipped in
-#       the release asset nor by the chart, so the chart values are the
-#       only supported way to configure the controller.
-#       - envoyService.annotations: pin the proxy's LoadBalancer Service to
-#         10.0.0.71 (MetalLB `load-balancer` pool), same pattern as traefik.
-#       - envoyDeployment.container.resources: sized after traefik (CPU
-#         100m / memory requests 128Mi, limit 512Mi — the proxy here also
-#         serves the AI traffic).
-#       - envoyDeployment.pod.priorityClassName: system-node-critical, same
-#         as the traefik internal deployment.
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -65,11 +12,12 @@ spec:
   upgrade:
     crds: Skip
   values:
+    crds:
+      enabled: false
     config:
+      # See: https://gateway.envoyproxy.io/docs/api/extension_types/#envoygateway
       envoyGateway:
         gateway:
-          # Tenant specific (traefik-internal naming pattern); must match
-          # the GatewayClass controllerName in envoy-internal-gateway.yaml.
           controllerName: gateway.envoyproxy.io/envoy-internal
         logging:
           level:
@@ -79,14 +27,17 @@ spec:
           kubernetes:
             deploy:
               type: GatewayNamespace
-            # No provider.kubernetes.watch — the controller watches all
-            # namespaces (multiple tenants; see file header).
-        # Default EnvoyProxy configuration for every managed proxy (see
-        # file header): LB pin, resources and priority class.
+            watch:
+              type: Namespaces
+              namespaces:
+                - envoy-internal
+        # See: https://gateway.envoyproxy.io/docs/api/extension_types/#envoyproxyspec
         envoyProxy:
           provider:
+            type: Kubernetes
             kubernetes:
               envoyDeployment:
+                replicas: 2            
                 container:
                   resources:
                     requests:
@@ -95,17 +46,23 @@ spec:
                     limits:
                       memory: 512Mi
                 pod:
+                  affinity:
+                  podAntiAffinity:
+                    requiredDuringSchedulingIgnoredDuringExecution:
+                      - labelSelector:
+                          matchLabels:
+                            app.kubernetes.io/name: envoy
+                            app.kubernetes.io/component: proxy
+                            gateway.networking.k8s.io/gateway-name: envoy-internal
+                        topologyKey: kubernetes.io/hostname
                   priorityClassName: system-node-critical
               envoyService:
+                type: LoadBalancer
                 annotations:
                   metallb.io/loadBalancerIPs: 10.0.0.71
         extensionApis:
-          # Not strictly required, but recommended for backward/future compatibility.
           enableEnvoyPatchPolicy: true
-          # Required: Enable Backend API for AI service backends.
           enableBackend: true
-        # Required: Agent Router needs to fine-tune xDS resources generated by
-        # Envoy Gateway.
         extensionManager:
           hooks:
             xdsTranslator:
@@ -124,13 +81,10 @@ spec:
                 - Route
           service:
             fqdn:
-              # Agent Router controller service (LAB-363), installed in `ai`.
+              # Agent Router controller service installed in `ai` namespace, as part of `k8s-ai`.
               hostname: ai-gateway-controller.ai.svc.cluster.local
               port: 1063
-          # Enable InferencePool custom resource support (GAIE).
           backendResources:
             - group: inference.networking.k8s.io
               kind: InferencePool
               version: v1
-    crds:
-      enabled: false
