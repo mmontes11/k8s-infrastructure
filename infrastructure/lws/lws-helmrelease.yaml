@@ -1,9 +1,3 @@
-# LeaderWorkerSet (LWS) — a cluster-wide workload API (multi-Pod /
-# gang-style workloads). Installed from the kubernetes-sigs/leader-workerset
-# chart, which bundles the LeaderWorkerSet CRDs plus the controller. The
-# controller runs in the dedicated `lws` namespace (see
-# clusters/homelab/namespaces.yaml); the CRDs are cluster-scoped, so
-# LeaderWorkerSet objects can be created in any namespace.
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
