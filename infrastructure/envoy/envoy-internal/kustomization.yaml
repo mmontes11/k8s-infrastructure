@@ -8,4 +8,4 @@ resources:
   - envoy-internal-http-redirect.yaml
   - envoy-internal-inferencepool-rbac.yaml
   - envoy-internal-ocirepository.yaml
-  - envoy-internal-proxy-podmonitor.yaml
+  - envoy-internal-proxy-servicemonitor.yaml
