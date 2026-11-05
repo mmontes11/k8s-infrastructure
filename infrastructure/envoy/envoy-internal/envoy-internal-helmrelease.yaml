@@ -27,10 +27,6 @@ spec:
           kubernetes:
             deploy:
               type: GatewayNamespace
-            watch:
-              type: Namespaces
-              namespaces:
-                - envoy-internal
         # See: https://gateway.envoyproxy.io/docs/api/extension_types/#envoyproxyspec
         envoyProxy:
           provider:
@@ -47,14 +43,14 @@ spec:
                       memory: 512Mi
                 pod:
                   affinity:
-                  podAntiAffinity:
-                    requiredDuringSchedulingIgnoredDuringExecution:
-                      - labelSelector:
-                          matchLabels:
-                            app.kubernetes.io/name: envoy
-                            app.kubernetes.io/component: proxy
-                            gateway.networking.k8s.io/gateway-name: envoy-internal
-                        topologyKey: kubernetes.io/hostname
+                    podAntiAffinity:
+                      requiredDuringSchedulingIgnoredDuringExecution:
+                        - labelSelector:
+                            matchLabels:
+                              app.kubernetes.io/name: envoy
+                              app.kubernetes.io/component: proxy
+                              gateway.networking.k8s.io/gateway-name: envoy-internal
+                          topologyKey: kubernetes.io/hostname
                   priorityClassName: system-node-critical
               envoyService:
                 type: LoadBalancer
