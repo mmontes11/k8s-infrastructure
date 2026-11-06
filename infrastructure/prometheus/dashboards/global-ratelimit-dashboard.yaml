@@ -1,4 +1,4 @@
-# see: https://github.com/envoyproxy/gateway/blob/v1.9.3/charts/gateway-addons-helm/dashboards/global-ratelimit.json
+# see: https://github.com/envoyproxy/gateway/blob/main/charts/gateway-addons-helm/dashboards/global-ratelimit.json
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -555,7 +555,7 @@ data:
               "type": "prometheus",
               "uid": "$datasource"
             },
-            "definition": "label_values(watchable_depth,namespace)",
+            "definition": "label_values(watchable_subscribe_total,namespace)",
             "hide": 0,
             "includeAll": false,
             "multi": false,
@@ -563,7 +563,7 @@ data:
             "options": [],
             "query": {
               "qryType": 1,
-              "query": "label_values(watchable_depth,namespace)",
+              "query": "label_values(watchable_subscribe_total,namespace)",
               "refId": "PrometheusVariableQueryEditor-VariableQuery"
             },
             "refresh": 1,
@@ -587,7 +587,7 @@ data:
               "type": "prometheus",
               "uid": "$datasource"
             },
-            "definition": "label_values(watchable_depth,runner)",
+            "definition": "label_values(watchable_subscribe_total,runner)",
             "hide": 0,
             "includeAll": true,
             "multi": true,
@@ -595,7 +595,7 @@ data:
             "options": [],
             "query": {
               "qryType": 1,
-              "query": "label_values(watchable_depth,runner)",
+              "query": "label_values(watchable_subscribe_total,runner)",
               "refId": "PrometheusVariableQueryEditor-VariableQuery"
             },
             "refresh": 2,

@@ -1,4 +1,4 @@
-# see: https://github.com/envoyproxy/gateway/blob/v1.9.3/charts/gateway-addons-helm/dashboards/envoy-proxy-global.json
+# see: https://github.com/envoyproxy/gateway/blob/main/charts/gateway-addons-helm/dashboards/envoy-proxy-global.json
 apiVersion: v1
 kind: ConfigMap
 metadata:
