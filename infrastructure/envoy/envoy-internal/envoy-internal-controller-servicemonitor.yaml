@@ -1,7 +1,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: envoy-gateway-controller
+  name: envoy-internal-controller
 spec:
   namespaceSelector:
     matchNames:
