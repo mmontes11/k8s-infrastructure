@@ -1,21 +1,4 @@
-# llm-d "vLLM Overview" dashboard (LAB-366, ADR-001 IMP-006): captures
-# llm-d's engine-layer observability value without its serving footprint.
-# Upstream: llm-d/llm-d
-# guides/recipes/observability/grafana/dashboards/llm-d-vllm-overview.json
-# (pinned at llm-d/llm-d fb4cb007). The Grafana export artifacts
-# (__inputs/__requires/id/version) are stripped and a uid is pinned for
-# stable sidecar imports.
-#
-# Delta vs upstream: adds the "Prefix Cache Hit Rate" panel required by
-# ADR-001 IMP-006. The vllm:prefix_cache_hit_rate gauge the ADR names no
-# longer exists in the pinned engine (vllm/vllm-openai:v0.32.0): vLLM now
-# exposes it as the vllm:prefix_cache_hits_total / vllm:prefix_cache_queries_total
-# counter pair (vllm/v1/metrics/loggers.py), so the panel computes
-# hits/queries over a rate. All other panels are byte-for-byte upstream and
-# were verified against the v0.32.0 metric names (vllm:time_to_first_token_seconds,
-# vllm:inter_token_latency_seconds, vllm:e2e_request_latency_seconds,
-# vllm:kv_cache_usage_perc, vllm:prefix_cache_*_total, ...; the *_total
-# suffix is appended by prometheus_client on exposition).
+# see: https://github.com/llm-d/llm-d/blob/main/guides/recipes/observability/grafana/dashboards/llm-d-vllm-overview.json
 apiVersion: v1
 kind: ConfigMap
 metadata:

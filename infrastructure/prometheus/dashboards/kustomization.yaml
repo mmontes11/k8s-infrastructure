@@ -2,7 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: monitoring
 resources:
-  - ai-gateway-dashboard.yaml
+  - agent-router-dashboard.yaml
   - envoy-clusters-dashboard.yaml
   - envoy-gateway-global-dashboard.yaml
   - envoy-proxy-global-dashboard.yaml
@@ -17,3 +17,5 @@ resources:
   - resources-monitor-dashboard.yaml
   - seaweedfs-dashboard.yaml
   - vllm-dashboard.yaml
+  - vllm-performance-statistics-dashboard.yaml
+  - vllm-query-statistics-dashboard.yaml
