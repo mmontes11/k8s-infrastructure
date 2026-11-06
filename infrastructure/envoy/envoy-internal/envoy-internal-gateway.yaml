@@ -2,8 +2,6 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: GatewayClass
 metadata:
   name: envoy-internal
-  labels:
-    gatewayclass.mmontes.io/type: envoy-internal
 spec:
   controllerName: gateway.envoyproxy.io/envoy-internal
 ---
