@@ -178,8 +178,6 @@ metadata:
 spec:
   dependsOn:
     - name: envoy-crds
-    - name: gateway-api
-    - name: cert-manager-crds
   interval: 5m
   sourceRef:
     kind: GitRepository
