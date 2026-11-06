@@ -1,7 +1,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: envoy-gateway-inferencepool-role
+  name: envoy-internal-inferencepool-role
 rules:
   - apiGroups:
       - "inference.networking.k8s.io"
@@ -15,11 +15,11 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: envoy-gateway-inferencepool-rolebinding
+  name: envoy-internal-inferencepool-rolebinding
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: envoy-gateway-inferencepool-role
+  name: envoy-internal-inferencepool-role
 subjects:
   - kind: ServiceAccount
     # Created by the gateway-helm chart into the release namespace (`envoy-internal`).
