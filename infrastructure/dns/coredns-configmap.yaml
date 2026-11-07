@@ -16,12 +16,6 @@ data:
         }
         prometheus :9153
 
-        hosts {
-            10.0.0.71 llm.mmontes-llm.duckdns.org
-            10.0.0.71 mcp.mmontes-llm.duckdns.org
-            fallthrough
-        }
-
         kubernetes cluster.local in-addr.arpa ip6.arpa {
             pods insecure
             fallthrough in-addr.arpa ip6.arpa
