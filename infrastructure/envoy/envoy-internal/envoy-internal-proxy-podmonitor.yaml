@@ -17,3 +17,8 @@ spec:
       interval: 30s
       scrapeTimeout: 25s
       honorLabels: false
+    - port: aigw-admin 
+      path: /metrics
+      interval: 30s
+      scrapeTimeout: 25s
+      honorLabels: false
