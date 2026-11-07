@@ -9,6 +9,7 @@ spec:
     - key: "k8s:io.kubernetes.pod.namespace"
       operator: "NotIn"
       values:
+      - envoy-internal
       - networking
       - monitoring
   egress:
