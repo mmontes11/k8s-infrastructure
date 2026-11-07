@@ -54,6 +54,9 @@ spec:
                   priorityClassName: system-node-critical
               envoyService:
                 type: LoadBalancer
+                # Envoy Gateway defaults to Local; Cluster makes the VIP reachable
+                # from pods on nodes without a local endpoint (LAB-382).
+                externalTrafficPolicy: Cluster
                 annotations:
                   metallb.io/loadBalancerIPs: 10.0.0.71
         extensionApis:
