@@ -16,6 +16,7 @@ data:
              "type": "prometheus",
              "uid": "${DS_PROMETHEUS}"
            },
+           "description": "Total GenAI requests handled by the gateway, cumulative over the selected time range.",
            "fieldConfig": {
              "defaults": {
                "color": {
@@ -81,6 +82,7 @@ data:
              "type": "prometheus",
              "uid": "${DS_PROMETHEUS}"
            },
+           "description": "Total input and output tokens processed, cumulative over the selected time range. Cached and reasoning tokens are not counted here.",
            "fieldConfig": {
              "defaults": {
                "color": {
@@ -99,7 +101,8 @@ data:
                      "value": 80
                    }
                  ]
-               }
+               },
+               "unit": "short"
              },
              "overrides": []
            },
@@ -146,6 +149,7 @@ data:
              "type": "prometheus",
              "uid": "${DS_PROMETHEUS}"
            },
+           "description": "Time to First Token (TTFT) is the time from sending the request to generating the first token — it reflects how quickly the model starts responding. Shown as the 95th percentile over the last 15 minutes.",
            "fieldConfig": {
              "defaults": {
                "color": {
@@ -212,6 +216,7 @@ data:
              "type": "prometheus",
              "uid": "${DS_PROMETHEUS}"
            },
+           "description": "End-to-end latency (E2EL) is the time from sending the request to receiving the final token — it directly affects perceived responsiveness. Shown as the 95th percentile over the last 15 minutes.",
            "fieldConfig": {
              "defaults": {
                "color": {
@@ -278,7 +283,7 @@ data:
              "type": "prometheus",
              "uid": "${DS_PROMETHEUS}"
            },
-           "description": "Breaks down gen_ai_client_token_usage by gen_ai_token_type. Useful for spotting prompt-caching effectiveness and reasoning-token overhead.",
+           "description": "Cumulative token usage broken down by type (input, output, cached, reasoning). Useful for spotting prompt-caching effectiveness and reasoning-token overhead.",
            "fieldConfig": {
              "defaults": {
                "color": {
@@ -318,7 +323,8 @@ data:
                      "value": 80
                    }
                  ]
-               }
+               },
+               "unit": "short"
              },
              "overrides": []
            },
@@ -371,6 +377,7 @@ data:
              "type": "prometheus",
              "uid": "${DS_PROMETHEUS}"
            },
+           "description": "End-to-end latency (E2EL) percentiles — the time from sending the request to receiving the final token. The median reflects the typical experience, P95 the near-worst, and P99 the tail latency that can make or break user experience.",
            "fieldConfig": {
              "defaults": {
                "color": {
@@ -489,7 +496,7 @@ data:
              "type": "prometheus",
              "uid": "${DS_PROMETHEUS}"
            },
-           "description": "P95 time to first token per model — useful for spotting a specific model with slow startup latency while the aggregate stays healthy.",
+           "description": "Time to First Token (TTFT) — the time from sending the request to generating the first token — per requested model. Useful for spotting a specific model with slow startup latency while the aggregate stays healthy.",
            "fieldConfig": {
              "defaults": {
                "color": {
@@ -590,7 +597,7 @@ data:
              "type": "prometheus",
              "uid": "${DS_PROMETHEUS}"
            },
-           "description": "Output token generation rate per model — which models are actually generating tokens right now.",
+           "description": "Output tokens generated per second, per model — which models are actually generating tokens right now.",
            "fieldConfig": {
              "defaults": {
                "color": {
@@ -690,7 +697,7 @@ data:
              "type": "prometheus",
              "uid": "${DS_PROMETHEUS}"
            },
-           "description": "P95 time per output token per model — useful for spotting a specific model with slow streaming pace while the aggregate stays healthy.",
+           "description": "Time per Output Token (TPOT) is the average time gap between generated tokens, excluding TTFT. The lower it is, the faster tokens are produced and the smoother streaming feels. P95 per requested model.",
            "fieldConfig": {
              "defaults": {
                "color": {
@@ -791,7 +798,7 @@ data:
              "type": "prometheus",
              "uid": "${DS_PROMETHEUS}"
            },
-           "description": "Token-weighted inter-token latency (ITL) per the Modular LLM Inference Handbook: (E2EL − TTFT) / output tokens — total generation time across all requests divided by total output tokens in the window. Measures steady-state streaming speed and complements the per-token percentile view.",
+           "description": "Inter-Token Latency (ITL) is the pause between two consecutive tokens, averaged token-weighted across all requests: total generation time (E2EL − TTFT) divided by total output tokens. Good for measuring overall steady-state streaming speed.",
            "fieldConfig": {
              "defaults": {
                "color": {
@@ -892,7 +899,7 @@ data:
              "type": "prometheus",
              "uid": "${DS_PROMETHEUS}"
            },
-           "description": "Request throughput over time. The stat panels above only show cumulative totals; this shows the trend.",
+           "description": "Requests per second (RPS) — completed requests over time. Captures request volume, but not the amount of work per request, which varies with prompt and response length.",
            "fieldConfig": {
              "defaults": {
                "color": {
@@ -992,7 +999,7 @@ data:
              "type": "prometheus",
              "uid": "${DS_PROMETHEUS}"
            },
-           "description": "Token consumption rate by type. Unlike the cumulative Token Usage by Type panel, this tracks the rate directly — useful as a proxy for cost burn rate since spend scales with tokens/sec.",
+           "description": "Tokens per second (TPS) by token type — a finer-grained throughput measure than RPS, and a direct proxy for cost burn rate since spend scales with tokens.",
            "fieldConfig": {
              "defaults": {
                "color": {
