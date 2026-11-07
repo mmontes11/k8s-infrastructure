@@ -798,7 +798,7 @@ data:
              "type": "prometheus",
              "uid": "${DS_PROMETHEUS}"
            },
-           "description": "Inter-Token Latency (ITL) is the pause between two consecutive tokens, averaged token-weighted across all requests: total generation time (E2EL − TTFT) divided by total output tokens. Good for measuring overall steady-state streaming speed.",
+           "description": "Inter-Token Latency (ITL) is the pause between two consecutive tokens, averaged token-weighted across all requests per requested model: total generation time (E2EL − TTFT) divided by total output tokens. Useful for spotting a specific model with slow streaming pace while the aggregate stays healthy.",
            "fieldConfig": {
              "defaults": {
                "color": {
@@ -886,8 +886,8 @@ data:
                  "type": "prometheus",
                  "uid": "${DS_PROMETHEUS}"
                },
-               "expr": "(sum(rate(gen_ai_server_request_duration_seconds_sum[1m])) - sum(rate(gen_ai_server_time_to_first_token_seconds_sum[1m]))) / sum(rate(gen_ai_client_token_usage_sum{gen_ai_token_type=\"output\"}[1m]))",
-               "legendFormat": "ITL",
+               "expr": "(sum by(gen_ai_request_model) (rate(gen_ai_server_request_duration_seconds_sum[1m])) - sum by(gen_ai_request_model) (rate(gen_ai_server_time_to_first_token_seconds_sum[1m]))) / sum by(gen_ai_request_model) (rate(gen_ai_client_token_usage_sum{gen_ai_token_type=\"output\"}[1m]))",
+               "legendFormat": "{{gen_ai_request_model}}",
                "refId": "A"
              }
            ],
