@@ -32,6 +32,7 @@ spec:
             - 10.0.0.31/32
             - 10.0.0.32/32
             - 10.0.0.50/32
+            - 10.0.0.71/32 # *.mmontes-llm.duckdns.org, so that LLM and MCP requests can be routed to the AI gateway from inside the cluster.
             - 10.0.0.90/32
             - 10.0.0.100/32
             - 10.0.0.120/32
