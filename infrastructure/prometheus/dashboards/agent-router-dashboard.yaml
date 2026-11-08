@@ -689,7 +689,7 @@ data:
                "refId": "A"
              }
            ],
-           "title": "Token Generation",
+           "title": "Token Throughput",
            "type": "timeseries"
          },
          {
