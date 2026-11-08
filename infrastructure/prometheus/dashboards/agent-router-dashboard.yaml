@@ -496,7 +496,7 @@ data:
              "type": "prometheus",
              "uid": "${DS_PROMETHEUS}"
            },
-           "description": "Time to First Token (TTFT) — the time from sending the request to generating the first token — P95 per requested model, cumulative since the gateway last restarted. A line is shown for every model that served at least one request, no matter how briefly it was active.",
+           "description": "Time to First Token (TTFT) per model — the time from sending the request to generating the first token (P95).",
            "fieldConfig": {
              "defaults": {
                "color": {
@@ -584,7 +584,7 @@ data:
                  "type": "prometheus",
                  "uid": "${DS_PROMETHEUS}"
                },
-               "expr": "histogram_quantile(0.95, sum by (gen_ai_request_model, le) (gen_ai_server_time_to_first_token_seconds_bucket))",
+               "expr": "histogram_quantile(0.95, sum by (gen_ai_request_model, le) (rate(gen_ai_server_time_to_first_token_seconds_bucket[1m])))",
                "legendFormat": "{{gen_ai_request_model}}",
                "refId": "A"
              }
@@ -597,7 +597,7 @@ data:
              "type": "prometheus",
              "uid": "${DS_PROMETHEUS}"
            },
-           "description": "Cumulative output tokens generated per model since the gateway last restarted. A line is shown for every model that generated output tokens, no matter how briefly it was active.",
+           "description": "Output tokens generated per second, per model.",
            "fieldConfig": {
              "defaults": {
                "color": {
@@ -684,7 +684,7 @@ data:
                  "type": "prometheus",
                  "uid": "${DS_PROMETHEUS}"
                },
-               "expr": "sum by(gen_ai_request_model) (gen_ai_client_token_usage_sum{gen_ai_token_type=\"output\"})",
+               "expr": "sum by(gen_ai_request_model) (rate(gen_ai_client_token_usage_sum{gen_ai_token_type=\"output\"}[1m]))",
                "legendFormat": "{{gen_ai_request_model}}",
                "refId": "A"
              }
@@ -697,7 +697,7 @@ data:
              "type": "prometheus",
              "uid": "${DS_PROMETHEUS}"
            },
-           "description": "Time per Output Token (TPOT) is the time gap between generated tokens, excluding TTFT. The lower it is, the faster tokens are produced and the smoother streaming feels. P95 per requested model, cumulative since the gateway last restarted. A line is shown for every model that generated output tokens, no matter how briefly it was active.",
+           "description": "Time per Output Token (TPOT) per model — the average gap between generated tokens, excluding TTFT (P95).",
            "fieldConfig": {
              "defaults": {
                "color": {
@@ -785,7 +785,7 @@ data:
                  "type": "prometheus",
                  "uid": "${DS_PROMETHEUS}"
                },
-               "expr": "histogram_quantile(0.95, sum by (gen_ai_request_model, le) (gen_ai_server_time_per_output_token_seconds_bucket))",
+               "expr": "histogram_quantile(0.95, sum by (gen_ai_request_model, le) (rate(gen_ai_server_time_per_output_token_seconds_bucket[1m])))",
                "legendFormat": "{{gen_ai_request_model}}",
                "refId": "A"
              }
@@ -798,7 +798,7 @@ data:
              "type": "prometheus",
              "uid": "${DS_PROMETHEUS}"
            },
-           "description": "Inter-Token Latency (ITL) is the pause between two consecutive tokens, averaged token-weighted across all requests per requested model since the gateway last restarted: total generation time (E2EL − TTFT) divided by total output tokens. A line is shown for every model that generated output tokens, no matter how briefly it was active.",
+           "description": "Inter-Token Latency (ITL) per model — the average pause between consecutive generated tokens.",
            "fieldConfig": {
              "defaults": {
                "color": {
@@ -886,7 +886,7 @@ data:
                  "type": "prometheus",
                  "uid": "${DS_PROMETHEUS}"
                },
-               "expr": "(sum by(gen_ai_request_model) (gen_ai_server_request_duration_seconds_sum) - sum by(gen_ai_request_model) (gen_ai_server_time_to_first_token_seconds_sum)) / sum by(gen_ai_request_model) (gen_ai_client_token_usage_sum{gen_ai_token_type=\"output\"})",
+               "expr": "(sum by(gen_ai_request_model) (rate(gen_ai_server_request_duration_seconds_sum[1m])) - sum by(gen_ai_request_model) (rate(gen_ai_server_time_to_first_token_seconds_sum[1m]))) / sum by(gen_ai_request_model) (rate(gen_ai_client_token_usage_sum{gen_ai_token_type=\"output\"}[1m]))",
                "legendFormat": "{{gen_ai_request_model}}",
                "refId": "A"
              }
