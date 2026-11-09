@@ -12,7 +12,7 @@ superseded_by: ""
 
 ## Status
 
-**Accepted** (2026-11-09) — implemented in `feature-envoy-gateway-system-ns` (this repo) and the matching branch in `mmontes11/k8s-ai`; live verification follows the merge.
+**Accepted** (2026-11-09) — implemented in `feature-envoy-gateway-system-ns` (this repo, which now owns the entire shared control plane, both releases included) and the matching branch in `mmontes11/k8s-ai` (removes the Agent Router release and its CRDs); live verification follows the merge.
 
 ## Context
 
@@ -28,12 +28,14 @@ That per-tenant-controller design was reconsidered: it duplicates a stateless co
 
 - Single Helm release `envoy-gateway` in `envoy-gateway-system`; `provider.kubernetes.deploy.type: GatewayNamespace`, **no watch restriction** → the controller reconciles GatewayClasses/Gateways in **all** namespaces and creates each Gateway's proxy Deployment/Service **in the Gateway's own namespace**.
 - **No custom `controllerName`**: the default `gateway.envoyproxy.io/gatewayclass-controller` is used, so a **single shared `GatewayClass/envoy`** (cluster-scoped, kept in the `envoy-gateway-system` kustomization) serves every tenant. The per-tenant `GatewayClass`es and their `gateway.envoyproxy.io/envoy-<tenant>` controller names are removed.
-- Fleet-wide proxy defaults (resources, priority class) live in the release's `config.envoyGateway.envoyProxy`; **per-tenant specifics** (LoadBalancer IP via `metallb.io/loadBalancerIPs`, replicas, `externalTrafficPolicy`, PDB, gateway-scoped anti-affinity) live in a **namespaced `EnvoyProxy`** per tenant, referenced from its Gateway via `spec.infrastructure.parametersRef` (documented precedence: Gateway-level EnvoyProxy > GatewayClass-level > controller defaults, `mergeType: Merge`).
+- Fleet-wide proxy defaults (replicas, container resources) live in the release's `config.envoyGateway.envoyProxy`; **per-tenant specifics** (LoadBalancer IP via `metallb.io/loadBalancerIPs`, replicas, `externalTrafficPolicy`, PDB, priority class, gateway-scoped anti-affinity) live in a **namespaced `EnvoyProxy`** per tenant, referenced from its Gateway via `spec.infrastructure.parametersRef` (documented precedence: Gateway-level EnvoyProxy > GatewayClass-level > controller defaults; tenant EnvoyProxies use `mergeType: StrategicMerge` so list fields merge instead of being replaced).
+- `deploy.type` **must stay `GatewayNamespace`**: with it unset the v1.10 controller treats the fleet as `ControllerNamespace` mode (`GatewayNamespaceMode()` is false) and the chart renders only the namespaced infra-manager Role — proxies would deploy into `envoy-gateway-system` and cross-tenant proxy creation would be denied.
 
-### Agent Router controller (ai-gateway-helm v1.2.0, k8s-ai)
+### Agent Router controller (ai-gateway-helm v1.2.0)
 
-- Single Helm release `ai-gateway` in `envoy-gateway-system`; `controller.watch.namespaces` **unset** → watches all namespaces. Its mutating webhook (extproc sidecar injection) matches pods by `app.kubernetes.io/managed-by: envoy-gateway` with no namespace selector, so it injects into Envoy proxies in every tenant namespace.
-- `envoyGateway.namespace: envoy-gateway-system` — the namespace of the shared Envoy Gateway controller; the chart's InferencePool `ClusterRoleBinding` thereby grants read access to the shared controller's `envoy-gateway` ServiceAccount.
+- Single Helm release `ai-gateway` in `envoy-gateway-system`, **in this repo** (`infrastructure/envoy/envoy-gateway-system/`, delivered by the same Flux Kustomization as the Envoy Gateway release) — the entire shared control plane is owned by one repo. `controller.watch.namespaces` **unset** → watches all namespaces. Its mutating webhook (extproc sidecar injection) matches pods by `app.kubernetes.io/managed-by: envoy-gateway` with no namespace selector, so it injects into Envoy proxies in every tenant namespace.
+- Its CRDs (`ai-gateway-crds-helm`, AIGatewayRoute/MCPRoute/etc.) are installed by the `ai-gateway-crds` HelmRelease in `infrastructure/envoy/crds/`; the tenant `AIGatewayRoute`/`MCPRoute` objects stay in `k8s-ai` and now depend on the shared `envoy-crds` Kustomization.
+- `envoyGateway.namespace: envoy-gateway-system` — the namespace of the shared Envoy Gateway controller; the chart's own InferencePool `ClusterRoleBinding` thereby grants read access to the shared controller's `envoy-gateway` ServiceAccount (the hand-rolled `envoy-gateway-inferencepool-role` ClusterRole in the same kustomization duplicates it and can be dropped once the move is verified).
 
 ### Per-tenant data plane (unchanged shape)
 
@@ -53,7 +55,8 @@ Each tenant namespace keeps its `Gateway`, routes, TLS, policies, EnvoyProxy, an
 - **Cluster-scoped RBAC:** the shared controller holds cluster-wide infra-write (pods/services/servicesaccounts/configmaps in any namespace) via `envoy-gateway-cluster-infra-manager`. Accepted: single trusted cluster, homelab trust model.
 - **No per-tenant control-plane upgrade independence:** all tenants upgrade together with the one release.
 - **Divergence from traefik:** traefik couples control and data plane in one pod per tenant; this design splits them (central stateless control plane, per-tenant data plane). Accepted explicitly — it is the Envoy Gateway model, and the per-tenant proxy preserves the data-plane isolation the traefik pattern provided.
-- **Cutover:** the controller release is uninstalled from its old location and reinstalled in `envoy-gateway-system` (Helm cannot move a release across namespaces); the `GatewayClass` rename (`envoy-internal` → `envoy`) re-attaches the Gateways. Both cause a short window of degraded programming (webhooks are `failurePolicy: Ignore`; proxies keep running). The k8s-ai `envoyGateway.namespace`/`watch` change must land together with this repo's changes to avoid a broken window for extproc FQDN/RBAC.
+- **Single-repo ownership:** both control-plane releases (and the Agent Router CRDs) live in this repo; `k8s-ai` keeps only its tenant routing resources (`AIGatewayRoute`, `MCPRoute`), which depend on the shared `envoy-crds` Kustomization. One repo = one upgrade/rollback unit for the whole control plane.
+- **Cutover:** the controller release is uninstalled from its old location and reinstalled in `envoy-gateway-system` (Helm cannot move a release across namespaces); the `GatewayClass` rename (`envoy-internal` → `envoy`) re-attaches the Gateways. Both cause a short window of degraded programming (webhooks are `failurePolicy: Ignore`; proxies keep running). This repo's PR must land before (or together with) the k8s-ai PR, which prunes the old `ai`-namespace Agent Router release — merging k8s-ai first would uninstall it while no replacement exists.
 - **Future tenants:** onboarding is a namespace + `Gateway` (class `envoy`) + `EnvoyProxy`; no new controller, webhook, or namespace for control plane.
 
 ## Alternatives considered

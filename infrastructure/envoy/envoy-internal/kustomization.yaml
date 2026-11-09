@@ -6,5 +6,4 @@ resources:
   - envoy-internal-envoyproxy.yaml
   - envoy-internal-gateway.yaml
   - envoy-internal-http-redirect.yaml
-  - envoy-internal-inferencepool-rbac.yaml
   - envoy-internal-proxy-podmonitor.yaml
