@@ -30,6 +30,11 @@ spec:
               # chart renders only a namespaced infra-manager Role, so it could
               # not create proxy resources in tenant namespaces.
               type: GatewayNamespace
+            # TODO: avoid reconciling traefik Gateway. Remove after migrating to Envoy.
+            watch:
+              type: Namespaces
+              namespaces:
+                - envoy-internal
         logging:
           level:
             default: info
