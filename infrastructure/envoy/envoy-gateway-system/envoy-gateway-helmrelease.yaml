@@ -1,11 +1,11 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: envoy-internal
+  name: envoy-gateway
 spec:
   chartRef:
     kind: OCIRepository
-    name: envoy-internal
+    name: envoy-gateway
   interval: 10m
   install:
     crds: Skip
@@ -17,8 +17,13 @@ spec:
     config:
       # See: https://gateway.envoyproxy.io/docs/api/extension_types/#envoygateway
       envoyGateway:
-        gateway:
-          controllerName: gateway.envoyproxy.io/envoy-internal
+        # Shared control plane for all tenants (design/adr-001, LAB-385): no
+        # custom controllerName, so the default
+        # gateway.envoyproxy.io/gatewayclass-controller reconciles every
+        # GatewayClass/Gateway in the cluster. No watch restriction either:
+        # the controller watches all namespaces. Proxies still deploy to each
+        # Gateway's own namespace (deploy.type: GatewayNamespace below), so
+        # every tenant keeps a dedicated Envoy data plane.
         logging:
           level:
             default: info
@@ -26,18 +31,22 @@ spec:
           type: Kubernetes
           kubernetes:
             deploy:
-              # Controller deploys to the release namespace (envoy-gateway-system).
-              # Kept in GatewayNamespace mode: in Namespace mode the chart would only
-              # grant a namespaced infra-manager Role, so the controller could no
-              # longer create the proxy Deployment in envoy-internal (LAB-385).
+              # Controller runs in the release namespace
+              # (envoy-gateway-system); proxies deploy to each Gateway's
+              # namespace. Kept in GatewayNamespace mode: in
+              # ControllerNamespace mode the chart would only grant a
+              # namespaced infra-manager Role, so the controller could no
+              # longer create proxy resources in tenant namespaces (LAB-385).
               type: GatewayNamespace
-        # See: https://gateway.envoyproxy.io/docs/api/extension_types/#envoyproxyspec
+        # Fleet-wide proxy defaults. Per-tenant specifics (LoadBalancer IP,
+        # replicas, PDB, anti-affinity) live in each tenant's EnvoyProxy,
+        # referenced from its Gateway via spec.infrastructure.parametersRef.
         envoyProxy:
           provider:
             type: Kubernetes
             kubernetes:
               envoyDeployment:
-                replicas: 2            
+                replicas: 1
                 container:
                   resources:
                     requests:
@@ -46,23 +55,7 @@ spec:
                     limits:
                       memory: 512Mi
                 pod:
-                  affinity:
-                    podAntiAffinity:
-                      requiredDuringSchedulingIgnoredDuringExecution:
-                        - labelSelector:
-                            matchLabels:
-                              app.kubernetes.io/name: envoy
-                              app.kubernetes.io/component: proxy
-                              gateway.networking.k8s.io/gateway-name: envoy-internal
-                          topologyKey: kubernetes.io/hostname
                   priorityClassName: system-node-critical
-              envoyService:
-                type: LoadBalancer
-                # Envoy Gateway defaults to Local; Cluster makes the VIP reachable
-                # from pods on nodes without a local endpoint (LAB-382).
-                externalTrafficPolicy: Cluster
-                annotations:
-                  metallb.io/loadBalancerIPs: 10.0.0.71
         extensionApis:
           enableEnvoyPatchPolicy: true
           enableBackend: true
@@ -84,7 +77,8 @@ spec:
                 - Route
           service:
             fqdn:
-              # Agent Router controller service installed in `envoy-gateway-system`, as part of `k8s-ai`.
+              # Agent Router controller service installed in
+              # envoy-gateway-system as part of k8s-ai (shared, same design).
               hostname: ai-gateway-controller.envoy-gateway-system.svc.cluster.local
               port: 1063
           backendResources:

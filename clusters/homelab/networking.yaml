@@ -199,9 +199,10 @@ spec:
     - name: gateway-api
     - name: gateway-api-inference-extension
     - name: cert-manager-crds
-    # Controller runs in envoy-gateway-system and materializes the proxy on the Gateway.
+    # The shared Envoy Gateway controller in envoy-gateway-system
+    # materializes the proxy in this namespace (design/adr-001, LAB-385).
     - name: envoy-gateway-system
-    # Agent Router (extproc) release now targets envoy-gateway-system (k8s-ai).
+    # Shared Agent Router (extproc) release in envoy-gateway-system (k8s-ai).
     - name: ai-gateway
       namespace: ai
   interval: 5m

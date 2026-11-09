@@ -1,0 +1,10 @@
+# Shared GatewayClass for the single Envoy Gateway controller in this
+# namespace (design/adr-001, LAB-385). Every tenant Gateway references it;
+# the controller runs with the default controller name, so there is one
+# control plane for all tenants and no per-tenant controller releases.
+apiVersion: gateway.networking.k8s.io/v1
+kind: GatewayClass
+metadata:
+  name: envoy
+spec:
+  controllerName: gateway.envoyproxy.io/gatewayclass-controller
