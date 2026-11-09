@@ -22,7 +22,6 @@ spec:
           controllerName: gateway.envoyproxy.io/gatewayclass-controller
         provider:
           type: Kubernetes
-<<<<<<< Updated upstream
           kubernetes:
             deploy:
               # Required for the shared design (design/adr-001): proxies deploy
@@ -31,14 +30,11 @@ spec:
               # chart renders only a namespaced infra-manager Role, so it could
               # not create proxy resources in tenant namespaces.
               type: GatewayNamespace
-||||||| Stash base
-=======
-          # TODO: avoid reconciling traefik Gateway. Remove after migrating to Envoy.
-          watch:
-            type: Namespaces
-            namespaces:
-              - envoy-internal
->>>>>>> Stashed changes
+            # TODO: avoid reconciling traefik Gateway. Remove after migrating to Envoy.
+            watch:
+              type: Namespaces
+              namespaces:
+                - envoy-internal
         logging:
           level:
             default: info
