@@ -23,6 +23,10 @@ spec:
                       gateway.networking.k8s.io/gateway-name: envoy-internal
                   topologyKey: kubernetes.io/hostname
           priorityClassName: system-node-critical
+      # PDB for the Envoy proxy: operational parity with traefik-internal
+      # (minAvailable: 1) — LAB-386.
+      envoyPDB:
+        minAvailable: 1
       envoyService:
         type: LoadBalancer
         # Envoy Gateway defaults to Local; Cluster makes the VIP reachable
