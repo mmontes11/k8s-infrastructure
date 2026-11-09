@@ -16,3 +16,10 @@ spec:
     envoyGateway:
       # The namespace where the Envoy Gateway controller is installed.
       namespace: envoy-gateway-system
+    controller:
+      watch:
+        # TODO: avoid reconciling traefik Gateway. Remove after migrating to Envoy.
+        # INFO    controller.gateway    No pods, deployments or daemonsets found for the Gateway.    {"namespace": "networking", "name": "traefik-internal", "requeueAfter": "5s"}
+        namespaces:
+          - ai
+          - envoy-internal
