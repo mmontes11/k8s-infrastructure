@@ -1,0 +1,12 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: ai-gateway-crds
+spec:
+  interval: 5m
+  url: oci://docker.io/envoyproxy/ai-gateway-crds-helm
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: "v1.2.0"

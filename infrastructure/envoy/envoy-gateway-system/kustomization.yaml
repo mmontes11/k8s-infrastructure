@@ -2,7 +2,11 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: envoy-gateway-system
 resources:
-  - envoy-gateway-ocirepository.yaml
-  - envoy-gateway-helmrelease.yaml
-  - envoy-gateway-class.yaml
+  - ai-gateway-controller-servicemonitor.yaml
+  - ai-gateway-helmrelease.yaml
+  - ai-gateway-ocirepository.yaml
   - envoy-gateway-controller-servicemonitor.yaml
+  - envoy-gateway-gatewayclass.yaml
+  - envoy-gateway-helmrelease.yaml
+  - envoy-gateway-inferencepool-rbac.yaml
+  - envoy-gateway-ocirepository.yaml

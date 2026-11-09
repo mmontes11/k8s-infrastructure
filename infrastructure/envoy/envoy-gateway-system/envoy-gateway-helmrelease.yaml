@@ -15,32 +15,20 @@ spec:
     crds:
       enabled: false
     config:
+      # Shared control plane for all tenants (design/adr-001)
       # See: https://gateway.envoyproxy.io/docs/api/extension_types/#envoygateway
       envoyGateway:
-        # Shared control plane for all tenants (design/adr-001, LAB-385): no
-        # custom controllerName, so the default
-        # gateway.envoyproxy.io/gatewayclass-controller reconciles every
-        # GatewayClass/Gateway in the cluster. No watch restriction either:
-        # the controller watches all namespaces. Proxies still deploy to each
-        # Gateway's own namespace (deploy.type: GatewayNamespace below), so
-        # every tenant keeps a dedicated Envoy data plane.
+        gateway:
+          controllerName: gateway.envoyproxy.io/gatewayclass-controller
+        provider:
+          type: Kubernetes
         logging:
           level:
             default: info
-        provider:
-          type: Kubernetes
-          kubernetes:
-            deploy:
-              # Controller runs in the release namespace
-              # (envoy-gateway-system); proxies deploy to each Gateway's
-              # namespace. Kept in GatewayNamespace mode: in
-              # ControllerNamespace mode the chart would only grant a
-              # namespaced infra-manager Role, so the controller could no
-              # longer create proxy resources in tenant namespaces (LAB-385).
-              type: GatewayNamespace
         # Fleet-wide proxy defaults. Per-tenant specifics (LoadBalancer IP,
         # replicas, PDB, anti-affinity) live in each tenant's EnvoyProxy,
         # referenced from its Gateway via spec.infrastructure.parametersRef.
+        # See: https://gateway.envoyproxy.io/docs/api/extension_types/#envoygateway
         envoyProxy:
           provider:
             type: Kubernetes
@@ -54,8 +42,6 @@ spec:
                       memory: 128Mi
                     limits:
                       memory: 512Mi
-                pod:
-                  priorityClassName: system-node-critical
         extensionApis:
           enableEnvoyPatchPolicy: true
           enableBackend: true
@@ -78,7 +64,7 @@ spec:
           service:
             fqdn:
               # Agent Router controller service installed in
-              # envoy-gateway-system as part of k8s-ai (shared, same design).
+              # envoy-gateway-system as part of k8s-ai.
               hostname: ai-gateway-controller.envoy-gateway-system.svc.cluster.local
               port: 1063
           backendResources:
