@@ -26,6 +26,10 @@ spec:
           type: Kubernetes
           kubernetes:
             deploy:
+              # Controller deploys to the release namespace (envoy-gateway-system).
+              # Kept in GatewayNamespace mode: in Namespace mode the chart would only
+              # grant a namespaced infra-manager Role, so the controller could no
+              # longer create the proxy Deployment in envoy-internal (LAB-385).
               type: GatewayNamespace
         # See: https://gateway.envoyproxy.io/docs/api/extension_types/#envoyproxyspec
         envoyProxy:
@@ -80,8 +84,8 @@ spec:
                 - Route
           service:
             fqdn:
-              # Agent Router controller service installed in `ai` namespace, as part of `k8s-ai`.
-              hostname: ai-gateway-controller.ai.svc.cluster.local
+              # Agent Router controller service installed in `envoy-gateway-system`, as part of `k8s-ai`.
+              hostname: ai-gateway-controller.envoy-gateway-system.svc.cluster.local
               port: 1063
           backendResources:
             - group: inference.networking.k8s.io
