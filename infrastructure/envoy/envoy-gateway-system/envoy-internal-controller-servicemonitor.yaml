@@ -5,7 +5,7 @@ metadata:
 spec:
   namespaceSelector:
     matchNames:
-      - envoy-internal
+      - envoy-gateway-system
   selector:
     matchLabels:
       control-plane: envoy-gateway

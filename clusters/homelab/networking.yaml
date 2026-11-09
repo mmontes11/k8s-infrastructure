@@ -173,6 +173,24 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: envoy-gateway-system
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: envoy-crds
+    - name: gateway-api
+    - name: gateway-api-inference-extension
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/envoy/envoy-gateway-system
+  prune: true
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: envoy-internal
   namespace: flux-system
 spec:
@@ -181,6 +199,9 @@ spec:
     - name: gateway-api
     - name: gateway-api-inference-extension
     - name: cert-manager-crds
+    # Controller runs in envoy-gateway-system and materializes the proxy on the Gateway.
+    - name: envoy-gateway-system
+    # Agent Router (extproc) release now targets envoy-gateway-system (k8s-ai).
     - name: ai-gateway
       namespace: ai
   interval: 5m
