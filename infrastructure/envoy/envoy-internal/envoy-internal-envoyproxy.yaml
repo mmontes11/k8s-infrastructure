@@ -6,19 +6,12 @@ kind: EnvoyProxy
 metadata:
   name: envoy-internal
 spec:
-  mergeType: Merge
+  mergeType: StrategicMerge
   provider:
     type: Kubernetes
     kubernetes:
       envoyDeployment:
         replicas: 2
-        container:
-          resources:
-            requests:
-              cpu: 100m
-              memory: 128Mi
-            limits:
-              memory: 512Mi
         pod:
           affinity:
             podAntiAffinity:

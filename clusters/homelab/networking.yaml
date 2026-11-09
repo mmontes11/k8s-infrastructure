@@ -195,14 +195,8 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: envoy-crds
-    - name: gateway-api
-    - name: gateway-api-inference-extension
     - name: cert-manager-crds
-    # The shared Envoy Gateway controller in envoy-gateway-system
-    # materializes the proxy in this namespace (design/adr-001, LAB-385).
     - name: envoy-gateway-system
-    # Shared Agent Router (extproc) release in envoy-gateway-system (k8s-ai).
     - name: ai-gateway
       namespace: ai
   interval: 5m
