@@ -35,6 +35,7 @@ spec:
               type: Namespaces
               namespaces:
                 - envoy-internal
+                - ai
         logging:
           level:
             default: info
