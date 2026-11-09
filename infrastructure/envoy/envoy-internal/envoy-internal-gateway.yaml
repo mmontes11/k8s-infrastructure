@@ -1,18 +1,20 @@
 apiVersion: gateway.networking.k8s.io/v1
-kind: GatewayClass
-metadata:
-  name: envoy-internal
-spec:
-  controllerName: gateway.envoyproxy.io/envoy-internal
----
-apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
   name: envoy-internal
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
-  gatewayClassName: envoy-internal
+  # Shared GatewayClass of the single Envoy Gateway controller in
+  # envoy-gateway-system (design/adr-001, LAB-385).
+  gatewayClassName: envoy
+  # Tenant-specific proxy configuration, merged over the fleet-wide defaults
+  # of the shared controller (design/adr-001, LAB-385).
+  infrastructure:
+    parametersRef:
+      group: gateway.envoyproxy.io
+      kind: EnvoyProxy
+      name: envoy-internal
   listeners:
     # Redirect-only: the catch-all envoy-internal-http-redirect HTTPRoute
     # is the only route accepted on :80.

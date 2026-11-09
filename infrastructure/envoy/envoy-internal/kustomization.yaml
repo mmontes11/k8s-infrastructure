@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: envoy-internal
 resources:
   - envoy-internal-clienttrafficpolicy.yaml
+  - envoy-internal-envoyproxy.yaml
   - envoy-internal-gateway.yaml
   - envoy-internal-http-redirect.yaml
   - envoy-internal-inferencepool-rbac.yaml
