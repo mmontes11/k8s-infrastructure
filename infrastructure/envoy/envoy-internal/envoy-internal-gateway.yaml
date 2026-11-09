@@ -9,7 +9,7 @@ spec:
   # envoy-gateway-system (design/adr-001).
   gatewayClassName: envoy
   # Tenant-specific proxy configuration, merged over the fleet-wide defaults
-  # of the shared controller (design/adr-001.
+  # of the shared controller (design/adr-001).
   infrastructure:
     parametersRef:
       group: gateway.envoyproxy.io

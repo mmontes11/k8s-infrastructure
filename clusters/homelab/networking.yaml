@@ -196,9 +196,9 @@ metadata:
 spec:
   dependsOn:
     - name: cert-manager-crds
+    # The shared Envoy Gateway + Agent Router releases in
+    # envoy-gateway-system (both watch all namespaces).
     - name: envoy-gateway-system
-    - name: ai-gateway
-      namespace: ai
   interval: 5m
   sourceRef:
     kind: GitRepository

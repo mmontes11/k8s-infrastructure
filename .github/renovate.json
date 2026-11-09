@@ -494,13 +494,35 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/(^|/)infrastructure/envoy/envoy-internal/envoy-internal-ocirepository\\.yaml$/"
+        "/(^|/)infrastructure/envoy/envoy-gateway-system/envoy-gateway-ocirepository\\.yaml$/"
       ],
       "matchStrings": [
         "ref:\\s*\\n\\s+tag:\\s+\"?(?<currentValue>[^\"]+)\"?"
       ],
       "datasourceTemplate": "docker",
       "packageNameTemplate": "envoyproxy/gateway-helm"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/envoy/envoy-gateway-system/ai-gateway-ocirepository\\.yaml$/"
+      ],
+      "matchStrings": [
+        "ref:\\s*\\n\\s+tag:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "docker",
+      "packageNameTemplate": "envoyproxy/ai-gateway-helm"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)infrastructure/envoy/crds/ai-gateway-crds-ocirepository\\.yaml$/"
+      ],
+      "matchStrings": [
+        "ref:\\s*\\n\\s+tag:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "docker",
+      "packageNameTemplate": "envoyproxy/ai-gateway-crds-helm"
     },
     {
       "customType": "regex",
@@ -750,6 +772,13 @@
         "envoyproxy/gateway-helm"
       ],
       "groupName": "envoy-gateway"
+    },
+    {
+      "matchPackageNames": [
+        "envoyproxy/ai-gateway-helm",
+        "envoyproxy/ai-gateway-crds-helm"
+      ],
+      "groupName": "agent-router"
     }
   ]
 }

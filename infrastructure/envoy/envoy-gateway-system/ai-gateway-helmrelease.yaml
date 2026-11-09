@@ -15,4 +15,4 @@ spec:
     # Configuration for the Envoy Gateway component that AI Gateway relies on to program Envoy.
     envoyGateway:
       # The namespace where the Envoy Gateway controller is installed.
-      namespace : envoy-gateway-system
+      namespace: envoy-gateway-system
