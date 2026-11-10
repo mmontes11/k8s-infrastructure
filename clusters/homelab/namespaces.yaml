@@ -45,9 +45,9 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: envoy-gateway-system
+  name: envoy-external
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: envoy-external
+  name: envoy-gateway-system
