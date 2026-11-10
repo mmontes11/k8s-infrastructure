@@ -1,6 +1,3 @@
-# Tenant-specific proxy configuration for the envoy-internal Gateway,
-# merged over the fleet-wide defaults of the shared Envoy Gateway controller
-# (design/adr-001, LAB-385).
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: EnvoyProxy
 metadata:
@@ -23,14 +20,10 @@ spec:
                       gateway.networking.k8s.io/gateway-name: envoy-internal
                   topologyKey: kubernetes.io/hostname
           priorityClassName: system-node-critical
-      # PDB for the Envoy proxy: operational parity with traefik-internal
-      # (minAvailable: 1) — LAB-386.
       envoyPDB:
         minAvailable: 1
       envoyService:
         type: LoadBalancer
-        # Envoy Gateway defaults to Local; Cluster makes the VIP reachable
-        # from pods on nodes without a local endpoint (LAB-382).
         externalTrafficPolicy: Cluster
         annotations:
           metallb.io/loadBalancerIPs: 10.0.0.71
