@@ -3,7 +3,6 @@ kind: Kustomization
 namespace: kube-system
 resources:
   - edit-gateways-clusterrole.yaml
-  - edit-ingressroutes-clusterrole.yaml
   - edit-monitors-clusterrole.yaml
   - edit-namespaces-clusterrole.yaml
   - edit-sealedsecrets-clusterrole.yaml

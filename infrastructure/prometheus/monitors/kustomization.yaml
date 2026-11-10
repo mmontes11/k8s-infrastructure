@@ -4,5 +4,3 @@ resources:
   - external-icmp-servicemonitor.yaml
   - flux.yaml
   - pihole-podmonitor.yaml
-  - traefik-external-servicemonitor.yaml
-  - traefik-internal-servicemonitor.yaml
