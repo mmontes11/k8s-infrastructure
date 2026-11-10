@@ -27,7 +27,7 @@ spec:
     - name: https
       protocol: HTTPS
       port: 443
-      hostname: "*.mmontes-external.duckdns.org"
+      hostname: "*.mmontes.duckdns.org"
       allowedRoutes:
         namespaces:
           from: All
