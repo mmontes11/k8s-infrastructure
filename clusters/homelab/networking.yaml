@@ -210,6 +210,44 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: envoy-external
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: envoy-crds
+    - name: gateway-api
+    - name: cert-manager-crds
+    # The shared Envoy Gateway controller in envoy-gateway-system
+    # materializes the proxy in this namespace (design/adr-001, LAB-385).
+    - name: envoy-gateway-system
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/envoy/envoy-external
+  prune: true
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: envoy-external-staging
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: gateway-api
+    - name: envoy-external
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/envoy/envoy-external-staging
+  prune: true
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: tailscale-connector
   namespace: flux-system
 spec:

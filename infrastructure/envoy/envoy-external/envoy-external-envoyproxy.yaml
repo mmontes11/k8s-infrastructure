@@ -1,0 +1,48 @@
+# Tenant-specific proxy configuration for the envoy-external Gateway,
+# merged over the fleet-wide defaults of the shared Envoy Gateway controller
+# (design/adr-001, LAB-385).
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyProxy
+metadata:
+  name: envoy-external
+spec:
+  # StrategicMerge: merge over the shared EnvoyGateway envoyProxy defaults
+  # (Envoy Gateway v1.10.0 enum: Replace | StrategicMerge | JSONMerge).
+  mergeType: StrategicMerge
+  provider:
+    type: Kubernetes
+    kubernetes:
+      envoyDeployment:
+        # 1 replica: drop-in parity with traefik-external (the cutover
+        # target runs 1 replica); the external zone serves low-traffic
+        # routes, so 2 replicas would double the footprint for no headroom.
+        replicas: 1
+        container:
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              memory: 512Mi
+        pod:
+          affinity:
+            podAntiAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                - labelSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: envoy
+                      app.kubernetes.io/component: proxy
+                      gateway.networking.k8s.io/gateway-name: envoy-external
+                  topologyKey: kubernetes.io/hostname
+          priorityClassName: system-node-critical
+      # PDB for the Envoy proxy: operational parity with traefik
+      # (minAvailable: 1) — LAB-387.
+      envoyPDB:
+        minAvailable: 1
+      envoyService:
+        type: LoadBalancer
+        # Envoy Gateway defaults to Local; Cluster makes the VIP reachable
+        # from pods on nodes without a local endpoint (LAB-382).
+        externalTrafficPolicy: Cluster
+        annotations:
+          metallb.io/loadBalancerIPs: 10.0.0.81

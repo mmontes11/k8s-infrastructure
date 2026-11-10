@@ -1,0 +1,39 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: envoy-external
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+spec:
+  # Shared GatewayClass of the single Envoy Gateway controller in
+  # envoy-gateway-system (design/adr-001, LAB-385) — no per-tenant
+  # controller release for envoy-external.
+  gatewayClassName: envoy
+  # Tenant-specific proxy configuration, merged over the fleet-wide defaults
+  # of the shared controller (design/adr-001, LAB-385).
+  infrastructure:
+    parametersRef:
+      group: gateway.envoyproxy.io
+      kind: EnvoyProxy
+      name: envoy-external
+  listeners:
+    # Redirect-only: the catch-all envoy-external-http-redirect HTTPRoute
+    # is the only route accepted on :80.
+    - name: http
+      protocol: HTTP
+      port: 80
+      allowedRoutes:
+        namespaces:
+          from: Same
+    - name: https
+      protocol: HTTPS
+      port: 443
+      hostname: "*.mmontes-external.duckdns.org"
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: envoy-external-tls
+            kind: Secret
