@@ -196,8 +196,6 @@ metadata:
 spec:
   dependsOn:
     - name: cert-manager-crds
-    # The shared Envoy Gateway + Agent Router releases in
-    # envoy-gateway-system (both watch all namespaces).
     - name: envoy-gateway-system
   interval: 5m
   sourceRef:
@@ -214,11 +212,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: envoy-crds
-    - name: gateway-api
     - name: cert-manager-crds
-    # The shared Envoy Gateway controller in envoy-gateway-system
-    # materializes the proxy in this namespace (design/adr-001, LAB-385).
     - name: envoy-gateway-system
   interval: 5m
   sourceRef:
