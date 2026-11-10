@@ -4,8 +4,8 @@ metadata:
   name: pihole
 spec:
   parentRefs:
-    - name: traefik-internal
-      namespace: networking
+    - name: envoy-internal
+      namespace: envoy-internal
   hostnames:
     - "pihole.mmontes-internal.duckdns.org"
   rules:

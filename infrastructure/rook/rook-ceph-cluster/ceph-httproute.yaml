@@ -4,8 +4,8 @@ metadata:
   name: ceph
 spec:
   parentRefs:
-    - name: traefik-internal
-      namespace: networking
+    - name: envoy-internal
+      namespace: envoy-internal
   hostnames:
     - "ceph.mmontes-internal.duckdns.org"
   rules:

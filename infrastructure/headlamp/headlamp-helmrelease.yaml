@@ -44,8 +44,8 @@ spec:
     httpRoute:
       enabled: true
       parentRefs:
-        - name: traefik-internal
-          namespace: networking
+        - name: envoy-internal
+          namespace: envoy-internal
       hostnames:
         - "headlamp.mmontes-internal.duckdns.org"
       rules:
