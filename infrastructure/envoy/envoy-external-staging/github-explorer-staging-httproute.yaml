@@ -1,0 +1,25 @@
+# Staging drop-in validation for envoy-external (LAB-387): a clone of the real
+# github-explorer route (k8s-github-explorer, parentRef traefik-external) pointed
+# at the same backend, on the staging zone. Lives in the github-explorer namespace
+# so the backendRef stays same-namespace (no ReferenceGrant needed). The real route
+# keeps its *.mmontes.duckdns.org hostname on traefik until the cutover (LAB-392);
+# this artifact is removed in stage 4 (LAB-393).
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: github-explorer-staging
+spec:
+  parentRefs:
+    - name: envoy-external
+      namespace: envoy-external
+      sectionName: https
+  hostnames:
+    - github-explorer.mmontes-external.duckdns.org
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: github-explorer
+          port: 80
