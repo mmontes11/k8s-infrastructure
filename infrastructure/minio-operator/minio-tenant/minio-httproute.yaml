@@ -4,8 +4,8 @@ metadata:
   name: minio
 spec:
   parentRefs:
-    - name: traefik-internal
-      namespace: networking
+    - name: envoy-internal
+      namespace: envoy-internal
   hostnames:
     - "minio.mmontes-internal.duckdns.org"
   rules:
@@ -19,8 +19,8 @@ metadata:
   name: minio-console
 spec:
   parentRefs:
-    - name: traefik-internal
-      namespace: networking
+    - name: envoy-internal
+      namespace: envoy-internal
   hostnames:
     - "minio-console.mmontes-internal.duckdns.org"
   rules:

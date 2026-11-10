@@ -4,8 +4,8 @@ metadata:
   name: seaweedfs
 spec:
   parentRefs:
-    - name: traefik-internal
-      namespace: networking
+    - name: envoy-internal
+      namespace: envoy-internal
   hostnames:
     - "seaweedfs.mmontes-internal.duckdns.org"
   rules:
@@ -19,8 +19,8 @@ metadata:
   name: seaweedfs-s3
 spec:
   parentRefs:
-    - name: traefik-internal
-      namespace: networking
+    - name: envoy-internal
+      namespace: envoy-internal
   hostnames:
     - "s3.mmontes-internal.duckdns.org"
   rules:
