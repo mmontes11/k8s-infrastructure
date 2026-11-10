@@ -26,4 +26,4 @@ spec:
         type: LoadBalancer
         externalTrafficPolicy: Cluster
         annotations:
-          metallb.io/loadBalancerIPs: 10.0.0.71
+          metallb.io/loadBalancerIPs: 10.0.0.70
