@@ -17,8 +17,8 @@ data:
         prometheus :9153
 
         hosts {
-            10.0.0.71 llm.mmontes-llm.duckdns.org
-            10.0.0.71 mcp.mmontes-llm.duckdns.org
+            10.0.0.70 llm.mmontes-internal.duckdns.org
+            10.0.0.70 mcp.mmontes-internal.duckdns.org
             fallthrough
         }
 
