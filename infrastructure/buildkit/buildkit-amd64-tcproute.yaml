@@ -9,11 +9,6 @@ spec:
     - name: envoy-internal
       namespace: envoy-internal
       sectionName: builder-amd64
-    # Dual-parent: envoy-internal takes the same section while traefik keeps
-    # serving (LAB-386, no cutover yet).
-    - name: envoy-internal
-      namespace: envoy-internal
-      sectionName: builder-amd64
   rules:
      - backendRefs:
         - name: buildkit-amd64
