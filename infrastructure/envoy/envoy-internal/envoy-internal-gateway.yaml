@@ -36,8 +36,8 @@ spec:
         certificateRefs:
           - name: envoy-internal-tls
             kind: Secret
-    # Buildkit TCP passthrough: mirrors traefik-internal so envoy-internal is a
-    # drop-in (LAB-386). Routes attach from the `container` namespace only.
+    # Buildkit TCP passthrough: drop-in parity with the legacy internal gateway
+    # (LAB-386). Routes attach from the `container` namespace only.
     - name: builder-amd64
       protocol: TCP
       port: 3000

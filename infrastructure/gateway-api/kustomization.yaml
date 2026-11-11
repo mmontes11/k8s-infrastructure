@@ -5,5 +5,5 @@ resources:
   # v1.6.1 (LAB-386): Envoy Gateway >= v1.9 reconciles TCPRoute/UDPRoute via the
   # gateway.networking.k8s.io/v1 API and silently skips them unless the v1.6 CRDs
   # are installed. v1.6.1 still serves TCPRoute v1alpha2, so existing manifests
-  # and Traefik are unaffected (storage version migrates to v1 server-side).
+  # are unaffected (storage version migrates to v1 server-side).
   - https://github.com/kubernetes-sigs/gateway-api/config/crd/experimental?ref=v1.6.1

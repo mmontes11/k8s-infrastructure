@@ -139,10 +139,6 @@ spec:
             gnetId: 1860
             revision: 37
             datasource: Prometheus
-          traefik:
-            gnetId: 11462
-            revision: 1
-            datasource: Prometheus
           go-processes:
             gnetId: 6671
             revision: 2
