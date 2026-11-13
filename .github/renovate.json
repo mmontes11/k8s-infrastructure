@@ -471,6 +471,18 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
+        "/(^|/)infrastructure/nvidia-dra-driver/nvidia-dra-driver-ocirepository\\.yaml$/"
+      ],
+      "matchStrings": [
+        "ref:\\s*\\n\\s+tag:\\s+\"?(?<currentValue>[^\"]+)\"?"
+      ],
+      "datasourceTemplate": "docker",
+      "packageNameTemplate": "registry.k8s.io/dra-driver-nvidia/charts/dra-driver-nvidia-gpu",
+      "registryUrlTemplate": "https://registry.k8s.io"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
         "/(^|/)infrastructure/lws/lws-ocirepository\\.yaml$/"
       ],
       "matchStrings": [

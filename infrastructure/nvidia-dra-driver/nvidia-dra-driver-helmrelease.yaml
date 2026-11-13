@@ -1,0 +1,59 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: nvidia-dra-driver
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: nvidia-dra-driver
+  interval: 1h0m0s
+  values:
+    # The NVIDIA driver and container toolkit are provided by Talos OS system
+    # extensions (nvidia-open-gpu-kernel-modules-lts +
+    # nvidia-container-toolkit-lts); the DRA driver reads the driver from
+    # nvidiaDriverRoot on the host.
+    # Reference:
+    # https://docs.siderolabs.com/kubernetes-guides/advanced-guides/dynamic-resource-allocation
+    nvidiaDriverRoot: /usr/local
+    # Required to enable GPU allocation resources (chart install docs).
+    gpuResourcesEnabledOverride: true
+    resources:
+      gpus:
+        enabled: true
+      # Single desktop GPU: no MNNVL/IMEX domain, so the ComputeDomain
+      # controller and its kubelet-plugin container are not needed (the chart
+      # default is enabled).
+      computeDomains:
+        enabled: false
+    # Keep the device plugin's time-slicing behaviour: 20 consumable devices.
+    # ConsumableShares is an alpha feature gate of the driver (rendered into
+    # the FEATURE_GATES env) and consumableShares sets the CONSUMABLE_SHARES
+    # env on the gpus container, so the GPU advertises 20 consumable shares:
+    # up to 20 workloads can hold independent ResourceClaims on it at the
+    # same time (each claim consumes 1 share by default; a workload can
+    # request more via capacity.requests.shares at the cost of concurrency).
+    # Kubernetes 1.37 has DRAConsumableCapacity enabled by default (beta).
+    featureGates:
+      ConsumableShares: true
+    consumableShares: "20"
+    # Pin the kubelet-plugin DaemonSet to the GPU node via the cluster's own
+    # node label (the same label the node's NoSchedule taint uses) instead of
+    # the chart default, which relies on NFD PCI labels. NFD is not deployed
+    # (the DRA driver was its only remaining consumer in this cluster), so
+    # those labels would go stale; node.mmontes.io/type is re-applied from
+    # the cluster config on node (re)install, so the pin survives node
+    # replacement.
+    kubeletPlugin:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node.mmontes.io/type
+                    operator: In
+                    values:
+                      - compute-xlarge
+      tolerations:
+        - key: node.mmontes.io/type
+          value: compute-xlarge
+          effect: NoSchedule
