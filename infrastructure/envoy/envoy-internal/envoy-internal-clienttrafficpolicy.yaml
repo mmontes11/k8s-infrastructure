@@ -8,4 +8,4 @@ spec:
       kind: Gateway
       name: envoy-internal
   connection:
-    bufferLimit: 100Mi
+    bufferLimit: 50Mi
