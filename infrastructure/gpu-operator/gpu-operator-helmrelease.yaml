@@ -22,9 +22,38 @@ spec:
       enabled: false
     hostPaths:
       driverInstallDir: /usr/local
-    # Let the operand DaemonSets (device-plugin, dcgm-exporter, operator-validator, ...)
-    # schedule on the GPU node, which carries the NoSchedule taint
-    # node.mmontes.io/type=compute-xlarge. The chart default only tolerates nvidia.com/gpu.
+    # DRA mode: the GPUCluster CR deploys the DRA stack (nvidia-dra-driver-kubelet-plugin,
+    # nvidia-dra-validator, nvidia-dcgm-exporter-dra) instead of the device-plugin
+    # stack. The GPUCluster and ClusterPolicy CRs are mutually exclusive and there is
+    # no in-place migration, so this is a flip, not an upgrade of the operands.
+    # Running device-plugin-backed workload pods are unaffected until they roll.
+    clusterPolicy:
+      deployCR: false
+    gpuCluster:
+      deployCR: true
+    # DRA driver configuration:
+    # - computeDomains is disabled: a single desktop GPU, no MNNVL/IMEX domain.
+    # - ConsumableShares is an alpha feature gate of the DRA driver; combined with
+    #   CONSUMABLE_SHARES=8 it advertises 8 consumable shares on the GPU so that up
+    #   to 8 workloads can hold independent ResourceClaims on the same device at the
+    #   same time (CUDA time-slicing under the hood, as with the old device-plugin
+    #   time-slicing config). Each claim consumes 1 share by default; a workload can
+    #   request more via capacity.requests.shares to get priority at the cost of
+    #   fewer concurrent workloads. Kubernetes 1.37 has DRAConsumableCapacity enabled
+    #   by default (beta).
+    draDriver:
+      computeDomains:
+        enabled: false
+      featureGates:
+        ConsumableShares: true
+      gpus:
+        kubeletPlugin:
+          env:
+            - name: CONSUMABLE_SHARES
+              value: "8"
+    # Let the operand DaemonSets (dra driver, validator, dcgm-exporter, ...) schedule
+    # on the GPU node, which carries the NoSchedule taint
+    # node.mmontes.io/type=compute-xlarge.
     daemonsets:
       tolerations:
         - key: nvidia.com/gpu
@@ -34,10 +63,11 @@ spec:
           value: compute-xlarge
           effect: NoSchedule
     # The NFD worker is what labels the GPU node with
-    # feature.node.kubernetes.io/pci-10de.present, which the operator uses to place every
-    # operand. We pin it to the GPU node via nodeAffinity (nvidia.com/gpu.present — the same
-    # label the old device-plugin/dcgm-exporter DaemonSets used) and drop the control-plane
-    # toleration: NFD does not need to run on the control plane.
+    # feature.node.kubernetes.io/pci-10de.present, which the DRA driver DaemonSet's
+    # nodeAffinity uses to place itself. We pin it to the GPU node via nodeAffinity
+    # (nvidia.com/gpu.present — the same label the old device-plugin/dcgm-exporter
+    # DaemonSets used) and drop the control-plane toleration: NFD does not need to
+    # run on the control plane.
     node-feature-discovery:
       worker:
         tolerations:
@@ -54,36 +84,25 @@ spec:
                 - matchExpressions:
                     - key: nvidia.com/gpu.present
                       operator: Exists
-    # Preserve the previous time-slicing configuration: 20 shareable nvidia.com/gpu, no rename.
-    devicePlugin:
-      config:
-        create: true
-        name: device-plugin-config
-        default: default
-        data:
-          default: |-
-            version: v1
-            sharing:
-              timeSlicing:
-                renameByDefault: false
-                resources:
-                - name: nvidia.com/gpu
-                  replicas: 20
-    # Preserve the previous DCGM exporter monitoring + resources.
-    # The gpu-operator 26.x DaemonSet template hardcodes DCGM_EXPORTER_KUBERNETES=true
-    # (per-Pod mode: one metric series per GPU/Pod pair). Override it via the spec env
-    # list to keep one metric set per GPU, like the old standalone release did
-    # (replaces the old postRenderer patch; NVIDIA/gpu-operator#2674).
-    # Note: enablePodLabels/enablePodUID only control the pod-label/UID enrichment
-    # on top of that, not the per-Pod mode itself.
+    # Preserve the previous DCGM exporter pin + monitoring + resources.
+    # Behavior change vs. the device-plugin mode: the DRA DaemonSet hardcodes
+    # DCGM_EXPORTER_KUBERNETES=true and KUBERNETES_ENABLE_DRA=true, so the exporter
+    # runs in Kubernetes mode with per-Pod attribution resolved from ResourceSlices
+    # (one metric series per GPU/Pod pair). The old DCGM_EXPORTER_KUBERNETES=false
+    # override is not portable: adding it via env would duplicate the hardcoded
+    # entry (the env list is a map keyed by name) and render the DaemonSet invalid.
+    # The nvidia.com/gpu limit is likewise dropped: no device plugin registers the
+    # extended resource in DRA mode, so requesting it would leave the exporter
+    # Pod unschedulable.
+    # TODO: Verify images before bumping. See: https://hub.docker.com/r/nvidia/dcgm-exporter/tags.
+    # Latest images aren't properly built, they have the wrong architecture:
+    # "dcgm-exporter-entrypoint.sh: exec format error"
+    # Tags tested that reuturn an error in linux/amd64: 4.6.1-4.8.4-distroless, 4.8.4.
     dcgmExporter:
-      env:
-        - name: DCGM_EXPORTER_KUBERNETES
-          value: "false"
-      # TODO: Verify images before bumping. See: https://hub.docker.com/r/nvidia/dcgm-exporter/tags.
-      # Latest images aren't properly built, they have the wrong architecture:
-      # "dcgm-exporter-entrypoint.sh: exec format error"
-      # Tags tested that reuturn an error in linux/amd64: 4.6.1-4.8.4-distroless, 4.8.4.
+      # The image must be one that ships /etc/passwd in the rootfs: it declares
+      # USER root:root (a name, not a UID) and the GPU node runs Talos 1.14 with
+      # containerd 2.x, which resolves the name only from the image's own
+      # /etc/passwd (there is no host fallback). 4.8.3 was verified to contain it.
       repository: nvcr.io/nvidia/k8s
       image: dcgm-exporter
       version: 4.8.3
@@ -100,21 +119,3 @@ spec:
           memory: 256Mi
         limits:
           memory: 1Gi
-          nvidia.com/gpu: 1
-  # The dcgm-exporter distroless image sets USER root:root (a name, not a UID). Since the
-  # GPU node moved to Talos v1.14 (containerd 2.3), resolving that name fails with
-  # "failed to create containerd container: no users found". Running the operands with a
-  # numeric UID/GID skips the name lookup. All operands already run as root.
-  # The chart does not expose daemonsets.podSecurityContext, so patch the ClusterPolicy.
-  postRenderers:
-    - kustomize:
-        patches:
-          - target:
-              kind: ClusterPolicy
-              name: cluster-policy
-            patch: |-
-              - op: add
-                path: /spec/daemonsets/podSecurityContext
-                value:
-                  runAsUser: 0
-                  runAsGroup: 0
