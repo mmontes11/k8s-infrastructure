@@ -29,6 +29,13 @@ spec:
           # allowed clock drift (in seconds) between mons 
           # https://docs.ceph.com/en/latest/rados/configuration/mon-config-ref/?highlight=mon_clock_drift_allowed#confval-mon_clock_drift_allowed
           mon_clock_drift_allowed: "0.05"
+          # Tune BLUESTORE_SLOW_OP_ALERT: with the Ceph defaults (threshold=1,
+          # lifetime=86400s) a single slow BlueStore op latches the cluster in
+          # HEALTH_WARN for a full day. Warn only on a sustained episode
+          # (>=5 slow ops within 1h) and clear ~1h after the last slow op.
+          # https://docs.ceph.com/en/latest/rados/operations/health-checks/#bluestore-slow-op-alert
+          bluestore_slow_ops_warn_threshold: "5"
+          bluestore_slow_ops_warn_lifetime: "3600"
       dataDirHostPath: /var/lib/rook
       mon:
         count: 3
