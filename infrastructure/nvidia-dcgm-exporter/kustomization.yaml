@@ -4,3 +4,4 @@ namespace: gpu
 resources:
   - nvidia-dcgm-exporter-helmrepository.yaml
   - nvidia-dcgm-exporter-helmrelease.yaml
+  - nvidia-dcgm-exporter-resourceclaimtemplate.yaml

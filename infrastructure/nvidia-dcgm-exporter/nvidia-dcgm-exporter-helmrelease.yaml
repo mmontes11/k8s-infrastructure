@@ -25,8 +25,11 @@ spec:
     kubernetesDRA:
       enabled: true
     # Pin to the GPU node via the cluster's own node label (the same label
-    # the node's NoSchedule taint uses) instead of nvidia.com/gpu.present,
-    # which the now-retired device plugin used to set.
+    # the node's NoSchedule taint uses). The DRA driver itself does not
+    # modify the Node object at all — device availability is fully abstracted
+    # in ResourceSlices — so nvidia.com/gpu.present (set by the now-retired
+    # GPU operator's node-status-exporter) would just go stale; this label is
+    # re-applied from the cluster config on node (re)install.
     nodeSelector:
       node.mmontes.io/type: compute-xlarge
     tolerations:
@@ -45,11 +48,14 @@ spec:
         memory: 256Mi
       limits:
         memory: 1Gi
-  # The adminAccess claim gives the exporter pod GPU device access (CDI
-  # injection) for its DCGM hostengine without consuming any of the 20
-  # consumable shares reserved for workloads. No runtimeClassName: CDI
-  # device injection is driven by the claim, as in the Talos DRA guide's
-  # test workload.
+  # GPU device access for the exporter, mirroring the GPU Operator's own DRA
+  # dcgm-exporter wiring: a standalone ResourceClaimTemplate object (in this
+  # directory) is referenced from the pod via spec.resourceClaims, and the
+  # container picks it up via resources.claims. adminAccess + allocationMode
+  # All give the exporter access to the GPU (CDI injection, for its DCGM
+  # hostengine) and visibility of the whole pool for per-Pod attribution,
+  # without consuming any of the 20 consumable shares reserved for workloads.
+  # No runtimeClassName: CDI device injection is driven by the claim.
   postRenderers:
     - kustomize:
         patches:
@@ -58,17 +64,11 @@ spec:
               name: nvidia-dcgm-exporter
             patch: |-
               - op: add
-                path: /spec/template/spec/resourceClaimTemplates
+                path: /spec/template/spec/resourceClaims
                 value:
-                  - name: dcgm-gpu
-                    spec:
-                      adminAccess: true
-                      devices:
-                        requests:
-                          - name: gpu
-                            exactly:
-                              deviceClassName: gpu.nvidia.com
+                  - name: admin-gpus
+                    resourceClaimTemplateName: nvidia-dcgm-exporter-admin
               - op: add
                 path: /spec/template/spec/containers/0/resources/claims
                 value:
-                  - name: dcgm-gpu
+                  - name: admin-gpus
