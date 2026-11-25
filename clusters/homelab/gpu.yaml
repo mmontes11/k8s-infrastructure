@@ -25,3 +25,24 @@ spec:
   path: ./infrastructure/nvidia-dcgm-exporter
   prune: true
   timeout: 5m
+---
+# DISABLED: the GPU Operator is superseded by the standalone NVIDIA DRA driver
+# (see the nvidia-dra-driver Kustomization) and its dcgm-exporter by the
+# standalone nvidia-dcgm-exporter. Kept suspended — with the same name pattern
+# as the other nvidia-* GPU components and the infrastructure references
+# untouched — so it can be re-enabled by clearing spec.suspend if DRA is ever
+# rolled back.
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: nvidia-gpu-operator
+  namespace: flux-system
+spec:
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/gpu-operator
+  prune: true
+  timeout: 5m
+  suspend: true
