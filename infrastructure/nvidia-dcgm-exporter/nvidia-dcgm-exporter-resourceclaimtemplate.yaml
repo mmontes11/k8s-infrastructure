@@ -1,0 +1,22 @@
+# Standalone ResourceClaimTemplate for the exporter, mirroring the GPU
+# Operator's own DRA dcgm-exporter wiring (manifests/state-dcgm-exporter/
+# 0400_resourceclaimtemplate.yaml in NVIDIA/gpu-operator v26.7.2): the
+# DaemonSet references this object via spec.resourceClaims.
+#
+# allocationMode All + adminAccess give the exporter access to the GPU and
+# visibility of every device in the pool (so it can attribute per-Pod metrics
+# from the ResourceSlices) without consuming any of the 20 consumable shares
+# reserved for workloads.
+apiVersion: resource.k8s.io/v1
+kind: ResourceClaimTemplate
+metadata:
+  name: nvidia-dcgm-exporter-admin
+spec:
+  spec:
+    devices:
+      requests:
+        - name: admin-gpus
+          exactly:
+            deviceClassName: gpu.nvidia.com
+            allocationMode: All
+            adminAccess: true

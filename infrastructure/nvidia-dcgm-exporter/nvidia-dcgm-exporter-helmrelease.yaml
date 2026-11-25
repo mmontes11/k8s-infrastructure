@@ -9,9 +9,33 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: nvidia-dcgm-exporter
-      version: "4.8.2"
+      version: "4.8.3"
   interval: 1h0m0s
   values:
+    # Pin the image the GPU operator currently deploys on this node (same
+    # exporter version as the chart's appVersion; the chart's own default is
+    # the -distroless DCGM-4.6.0 variant).
+    image:
+      tag: "4.8.3"
+    # DRA mode: the exporter runs in Kubernetes mode and attributes metrics
+    # to Pods from the gpu.nvidia.com ResourceSlices (KUBERNETES_ENABLE_DRA,
+    # chart RBAC). This replaces both the old DCGM_EXPORTER_KUBERNETES=false
+    # override (per-GPU metric set) and the nvidia.com/gpu limit, which no
+    # device plugin registers in DRA mode.
+    kubernetesDRA:
+      enabled: true
+    # Pin to the GPU node via the cluster's own node label (the same label
+    # the node's NoSchedule taint uses). The DRA driver itself does not
+    # modify the Node object at all — device availability is fully abstracted
+    # in ResourceSlices — so nvidia.com/gpu.present (set by the now-retired
+    # GPU operator's node-status-exporter) would just go stale; this label is
+    # re-applied from the cluster config on node (re)install.
+    nodeSelector:
+      node.mmontes.io/type: compute-xlarge
+    tolerations:
+      - key: node.mmontes.io/type
+        value: compute-xlarge
+        effect: NoSchedule
     serviceMonitor:
       enabled: true
       relabelings:
@@ -19,36 +43,32 @@ spec:
             - job
           targetLabel: instance
           action: Replace
-    runtimeClassName: nvidia
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-          - matchExpressions:
-            - key: nvidia.com/gpu.present
-              operator: Exists
-    tolerations:
-    - key: nvidia.com/gpu
-      operator: Exists
-      effect: NoSchedule
-    - key: node.mmontes.io/type
-      value: compute-xlarge
-      effect: NoSchedule
     resources:
       requests:
         memory: 256Mi
       limits:
         memory: 1Gi
-        nvidia.com/gpu: 1
-  # Disable DCGM_EXPORTER_KUBERNETES to avoid exporting metrics per Pod/Namespace and export a single metric per GPU instead
-  # See: https://github.com/NVIDIA/dcgm-exporter/blob/main/deployment/templates/daemonset.yaml#L133
+  # GPU device access for the exporter, mirroring the GPU Operator's own DRA
+  # dcgm-exporter wiring: a standalone ResourceClaimTemplate object (in this
+  # directory) is referenced from the pod via spec.resourceClaims, and the
+  # container picks it up via resources.claims. adminAccess + allocationMode
+  # All give the exporter access to the GPU (CDI injection, for its DCGM
+  # hostengine) and visibility of the whole pool for per-Pod attribution,
+  # without consuming any of the 20 consumable shares reserved for workloads.
+  # No runtimeClassName: CDI device injection is driven by the claim.
   postRenderers:
     - kustomize:
         patches:
           - target:
               kind: DaemonSet
-              name: nvidia-dcgm-exporter  
+              name: nvidia-dcgm-exporter
             patch: |-
-              - op: replace
-                path: /spec/template/spec/containers/0/env/0/value
-                value: "false"
+              - op: add
+                path: /spec/template/spec/resourceClaims
+                value:
+                  - name: admin-gpus
+                    resourceClaimTemplateName: nvidia-dcgm-exporter-admin
+              - op: add
+                path: /spec/template/spec/containers/0/resources/claims
+                value:
+                  - name: admin-gpus
